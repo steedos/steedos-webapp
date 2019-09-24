@@ -27,13 +27,15 @@ function App() {
     // { name: 'username', title: 'username' },
     // { name: 'email', title: 'email' },
     // { name: 'mobile', title: 'mobile' }
-]
+  ]
+
+  let $select = ['email']
   
   return (
     <div className="App">
       <Provider store={appStore}>
         {/* <DXGrid objectName='instances' columns={columns} getRowId={getRowId}/> */}
-        <SelectUsers getRowId={getRowId} rootNodes={rootNodes} valueField="user" selectionLabel2={selectionLabel} userListColumns={userListColumns}/>
+        <SelectUsers getRowId={getRowId} rootNodes={rootNodes} valueField2="user" $select2={$select} selectionLabel2={selectionLabel} userListColumns={userListColumns}/>
         {/* <Grid objectName='space_users' columns={columns} pageSize={100}></Grid> */}
       </Provider>
     </div>

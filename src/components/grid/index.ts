@@ -12,8 +12,8 @@ function mapStateToProps() {
         if(ownProps.columns){
           columns = ownProps.columns
         }
-        let $select = _.pluck(columns, 'name')
-        return Object.assign(entityState, {...entityState, objectName, $select, ...ownProps});
+        let $select = _.union(_.pluck(columns, 'name'), ownProps.$select);
+        return Object.assign(entityState, {...entityState, objectName, ...ownProps, $select});
     };
   }
   

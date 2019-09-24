@@ -106,7 +106,6 @@ class Grid extends React.Component {
 
 		const onRequestRemoveSelectedOption = function (event, data) {
 			return createAction('requestRemoveSelectedOption', data.selection, objectName)
-			// console.log('onRequestRemoveSelectedOption', event, data)
 		}
 
 		const onSearch = function (event, data) {
@@ -140,82 +139,6 @@ class Grid extends React.Component {
 									selectRows="checkbox"
 								>
 									{DataTableColumns}
-
-									{/* <DataTableColumn
-								// isSorted={this.state.sortColumn === 'opportunityName'}
-								label="Name"
-								primaryColumn
-								property="opportunityName"
-								sortable
-								// sortDirection={this.state.sortColumnDirection.opportunityName}
-								width="10rem"
-							>
-								<CustomDataTableCell />
-							</DataTableColumn>
-							<DataTableColumn
-								label="Account Name"
-								property="accountName"
-								width="8rem"
-							/>
-							<DataTableColumn
-								sortable
-								isDefaultSortDescending
-								label="Close Date"
-								property="closeDate"
-							/>
-							<DataTableColumn label="Stage" property="stage" />
-							<DataTableColumn
-								isSorted={this.state.sortColumn === 'confidence'}
-								label="Confidence"
-								property="confidence"
-								sortable
-								// sortDirection={this.state.sortColumnDirection.confidence}
-							/>
-							<DataTableColumn label="Amount" property="amount" />
-							<DataTableColumn label="Contact" property="contact">
-								<CustomDataTableCell />
-							</DataTableColumn> */}
-									{/* <DataTableRowActions
-								options={[
-									{
-										id: 0,
-										label: 'Add to Group',
-										value: '1',
-									},
-									{
-										id: 1,
-										label: 'Publish',
-										value: '2',
-									},
-									{
-										id: 2,
-										label: 'Third of Seven',
-										value: '3',
-									},
-									{
-										id: 3,
-										label: 'Fourth of Seven',
-										value: '4',
-									},
-									{
-										id: 4,
-										label: 'Fifth of Seven',
-										value: '5',
-									},
-									{
-										id: 5,
-										label: 'Sixth of Seven',
-										value: '6',
-									},
-									{
-										id: 6,
-										label: 'Seventh of Seven',
-										value: '7',
-									},
-								]}
-								onAction={this.handleRowAction}
-								dropdown={<Dropdown length="7" />}
-							/> */}
 								</DataTable>
 							</div>
 						</div>
