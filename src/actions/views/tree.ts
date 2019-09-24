@@ -1,10 +1,10 @@
 import { loadEntitiesDataRequest } from '../data_request'
 import states from '../../states';
-import { createGridAction as baseCreateGridAction } from '../base'
+import { createAction as baseCreateAction } from '../base'
 export const TREE_STATE_CHANGE_ACTION = 'TREE_STATE_CHANGE';
 
-export const createGridAction = (partialStateName: any, partialStateValue: any, objectName: string) => {
-    return baseCreateGridAction(TREE_STATE_CHANGE_ACTION, partialStateName, partialStateValue, objectName);
+export const createAction = (partialStateName: any, partialStateValue: any, objectName: string) => {
+    return baseCreateAction(TREE_STATE_CHANGE_ACTION, partialStateName, partialStateValue, objectName);
 }
 
 

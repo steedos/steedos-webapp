@@ -17,11 +17,23 @@ function App() {
   let getRowId = (row) => row._id
 
   let rootNodes = ["xZXy9x8o6qykf2ZAf"] // , "51aefb658e296a29c9000049"
+
+  let selectionLabel = (item)=>{
+    return `${item.name}(${item.email})`
+  }
+
+  let userListColumns = [
+    { name: 'name', title: '姓名' },
+    // { name: 'username', title: 'username' },
+    // { name: 'email', title: 'email' },
+    // { name: 'mobile', title: 'mobile' }
+]
+  
   return (
     <div className="App">
       <Provider store={appStore}>
         {/* <DXGrid objectName='instances' columns={columns} getRowId={getRowId}/> */}
-        <SelectUsers getRowId={getRowId} rootNodes={rootNodes} valueField="user"/>
+        <SelectUsers getRowId={getRowId} rootNodes={rootNodes} valueField="user" selectionLabel2={selectionLabel} userListColumns={userListColumns}/>
         {/* <Grid objectName='space_users' columns={columns} pageSize={100}></Grid> */}
       </Provider>
     </div>

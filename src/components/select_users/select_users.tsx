@@ -2,7 +2,7 @@ import * as React from 'react';
 import DXGrid from '../../components/dx_grid'
 import OrganizationsTree from '../../components/organizations'
 import PropTypes from 'prop-types';
-import { createGridAction } from '../../actions/views/dx_grid';
+import { createAction } from '../../actions/views/dx_grid';
 
 class SelectUsers extends React.Component {
     static defaultProps = {
@@ -29,7 +29,7 @@ class SelectUsers extends React.Component {
 
         let onClick = function(event: any, data: any){
             return function(dispatch: any, getState: any){
-                dispatch(createGridAction("filters", [{ columnName: "organizations", value: data.node.id, operation: "equals" }], "space_users"))
+                dispatch(createAction("filters", [{ columnName: "organizations", value: data.node.id, operation: "equals" }], "space_users"))
                 dispatch({
                     type: 'TREE_STATE_CHANGE',
                     partialStateName: 'onClick',

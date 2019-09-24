@@ -1,4 +1,4 @@
-export function createGridAction(actionType: string, partialStateName: any, partialStateValue: any, objectName: string) {
+export function createAction(actionType: string, partialStateName: any, partialStateValue: any, objectName: string) {
     return {
         type: actionType,
         partialStateName,

@@ -1,6 +1,7 @@
 /* eslint-disable no-console, react/prop-types */
 import React from 'react';
 import { Combobox, Icon, comboboxFilterAndLimit, IconSettings} from '@salesforce/design-system-react';
+import _ from 'underscore'
 
 const accounts = [
 ];
@@ -43,7 +44,15 @@ class lookup extends React.Component {
 		let { selection, onSearch, onRequestRemoveSelectedOption, selectionLabel, search, onChange } = this.props
 		if(selection){
 			selection.map((item)=>{
-				item.label = item[selectionLabel]
+				if(selectionLabel){
+					if(_.isFunction(selectionLabel)){
+						item.label = selectionLabel(item)
+					}else{
+						item.label = item[selectionLabel]
+					}
+					
+				}
+				
 				// item.icon = (
 				// 	<Icon
 				// 		assistiveText={{ label: 'Account' }}

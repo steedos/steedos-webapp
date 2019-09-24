@@ -1,5 +1,5 @@
 import * as DataSource from '../datasource'
-import { createGridAction } from './base'
+import { createAction } from './base'
 
 export function loadEntitiesDataRequest(dispatch: any, actionType: string, dataService: string, options: any) {
     return loadData(dataService, options).then(
@@ -19,9 +19,9 @@ function loadDataSauce(actionType: string, results: any, objectName: string) {
         item.id = item._id
         return item
     })
-    return createGridAction(actionType, 'loadDataSauce', {records, totalCount}, objectName)
+    return createAction(actionType, 'loadDataSauce', {records, totalCount}, objectName)
 }
 
 function loadDataError(actionType: string, error: any, objectName: string) {
-    return createGridAction(actionType, 'loadDataError', {error: error}, objectName)
+    return createAction(actionType, 'loadDataError', {error: error}, objectName)
 }

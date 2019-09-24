@@ -4,7 +4,7 @@ import { Dropdown, DataTable, DataTableColumn, DataTableCell, DataTableRowAction
 
 import Lookup from '../lookup'
 
-import { createGridAction } from '../../actions/views/grid'
+import { createAction } from '../../actions/views/grid'
 
 import styled from 'styled-components'
 
@@ -96,7 +96,7 @@ class Grid extends React.Component {
 
 	render() {
 
-		const { rows, objectName, handleChanged, selection } = this.props
+		const { rows, objectName, handleChanged, selection, selectionLabel } = this.props
 
 		const DataTableColumns = this.props.columns.map(function (column) {
 			return (
@@ -105,12 +105,12 @@ class Grid extends React.Component {
 		})
 
 		const onRequestRemoveSelectedOption = function (event, data) {
-			return createGridAction('requestRemoveSelectedOption', data.selection, objectName)
+			return createAction('requestRemoveSelectedOption', data.selection, objectName)
 			// console.log('onRequestRemoveSelectedOption', event, data)
 		}
 
 		const onSearch = function (event, data) {
-			return createGridAction('search', data.value, objectName)
+			return createAction('search', data.value, objectName)
 		}
 
 		return (
@@ -118,7 +118,7 @@ class Grid extends React.Component {
 				<div className="slds-col slds-grid slds-grid_vertical slds-nowrap">
 					<IconSettings iconPath="/icons">
 						<div className="slds-p-vertical_x-small slds-p-horizontal_large slds-shrink-none slds-theme_shade">
-							<Lookup objectName={objectName} selectionLabel='name' onRequestRemoveSelectedOption={onRequestRemoveSelectedOption} onSearch={onSearch}></Lookup>
+							<Lookup objectName={objectName} selectionLabel={selectionLabel} onRequestRemoveSelectedOption={onRequestRemoveSelectedOption} onSearch={onSearch}></Lookup>
 						</div>
 						<div className="slds-scrollable slds-grow">
 							<div className="slds-scrollable_none">

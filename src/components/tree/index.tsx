@@ -1,6 +1,6 @@
 
 import { connect } from 'react-redux';
-import { createGridAction, loadEntitiesData } from '../../actions/views/tree'
+import { createAction, loadEntitiesData } from '../../actions/views/tree'
 import { getEntityState } from '../../states/entitys'
 import SteedosTree from './salesforce_tree';
 
@@ -13,7 +13,7 @@ function mapStateToProps() {
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return ({
-    onExpandClick: (event: any, data: any) => dispatch(createGridAction('onExpandClick', data, ownProps.objectName)),
+    onExpandClick: (event: any, data: any) => dispatch(createAction('onExpandClick', data, ownProps.objectName)),
     onClick: (event: any, data: any) => dispatch(ownProps.onClickFunc(event, data)),
     init: (options: any) => dispatch(loadEntitiesData(options))
   });
