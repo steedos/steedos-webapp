@@ -174,7 +174,6 @@ class SFTree extends React.Component {
 					id={id || this.id}
 					listStyle={listStyle}
 					listClassName={listClassName}
-					// nodes={this.state.nodes["0"].nodes}
 					nodes={rootNodes}
 					onExpandClick={onExpandClick || this.handleExpandClick}
 					onClick={onClick || this.handleClick}

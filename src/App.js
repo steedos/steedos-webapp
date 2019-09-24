@@ -22,7 +22,7 @@ function App() {
       <Provider store={appStore}>
         {/* <DXGrid objectName='instances' columns={columns} getRowId={getRowId}/> */}
         <SelectUsers getRowId={getRowId} rootNodes={rootNodes} valueField="user"/>
-        {/* <Grid objectName='space_users' columns={columns}></Grid> */}
+        {/* <Grid objectName='space_users' columns={columns} pageSize={100}></Grid> */}
       </Provider>
     </div>
   );

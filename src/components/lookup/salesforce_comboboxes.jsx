@@ -17,24 +17,23 @@ const accountsWithIcon = accounts.map((elem) => ({
 		),
 	},
 }));
-//TODO: selection Icon , 已选中项，文字不居中
+
+/**
+ *
+ * TODO 
+ * 	1 selection Icon 
+ *  2 已选中项，文字不居中
+ *  3 指定对象，选择对象下的数据
+ *  4 支持filters
+ * @class lookup
+ * @extends {React.Component}
+ */
 class lookup extends React.Component {
 	constructor(props) {
 		super(props);
-        // console.log('accountsWithIcon[0]', accountsWithIcon[0])
 		this.state = {
 			inputValue: '',
 			selection: [
-			// 	{
-            //     id: "111111",
-            //     label: "Acme1111111",
-            //     type: "account",
-            //     // icon: (<Icon
-            //     //     assistiveText={{ label: 'Account' }}
-            //     //     category="standard"
-            //     //     name="account"
-            //     // />)
-			// }
 			],
 		};
 	}
@@ -54,13 +53,6 @@ class lookup extends React.Component {
 				// )
 			})
 		}
-		// : (event, data) => {
-		// 	console.log('onRequestRemoveSelectedOption....');
-		// 	this.setState({
-		// 		inputValue: '',
-		// 		selection: data.selection,
-		// 	});
-		// },
 		return (
 			<IconSettings iconPath="/icons">
 				<Combobox
