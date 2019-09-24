@@ -3,7 +3,9 @@ import Grid from '../../components/grid'
 import OrganizationsTree from '../../components/organizations'
 import PropTypes from 'prop-types';
 import { createAction } from '../../actions/views/grid';
+import { loadEntitiesData } from '../../actions/views/tree'
 import styled from 'styled-components'
+import _ from 'underscore'
 
 let Counter = styled.div`
     display: flex;
@@ -24,6 +26,15 @@ let UsersCounter = styled.div`
 
 
 class SelectUsers extends React.Component {
+
+    constructor(props) {
+        super(props)
+        if(_.isEmpty(props.rootNodes)){
+            props.dispatch(loadEntitiesData({objectName: 'organizations', filters: [{columnName: 'parent', operation: 'equals', value: null}]}))
+        }
+		
+    }
+
     static defaultProps = {
         valueField: '_id',
         selectionLabel: 'name',
@@ -34,11 +45,12 @@ class SelectUsers extends React.Component {
             { name: 'mobile', title: 'mobile' },
             { name: 'position', title: 'position' }
         ],
-        $select: ['user']
+        $select: ['user'],
+        rootNodes: []
     }
 
     static propTypes = {
-        rootNodes: PropTypes.array.isRequired,
+        rootNodes: PropTypes.array,
         multiple: PropTypes.bool,
         valueField: PropTypes.string, //指定控件返回的值来自记录的那个属性，比如：user 字段，或者 email字段
         selectionLabel: PropTypes.string || PropTypes.func,

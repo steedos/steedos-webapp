@@ -22,6 +22,10 @@ function transformData(records: any) {
     return items;
 }
 
+function getRootNodes(records: any){
+    return _.pluck(records, '_id')
+}
+
 
 //TODO: 优化onExpandClick，onClick
 function reducer(state: any = {}, action: any) {
@@ -44,7 +48,11 @@ function reducer(state: any = {}, action: any) {
                 }
                 break;
             case 'loadDataSauce':
-                return Object.assign({}, state, { nodes: transformData(action.partialStateValue.records), totalCount: action.partialStateValue.totalCount });
+                if(_.isEmpty(state.rootNodes)){
+                    return Object.assign({}, state, { rootNodes: getRootNodes(action.partialStateValue.records)});
+                }else{
+                    return Object.assign({}, state, { nodes: transformData(action.partialStateValue.records), totalCount: action.partialStateValue.totalCount });
+                }
             default:
                 break;
         }
