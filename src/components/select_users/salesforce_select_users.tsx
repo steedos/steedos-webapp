@@ -23,6 +23,9 @@ let OrgsCounter = styled.div`
 
 let UsersCounter = styled.div`
     margin-left: 24rem;
+    &>.slds-grid{
+        position: absolute;
+    }
 `
 
 

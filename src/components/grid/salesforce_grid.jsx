@@ -10,7 +10,6 @@ import styled from 'styled-components'
 
 let Counter = styled.div`
 	height: 100%;
-	position: absolute;
 `
 
 const CustomDataTableCell = ({ children, ...props }) => (
@@ -119,29 +118,26 @@ class Grid extends React.Component {
 						<div className="slds-p-vertical_x-small slds-p-horizontal_large slds-shrink-none slds-theme_shade">
 							<Lookup objectName={objectName} selectionLabel={selectionLabel} onRequestRemoveSelectedOption={onRequestRemoveSelectedOption} onSearch={onSearch}></Lookup>
 						</div>
-						<div className="slds-scrollable slds-grow">
-							<div className="slds-scrollable_none">
-								<DataTable
-									assistiveText={{
-										actionsHeader: 'actions',
-										columnSort: 'sort this column',
-										columnSortedAscending: 'asc',
-										columnSortedDescending: 'desc',
-										selectAllRows: 'all rows',
-										selectRow: 'Select this row',
-									}}
-									fixedLayout
-									items={rows || this.state.items}
-									id="DataTableExample-2"
-									onRowChange={handleChanged || this.handleChanged}
-									// onSort={this.handleSort}
-									selection={selection || this.state.selection}
-									selectRows="checkbox"
-								>
-									{DataTableColumns}
-								</DataTable>
-							</div>
-						</div>
+						<DataTable
+							assistiveText={{
+								actionsHeader: 'actions',
+								columnSort: 'sort this column',
+								columnSortedAscending: 'asc',
+								columnSortedDescending: 'desc',
+								selectAllRows: 'all rows',
+								selectRow: 'Select this row',
+							}}
+							fixedHeader
+							fixedLayout
+							items={rows || this.state.items}
+							id="DataTableExample-2"
+							onRowChange={handleChanged || this.handleChanged}
+							// onSort={this.handleSort}
+							selection={selection || this.state.selection}
+							selectRows="checkbox"
+						>
+							{DataTableColumns}
+						</DataTable>
 					</IconSettings>
 				</div>
 			</Counter>
