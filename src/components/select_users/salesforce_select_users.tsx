@@ -16,12 +16,13 @@ let OrgsCounter = styled.div`
     bottom: 0;
     left: 0;
     display: flex;
-    width: 18rem;
-    overflow: auto;
+    width: 24rem;
+    overflow: hidden;
+    overflow-y: auto;
 `
 
 let UsersCounter = styled.div`
-    margin-left: 18rem;
+    margin-left: 24rem;
 `
 
 

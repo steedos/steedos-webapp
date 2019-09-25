@@ -4,6 +4,10 @@ import Tree from '@salesforce/design-system-react/lib/components/tree/index.js';
 import log from '@salesforce/design-system-react/lib/utilities/log.js';
 import Search from '@salesforce/design-system-react/lib/components/forms/input/search.js';
 import PropTypes from 'prop-types';
+import styled from 'styled-components'
+let Counter = styled.div`
+    width: 100%;
+`
 
 class SFTree extends React.Component {
 
@@ -166,20 +170,22 @@ class SFTree extends React.Component {
 						<br />
 					</div>
 				) : null}
-				<Tree
-					assistiveText={assistiveText}
-					className={className}
-					getNodes={getNodes || this.getNodes}
-					heading={!noHeading && this.props.heading}
-					id={id || this.id}
-					listStyle={listStyle}
-					listClassName={listClassName}
-					nodes={rootNodes}
-					onExpandClick={onExpandClick || this.handleExpandClick}
-					onClick={onClick || this.handleClick}
-					onScroll={onScroll || this.handleScroll}
-					searchTerm={searchTerm || this.state.searchTerm}
-				/>
+				<Counter>
+					<Tree
+						assistiveText={assistiveText}
+						className={className}
+						getNodes={getNodes || this.getNodes}
+						heading={!noHeading && this.props.heading}
+						id={id || this.id}
+						listStyle={listStyle}
+						listClassName={listClassName}
+						nodes={rootNodes}
+						onExpandClick={onExpandClick || this.handleExpandClick}
+						onClick={onClick || this.handleClick}
+						onScroll={onScroll || this.handleScroll}
+						searchTerm={searchTerm || this.state.searchTerm}
+					/>
+				</Counter>
 			</IconSettings>
 		);
 	}
