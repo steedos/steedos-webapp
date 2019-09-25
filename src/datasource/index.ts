@@ -1,5 +1,6 @@
 import * as Odata from 'ts-odata-client'
 import utils from '../utils'
+import _ from 'underscore'
 
 export async function query(service: string, options: any = { pageSize: 10, currentPage: 0 }) {
     const objectName = options.objectName;
@@ -29,6 +30,7 @@ export async function query(service: string, options: any = { pageSize: 10, curr
     if ($select) {
         query = query.select(...$select)
     }
+    
     if (options.filters || (options.search && $select)) {
 
         query = query.filter((p: any) => {
@@ -42,6 +44,7 @@ export async function query(service: string, options: any = { pageSize: 10, curr
             
             if(options.search && $select){
                 _query = p
+                $select = _.union($select, ["_id"]);
                 $select.forEach((element: any, i: number) => {
                     if(_query.or){
                         _query = _query.or(p["contains"](element, options.search))
