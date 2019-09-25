@@ -55,7 +55,8 @@ class SelectUsers extends React.Component {
         multiple: PropTypes.bool,
         valueField: PropTypes.string, //指定控件返回的值来自记录的那个属性，比如：user 字段，或者 email字段
         selectionLabel: PropTypes.string || PropTypes.func,
-        userListColumns: PropTypes.array
+        userListColumns: PropTypes.array,
+        searchMode: PropTypes.oneOf(['omitFilters'])
     }
 
     render() {
@@ -73,11 +74,11 @@ class SelectUsers extends React.Component {
             }
         }
         //Tree props
-        let { rootNodes, selectionLabel, userListColumns, $select } = this.props as any
+        let { rootNodes, selectionLabel, userListColumns, $select, searchMode } = this.props as any
         return (
             <Counter className="select-users">
                 <OrgsCounter className="organizations"><OrganizationsTree rootNodes={rootNodes} onClickFunc={onClick}/></OrgsCounter>
-                <UsersCounter className="users"><Grid pageSize={200} objectName='space_users' columns={userListColumns} selectionLabel={selectionLabel} $select={$select}/></UsersCounter>
+                <UsersCounter className="users"><Grid searchMode={searchMode} pageSize={200} objectName='space_users' columns={userListColumns} selectionLabel={selectionLabel} $select={$select}/></UsersCounter>
             </Counter>
         )
     }

@@ -3,7 +3,7 @@ import utils from '../utils'
 
 export async function query(service: string, options: any = { pageSize: 10, currentPage: 0 }) {
     const objectName = options.objectName;
-    let { currentPage, pageSize, $select } = options
+    let { currentPage, pageSize, $select, searchMode } = options
     let skip = currentPage * pageSize
 
     let spaceId = utils.getCookie("X-Space-Id");
@@ -50,6 +50,10 @@ export async function query(service: string, options: any = { pageSize: 10, curr
                     }
                     
                 });
+            }
+
+            if(searchMode && _query){
+                return _query
             }
             
             if(_filters && _query){
