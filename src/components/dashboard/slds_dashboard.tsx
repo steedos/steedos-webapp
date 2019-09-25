@@ -28,10 +28,25 @@ class Dashboard extends React.Component {
 
     constructor(props) {
         super(props)
-        
+        // props.dispatch(loadEntitiesData({ objectName: 'organizations', filters: [{ columnName: 'parent', operation: 'equals', value: null }] }))
+        props.dispatch(createAction("filters", [{ 
+            columnName: 'space', 
+            operation: 'equals', 
+            value: 'Af8eM6mAHo7wMDqD3' 
+        },{ 
+            columnName: 'is_company', 
+            operation: 'equals', 
+            value: true 
+        }], "organizations"))
     };
 
     static defaultProps = {
+        selectionLabel: 'name',
+        cellListColumns: [
+            { name: 'name', title: 'name' },
+            { name: 'fullname', title: 'username' }
+        ],
+        $select: ['name'],
     };
 
     static propTypes = {
@@ -53,6 +68,8 @@ class Dashboard extends React.Component {
 
     render() {
         const isEmpty = this.state.items.length === 0;
+        let { rootNodes, selectionLabel, cellListColumns, $select, searchMode } = this.props as any
+        
         return (
             <Container className="slds-dashboard">
                 <Cell className="slds-dashboard-cell">
@@ -63,13 +80,13 @@ class Dashboard extends React.Component {
                                 heading="今天的任务"
                                 icon={<Icon category="standard" name="document" size="small" />}
                             >
-                                <DataTable items={this.state.items} id="DataTableExample-1">
-                                    <DataTableColumn
-                                        label="Opportunity Name"
-                                        property="name"
-                                        truncate
-                                    />
-                                </DataTable>
+                                <Grid searchMode="omitFilters"
+                                    pageSize={200} 
+                                    objectName='organizations' 
+                                    columns={cellListColumns} 
+                                    selectionLabel={selectionLabel} 
+                                    $select={$select} 
+                                />
                             </Card>
                         </div>
                     </IconSettings>
