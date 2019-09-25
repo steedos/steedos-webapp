@@ -54,7 +54,7 @@ class SelectUsers extends React.Component {
         rootNodes: PropTypes.array,
         multiple: PropTypes.bool,
         valueField: PropTypes.string, //指定控件返回的值来自记录的那个属性，比如：user 字段，或者 email字段
-        selectionLabel: PropTypes.string || PropTypes.func,
+        selectionLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
         userListColumns: PropTypes.array,
         searchMode: PropTypes.oneOf(['omitFilters'])
     }
