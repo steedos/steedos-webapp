@@ -30,8 +30,11 @@ export async function query(service: string, options: any = { pageSize: 10, curr
     if ($select) {
         query = query.select(...$select)
     }
-    
-    if (options.filters || (options.search && $select)) {
+
+    if (typeof options.$filter === "function") {
+        query = query.filter(options.$filter);
+    }
+    else if (options.filters || (options.search && $select)) {
 
         query = query.filter((p: any) => {
             let _filters: any = null, _query: any = null
