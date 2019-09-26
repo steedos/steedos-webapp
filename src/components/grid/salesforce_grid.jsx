@@ -127,7 +127,7 @@ class Grid extends React.Component {
 								selectAllRows: 'all rows',
 								selectRow: 'Select this row',
 							}}
-							fixedHeader
+							// fixedHeader
 							fixedLayout
 							items={rows || this.state.items}
 							id="DataTableExample-2"
