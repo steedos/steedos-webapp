@@ -77,11 +77,15 @@ class SelectUsers extends React.Component {
             }
         }
         //Tree props
-        let { rootNodes, selectionLabel, userListColumns, $select, searchMode } = this.props as any
+        let { rootNodes, selectionLabel, userListColumns, $select, searchMode, multiple } = this.props as any
+        let selectRows = 'radio';
+        if(multiple){
+            selectRows = 'checkbox';
+        }
         return (
             <Counter className="select-users">
                 <OrgsCounter className="organizations"><OrganizationsTree rootNodes={rootNodes} onClickFunc={onClick}/></OrgsCounter>
-                <UsersCounter className="users"><Grid searchMode={searchMode} pageSize={200} objectName='space_users' columns={userListColumns} selectionLabel={selectionLabel} $select={$select}/></UsersCounter>
+                <UsersCounter className="users"><Grid searchMode={searchMode} pageSize={200} objectName='space_users' columns={userListColumns} selectionLabel={selectionLabel} $select={$select} selectRows={selectRows}/></UsersCounter>
             </Counter>
         )
     }

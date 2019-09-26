@@ -30,7 +30,8 @@ class Grid extends React.Component {
 	static displayName = 'SteedosDataTableExample';
 	static defaultProps = {
 		rows: [],
-		selection: []
+		selection: [],
+		selectRows: false
 	};
 
 	componentDidMount() {
@@ -45,7 +46,7 @@ class Grid extends React.Component {
 		// 	opportunityName: 'asc',
 		// },
 		items: this.props.rows,
-		selection: this.props.selection,
+		selection: this.props.selection
 	};
 
 	handleChanged = (event, data) => {
@@ -95,7 +96,7 @@ class Grid extends React.Component {
 
 	render() {
 
-		const { rows, objectName, handleChanged, selection, selectionLabel } = this.props
+		const { rows, objectName, handleChanged, selection, selectionLabel, selectRows } = this.props
 
 		const DataTableColumns = this.props.columns.map(function (column) {
 			return (
@@ -112,9 +113,9 @@ class Grid extends React.Component {
 		}
 
 		return (
-			<Counter className="slds-grid slds-nowrap">
+			<Counter className="slds-grid slds-nowrap" >
 				<div className="slds-col slds-grid slds-grid_vertical slds-nowrap">
-					<IconSettings iconPath="/icons">
+					<IconSettings iconPath="/icons" >
 						<div className="slds-p-vertical_x-small slds-p-horizontal_large slds-shrink-none slds-theme_shade">
 							<Lookup objectName={objectName} selectionLabel={selectionLabel} onRequestRemoveSelectedOption={onRequestRemoveSelectedOption} onSearch={onSearch}></Lookup>
 						</div>
@@ -127,14 +128,14 @@ class Grid extends React.Component {
 								selectAllRows: 'all rows',
 								selectRow: 'Select this row',
 							}}
-							// fixedHeader
+							fixedHeader
 							fixedLayout
 							items={rows || this.state.items}
 							id="DataTableExample-2"
 							onRowChange={handleChanged || this.handleChanged}
 							// onSort={this.handleSort}
 							selection={selection || this.state.selection}
-							selectRows="checkbox"
+							selectRows={selectRows}
 						>
 							{DataTableColumns}
 						</DataTable>
