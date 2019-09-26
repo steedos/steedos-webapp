@@ -36,27 +36,24 @@ let Cell = styled.div`
     }
 `;
 
+const userId = "hPgDcEd9vKQxwndQR";
+const spaceId = "Af8eM6mAHo7wMDqD3";
+
 class Dashboard extends React.Component {
 
     constructor(props) {
         super(props)
         // props.dispatch(loadEntitiesData({ objectName: 'organizations', filters: [{ columnName: 'parent', operation: 'equals', value: null }] }))
-        props.dispatch(createAction("filters", [{ 
-            columnName: 'space', 
-            operation: 'equals', 
-            value: 'Af8eM6mAHo7wMDqD3' 
-        },{ 
-            columnName: 'is_company', 
-            operation: 'equals', 
-            value: true 
-        }], "organizations"))
+        props.dispatch(createAction("$filter", (p) => {
+            return p.equals("space", spaceId).and(p.equals("inbox_users", userId).or(p.equals("cc_users", userId)));
+        }, "instances"))
     };
 
     static defaultProps = {
         selectionLabel: 'name',
         cellListColumns: [
-            { name: 'name', title: 'name' },
-            { name: 'fullname', title: 'username' }
+            { name: 'name', title: '名称' },
+            { name: 'modified', title: '修改时间' }
         ],
         $select: ['name'],
     };
@@ -80,7 +77,7 @@ class Dashboard extends React.Component {
 
     render() {
         const isEmpty = this.state.items.length === 0;
-        let { rootNodes, selectionLabel, cellListColumns, $select, searchMode } = this.props as any
+        let { selectionLabel, cellListColumns, $select } = this.props as any
         
         return (
             <Container className="slds-dashboard">
@@ -89,13 +86,13 @@ class Dashboard extends React.Component {
                         <IconSettings iconPath="/icons">
                             <div className="slds-grid slds-grid_vertical">
                                 <Card
-                                    id="ExampleCard"
-                                    heading="今天的任务"
+                                    id="InstanceCard"
+                                    heading="待办事项"
                                     icon={<Icon category="standard" name="document" size="small" />}
                                 >
                                     <Grid searchMode="omitFilters"
                                         pageSize={200} 
-                                        objectName='organizations' 
+                                        objectName='instances' 
                                         columns={cellListColumns} 
                                         selectionLabel={selectionLabel} 
                                         $select={$select} 
