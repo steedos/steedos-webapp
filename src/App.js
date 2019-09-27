@@ -7,7 +7,6 @@ import DXGrid from './components/dx_grid'
 import Grid from './components/grid'
 
 function App() {
-  let appStore = store({settings: {services: {odata: 'http://127.0.0.1:5000'}}})
   let columns= [
     { name: '_id', title: '唯一标识' },
     { name: 'name', title: '名称' },
@@ -24,7 +23,7 @@ function App() {
   
   return (
     <div className="App">
-      <Provider store={appStore}>
+      <Provider store={store}>
         {/* <DXGrid objectName='instances' columns={columns} getRowId={getRowId}/> */}
         <SelectUsers getRowId={getRowId} searchMode="omitFilters" rootNodes2={rootNodes} multiple={true} valueField2="user" selectionLabel2={selectionLabel} />
         {/* <Grid objectName='space_users' columns={columns} pageSize={100}></Grid> */}

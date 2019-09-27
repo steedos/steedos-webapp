@@ -5,10 +5,9 @@ import store from './stores/configureStore'
 import Dashboard from './components/dashboard'
 
 function App() {
-  let appStore = store({ settings: { services: { odata: 'http://192.168.0.195:3195'}}})
   return (
     <div className="App">
-      <Provider store={appStore}>
+      <Provider store={store}>
         <Dashboard />
       </Provider>
     </div>
