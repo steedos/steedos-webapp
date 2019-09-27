@@ -23,7 +23,6 @@ const CustomDataTableCell = ({ children, ...props }) => {
 		return (
 			<DataTableCell title={children} {...props}>
 				<a
-					href="javascript:void(0);"
 					onClick={(event) => {
 						event.preventDefault();
 						cellOnClick(event, props.item)
