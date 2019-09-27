@@ -6,6 +6,7 @@ import SelectUsers from './components/select_users'
 import DXGrid from './components/dx_grid'
 import Grid from './components/grid'
 import { IconSettings } from '@salesforce/design-system-react';
+import settings from './states/settings'
 
 function App() {
   let columns = [
@@ -22,15 +23,36 @@ function App() {
     return `${item.name}(${item.email})`
   }
 
-  const iconPath = "/assets/icons"
+  let service = settings.getDataServices(store.getState());
+  let iconPath = `/assets/icons`;
+
+  let company = {
+    name: 'company',
+    label: '单位',
+    fields: {
+      name: {
+        label: '公司名称',
+        cellOnClick: function(){
+          console.log(111);
+        }
+      },
+      code: {
+        label: '公司名称'
+      },
+      modified: {
+        label: '修改时间',
+        type: 'datetime'
+      }
+    }
+  }
+
   return (
 
     < div className="App">
       <IconSettings iconPath={iconPath} >
         <Provider store={store}>
-          {/* <DXGrid objectName='instances' columns={columns} getRowId={getRowId}/> */}
           <SelectUsers getRowId={getRowId} searchMode="omitFilters" rootNodes2={rootNodes} multiple={true} valueField2="user" selectionLabel2={selectionLabel} />
-          {/* <Grid objectName='space_users' columns={columns} pageSize={100}></Grid> */}
+          {/* <Grid object={company} ></Grid> */}
         </Provider>
       </IconSettings>
     </div>
