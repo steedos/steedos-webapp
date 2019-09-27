@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { createAction } from '../../actions/views/grid';
 import styled from 'styled-components'
 import _ from 'underscore'
-import { Card, CardEmpty, CardFilter, Icon, DataTable, DataTableColumn, IconSettings, 
+import { Card, CardEmpty, CardFilter, Icon, DataTable, DataTableColumn, 
     AppLauncherTile, AppLauncherExpandableSection } from '@salesforce/design-system-react';
 
 const sampleItems = [
@@ -109,134 +109,123 @@ class Dashboard extends React.Component {
             <Container className="slds-dashboard">
                 <Column className="slds-dashboard-column">
                     <Cell className="slds-dashboard-cell">
-                        <IconSettings iconPath="/icons">
-                            <div className="slds-grid slds-grid_vertical">
-                                <Card
-                                    id="InstanceCard"
-                                    heading="待办事项"
-                                    icon={<Icon category="standard" name="document" size="small" />}
-                                >
-                                    <Grid searchMode="omitFilters"
-                                        pageSize={200} 
-                                        object= {instance}
-                                        selectionLabel={selectionLabel} 
+                        <div className="slds-grid slds-grid_vertical">
+                            <Card
+                                id="InstanceCard"
+                                heading="待办事项"
+                                icon={<Icon category="standard" name="document" size="small" />}
+                            >
+                                <Grid searchMode="omitFilters"
+                                    pageSize={200} 
+                                    object= {instance}
+                                    selectionLabel={selectionLabel} 
+                                />
+                            </Card>
+                        </div>
+                    </Cell>
+                    <Cell className="slds-dashboard-cell">
+                        <div className="slds-grid slds-grid_vertical">
+                            <Card
+                                id="ExampleCard"
+                                heading="今日事件"
+                                icon={<Icon category="standard" name="document" size="small" />}
+                            >
+                                <DataTable items={this.state.items} id="DataTableExample-1">
+                                    <DataTableColumn
+                                        label="Opportunity Name"
+                                        property="name"
+                                        truncate
                                     />
-                                </Card>
-                            </div>
-                        </IconSettings>
+                                </DataTable>
+                            </Card>
+                        </div>
                     </Cell>
                     <Cell className="slds-dashboard-cell">
-                        <IconSettings iconPath="/icons">
-                            <div className="slds-grid slds-grid_vertical">
-                                <Card
-                                    id="ExampleCard"
-                                    heading="今日事件"
-                                    icon={<Icon category="standard" name="document" size="small" />}
-                                >
-                                    <DataTable items={this.state.items} id="DataTableExample-1">
-                                        <DataTableColumn
-                                            label="Opportunity Name"
-                                            property="name"
-                                            truncate
+                        <div className="slds-grid slds-grid_vertical">
+                            <Card
+                                id="ExampleCard"
+                                heading="应用程序启动器"
+                                icon={<Icon category="standard" name="document" size="small" />}
+                            >
+                                <AppLauncherDesktopInternal className="slds-app-launcher__content">
+                                    <AppLauncherExpandableSection title="Tile Section">
+                                        <AppLauncherTile
+                                            description="The primary internal Salesforce org. Used to run our online sales business and manage accounts."
+                                            iconText="SC"
+                                            title="Sales Cloud"
                                         />
-                                    </DataTable>
-                                </Card>
-                            </div>
-                        </IconSettings>
-                    </Cell>
-                    <Cell className="slds-dashboard-cell">
-                        <IconSettings iconPath="/icons">
-                            <div className="slds-grid slds-grid_vertical">
-                                <Card
-                                    id="ExampleCard"
-                                    heading="应用程序启动器"
-                                    icon={<Icon category="standard" name="document" size="small" />}
-                                >
-                                    <AppLauncherDesktopInternal className="slds-app-launcher__content">
-                                        <AppLauncherExpandableSection title="Tile Section">
-                                            <AppLauncherTile
-                                                description="The primary internal Salesforce org. Used to run our online sales business and manage accounts."
-                                                iconText="SC"
-                                                title="Sales Cloud"
-                                            />
-                                            <AppLauncherTile
-                                                description="Salesforce Marketing Cloud lets businesses of any size engage with their customers through multiple channels of messaging."
-                                                iconBackgroundColor="#e0cf76"
-                                                iconText="MC"
-                                                title="Marketing Cloud"
-                                            />
-                                            <AppLauncherTile
-                                                description="Community for managing employee benefits and time off."
-                                                iconBackgroundColor="#6a8adc"
-                                                iconText="HR"
-                                                title="HR Concierge"
-                                            />
-                                            <AppLauncherTile
-                                                description="Manage your finances across multiple financial platforms and make the most of your capital."
-                                                iconBackgroundColor="#73c07b"
-                                                iconText="MM"
-                                                title="My Money"
-                                            />
-                                            <AppLauncherTile
-                                                description="The key to call center and contact center management is more simple than you think with this amazing application!"
-                                                iconBackgroundColor="#b67e6a"
-                                                iconText="CC"
-                                                title="Call Center"
-                                            />
-                                            <AppLauncherTile
-                                                description="Areas of Focus are used to track customer support for your brand and ensure high quality support"
-                                                iconBackgroundColor="#69bad0"
-                                                iconText="CS"
-                                                title="Customer Support Community"
-                                            />
-                                        </AppLauncherExpandableSection>
-                                    </AppLauncherDesktopInternal>
-                                </Card>
-                            </div>
-                        </IconSettings>
+                                        <AppLauncherTile
+                                            description="Salesforce Marketing Cloud lets businesses of any size engage with their customers through multiple channels of messaging."
+                                            iconBackgroundColor="#e0cf76"
+                                            iconText="MC"
+                                            title="Marketing Cloud"
+                                        />
+                                        <AppLauncherTile
+                                            description="Community for managing employee benefits and time off."
+                                            iconBackgroundColor="#6a8adc"
+                                            iconText="HR"
+                                            title="HR Concierge"
+                                        />
+                                        <AppLauncherTile
+                                            description="Manage your finances across multiple financial platforms and make the most of your capital."
+                                            iconBackgroundColor="#73c07b"
+                                            iconText="MM"
+                                            title="My Money"
+                                        />
+                                        <AppLauncherTile
+                                            description="The key to call center and contact center management is more simple than you think with this amazing application!"
+                                            iconBackgroundColor="#b67e6a"
+                                            iconText="CC"
+                                            title="Call Center"
+                                        />
+                                        <AppLauncherTile
+                                            description="Areas of Focus are used to track customer support for your brand and ensure high quality support"
+                                            iconBackgroundColor="#69bad0"
+                                            iconText="CS"
+                                            title="Customer Support Community"
+                                        />
+                                    </AppLauncherExpandableSection>
+                                </AppLauncherDesktopInternal>
+                            </Card>
+                        </div>
                     </Cell>
                     <Cell className="slds-dashboard-cell flex-split">
-                        <IconSettings iconPath="/icons">
-                            <div className="slds-grid slds-grid_vertical">
-                                <Card
-                                    id="ExampleCard"
-                                    heading="左下1"
-                                    icon={<Icon category="standard" name="document" size="small" />}
-                                >
-                                    <DataTable items={this.state.items} id="DataTableExample-1">
-                                        <DataTableColumn
-                                            label="Opportunity Name"
-                                            property="name"
-                                            truncate
-                                        />
-                                    </DataTable>
-                                </Card>
-                            </div>
-                        </IconSettings>
+                        <div className="slds-grid slds-grid_vertical">
+                            <Card
+                                id="ExampleCard"
+                                heading="左下1"
+                                icon={<Icon category="standard" name="document" size="small" />}
+                            >
+                                <DataTable items={this.state.items} id="DataTableExample-1">
+                                    <DataTableColumn
+                                        label="Opportunity Name"
+                                        property="name"
+                                        truncate
+                                    />
+                                </DataTable>
+                            </Card>
+                        </div>
                     </Cell>
                     <Cell className="slds-dashboard-cell flex-split">
-                        <IconSettings iconPath="/icons">
-                            <div className="slds-grid slds-grid_vertical">
-                                <Card
-                                    id="ExampleCard"
-                                    heading="左下2"
-                                    icon={<Icon category="standard" name="document" size="small" />}
-                                >
-                                    <DataTable items={this.state.items} id="DataTableExample-1">
-                                        <DataTableColumn
-                                            label="Opportunity Name"
-                                            property="name"
-                                            truncate
-                                        />
-                                    </DataTable>
-                                </Card>
-                            </div>
-                        </IconSettings>
+                        <div className="slds-grid slds-grid_vertical">
+                            <Card
+                                id="ExampleCard"
+                                heading="左下2"
+                                icon={<Icon category="standard" name="document" size="small" />}
+                            >
+                                <DataTable items={this.state.items} id="DataTableExample-1">
+                                    <DataTableColumn
+                                        label="Opportunity Name"
+                                        property="name"
+                                        truncate
+                                    />
+                                </DataTable>
+                            </Card>
+                        </div>
                     </Cell>
                 </Column>
                 <Column className="slds-dashboard-column">
                     <Cell className="slds-dashboard-cell">
-                    <IconSettings iconPath="/icons">
                         <div className="slds-grid slds-grid_vertical">
                             <Card
                                 id="ExampleCard"
@@ -252,8 +241,7 @@ class Dashboard extends React.Component {
                                 </DataTable>
                             </Card>
                         </div>
-                    </IconSettings>
-                </Cell>
+                    </Cell>
                 </Column>
             </Container>
         );
