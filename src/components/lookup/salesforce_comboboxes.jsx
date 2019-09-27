@@ -1,6 +1,6 @@
 /* eslint-disable no-console, react/prop-types */
 import React from 'react';
-import { Combobox, Icon, comboboxFilterAndLimit, IconSettings} from '@salesforce/design-system-react';
+import { Combobox, Icon, comboboxFilterAndLimit} from '@salesforce/design-system-react';
 import _ from 'underscore'
 
 const accounts = [
@@ -67,7 +67,6 @@ class lookup extends React.Component {
 			})
 		}
 		return (
-			<IconSettings iconPath="/icons">
 				<Combobox
 					id="combobox-base"
                     disabled={this.props.disabled}
@@ -112,7 +111,6 @@ class lookup extends React.Component {
 					selection={selection || this.state.selection}
 					value={search || this.state.inputValue}
 				/>
-			</IconSettings>
 		);
 	}
 }

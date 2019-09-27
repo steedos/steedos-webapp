@@ -1,5 +1,5 @@
 import React from 'react';
-import IconSettings from '@salesforce/design-system-react/components/icon-settings';
+// import IconSettings from '@salesforce/design-system-react/components/icon-settings';
 import Tree from '@salesforce/design-system-react/lib/components/tree/index.js';
 import log from '@salesforce/design-system-react/lib/utilities/log.js';
 import Search from '@salesforce/design-system-react/lib/components/forms/input/search.js';
@@ -157,35 +157,33 @@ class SFTree extends React.Component {
 	render() {
 		const {assistiveText, className, getNodes, noHeading, id, listStyle, listClassName, rootNodes, searchTerm, onExpandClick, onClick, onScroll} = this.props;
 		return (
-			<IconSettings iconPath="/icons">
-				{this.props.searchable ? (
-					<div>
-						<Search
-							assistiveText={{ label: 'Search Tree' }}
-							id="example-search"
-							value={this.state.searchTerm}
-							onChange={this.handleSearchChange}
-						/>
-						<br />
-					</div>
-				) : null}
-				<Counter>
-					<Tree
-						assistiveText={assistiveText}
-						className={className}
-						getNodes={getNodes || this.getNodes}
-						heading={!noHeading && this.props.heading}
-						id={id || this.id}
-						listStyle={listStyle}
-						listClassName={listClassName}
-						nodes={rootNodes}
-						onExpandClick={onExpandClick || this.handleExpandClick}
-						onClick={onClick || this.handleClick}
-						onScroll={onScroll || this.handleScroll}
-						searchTerm={searchTerm || this.state.searchTerm}
-					/>
-				</Counter>
-			</IconSettings>
+			// {this.props.searchable ? (
+			// 	<div>
+			// 		<Search
+			// 			assistiveText={{ label: 'Search Tree' }}
+			// 			id="example-search"
+			// 			value={this.state.searchTerm}
+			// 			onChange={this.handleSearchChange}
+			// 		/>
+			// 		<br />
+			// 	</div>
+			// ) : null}
+			<Counter>
+				<Tree
+					assistiveText={assistiveText}
+					className={className}
+					getNodes={getNodes || this.getNodes}
+					heading={!noHeading && this.props.heading}
+					id={id || this.id}
+					listStyle={listStyle}
+					listClassName={listClassName}
+					nodes={rootNodes}
+					onExpandClick={onExpandClick || this.handleExpandClick}
+					onClick={onClick || this.handleClick}
+					onScroll={onScroll || this.handleScroll}
+					searchTerm={searchTerm || this.state.searchTerm}
+				/>
+			</Counter>
 		);
 	}
 }

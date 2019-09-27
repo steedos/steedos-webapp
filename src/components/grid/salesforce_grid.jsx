@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import { DataTable, DataTableColumn, DataTableCell, IconSettings } from '@salesforce/design-system-react';
+import { DataTable, DataTableColumn, DataTableCell } from '@salesforce/design-system-react';
 import Lookup from '../lookup'
 import { createAction } from '../../actions/views/grid'
 import PropTypes from 'prop-types';
@@ -11,7 +11,10 @@ let Counter = styled.div`
 `
 
 const CustomDataTableCell = ({ children, ...props }) => {
-	let {cellOnClick} =  props
+	console.log('CustomDataTableCell', children);
+	let { field } = props
+	let { cellOnClick } = field
+
 	if(_.isFunction(cellOnClick) ){
 		return (
 			<DataTableCell title={children} {...props}>
@@ -128,11 +131,11 @@ class Grid extends React.Component {
 
 		const { rows, handleChanged, selection, selectionLabel, selectRows, object, search } = this.props
 
-		const DataTableColumns = _.map(object.fields, (column, key)=>{
-			if(!column.hidden){
+		const DataTableColumns = _.map(object.fields, (field, key)=>{
+			if(!field.hidden){
 				return (
-					<DataTableColumn label={column.label} property={key} key={key} >
-						<CustomDataTableCell cellOnClick={column.cellOnClick}/>
+					<DataTableColumn label={field.label} property={key} key={key} >
+						<CustomDataTableCell field={field}/>
 					</DataTableColumn>
 				)
 			}
@@ -161,7 +164,6 @@ class Grid extends React.Component {
 		return (
 			<Counter className="slds-grid slds-nowrap" >
 				<div className="slds-col slds-grid slds-grid_vertical slds-nowrap">
-					<IconSettings iconPath="/icons" >
 						<DataTableSearch/>
 						<DataTable
 							assistiveText={{
@@ -183,7 +185,6 @@ class Grid extends React.Component {
 						>
 							{DataTableColumns}
 						</DataTable>
-					</IconSettings>
 				</div>
 			</Counter>
 		);
