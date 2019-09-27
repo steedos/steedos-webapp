@@ -18,6 +18,7 @@
     "@types/styled-components": "^4.1.19",
     "@types/underscore": "^1.9.2",
     "dotenv-flow": "^3.1.0",
+    "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
