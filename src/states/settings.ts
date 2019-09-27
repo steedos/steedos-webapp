@@ -3,7 +3,7 @@ function getSettingsState(state: any){
 }
 
 function getDataServices(state: any){
-    return state.settings ? state.settings.services.odata: undefined
+    return state.settings ? state.settings.services.steedos: undefined
 }
 
 export default {

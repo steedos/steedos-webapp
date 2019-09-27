@@ -5,7 +5,7 @@ import rootReducer from '../reducers'
 const initialStore = {
     settings: {
         services: {
-            odata: process.env.REACT_APP_API_BASE_URL
+            steedos: process.env.REACT_APP_API_BASE_URL
         }
     }
 }
