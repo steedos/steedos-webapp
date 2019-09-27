@@ -11,7 +11,6 @@ let Counter = styled.div`
 `
 
 const CustomDataTableCell = ({ children, ...props }) => {
-	console.log('CustomDataTableCell', children);
 	let { field } = props
 	let { cellOnClick } = field
 
