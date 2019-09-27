@@ -22,10 +22,11 @@ function App() {
     return `${item.name}(${item.email})`
   }
 
+  const iconPath = "/assets/icons"
   return (
 
     < div className="App">
-      <IconSettings iconPath="/assets/icons" >
+      <IconSettings iconPath={iconPath} >
         <Provider store={store}>
           {/* <DXGrid objectName='instances' columns={columns} getRowId={getRowId}/> */}
           <SelectUsers getRowId={getRowId} searchMode="omitFilters" rootNodes2={rootNodes} multiple={true} valueField2="user" selectionLabel2={selectionLabel} />
