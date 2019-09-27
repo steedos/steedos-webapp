@@ -2,25 +2,17 @@ import { connect } from 'react-redux';
 import SteedosDXGrid from './dx_grid';
 import { createAction, loadEntitiesData } from '../../actions/views/dx_grid'
 import { getEntityState } from '../../states/entitys'
-import _ from 'underscore'
 // const mapStateToProps = (state: any) => state;
 
 function mapStateToProps() {
   return (state: any, ownProps: any) => {
     let objectName = ownProps.objectName
     let entityState = getEntityState(state, objectName) || {}
-    let columns = entityState.columns;
-    if(ownProps.columns){
-      columns = ownProps.columns
-    }
-
     let pageSize = entityState.pageSize;
     if(!pageSize){
       pageSize = ownProps.pageSize || 10
     }
-
-    let $select = _.pluck(columns, 'name')
-    return Object.assign(entityState, {...entityState, objectName, $select, ...ownProps, pageSize});
+    return Object.assign(entityState, {...entityState, objectName, ...ownProps, pageSize});
   };
 }
 

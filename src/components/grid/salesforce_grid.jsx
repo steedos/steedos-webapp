@@ -1,29 +1,39 @@
 import React from 'react';
-
-import { Dropdown, DataTable, DataTableColumn, DataTableCell, DataTableRowActions, IconSettings } from '@salesforce/design-system-react';
-
+import _ from 'underscore';
+import { DataTable, DataTableColumn, DataTableCell, IconSettings } from '@salesforce/design-system-react';
 import Lookup from '../lookup'
-
 import { createAction } from '../../actions/views/grid'
-
+import PropTypes from 'prop-types';
 import styled from 'styled-components'
 
 let Counter = styled.div`
 	height: 100%;
 `
 
-const CustomDataTableCell = ({ children, ...props }) => (
-	<DataTableCell title={children} {...props}>
-		<a
-			href="javascript:void(0);"
-			onClick={(event) => {
-				event.preventDefault();
-			}}
-		>
+const CustomDataTableCell = ({ children, ...props }) => {
+	let {cellOnClick} =  props
+	if(_.isFunction(cellOnClick) ){
+		return (
+			<DataTableCell title={children} {...props}>
+				<a
+					href="javascript:void(0);"
+					onClick={(event) => {
+						event.preventDefault();
+						cellOnClick(event, props.item)
+					}}
+				>
+					{children}
+				</a>
+			</DataTableCell>
+		);
+	}
+	return (
+		<DataTableCell title={children} {...props}>
 			{children}
-		</a>
-	</DataTableCell>
-);
+		</DataTableCell>
+	)
+}
+
 CustomDataTableCell.displayName = DataTableCell.displayName;
 
 class Grid extends React.Component {
@@ -31,8 +41,18 @@ class Grid extends React.Component {
 	static defaultProps = {
 		rows: [],
 		selection: [],
-		selectRows: false
+		selectRows: false,
+		object: {}
 	};
+
+	static propTypes = {
+		object: PropTypes.object.isRequired,
+		searchMode: PropTypes.string,
+		pageSize: PropTypes.number,
+		selectionLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+		selectRows: PropTypes.oneOf(['radio', 'checkbox'])
+    }
+
 
 	componentDidMount() {
 		if (this.props.init) {
@@ -48,6 +68,16 @@ class Grid extends React.Component {
 		items: this.props.rows,
 		selection: this.props.selection
 	};
+
+	isEnableSearch = ()=>{
+		let { object } = this.props
+		return object.enable_search || false
+	}
+
+	getObjectName = ()=>{
+		let { object } = this.props
+		return object.name
+	}
 
 	handleChanged = (event, data) => {
 		this.setState({ selection: data.selection });
@@ -96,29 +126,43 @@ class Grid extends React.Component {
 
 	render() {
 
-		const { rows, objectName, handleChanged, selection, selectionLabel, selectRows } = this.props
+		const { rows, handleChanged, selection, selectionLabel, selectRows, object, search } = this.props
 
-		const DataTableColumns = this.props.columns.map(function (column) {
-			return (
-				<DataTableColumn label={column.title} property={column.name} key={column.name} />
-			)
+		const DataTableColumns = _.map(object.fields, (column, key)=>{
+			if(!column.hidden){
+				return (
+					<DataTableColumn label={column.label} property={key} key={key} >
+						<CustomDataTableCell cellOnClick={column.cellOnClick}/>
+					</DataTableColumn>
+				)
+			}
 		})
 
 		const onRequestRemoveSelectedOption = function (event, data) {
-			return createAction('requestRemoveSelectedOption', data.selection, objectName)
+			return createAction('requestRemoveSelectedOption', data.selection, object)
 		}
 
 		const onSearch = function (event, data) {
-			return createAction('search', data.value, objectName)
+			return createAction('search', data.value, object)
+		}
+
+		const DataTableSearch = ()=>{
+			if(this.isEnableSearch()){
+				return (
+					<div className="slds-p-vertical_x-small slds-p-horizontal_large slds-shrink-none slds-theme_shade">
+						<Lookup object={object} search={search} selectionLabel={selectionLabel} onRequestRemoveSelectedOption={onRequestRemoveSelectedOption} onSearch={onSearch}></Lookup>
+					</div>
+				)
+			}else{
+				return null;
+			}
 		}
 
 		return (
 			<Counter className="slds-grid slds-nowrap" >
 				<div className="slds-col slds-grid slds-grid_vertical slds-nowrap">
 					<IconSettings iconPath="/icons" >
-						<div className="slds-p-vertical_x-small slds-p-horizontal_large slds-shrink-none slds-theme_shade">
-							<Lookup objectName={objectName} selectionLabel={selectionLabel} onRequestRemoveSelectedOption={onRequestRemoveSelectedOption} onSearch={onSearch}></Lookup>
-						</div>
+						<DataTableSearch/>
 						<DataTable
 							assistiveText={{
 								actionsHeader: 'actions',

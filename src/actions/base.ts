@@ -1,8 +1,8 @@
-export function createAction(actionType: string, partialStateName: any, partialStateValue: any, objectName: string) {
+export function createAction(actionType: string, partialStateName: any, partialStateValue: any, object: any) {
     return {
         type: actionType,
         partialStateName,
         partialStateValue,
-        objectName
+        object
     }
 }

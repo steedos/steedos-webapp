@@ -49,6 +49,22 @@ let AppLauncherDesktopInternal = styled.div`
 const userId = "hPgDcEd9vKQxwndQR";
 const spaceId = "Af8eM6mAHo7wMDqD3";
 
+const instance = {
+    name: 'instances',
+    label: '申请单',
+    fields: {
+        name: {
+            label: '名称',
+            cellOnClick: function(event, data){
+                console.log('instance.name click, data is', data);
+            }
+        },
+        modified: {
+            label: '修改时间'
+        }
+    }
+}
+
 class Dashboard extends React.Component {
 
     constructor(props) {
@@ -56,7 +72,7 @@ class Dashboard extends React.Component {
         // props.dispatch(loadEntitiesData({ objectName: 'organizations', filters: [{ columnName: 'parent', operation: 'equals', value: null }] }))
         props.dispatch(createAction("$filter", (p) => {
             return p.equals("space", spaceId).and(p.equals("inbox_users", userId).or(p.equals("cc_users", userId)));
-        }, "instances"))
+        }, instance))
     };
 
     static defaultProps = {
@@ -102,10 +118,8 @@ class Dashboard extends React.Component {
                                 >
                                     <Grid searchMode="omitFilters"
                                         pageSize={200} 
-                                        objectName='instances' 
-                                        columns={cellListColumns} 
+                                        object= {instance}
                                         selectionLabel={selectionLabel} 
-                                        $select={$select} 
                                     />
                                 </Card>
                             </div>

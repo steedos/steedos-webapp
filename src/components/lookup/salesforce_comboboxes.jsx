@@ -30,6 +30,11 @@ const accountsWithIcon = accounts.map((elem) => ({
  * @extends {React.Component}
  */
 class lookup extends React.Component {
+
+	static defaultProps = {
+		object: {}
+	};
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -41,7 +46,7 @@ class lookup extends React.Component {
 
 	render() {
 
-		let { selection, onSearch, onRequestRemoveSelectedOption, selectionLabel, search, onChange } = this.props
+		let { selection, onSearch, onRequestRemoveSelectedOption, selectionLabel, search, onChange, object } = this.props
 		if(selection){
 			selection.map((item)=>{
 				if(selectionLabel){
@@ -50,9 +55,7 @@ class lookup extends React.Component {
 					}else{
 						item.label = item[selectionLabel]
 					}
-					
 				}
-				
 				// item.icon = (
 				// 	<Icon
 				// 		assistiveText={{ label: 'Account' }}
@@ -60,6 +63,7 @@ class lookup extends React.Component {
 				// 		name="account"
 				// 	/>
 				// )
+				return null
 			})
 		}
 		return (
@@ -96,7 +100,7 @@ class lookup extends React.Component {
 						},
 					}}
 					labels={{
-						placeholder: `Search ${this.props.objectName}`,
+						placeholder: `搜索 ${object.label}`,
 					}}
 					multiple
 					options={comboboxFilterAndLimit({
@@ -106,7 +110,7 @@ class lookup extends React.Component {
 						selection: this.state.selection,
 					})}
 					selection={selection || this.state.selection}
-					value={this.state.inputValue}
+					value={search || this.state.inputValue}
 				/>
 			</IconSettings>
 		);

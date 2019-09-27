@@ -3,7 +3,16 @@ import DXGrid from '../../components/dx_grid'
 import OrganizationsTree from '../../components/organizations'
 import PropTypes from 'prop-types';
 import { createAction } from '../../actions/views/dx_grid';
+let userObject = {
+    name: 'space_users',
+    label: '用户',
+    enable_search: true
+}
 
+let orgObject = {
+    name: 'organizations',
+    label: '组织机构'
+}
 class SelectUsers extends React.Component {
     static defaultProps = {
         valueField: '_id'
@@ -29,12 +38,12 @@ class SelectUsers extends React.Component {
 
         let onClick = function(event: any, data: any){
             return function(dispatch: any, getState: any){
-                dispatch(createAction("filters", [{ columnName: "organizations", value: data.node.id, operation: "equals" }], "space_users"))
+                dispatch(createAction("filters", [{ columnName: "organizations", value: data.node.id, operation: "equals" }], userObject))
                 dispatch({
                     type: 'TREE_STATE_CHANGE',
                     partialStateName: 'onClick',
                     partialStateValue: data,
-                    objectName: 'organizations'
+                    object: orgObject
                 })
             }
         }
@@ -43,7 +52,7 @@ class SelectUsers extends React.Component {
         return (
             <div className="select-users">
                 <div className="left"><OrganizationsTree rootNodes={rootNodes} onClickFunc={onClick}/></div>
-                <div className="right"><DXGrid objectName='space_users' columns={userListColumns} getRowId={getRowId} /></div>
+                <div className="right"><DXGrid object={userObject} columns={userListColumns} getRowId={getRowId} /></div>
             </div>
         )
     }

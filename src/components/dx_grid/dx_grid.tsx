@@ -30,10 +30,9 @@ class SteedosDXGrid extends React.Component {
     };
 
     static propTypes = {
-        objectName: PropTypes.string.isRequired,
+        object: PropTypes.object.isRequired,
         columns: PropTypes.array.isRequired,
         getRowId: PropTypes.func.isRequired,
-        $select: PropTypes.array,
         currentPage: PropTypes.number,
         pageSize: PropTypes.number,
         pageSizes: PropTypes.array

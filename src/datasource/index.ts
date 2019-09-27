@@ -2,9 +2,15 @@ import * as Odata from 'ts-odata-client'
 import utils from '../utils'
 import _ from 'underscore'
 
+function getSelect(object){
+    return _.keys(object.fields)
+}
+
 export async function query(service: string, options: any = { pageSize: 10, currentPage: 0 }) {
-    const objectName = options.objectName;
-    let { currentPage, pageSize, $select, searchMode } = options
+    let { currentPage, pageSize, searchMode, object } = options
+
+    let objectName = object.name;
+    let $select = getSelect(object);
     let skip = currentPage * pageSize
 
     let spaceId = utils.getCookie("X-Space-Id");

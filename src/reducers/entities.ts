@@ -1,19 +1,17 @@
 
 import { DXGRID_STATE_CHANGE_ACTION } from '../actions/views/dx_grid'
 import { GRID_STATE_CHANGE_ACTION } from '../actions/views/grid'
-import { LOOKUP_STATE_CHANGE_ACTION } from '../actions/views/lookup'
 import { TREE_STATE_CHANGE_ACTION } from '../actions/views/tree'
 import TreeReducer from './views/tree'
 import DXGridReducer from './views/dx_grid'
 import GridReducer from './views/grid'
-import LookupReducer from './views/lookup'
 
 function updateState(oldState: any, newState: any){
     return Object.assign({}, oldState, newState)
 }
 
 function reducer(state: any = {}, action: any){
-    const objectName = action.objectName;
+    const objectName = action.object ? action.object.name : '';
     switch (action.type) {
         case DXGRID_STATE_CHANGE_ACTION:
             return updateState(state, {[objectName]: DXGridReducer(state[objectName], action)})

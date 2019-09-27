@@ -21,21 +21,12 @@ function App() {
   let selectionLabel = (item)=>{
     return `${item.name}(${item.email})`
   }
-
-  let userListColumns = [
-    { name: 'name', title: '姓名' },
-    // { name: 'username', title: 'username' },
-    // { name: 'email', title: 'email' },
-    // { name: 'mobile', title: 'mobile' }
-  ]
-
-  let $select = ['email']
   
   return (
     <div className="App">
       <Provider store={appStore}>
         {/* <DXGrid objectName='instances' columns={columns} getRowId={getRowId}/> */}
-        <SelectUsers getRowId={getRowId} searchMode="omitFilters" rootNodes2={rootNodes} multiple={true} valueField2="user" $select2={$select} selectionLabel2={selectionLabel} userListColumns={userListColumns}/>
+        <SelectUsers getRowId={getRowId} searchMode="omitFilters" rootNodes2={rootNodes} multiple={true} valueField2="user" selectionLabel2={selectionLabel} />
         {/* <Grid objectName='space_users' columns={columns} pageSize={100}></Grid> */}
       </Provider>
     </div>
