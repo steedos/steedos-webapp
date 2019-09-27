@@ -5,6 +5,7 @@ import Lookup from '../lookup'
 import { createAction } from '../../actions/views/grid'
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
+import moment from 'moment'
 
 let Counter = styled.div`
 	height: 100%;
@@ -13,6 +14,10 @@ let Counter = styled.div`
 const CustomDataTableCell = ({ children, ...props }) => {
 	let { field } = props
 	let { cellOnClick } = field
+
+	if(field.type === 'datetime' && children){
+		children = moment(children).format('YYYY-MM-DD H:mm')
+	}
 
 	if(_.isFunction(cellOnClick) ){
 		return (
@@ -52,7 +57,7 @@ class Grid extends React.Component {
 		searchMode: PropTypes.string,
 		pageSize: PropTypes.number,
 		selectionLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-		selectRows: PropTypes.oneOf(['radio', 'checkbox'])
+		selectRows: PropTypes.oneOf(['radio', 'checkbox', false])
     }
 
 
