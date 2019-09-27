@@ -15,8 +15,30 @@ const CustomDataTableCell = ({ children, ...props }) => {
 	let { field } = props
 	let { cellOnClick } = field
 
-	if(field.type === 'datetime' && children){
-		children = moment(children).format('YYYY-MM-DD H:mm')
+
+	if(children || _.isBoolean(children)){
+		switch (field.type) {
+			case 'datetime':
+				if(_.isString(children) && /\d+Z$/.test(children)){
+					children = moment(children).format('YYYY-MM-DD H:mm')
+				}else{
+					let utcOffset = moment().utcOffset() / 60
+					children = moment(children).add(utcOffset, "hours").format('YYYY-MM-DD H:mm')
+				}
+				break;
+			case 'date':
+				if(_.isString(children) && /\d+Z$/.test(children)){
+					children = moment.utc(children).format('YYYY-MM-DD')
+				}else{
+					children = moment(children).format('YYYY-MM-DD')
+				}
+				break;
+			case 'boolean':
+				children = children ? '是' : '否'
+				break;
+			default:
+				break;
+		}
 	}
 
 	if(_.isFunction(cellOnClick) ){
