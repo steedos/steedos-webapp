@@ -1,6 +1,6 @@
 import * as React from 'react';
 import SteedosTree from '../../components/tree'
-import { loadEntitiesData } from '../../actions/views/tree'
+import { loadEntitiesData } from '../../actions/views/organizations'
 import PropTypes from 'prop-types';
 import _ from 'underscore'
 

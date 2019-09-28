@@ -48,11 +48,7 @@ function reducer(state: any = {}, action: any) {
                 }
                 break;
             case 'loadDataSauce':
-                if(_.isEmpty(state.rootNodes)){
-                    return Object.assign({}, state, { rootNodes: getRootNodes(action.partialStateValue.records)});
-                }else{
-                    return Object.assign({}, state, { nodes: transformData(action.partialStateValue.records), totalCount: action.partialStateValue.totalCount });
-                }
+                return Object.assign({}, state, { nodes: transformData(action.partialStateValue.records), totalCount: action.partialStateValue.totalCount });
             default:
                 break;
         }
