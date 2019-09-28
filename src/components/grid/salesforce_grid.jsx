@@ -13,9 +13,11 @@ let Counter = styled.div`
 
 const CustomDataTableCell = ({ children, ...props }) => {
 	let { field } = props
-	let { cellOnClick } = field
+	let { cellOnClick, cellFormat } = field
 
-	if(children || _.isBoolean(children)){
+	if(_.isFunction(cellFormat)){
+		children = cellFormat(children)
+	}if(children || _.isBoolean(children)){
 		switch (field.type) {
 			case 'datetime':
 				if(_.isString(children) && /\d+Z$/.test(children)){
