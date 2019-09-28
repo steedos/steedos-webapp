@@ -22,11 +22,6 @@ function transformData(records: any) {
     return items;
 }
 
-function getRootNodes(records: any){
-    return _.pluck(records, '_id')
-}
-
-
 //TODO: 优化expandClick，click
 function reducer(state: any = {}, action: any) {
     if (action.type === TREE_STATE_CHANGE_ACTION) {
