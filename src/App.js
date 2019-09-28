@@ -39,6 +39,11 @@ function App() {
       code: {
         label: '公司名称'
       },
+      modified_by: {
+        label: '修改人',
+        type: 'lookup',
+        reference_to: 'users',
+      },
       modified: {
         label: '修改时间',
         type: 'datetime'
@@ -51,8 +56,8 @@ function App() {
     < div className="App">
       <IconSettings iconPath={iconPath} >
         <Provider store={store}>
-          <SelectUsers getRowId={getRowId} searchMode="omitFilters" rootNodes2={rootNodes} multiple={true} valueField2="user" selectionLabel2={selectionLabel} />
-          {/* <Grid object={company} ></Grid> */}
+          {/* <SelectUsers getRowId={getRowId} searchMode="omitFilters" rootNodes2={rootNodes} multiple={true} valueField2="user" selectionLabel2={selectionLabel} /> */}
+          <Grid object={company} ></Grid>
         </Provider>
       </IconSettings>
     </div>
