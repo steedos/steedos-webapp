@@ -15,7 +15,6 @@ const CustomDataTableCell = ({ children, ...props }) => {
 	let { field } = props
 	let { cellOnClick } = field
 
-
 	if(children || _.isBoolean(children)){
 		switch (field.type) {
 			case 'datetime':
@@ -35,6 +34,12 @@ const CustomDataTableCell = ({ children, ...props }) => {
 				break;
 			case 'boolean':
 				children = children ? '是' : '否'
+				break;
+			case 'lookup':
+				children = children._NAME_FIELD_VALUE
+				break;
+			case 'master_detail':
+				children = children._NAME_FIELD_VALUE
 				break;
 			default:
 				break;

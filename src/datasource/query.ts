@@ -6,11 +6,21 @@ function getSelect(object){
     return _.keys(object.fields)
 }
 
+function getExpand(object) {
+    return _.compact(_.map(object.fields, (field: any, key: string) => {
+        if (field.type === 'lookup' || field.type === 'master_detail') {
+            return key
+        }
+        return ''
+    }))
+}
+
 export async function query(service: string, options: any = { pageSize: 10, currentPage: 0 }) {
     let { currentPage, pageSize, searchMode, object } = options
 
     let objectName = object.name;
     let $select = getSelect(object);
+    let $expand = getExpand(object);
     let skip = currentPage * pageSize
 
     let spaceId = utils.getCookie("X-Space-Id");
@@ -36,6 +46,10 @@ export async function query(service: string, options: any = { pageSize: 10, curr
     if ($select) {
         query = query.select(...$select)
     }
+
+    _.each(($expand as any), (e:string)=>{
+        query = query.expand(e);
+    })
 
     if (typeof options.$filter === "function") {
         query = query.filter(options.$filter);
