@@ -79,7 +79,7 @@ class SelectUsers extends React.Component {
                 dispatch(createAction("filters", [{ columnName: "organizations", value: data.node.id, operation: "equals" }], userObject))
                 dispatch({
                     type: 'TREE_STATE_CHANGE',
-                    partialStateName: 'onClick',
+                    partialStateName: 'click',
                     partialStateValue: data,
                     object: orgObject
                 })
@@ -94,7 +94,7 @@ class SelectUsers extends React.Component {
 
         return (
             <Counter className="select-users">
-                <OrgsCounter className="organizations"><OrganizationsTree rootNodes={rootNodes} onClickFunc={onClick}/></OrgsCounter>
+                <OrgsCounter className="organizations"><OrganizationsTree rootNodes={rootNodes} onClick={onClick}/></OrgsCounter>
                 <UsersCounter className="users"><Grid object={userObject} searchMode={searchMode} pageSize={200} selectionLabel={selectionLabel} selectRows={selectRows}/></UsersCounter>
             </Counter>
         )

@@ -27,16 +27,16 @@ function getRootNodes(records: any){
 }
 
 
-//TODO: 优化onExpandClick，onClick
+//TODO: 优化expandClick，click
 function reducer(state: any = {}, action: any) {
     if (action.type === TREE_STATE_CHANGE_ACTION) {
         let value = action.partialStateValue
         let nodeId: string = value.node ? value.node.id : ""
         switch (action.partialStateName) {
-            case 'onExpandClick':
+            case 'expandClick':
                 state.nodes[value.node.id]["expanded"] = value.expand
                 break;
-            case 'onClick':
+            case 'click':
                 let selectedNodeIds = state.selectedNode || []
                 if (selectedNodeIds.length > 0) {
                     (state.nodes[selectedNodeIds[0]] as any).selected = false

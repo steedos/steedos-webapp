@@ -7,14 +7,14 @@ import SteedosTree from './salesforce_tree';
 function mapStateToProps() {
   return (state: any, ownProps: any) => {
     let entityState = getEntityState(state, ownProps.object.name) || {}
-    return Object.assign(entityState, { ...ownProps });
+    return entityState;
   };
 }
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return ({
-    onExpandClick: (event: any, data: any) => dispatch(createAction('onExpandClick', data, ownProps.object)),
-    onClick: (event: any, data: any) => dispatch(ownProps.onClickFunc(event, data)),
+    onExpandClick: (event: any, data: any) => dispatch(createAction('expandClick', data, ownProps.object)),
+    onClick: (event: any, data: any) => dispatch(ownProps.onClick(event, data)),
     init: (options: any) => dispatch(loadEntitiesData(options))
   });
 }

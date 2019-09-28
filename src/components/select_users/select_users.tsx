@@ -51,7 +51,7 @@ class SelectUsers extends React.Component {
         let { rootNodes } = this.props as any
         return (
             <div className="select-users">
-                <div className="left"><OrganizationsTree rootNodes={rootNodes} onClickFunc={onClick}/></div>
+                <div className="left"><OrganizationsTree rootNodes={rootNodes} onClick={onClick}/></div>
                 <div className="right"><DXGrid object={userObject} columns={userListColumns} getRowId={getRowId} /></div>
             </div>
         )

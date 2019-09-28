@@ -37,12 +37,12 @@ class OrganizationsTree extends React.Component {
         rootNodes: PropTypes.array.isRequired,
         multiple: PropTypes.bool,
         valueField: PropTypes.string, //指定控件返回的值来自记录的那个属性，比如：user 字段，或者 email字段
-        onClickFunc: PropTypes.func
+        onClick: PropTypes.func
     }
 
     render() {
         //Tree props
-        let { rootNodes, onClickFunc, object } = this.props as any
+        let { rootNodes, onClick, object } = this.props as any
         let getNodes = (node: any)=>{
             if(!node.nodes){
                 return []
@@ -57,7 +57,7 @@ class OrganizationsTree extends React.Component {
             return nodes
         }
         return (
-            <SteedosTree object={object} rootNodes={rootNodes} getNodes={getNodes} onClickFunc={onClickFunc}/>
+            <SteedosTree object={object} rootNodes={rootNodes} getNodes={getNodes} onClick={onClick}/>
         )
     }
 }

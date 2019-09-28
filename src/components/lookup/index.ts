@@ -6,7 +6,7 @@ import { getEntityState } from '../../states/entitys'
 function mapStateToProps() {
     return (state: any, ownProps: any) => {
       let entityState = getEntityState(state, ownProps.object.name) || {}
-      return Object.assign(entityState, { ...ownProps });
+      return entityState;
     };
   }
   
