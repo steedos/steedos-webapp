@@ -31,6 +31,9 @@
     "typescript": "^3.6.2",
     "underscore": "^1.9.1"
   },
+  "devDependencies": {
+    "redux-devtools-extension": "^2.13.8"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

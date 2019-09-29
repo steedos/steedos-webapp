@@ -1,19 +1,33 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import rootReducer from '../reducers'
-
+import { composeWithDevTools } from 'redux-devtools-extension';
+const composeEnhancers = composeWithDevTools({ realtime: true});
 const initialStore = {
     settings: {
         services: {
             steedos: process.env.REACT_APP_API_BASE_URL
         }
-    }
+    },
+    // views: {
+    //     grid: {
+    //         [gid]: {
+
+    //         },
+    //         [gid]: {
+
+    //         }
+    //     },
+    //     tree: {
+
+    //     },
+    // }
 }
 
 const store = createStore(
         rootReducer,
         Object.assign({}, initialStore),
-        applyMiddleware(thunkMiddleware)
+        composeEnhancers(applyMiddleware(thunkMiddleware)),
     );
 
 export function bindActionToRedux(action, ...args) {
