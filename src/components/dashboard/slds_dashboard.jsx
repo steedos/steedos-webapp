@@ -2,7 +2,7 @@ import * as React from 'react';
 import Grid from '../grid'
 import OrganizationsTree from '../organizations'
 import PropTypes from 'prop-types';
-import { createAction } from '../../actions/views/grid';
+import { createAction as createActionGrid } from '../../actions/views/grid';
 import styled from 'styled-components'
 import _ from 'underscore'
 import { Card, CardEmpty, CardFilter, Icon, DataTable, DataTableColumn, 
@@ -70,22 +70,37 @@ class Dashboard extends React.Component {
     constructor(props) {
         super(props)
         // props.dispatch(loadEntitiesData({ objectName: 'organizations', filters: [{ columnName: 'parent', operation: 'equals', value: null }] }))
-        props.dispatch(createAction("$filter", (p) => {
-            return p.equals("space", spaceId).and(p.equals("inbox_users", userId).or(p.equals("cc_users", userId)));
-        }, "instances"))
+        // props.dispatch(createActionGrid("$filter", (p) => {
+        //     return p.equals("space", spaceId).and(p.equals("inbox_users", userId).or(p.equals("cc_users", userId)));
+        // }, "instances"))
     };
 
     static defaultProps = {
         selectionLabel: 'name',
         cellListColumns: [
-            { field: 'name', label: '名称', onClick: function(event, data){console.log('instance.name click, data is', data);} },
+            { field: 'name', label: '名称', onClick: function (event, data) { console.log('instance.name click, data is', data); } },
             { field: 'modified', label: '修改时间', type: 'datetime' }
         ],
         $select: ['name'],
+        $filter: (p) => {
+            return p.equals("space", spaceId).and(p.equals("inbox_users", userId).or(p.equals("cc_users", userId)));
+        }
     };
 
     static propTypes = {
     };
+
+    componentDidMount() {
+        const { init } = this.props;
+        if (init) {
+            init(this.props)
+        }
+    }
+
+    // componentDidMount() {
+    //     const { init } = this.props as any
+    //     init(this.props)
+    // }
 
     static displayName = 'CardExample';
 
@@ -103,8 +118,26 @@ class Dashboard extends React.Component {
 
     render() {
         const isEmpty = this.state.items.length === 0;
-        let { selectionLabel, cellListColumns, $select } = this.props as any
-        
+        let { selectionLabel, cellListColumns, $filter, bootstrap } = this.props;
+        let apps = bootstrap.apps;
+        let appCells;
+        if(apps){
+            appCells = _.map(apps, (app, key) => {
+                if (app.name) {
+                    return (
+                        <AppLauncherTile
+                            key={key}
+                            description={app.description}
+                            iconText="APP"
+                            title={app.name}
+                        />
+                    )
+                }
+            })
+        }
+        else{
+
+        }
         return (
             <Container className="slds-dashboard">
                 <Column className="slds-dashboard-column">
@@ -117,9 +150,10 @@ class Dashboard extends React.Component {
                             >
                                 <Grid searchMode="omitFilters"
                                     pageSize={200} 
-                                    objectName= "instances"
+                                    objectName="instances"
                                     columns={cellListColumns}
-                                    selectionLabel={selectionLabel} 
+                                    selectionLabel={selectionLabel}
+                                    $filter={$filter}
                                 />
                             </Card>
                         </div>
@@ -149,42 +183,8 @@ class Dashboard extends React.Component {
                                 icon={<Icon category="standard" name="document" size="small" />}
                             >
                                 <AppLauncherDesktopInternal className="slds-app-launcher__content">
-                                    <AppLauncherExpandableSection title="Tile Section">
-                                        <AppLauncherTile
-                                            description="The primary internal Salesforce org. Used to run our online sales business and manage accounts."
-                                            iconText="SC"
-                                            title="Sales Cloud"
-                                        />
-                                        <AppLauncherTile
-                                            description="Salesforce Marketing Cloud lets businesses of any size engage with their customers through multiple channels of messaging."
-                                            iconBackgroundColor="#e0cf76"
-                                            iconText="MC"
-                                            title="Marketing Cloud"
-                                        />
-                                        <AppLauncherTile
-                                            description="Community for managing employee benefits and time off."
-                                            iconBackgroundColor="#6a8adc"
-                                            iconText="HR"
-                                            title="HR Concierge"
-                                        />
-                                        <AppLauncherTile
-                                            description="Manage your finances across multiple financial platforms and make the most of your capital."
-                                            iconBackgroundColor="#73c07b"
-                                            iconText="MM"
-                                            title="My Money"
-                                        />
-                                        <AppLauncherTile
-                                            description="The key to call center and contact center management is more simple than you think with this amazing application!"
-                                            iconBackgroundColor="#b67e6a"
-                                            iconText="CC"
-                                            title="Call Center"
-                                        />
-                                        <AppLauncherTile
-                                            description="Areas of Focus are used to track customer support for your brand and ensure high quality support"
-                                            iconBackgroundColor="#69bad0"
-                                            iconText="CS"
-                                            title="Customer Support Community"
-                                        />
+                                    <AppLauncherExpandableSection title="所有应用程序">
+                                        {appCells}
                                     </AppLauncherExpandableSection>
                                 </AppLauncherDesktopInternal>
                             </Card>
