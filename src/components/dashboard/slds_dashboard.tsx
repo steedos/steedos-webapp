@@ -72,14 +72,14 @@ class Dashboard extends React.Component {
         // props.dispatch(loadEntitiesData({ objectName: 'organizations', filters: [{ columnName: 'parent', operation: 'equals', value: null }] }))
         props.dispatch(createAction("$filter", (p) => {
             return p.equals("space", spaceId).and(p.equals("inbox_users", userId).or(p.equals("cc_users", userId)));
-        }, instance))
+        }, "instances"))
     };
 
     static defaultProps = {
         selectionLabel: 'name',
         cellListColumns: [
-            { name: 'name', title: '名称' },
-            { name: 'modified', title: '修改时间' }
+            { field: 'name', label: '名称', onClick: function(event, data){console.log('instance.name click, data is', data);} },
+            { field: 'modified', label: '修改时间', type: 'datetime' }
         ],
         $select: ['name'],
     };
@@ -117,7 +117,8 @@ class Dashboard extends React.Component {
                             >
                                 <Grid searchMode="omitFilters"
                                     pageSize={200} 
-                                    object= {instance}
+                                    objectName= "instances"
+                                    columns={cellListColumns}
                                     selectionLabel={selectionLabel} 
                                 />
                             </Card>

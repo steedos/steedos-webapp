@@ -5,7 +5,7 @@ import { getEntityState } from '../../states/entitys'
 
 function mapStateToProps() {
     return (state: any, ownProps: any) => {
-        let objectName = ownProps.object.name
+        let objectName = ownProps.objectName
         let entityState = getEntityState(state, objectName) || {}
         return Object.assign(entityState, {...entityState, ...ownProps});
     };
@@ -13,7 +13,7 @@ function mapStateToProps() {
   
   const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     return ({
-      handleChanged: (event: any, data: any)=> dispatch(createAction('selection', data.selection, ownProps.object)),
+      handleChanged: (event: any, data: any)=> dispatch(createAction('selection', data.selection, ownProps.objectName)),
       init: (options: any) => dispatch(loadEntitiesData(options))
     });
   }

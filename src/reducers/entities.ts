@@ -13,7 +13,7 @@ function updateState(oldState: any, newState: any){
 }
 
 function reducer(state: any = {}, action: any){
-    const objectName = action.object ? action.object.name : '';
+    const objectName = action.objectName
     switch (action.type) {
         case DXGRID_STATE_CHANGE_ACTION:
             return updateState(state, {[objectName]: DXGridReducer(state[objectName], action)})

@@ -2,25 +2,24 @@ import * as Odata from 'ts-odata-client'
 import utils from '../utils'
 import _ from 'underscore'
 
-function getSelect(object){
-    return _.keys(object.fields)
+function getSelect(columns){
+    return _.pluck(columns, 'field')
 }
 
-function getExpand(object) {
-    return _.compact(_.map(object.fields, (field: any, key: string) => {
-        if (field.type === 'lookup' || field.type === 'master_detail') {
-            return key
+function getExpand(columns) {
+    return _.pluck(_.filter(columns, (column: any)=>{
+        if(column.type === 'lookup' || column.type === 'master_detail'){
+            return true
         }
-        return ''
-    }))
+        return false
+    }), 'field')
 }
 
 export async function query(service: string, options: any = { pageSize: 10, currentPage: 0 }) {
-    let { currentPage, pageSize, searchMode, object } = options
+    let { currentPage, pageSize, searchMode, objectName, columns } = options
 
-    let objectName = object.name;
-    let $select = getSelect(object);
-    let $expand = getExpand(object);
+    let $select = getSelect(columns);
+    let $expand = getExpand(columns);
     let skip = currentPage * pageSize
 
     let spaceId = utils.getCookie("X-Space-Id");

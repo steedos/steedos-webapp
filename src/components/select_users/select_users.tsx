@@ -38,7 +38,7 @@ class SelectUsers extends React.Component {
 
         let onClick = function(event: any, data: any){
             return function(dispatch: any, getState: any){
-                dispatch(createAction("filters", [{ columnName: "organizations", value: data.node.id, operation: "equals" }], userObject))
+                dispatch(createAction("filters", [{ columnName: "organizations", value: data.node.id, operation: "equals" }], 'space_users'))
                 dispatch({
                     type: 'TREE_STATE_CHANGE',
                     partialStateName: 'onClick',
@@ -52,7 +52,7 @@ class SelectUsers extends React.Component {
         return (
             <div className="select-users">
                 <div className="left"><OrganizationsTree rootNodes={rootNodes} onClick={onClick}/></div>
-                <div className="right"><DXGrid object={userObject} columns={userListColumns} getRowId={getRowId} /></div>
+                <div className="right"><DXGrid objectName='space_users' columns={userListColumns} getRowId={getRowId} /></div>
             </div>
         )
     }

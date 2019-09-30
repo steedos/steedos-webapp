@@ -26,11 +26,12 @@ class SFTree extends React.Component {
 	};
 
 	static propTypes = {
-		object: PropTypes.object.isRequired,
+		objectName: PropTypes.string.isRequired,
 		rootNodes: PropTypes.array.isRequired,
 		getNodes: PropTypes.func.isRequired,
 		id: PropTypes.string,
-		onClick: PropTypes.func.isRequired
+		onClick: PropTypes.func.isRequired,
+		init: PropTypes.func
     }
 
 	componentDidMount() {

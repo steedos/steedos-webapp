@@ -1,6 +1,7 @@
 import * as React from 'react';
 import SteedosTree from '../../components/tree'
 import { loadEntitiesData } from '../../actions/views/organizations'
+import { loadEntitiesData as loadTreeData } from '../../actions/views/tree'
 import PropTypes from 'prop-types';
 import _ from 'underscore'
 
@@ -8,6 +9,7 @@ class OrganizationsTree extends React.Component {
     static defaultProps = {
         valueField: '_id',
         width: '300px',
+        objectName: 'organizations',
         object: {
             name: 'organizations',
             label: '组织机构',
@@ -28,7 +30,7 @@ class OrganizationsTree extends React.Component {
     constructor(props) {
         super(props)
         if(_.isEmpty(props.rootNodes)){
-            props.dispatch(loadEntitiesData({object: props.object, filters: [{columnName: 'parent', operation: 'equals', value: null}]}))
+            props.dispatch(loadEntitiesData({objectName: props.objectName, filters: [{columnName: 'parent', operation: 'equals', value: null}]}))
         }
 		
     }
@@ -42,7 +44,7 @@ class OrganizationsTree extends React.Component {
 
     render() {
         //Tree props
-        let { rootNodes, onClick, object } = this.props as any
+        let { rootNodes, onClick, objectName } = this.props as any
         let getNodes = (node: any)=>{
             if(!node.nodes){
                 return []
@@ -56,8 +58,15 @@ class OrganizationsTree extends React.Component {
             });
             return nodes
         }
+
+        let init = (options: any)=>{
+            const newOptions = Object.assign({}, options)
+            newOptions.columns = [{field: 'name'},{field: 'fullname'},{field: 'children'}]
+            return loadTreeData(newOptions)
+        }
+
         return (
-            <SteedosTree object={object} rootNodes={rootNodes} getNodes={getNodes} onClick={onClick}/>
+            <SteedosTree objectName={objectName} rootNodes={rootNodes} getNodes={getNodes} onClick={onClick} init={init}/>
         )
     }
 }

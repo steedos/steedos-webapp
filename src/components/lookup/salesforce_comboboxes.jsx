@@ -38,7 +38,7 @@ class lookup extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			inputValue: '',
+			inputValue: props.search,
 			selection: [
 			],
 		};
@@ -46,7 +46,7 @@ class lookup extends React.Component {
 
 	render() {
 
-		let { selection, onSearch, onRequestRemoveSelectedOption, selectionLabel, search, onChange, object } = this.props
+		let { selection, onSearch, onRequestRemoveSelectedOption, selectionLabel, search, onChange, objectName } = this.props
 		if(selection){
 			selection.map((item)=>{
 				if(selectionLabel){
@@ -99,7 +99,7 @@ class lookup extends React.Component {
 						},
 					}}
 					labels={{
-						placeholder: `搜索 ${object.label}`,
+						placeholder: `搜索`, //${object.label}
 					}}
 					multiple
 					options={comboboxFilterAndLimit({
@@ -109,7 +109,7 @@ class lookup extends React.Component {
 						selection: this.state.selection,
 					})}
 					selection={selection || this.state.selection}
-					value={search || this.state.inputValue}
+					value={this.state.inputValue}
 				/>
 		);
 	}

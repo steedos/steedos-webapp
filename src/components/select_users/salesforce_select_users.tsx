@@ -46,14 +46,28 @@ let userObject = {
     }
 }
 
-let orgObject = {
-    name: 'organizations',
-    label: '组织机构'
-}
+let gridObjectName = "space_users";
+let gridColumns = [
+    {
+        field: 'name',
+        label: '姓名'
+    },
+    {
+        field: 'email',
+        label: '邮箱'
+    },
+    {
+        field: 'mobile',
+        label: '手机号'
+    },
+    {
+        field: 'user',
+        label: 'userId',
+        hidden: true
+    }
+]
 
 class SelectUsers extends React.Component {
-
-  
 
     static defaultProps = {
         valueField: '_id',
@@ -69,19 +83,17 @@ class SelectUsers extends React.Component {
         searchMode: PropTypes.oneOf(['omitFilters'])
     }
 
-    
-
     render() {
         // let getRowId = (row: any) => row[(this.props as any).valueField]
 
         let onClick = function(event: any, data: any){
             return function(dispatch: any, getState: any){
-                dispatch(createAction("filters", [{ columnName: "organizations", value: data.node.id, operation: "equals" }], userObject))
+                dispatch(createAction("filters", [{ columnName: "organizations", value: data.node.id, operation: "equals" }], gridObjectName))
                 dispatch({
                     type: 'TREE_STATE_CHANGE',
                     partialStateName: 'click',
                     partialStateValue: data,
-                    object: orgObject
+                    objectName: 'organizations'
                 })
             }
         }
@@ -95,7 +107,7 @@ class SelectUsers extends React.Component {
         return (
             <Counter className="select-users">
                 <OrgsCounter className="organizations"><OrganizationsTree rootNodes={rootNodes} onClick={onClick}/></OrgsCounter>
-                <UsersCounter className="users"><Grid object={userObject} searchMode={searchMode} pageSize={200} selectionLabel={selectionLabel} selectRows={selectRows}/></UsersCounter>
+                <UsersCounter className="users"><Grid objectName={gridObjectName} enableSearch={true} columns={gridColumns} searchMode={searchMode} pageSize={200} selectionLabel={selectionLabel} selectRows={selectRows}/></UsersCounter>
             </Counter>
         )
     }

@@ -13,10 +13,10 @@ let Counter = styled.div`
 
 const CustomDataTableCell = ({ children, ...props }) => {
 	let { field } = props
-	let { cellOnClick, cellFormat } = field
+	let { onClick, format } = field
 
-	if(_.isFunction(cellFormat)){
-		children = cellFormat(children)
+	if(_.isFunction(format)){
+		children = format(children)
 	}if(children || _.isBoolean(children)){
 		switch (field.type) {
 			case 'datetime':
@@ -47,14 +47,13 @@ const CustomDataTableCell = ({ children, ...props }) => {
 				break;
 		}
 	}
-
-	if(_.isFunction(cellOnClick) ){
+	if(_.isFunction(onClick) ){
 		return (
 			<DataTableCell title={children} {...props}>
 				<a
 					onClick={(event) => {
 						event.preventDefault();
-						cellOnClick(event, props.item)
+						onClick(event, props.item)
 					}}
 				>
 					{children}
@@ -72,20 +71,40 @@ const CustomDataTableCell = ({ children, ...props }) => {
 CustomDataTableCell.displayName = DataTableCell.displayName;
 
 class Grid extends React.Component {
-	static displayName = 'SteedosDataTableExample';
+	static displayName = 'SteedosDataTable';
 	static defaultProps = {
 		rows: [],
 		selection: [],
 		selectRows: false,
-		object: {}
+		type: 'text'
 	};
 
+	// static propTypes = {
+	// 	object: PropTypes.object.isRequired,
+	// 	searchMode: PropTypes.oneOf(['omitFilters']),
+	// 	pageSize: PropTypes.number,
+	// 	selectionLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+	// 	selectRows: PropTypes.oneOf(['radio', 'checkbox', false])
+	// }
+	
+
 	static propTypes = {
-		object: PropTypes.object.isRequired,
-		searchMode: PropTypes.string,
+		objectName: PropTypes.string.isRequired,
+		columns: PropTypes.arrayOf(PropTypes.shape({
+			field: PropTypes.string.isRequired,
+			label: PropTypes.string.isRequired,
+			// width: PropTypes.number,
+			// wrap: PropTypes.bool,
+			hidden: PropTypes.bool,
+			onClick: PropTypes.func,
+			renderCell: PropTypes.func
+		})).isRequired,
+		enableSearch: PropTypes.bool,
 		pageSize: PropTypes.number,
+		searchMode: PropTypes.oneOf(['omitFilters']),
 		selectionLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-		selectRows: PropTypes.oneOf(['radio', 'checkbox', false])
+		selectRows: PropTypes.oneOf(['radio', 'checkbox', false]),
+		type: PropTypes.oneOf(['date', 'datetime', 'boolean', 'lookup', 'master_detail', 'text'])
     }
 
 
@@ -105,13 +124,13 @@ class Grid extends React.Component {
 	};
 
 	isEnableSearch = ()=>{
-		let { object } = this.props
-		return object.enable_search || false
+		let { enableSearch } = this.props
+		return enableSearch || false
 	}
 
 	getObjectName = ()=>{
-		let { object } = this.props
-		return object.name
+		let { objectName } = this.props
+		return objectName
 	}
 
 	handleChanged = (event, data) => {
@@ -161,31 +180,31 @@ class Grid extends React.Component {
 
 	render() {
 
-		const { rows, handleChanged, selection, selectionLabel, selectRows, object, search } = this.props
+		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns } = this.props
 
-		const DataTableColumns = _.map(object.fields, (field, key)=>{
-			if(!field.hidden){
+		const DataTableColumns = _.map(columns, (column)=>{
+			if(!column.hidden){
 				return (
-					<DataTableColumn label={field.label} property={key} key={key} >
-						<CustomDataTableCell field={field}/>
+					<DataTableColumn label={column.label} property={column.field} key={column.field} >
+						<CustomDataTableCell field={column}/>
 					</DataTableColumn>
 				)
 			}
 		})
 
 		const onRequestRemoveSelectedOption = function (event, data) {
-			return createAction('requestRemoveSelectedOption', data.selection, object)
+			return createAction('requestRemoveSelectedOption', data.selection, objectName)
 		}
 
 		const onSearch = function (event, data) {
-			return createAction('search', data.value, object)
+			return createAction('search', data.value, objectName)
 		}
 
 		const DataTableSearch = ()=>{
 			if(this.isEnableSearch()){
 				return (
 					<div className="slds-p-vertical_x-small slds-p-horizontal_large slds-shrink-none slds-theme_shade">
-						<Lookup object={object} search={search} selectionLabel={selectionLabel} onRequestRemoveSelectedOption={onRequestRemoveSelectedOption} onSearch={onSearch}></Lookup>
+						<Lookup objectName={objectName} search={search} selectionLabel={selectionLabel} onRequestRemoveSelectedOption={onRequestRemoveSelectedOption} onSearch={onSearch}></Lookup>
 					</div>
 				)
 			}else{
