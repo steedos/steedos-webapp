@@ -79,7 +79,7 @@ function App() {
     < div className="App">
       <IconSettings iconPath={iconPath} >
         <Provider store={store}>
-          <SelectUsers getRowId={getRowId} searchMode="omitFilters" rootNodes={rootNodes} multiple={true} valueField2="user" selectionLabel2={selectionLabel} />
+          <SelectUsers getRowId={getRowId} searchMode="omitFilters" rootNodes2={rootNodes} multiple={true} valueField2="user" selectionLabel2={selectionLabel} />
           {/* <Grid objectName={gridObjectName} columns={gridColumns}></Grid> */}
         </Provider>
       </IconSettings>

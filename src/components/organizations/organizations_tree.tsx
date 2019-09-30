@@ -10,27 +10,13 @@ class OrganizationsTree extends React.Component {
         valueField: '_id',
         width: '300px',
         objectName: 'organizations',
-        object: {
-            name: 'organizations',
-            label: '组织机构',
-            fields: {
-                name: {
-                    label: '部门名称'
-                },
-                fullname: {
-                    label: '部门全称'
-                },
-                children: {
-                    label: '子部门'
-                }
-            }
-        }
+        columns: [{field: 'name'},{field: 'fullname'},{field: 'children'}]
     }
 
     constructor(props) {
         super(props)
         if(_.isEmpty(props.rootNodes)){
-            props.dispatch(loadEntitiesData({objectName: props.objectName, filters: [{columnName: 'parent', operation: 'equals', value: null}]}))
+            props.dispatch(loadEntitiesData({objectName: props.objectName, filters: [{columnName: 'parent', operation: 'equals', value: null}], columns: props.columns}))
         }
 		
     }
@@ -44,7 +30,7 @@ class OrganizationsTree extends React.Component {
 
     render() {
         //Tree props
-        let { rootNodes, onClick, objectName } = this.props as any
+        let { rootNodes, onClick, objectName, columns } = this.props as any
         let getNodes = (node: any)=>{
             if(!node.nodes){
                 return []
@@ -61,7 +47,7 @@ class OrganizationsTree extends React.Component {
 
         let init = (options: any)=>{
             const newOptions = Object.assign({}, options)
-            newOptions.columns = [{field: 'name'},{field: 'fullname'},{field: 'children'}]
+            newOptions.columns = columns
             return loadTreeData(newOptions)
         }
 
