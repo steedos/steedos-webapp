@@ -38,7 +38,7 @@ class lookup extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			inputValue: props.search,
+			inputValue: props.search || '',
 			selection: [
 			],
 		};
