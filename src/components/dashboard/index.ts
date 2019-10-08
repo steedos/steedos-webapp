@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Dashboard from './slds_dashboard'
 // import { createAction, loadEntitiesData } from '../../actions/bootstrap'
-import { createAction as createActionBootstrap, loadEntitiesData } from '../../actions/views/dashboard'
+import { createAction } from '../../actions/views/dashboard'
 import { getEntityState } from '../../states/entitys'
 import { createAction as createActionGrid } from '../../actions/views/grid';
 
@@ -27,17 +27,17 @@ const instance = {
 
 function mapStateToProps() {
     return (state: any, ownProps: any) => {
-        let objectName = "bootstrap"
-        let entityState = getEntityState(state, objectName) || {}
-        return Object.assign({ bootstrap: entityState }, { ...ownProps });
+        let isBootstrapLoaded = getEntityState(state, "isBootstrapLoaded");
+        let apps = getEntityState(state, "apps") || {}
+        return Object.assign({ isBootstrapLoaded,apps }, { ...ownProps });
     };
 }
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     return ({
-        handleChanged: (event: any, data: any) => dispatch(createActionBootstrap('changeSpace', data.spaceId)),
+        // handleChanged: (event: any, data: any) => dispatch(createActionBootstrap('changeSpace', data.spaceId)),
         init: (options: any) => {
-            dispatch(loadEntitiesData(options))
+            // dispatch(loadEntitiesData(options))
         }
     });
 }

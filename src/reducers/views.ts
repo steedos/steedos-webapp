@@ -3,12 +3,10 @@ import { DXGRID_STATE_CHANGE_ACTION } from '../actions/views/dx_grid'
 import { GRID_STATE_CHANGE_ACTION } from '../actions/views/grid'
 import { TREE_STATE_CHANGE_ACTION } from '../actions/views/tree'
 import { ORGANIZATIONS_STATE_CHANGE_ACTION } from '../actions/views/organizations'
-import { BOOTSTRAP_STATE_CHANGE_ACTION } from '../actions/views/dashboard'
 import TreeReducer from './views/tree'
 import DXGridReducer from './views/dx_grid'
 import GridReducer from './views/grid'
 import OrgReducer from './views/organizations'
-import DashboardReducer from './views/dashboard'
 import { makeNewID } from '../components';
 
 
@@ -33,8 +31,6 @@ function reducer(state: any = {}, action: any){
             return updateState(state, {[id]: TreeReducer(viewState, action)})
         case ORGANIZATIONS_STATE_CHANGE_ACTION:
             return updateState(state, { [id]: OrgReducer(viewState, action) })
-        case BOOTSTRAP_STATE_CHANGE_ACTION:
-            return updateState(state, { [id]: DashboardReducer(viewState, action) })
         default:
             break;
     }
