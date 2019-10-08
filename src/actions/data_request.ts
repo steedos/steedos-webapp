@@ -6,14 +6,14 @@ import utils from '../utils'
 export function loadEntitiesDataRequest(dispatch: any, actionType: string, dataService: string, options: any) {
     if (actionType === BOOTSTRAP_STATE_CHANGE_ACTION) {
         return loadBootstrapData(dataService, options).then(
-            (sauce) => dispatch(loadBootstrapDataSauce(actionType, sauce, options.object)),
-            (error) => dispatch(loadDataError(actionType, error, options.object)),
+            (sauce) => dispatch(loadBootstrapDataSauce(actionType, sauce, options.objectName)),
+            (error) => dispatch(loadDataError(actionType, error, options.objectName)),
         );
     }
     else {
         return loadData(dataService, options).then(
-            (sauce) => dispatch(loadDataSauce(actionType, sauce, options.object)),
-            (error) => dispatch(loadDataError(actionType, error, options.object)),
+            (sauce) => dispatch(loadDataSauce(actionType, sauce, options.objectName)),
+            (error) => dispatch(loadDataError(actionType, error, options.objectName)),
         );
     }
 }
@@ -42,7 +42,7 @@ export async function loadBootstrapData(dataService: string, options: any) {
     return await DataSource.request(url)
 }
 
-function loadBootstrapDataSauce(actionType: string, results: any, object: any) {
+function loadBootstrapDataSauce(actionType: string, results: any, objectName: string) {
     results.current_user = results.USER_CONTEXT;
     delete results.USER_CONTEXT;
     return createAction(actionType, 'loadDataSauce', results, "bootstrap")
