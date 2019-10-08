@@ -1,5 +1,5 @@
 import states from '../../states';
-import { loadEntitiesDataRequest } from '../data_request'
+import { loadEntitiesDataRequest } from '../records_request'
 import { createAction as baseCreateAction } from '../base'
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 

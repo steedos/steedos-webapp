@@ -1,4 +1,4 @@
-import { loadEntitiesDataRequest } from '../data_request'
+import { loadEntitiesDataRequest } from '../records_request'
 import states from '../../states';
 import { createAction as baseCreateAction } from '../base'
 export const ORGANIZATIONS_STATE_CHANGE_ACTION = 'ORGANIZATIONS_STATE_CHANGE';

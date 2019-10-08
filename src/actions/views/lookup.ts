@@ -1,5 +1,5 @@
 import states from '../../states';
-import { loadEntitiesDataRequest } from '../data_request'
+import { loadEntitiesDataRequest } from '../records_request'
 import { createAction as baseCreateAction } from '../base'
 export const LOOKUP_STATE_CHANGE_ACTION = 'LOOKUP_STATE_CHANGE';
 
