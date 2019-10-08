@@ -9,13 +9,14 @@ function getRootNodes(records: any){
 
 function reducer(state: any = {}, action: any) {
     if (action.type === ORGANIZATIONS_STATE_CHANGE_ACTION) {
-        switch (action.partialStateName) {
+        const payload = action.payload
+        switch (payload.partialStateName) {
             case 'loadDataSauce':
-                return Object.assign({}, state, { rootNodes: getRootNodes(action.partialStateValue.records)});
+                return Object.assign({}, state, { rootNodes: getRootNodes(payload.partialStateValue.records)});
             default:
                 break;
         }
-        return Object.assign({}, state, { [action.partialStateName]: action.partialStateValue });
+        return Object.assign({}, state, { [payload.partialStateName]: payload.partialStateValue });
     }
     return state;
 };

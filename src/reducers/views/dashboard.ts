@@ -1,19 +1,20 @@
 // import { GRID_STATE_CHANGE_ACTION } from '../../actions/views/grid'
 import { BOOTSTRAP_STATE_CHANGE_ACTION } from '../../actions/views/dashboard';
 
-function transformEntityState(state: any, action: any){
-    return Object.assign({}, state, { ...action.partialStateValue });
+function transformEntityState(state: any, payload: any){
+    return Object.assign({}, state, { ...payload.partialStateValue });
 }
 
 function reducer(state:any = {}, action: any){
     if (action.type === BOOTSTRAP_STATE_CHANGE_ACTION) {
-        switch (action.partialStateName) {
+        const payload = action.payload
+        switch (payload.partialStateName) {
             case 'loadDataSauce':
-                return transformEntityState(state, action);
+                return transformEntityState(state, payload);
             default:
                 break;
         }
-        return Object.assign({}, state, {[action.partialStateName]: action.partialStateValue});
+        return Object.assign({}, state, {[payload.partialStateName]: payload.partialStateValue});
     }
     return state;
 }

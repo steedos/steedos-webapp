@@ -3,8 +3,8 @@ import states from '../../states';
 import { createAction as baseCreateAction } from '../base'
 export const ORGANIZATIONS_STATE_CHANGE_ACTION = 'ORGANIZATIONS_STATE_CHANGE';
 
-export const createAction = (partialStateName: any, partialStateValue: any, objectName: string) => {
-    return baseCreateAction(ORGANIZATIONS_STATE_CHANGE_ACTION, partialStateName, partialStateValue, objectName);
+export const createAction = (partialStateName: any, partialStateValue: any, options: any) => {
+    return baseCreateAction(ORGANIZATIONS_STATE_CHANGE_ACTION, partialStateName, partialStateValue, options);
 }
 
 

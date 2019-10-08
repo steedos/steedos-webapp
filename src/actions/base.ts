@@ -1,8 +1,10 @@
-export function createAction(actionType: string, partialStateName: any, partialStateValue: any, objectName: string) {
+export function createAction(actionType: string, partialStateName: any, partialStateValue: any, options: any) {
     return {
         type: actionType,
-        partialStateName,
-        partialStateValue,
-        objectName
+        payload: {
+            partialStateName,
+            partialStateValue,
+            ...options
+        }
     }
 }

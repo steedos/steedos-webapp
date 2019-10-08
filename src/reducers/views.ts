@@ -9,24 +9,32 @@ import DXGridReducer from './views/dx_grid'
 import GridReducer from './views/grid'
 import OrgReducer from './views/organizations'
 import DashboardReducer from './views/dashboard'
+import { makeNewID } from '../components';
+
 
 function updateState(oldState: any, newState: any){
     return Object.assign({}, oldState, newState)
 }
 
+function getState(state, id){
+    return state.byId ? state.byId[id] : {id: id}
+}
+
 function reducer(state: any = {}, action: any){
-    const objectName = action.payload ? action.payload.objectName : ''
+    console.log('state', state, action)
+    const id = action.id || makeNewID(action)
+    const viewState = getState(state, id)
     switch (action.type) {
         case DXGRID_STATE_CHANGE_ACTION:
-            return updateState(state, {[objectName]: DXGridReducer(state[objectName], action)})
+            return updateState(state, {[id]: DXGridReducer(viewState, action)})
         case GRID_STATE_CHANGE_ACTION:
-            return updateState(state, {[objectName]: GridReducer(state[objectName], action)})
+            return updateState(state, {[id]: GridReducer(viewState, action)})
         case TREE_STATE_CHANGE_ACTION:
-            return updateState(state, {[objectName]: TreeReducer(state[objectName], action)})
+            return updateState(state, {[id]: TreeReducer(viewState, action)})
         case ORGANIZATIONS_STATE_CHANGE_ACTION:
-            return updateState(state, { [objectName]: OrgReducer(state[objectName], action) })
+            return updateState(state, { [id]: OrgReducer(viewState, action) })
         case BOOTSTRAP_STATE_CHANGE_ACTION:
-            return updateState(state, { [objectName]: DashboardReducer(state[objectName], action) })
+            return updateState(state, { [id]: DashboardReducer(viewState, action) })
         default:
             break;
     }

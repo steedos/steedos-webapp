@@ -13,7 +13,7 @@ function mapStateToProps() {
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return ({
-    onExpandClick: (event: any, data: any) => dispatch(createAction('expandClick', data, ownProps.objectName)),
+    onExpandClick: (event: any, data: any) => dispatch(createAction('expandClick', data, {objectName: ownProps.objectName})),
     onClick: (event: any, data: any) => dispatch(ownProps.onClick(event, data)),
     init: (options: any) => dispatch(ownProps.init(options))
   });

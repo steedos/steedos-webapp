@@ -193,11 +193,11 @@ class Grid extends React.Component {
 		})
 
 		const onRequestRemoveSelectedOption = function (event, data) {
-			return createAction('requestRemoveSelectedOption', data.selection, objectName)
+			return createAction('requestRemoveSelectedOption', data.selection, {objectName})
 		}
 
 		const onSearch = function (event, data) {
-			return createAction('search', data.value, objectName)
+			return createAction('search', data.value, {objectName})
 		}
 
 		const DataTableSearch = ()=>{

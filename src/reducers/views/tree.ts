@@ -25,9 +25,10 @@ function transformData(records: any) {
 //TODO: 优化expandClick，click
 function reducer(state: any = {}, action: any) {
     if (action.type === TREE_STATE_CHANGE_ACTION) {
-        let value = action.partialStateValue
+        const payload = action.payload
+        let value = payload.partialStateValue
         let nodeId: string = value.node ? value.node.id : ""
-        switch (action.partialStateName) {
+        switch (payload.partialStateName) {
             case 'expandClick':
                 state.nodes[value.node.id]["expanded"] = value.expand
                 break;
@@ -43,11 +44,11 @@ function reducer(state: any = {}, action: any) {
                 }
                 break;
             case 'loadDataSauce':
-                return Object.assign({}, state, { nodes: transformData(action.partialStateValue.records), totalCount: action.partialStateValue.totalCount });
+                return Object.assign({}, state, { nodes: transformData(payload.partialStateValue.records), totalCount: payload.partialStateValue.totalCount });
             default:
                 break;
         }
-        return Object.assign({}, state, { [action.partialStateName]: action.partialStateValue });
+        return Object.assign({}, state, { [payload.partialStateName]: payload.partialStateValue });
 
     }
     return state;

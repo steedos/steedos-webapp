@@ -3,17 +3,17 @@ import { loadEntitiesDataRequest } from '../records_request'
 import { createAction as baseCreateAction } from '../base'
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 
-export function createAction(partialStateName: any, partialStateValue: any, objectName: string) {
+export function createAction(partialStateName: any, partialStateValue: any, options: any) {
     if(["currentPage", "pageSize", "filters", "search"].includes(partialStateName)){
         return function(dispatch: any, getState: any){
-            let entityState = states.getEntityState(getState(), objectName);
+            let entityState = states.getEntityState(getState(), options.objectName);
             const service = states.getDataServices(getState())
-            let options: any = Object.assign({}, entityState, {[partialStateName]: partialStateValue})
-            loadEntitiesDataRequest(dispatch, GRID_STATE_CHANGE_ACTION, service, options)
-            dispatch(baseCreateAction(GRID_STATE_CHANGE_ACTION, partialStateName, partialStateValue, objectName))
+            let newOptions: any = Object.assign({}, options, entityState, {[partialStateName]: partialStateValue})
+            loadEntitiesDataRequest(dispatch, GRID_STATE_CHANGE_ACTION, service, newOptions)
+            dispatch(baseCreateAction(GRID_STATE_CHANGE_ACTION, partialStateName, partialStateValue, options))
         }
     }else{
-        return baseCreateAction(GRID_STATE_CHANGE_ACTION, partialStateName, partialStateValue, objectName)
+        return baseCreateAction(GRID_STATE_CHANGE_ACTION, partialStateName, partialStateValue, options)
     }
 } 
 

@@ -88,12 +88,14 @@ class SelectUsers extends React.Component {
 
         let onClick = function(event: any, data: any){
             return function(dispatch: any, getState: any){
-                dispatch(createAction("filters", [{ columnName: "organizations", value: data.node.id, operation: "equals" }], gridObjectName))
+                dispatch(createAction("filters", [{ columnName: "organizations", value: data.node.id, operation: "equals" }], {objectName: gridObjectName}))
                 dispatch({
                     type: 'TREE_STATE_CHANGE',
-                    partialStateName: 'click',
-                    partialStateValue: data,
-                    objectName: 'organizations'
+                    payload: {
+                        partialStateName: 'click',
+                        partialStateValue: data,
+                        objectName: 'organizations'
+                    }
                 })
             }
         }

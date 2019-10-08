@@ -13,7 +13,7 @@ function mapStateToProps() {
   
   const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     return ({
-      handleChanged: (event: any, data: any)=> dispatch(createAction('selection', data.selection, ownProps.objectName)),
+      handleChanged: (event: any, data: any)=> dispatch(createAction('selection', data.selection, {objectName: ownProps.objectName})),
       init: (options: any) => dispatch(loadEntitiesData(options))
     });
   }
