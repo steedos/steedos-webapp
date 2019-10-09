@@ -4,6 +4,7 @@ import OrganizationsTree from '../../components/organizations'
 import PropTypes from 'prop-types';
 import { createAction } from '../../actions/views/grid';
 import styled from 'styled-components'
+import { makeNewID } from '../index';
 
 let Counter = styled.div`
     display: flex;
@@ -72,35 +73,49 @@ class SelectUsers extends React.Component {
     static defaultProps = {
         valueField: '_id',
         selectionLabel: 'name',
-        rootNodes: []
+        rootNodes: [],
+        pageSize: 200
     }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            treeId: makeNewID(props),
+            gridId: makeNewID(props)
+        }
+    }
+
+   
 
     static propTypes = {
         rootNodes: PropTypes.array,
         multiple: PropTypes.bool,
         valueField: PropTypes.string, //指定控件返回的值来自记录的那个属性，比如：user 字段，或者 email字段
         selectionLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-        searchMode: PropTypes.oneOf(['omitFilters'])
+        searchMode: PropTypes.oneOf(['omitFilters']),
+        pageSize: PropTypes.number
     }
 
     render() {
         // let getRowId = (row: any) => row[(this.props as any).valueField]
+        let { rootNodes, selectionLabel, searchMode, multiple, pageSize } = this.props as any
+        let {treeId, gridId} = this.state as any;
 
         let onClick = function(event: any, data: any){
-            return function(dispatch: any, getState: any){
-                dispatch(createAction("filters", [{ columnName: "organizations", value: data.node.id, operation: "equals" }], {objectName: gridObjectName}))
+            return (dispatch: any, getState: any)=>{
+                dispatch(createAction("filters", [{ columnName: "organizations", value: data.node.id, operation: "equals" }], {id: gridId, objectName: gridObjectName, columns: gridColumns, searchMode, pageSize}))
                 dispatch({
                     type: 'TREE_STATE_CHANGE',
                     payload: {
                         partialStateName: 'click',
                         partialStateValue: data,
-                        objectName: 'organizations'
+                        objectName: 'organizations',
+                        id: treeId
                     }
                 })
             }
         }
         //Tree props
-        let { rootNodes, selectionLabel, searchMode, multiple } = this.props as any
         let selectRows = 'radio';
         if(multiple){
             selectRows = 'checkbox';
@@ -108,8 +123,8 @@ class SelectUsers extends React.Component {
 
         return (
             <Counter className="select-users">
-                <OrgsCounter className="organizations"><OrganizationsTree rootNodes={rootNodes} onClick={onClick}/></OrgsCounter>
-                <UsersCounter className="users"><Grid objectName={gridObjectName} enableSearch={true} columns={gridColumns} searchMode={searchMode} pageSize={200} selectionLabel={selectionLabel} selectRows={selectRows}/></UsersCounter>
+                <OrgsCounter className="organizations"><OrganizationsTree id={treeId} rootNodes={rootNodes} onClick={onClick}/></OrgsCounter>
+                <UsersCounter className="users"><Grid id={gridId} objectName={gridObjectName} enableSearch={true} columns={gridColumns} searchMode={searchMode} pageSize={pageSize} selectionLabel={selectionLabel} selectRows={selectRows}/></UsersCounter>
             </Counter>
         )
     }

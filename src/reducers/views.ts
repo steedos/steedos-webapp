@@ -1,4 +1,4 @@
-
+import { combineReducers } from 'redux'
 import { DXGRID_STATE_CHANGE_ACTION } from '../actions/views/dx_grid'
 import { GRID_STATE_CHANGE_ACTION } from '../actions/views/grid'
 import { TREE_STATE_CHANGE_ACTION } from '../actions/views/tree'
@@ -7,34 +7,40 @@ import TreeReducer from './views/tree'
 import DXGridReducer from './views/dx_grid'
 import GridReducer from './views/grid'
 import OrgReducer from './views/organizations'
-import { makeNewID } from '../components';
+import produce from "immer"
 
 
-function updateState(oldState: any, newState: any){
-    return Object.assign({}, oldState, newState)
+function changeState(id, draft: any, newState: any) {
+    return draft[id] = newState
 }
 
-function getState(state, id){
-    return state.byId ? state.byId[id] : {id: id}
+function getState(state, id) {
+    return state ? state[id] : { id: id }
 }
 
-function reducer(state: any = {}, action: any){
-    console.log('state', state, action)
-    const id = action.id || makeNewID(action)
-    const viewState = getState(state, id)
+const byId = produce((draft = {}, action) => {
+    let id, viewState
+    if (action.payload) {
+        id = action.payload.id
+        viewState = getState(draft, id)
+    }
     switch (action.type) {
         case DXGRID_STATE_CHANGE_ACTION:
-            return updateState(state, {[id]: DXGridReducer(viewState, action)})
+            changeState(id, draft, DXGridReducer(viewState, action))
+            break;
         case GRID_STATE_CHANGE_ACTION:
-            return updateState(state, {[id]: GridReducer(viewState, action)})
+            changeState(id, draft, GridReducer(viewState, action))
+            break;
         case TREE_STATE_CHANGE_ACTION:
-            return updateState(state, {[id]: TreeReducer(viewState, action)})
+            changeState(id, draft, TreeReducer(viewState, action))
+            break;
         case ORGANIZATIONS_STATE_CHANGE_ACTION:
-            return updateState(state, { [id]: OrgReducer(viewState, action) })
-        default:
+            changeState(id, draft, OrgReducer(viewState, action))
             break;
     }
-    return state;
-};
+    return draft;
+});
 
-export default reducer;
+export default combineReducers({
+    byId
+});

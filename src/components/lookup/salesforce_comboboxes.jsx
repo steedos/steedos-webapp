@@ -47,15 +47,20 @@ class lookup extends React.Component {
 	render() {
 
 		let { selection, onSearch, onRequestRemoveSelectedOption, selectionLabel, search, onChange, objectName } = this.props
+		let selections = [];
 		if(selection){
-			selection.map((item)=>{
+			_.forEach(selection, (item)=>{
+				let label;
 				if(selectionLabel){
 					if(_.isFunction(selectionLabel)){
-						item.label = selectionLabel(item)
+						label = selectionLabel(item)
 					}else{
-						item.label = item[selectionLabel]
+						label = item[selectionLabel]
 					}
+				}else{
+					label = item['name']
 				}
+
 				// item.icon = (
 				// 	<Icon
 				// 		assistiveText={{ label: 'Account' }}
@@ -63,7 +68,8 @@ class lookup extends React.Component {
 				// 		name="account"
 				// 	/>
 				// )
-				return null
+
+				selections.push(Object.assign({}, item, {label}))
 			})
 		}
 		return (
@@ -108,7 +114,7 @@ class lookup extends React.Component {
 						options: accountsWithIcon,
 						selection: this.state.selection,
 					})}
-					selection={selection || this.state.selection}
+					selection={selections || this.state.selection}
 					value={this.state.inputValue}
 				/>
 		);

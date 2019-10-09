@@ -16,13 +16,14 @@ class OrganizationsTree extends React.Component {
     constructor(props) {
         super(props)
         if(_.isEmpty(props.rootNodes)){
-            props.dispatch(loadEntitiesData({objectName: props.objectName, filters: [{columnName: 'parent', operation: 'equals', value: null}], columns: props.columns}))
+            props.dispatch(loadEntitiesData({id: props.id, objectName: props.objectName, filters: [{columnName: 'parent', operation: 'equals', value: null}], columns: props.columns}))
         }
 		
     }
 
     static propTypes = {
         rootNodes: PropTypes.array.isRequired,
+        id: PropTypes.string,
         multiple: PropTypes.bool,
         valueField: PropTypes.string, //指定控件返回的值来自记录的那个属性，比如：user 字段，或者 email字段
         onClick: PropTypes.func
@@ -30,7 +31,7 @@ class OrganizationsTree extends React.Component {
 
     render() {
         //Tree props
-        let { rootNodes, onClick, objectName, columns } = this.props as any
+        let { rootNodes, onClick, objectName, columns, id } = this.props as any
         let getNodes = (node: any)=>{
             if(!node.nodes){
                 return []
@@ -52,7 +53,7 @@ class OrganizationsTree extends React.Component {
         }
 
         return (
-            <SteedosTree objectName={objectName} rootNodes={rootNodes} getNodes={getNodes} onClick={onClick} init={init}/>
+            <SteedosTree objectName={objectName} rootNodes={rootNodes} getNodes={getNodes} onClick={onClick} init={init} id={id}/>
         )
     }
 }

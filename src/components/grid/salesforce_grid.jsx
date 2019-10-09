@@ -104,7 +104,8 @@ class Grid extends React.Component {
 		searchMode: PropTypes.oneOf(['omitFilters']),
 		selectionLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 		selectRows: PropTypes.oneOf(['radio', 'checkbox', false]),
-		type: PropTypes.oneOf(['date', 'datetime', 'boolean', 'lookup', 'master_detail', 'text'])
+		type: PropTypes.oneOf(['date', 'datetime', 'boolean', 'lookup', 'master_detail', 'text']),
+		id: PropTypes.string
     }
 
 
@@ -180,7 +181,7 @@ class Grid extends React.Component {
 
 	render() {
 
-		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns } = this.props
+		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id } = this.props
 
 		const DataTableColumns = _.map(columns, (column)=>{
 			if(!column.hidden){
@@ -192,19 +193,19 @@ class Grid extends React.Component {
 			}
 		})
 
-		const onRequestRemoveSelectedOption = function (event, data) {
-			return createAction('requestRemoveSelectedOption', data.selection, {objectName})
+		const onRequestRemoveSelectedOption = (event, data) => {
+			return createAction('requestRemoveSelectedOption', data.selection, this.props)
 		}
 
-		const onSearch = function (event, data) {
-			return createAction('search', data.value, {objectName})
+		const onSearch = (event, data)=> {
+			return createAction('search', data.value, this.props)
 		}
 
 		const DataTableSearch = ()=>{
 			if(this.isEnableSearch()){
 				return (
 					<div className="slds-p-vertical_x-small slds-p-horizontal_large slds-shrink-none slds-theme_shade">
-						<Lookup objectName={objectName} search={search} selectionLabel={selectionLabel} onRequestRemoveSelectedOption={onRequestRemoveSelectedOption} onSearch={onSearch}></Lookup>
+						<Lookup id={id} objectName={objectName} search={search} selectionLabel={selectionLabel} onRequestRemoveSelectedOption={onRequestRemoveSelectedOption} onSearch={onSearch}></Lookup>
 					</div>
 				)
 			}else{
@@ -228,7 +229,7 @@ class Grid extends React.Component {
 							fixedHeader
 							fixedLayout
 							items={rows || this.state.items}
-							id="DataTableExample-2"
+							id={id}
 							onRowChange={handleChanged || this.handleChanged}
 							// onSort={this.handleSort}
 							selection={selection || this.state.selection}

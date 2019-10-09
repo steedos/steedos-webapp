@@ -6,7 +6,7 @@ export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 export function createAction(partialStateName: any, partialStateValue: any, options: any) {
     if(["currentPage", "pageSize", "filters", "search"].includes(partialStateName)){
         return function(dispatch: any, getState: any){
-            let entityState = states.getEntityState(getState(), options.objectName);
+            let entityState = states.getViewState(getState(), options.id);
             const service = states.getDataServices(getState())
             let newOptions: any = Object.assign({}, options, entityState, {[partialStateName]: partialStateValue})
             loadEntitiesDataRequest(dispatch, GRID_STATE_CHANGE_ACTION, service, newOptions)
