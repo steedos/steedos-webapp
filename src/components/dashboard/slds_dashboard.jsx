@@ -126,15 +126,23 @@ class Dashboard extends React.Component {
                 if (app.name) {
                     return (
                         <AppLauncherTile
+                            assistiveText={{ dragIconText: app.name }}
                             key={key}
                             description={app.description}
                             iconNode={
                                 <Icon
+                                    assistiveText={{ label: app.name }}
                                     category="standard"
                                     name={app.icon_slds}
                                 />
                             }
                             title={app.name}
+                            href={`/app/${app._id}`}
+                            onClick={(event, args)=>{
+                                if (args.href){
+                                    window.location = args.href;
+                                }
+                            }}
                         />
                     )
                 }
