@@ -79,8 +79,19 @@ class Dashboard extends React.Component {
     static defaultProps = {
         selectionLabel: 'name',
         cellListColumns: [
-            { field: 'name', label: '名称', onClick: function (event, data) { console.log('instance.name click, data is', data); } },
-            { field: 'modified', label: '修改时间', type: 'datetime' }
+            { 
+                field: 'name', 
+                label: '名称', 
+                onClick: function (event, data) { 
+                    console.log('instance.name click, data is', data);
+                    let url = `/workflow/space/${spaceId}/inbox/${data.id}`;
+                    window.location = url;
+                } 
+            },{ 
+                field: 'modified', 
+                label: '修改时间', 
+                type: 'datetime' 
+            }
         ],
         $select: ['name'],
         $filter: (p) => {
@@ -126,10 +137,23 @@ class Dashboard extends React.Component {
                 if (app.name) {
                     return (
                         <AppLauncherTile
+                            assistiveText={{ dragIconText: app.name }}
                             key={key}
                             description={app.description}
-                            iconText="APP"
+                            iconNode={
+                                <Icon
+                                    assistiveText={{ label: app.name }}
+                                    category="standard"
+                                    name={app.icon_slds}
+                                />
+                            }
                             title={app.name}
+                            href={`/app/${app._id}`}
+                            onClick={(event, args)=>{
+                                if (args.href){
+                                    window.location = args.href;
+                                }
+                            }}
                         />
                     )
                 }
@@ -146,10 +170,14 @@ class Dashboard extends React.Component {
                             <Card
                                 id="InstanceCard"
                                 heading="待办事项"
-                                icon={<Icon category="standard" name="document" size="small" />}
+                                footer={
+                                    <a href={`/workflow/space/${spaceId}/inbox`}>
+                                    查看全部
+                                    </a>
+                                }
                             >
                                 <Grid searchMode="omitFilters"
-                                    pageSize={200} 
+                                    pageSize={5} 
                                     objectName="instances"
                                     columns={cellListColumns}
                                     selectionLabel={selectionLabel}
