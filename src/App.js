@@ -7,6 +7,7 @@ import DXGrid from './components/dx_grid'
 import Grid from './components/grid'
 import { IconSettings } from '@salesforce/design-system-react';
 import settings from './states/settings'
+import Bootstrap from './components/bootstrap'
 
 function App() {
 
@@ -79,8 +80,10 @@ function App() {
     < div className="App">
       <IconSettings iconPath={iconPath} >
         <Provider store={store}>
-          <SelectUsers getRowId={getRowId} searchMode="omitFilters" rootNodes2={rootNodes} multiple={true} valueField2="user" selectionLabel2={selectionLabel} />
-          {/* <Grid objectName={gridObjectName} columns={gridColumns}></Grid> */}
+          <Bootstrap>
+            <SelectUsers getRowId={getRowId} searchMode="omitFilters" rootNodes2={rootNodes} multiple={true} valueField2="user" selectionLabel2={selectionLabel} />
+            {/* <Grid objectName={gridObjectName} columns={gridColumns}></Grid> */}
+          </Bootstrap>
         </Provider>
       </IconSettings>
     </div>
