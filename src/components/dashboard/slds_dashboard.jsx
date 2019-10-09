@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import _ from 'underscore'
 import { Card, CardEmpty, CardFilter, Icon, DataTable, DataTableColumn, 
     AppLauncherTile, AppLauncherExpandableSection } from '@salesforce/design-system-react';
+import utils from '../../utils'
 
 const sampleItems = [
     { id: '1', name: 'Cloudhub' },
@@ -46,8 +47,8 @@ let AppLauncherDesktopInternal = styled.div`
     }
 `;
 
-const userId = "hPgDcEd9vKQxwndQR";
-const spaceId = "Af8eM6mAHo7wMDqD3";
+const userId = utils.getCookie("X-User-Id");
+const spaceId = utils.getCookie("X-Space-Id");
 
 const instance = {
     name: 'instances',

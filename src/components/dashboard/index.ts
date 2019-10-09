@@ -5,26 +5,6 @@ import { createAction } from '../../actions/views/dashboard'
 import { getEntityState } from '../../states/entitys'
 import { createAction as createActionGrid } from '../../actions/views/grid';
 
-
-const userId = "hPgDcEd9vKQxwndQR";
-const spaceId = "Af8eM6mAHo7wMDqD3";
-
-const instance = {
-    name: 'instances',
-    label: '申请单',
-    fields: {
-        name: {
-            label: '名称',
-            cellOnClick: function (event, data) {
-                console.log('instance.name click, data is', data);
-            }
-        },
-        modified: {
-            label: '修改时间'
-        }
-    }
-}
-
 function mapStateToProps() {
     return (state: any, ownProps: any) => {
         let apps = getEntityState(state, "apps") || {}
