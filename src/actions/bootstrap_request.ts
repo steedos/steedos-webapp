@@ -18,7 +18,6 @@ export async function loadBootstrapData(dataService: string, options: any) {
 function loadBootstrapDataSauce(actionType: string, results: any, options: any) {
     results.current_user = results.USER_CONTEXT;
     delete results.USER_CONTEXT;
-    results.isBootstrapLoaded = true;
     return createAction(actionType, 'loadDataSauce', results, {objectName: 'bootstrap'})
 }
 

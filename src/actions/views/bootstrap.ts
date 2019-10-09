@@ -1,5 +1,5 @@
-import states from '../states';
-import { loadBootstrapDataRequest } from './bootstrap_request'
+import states from '../../states';
+import { loadBootstrapDataRequest } from '../bootstrap_request'
 import { createAction as baseCreateAction } from 'base'
 export const BOOTSTRAP_STATE_CHANGE_ACTION = 'BOOTSTRAP_STATE_CHANGE';
 

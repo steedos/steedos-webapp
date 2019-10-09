@@ -1,5 +1,5 @@
 // import { GRID_STATE_CHANGE_ACTION } from '../../actions/views/grid'
-import { BOOTSTRAP_STATE_CHANGE_ACTION } from '../actions/bootstrap';
+import { BOOTSTRAP_STATE_CHANGE_ACTION } from '../../actions/views/bootstrap';
 
 function transformEntityState(state: any, payload: any){
     return Object.assign({}, state, { ...payload.partialStateValue });

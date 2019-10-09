@@ -118,10 +118,7 @@ class Dashboard extends React.Component {
 
     render() {
         const isEmpty = this.state.items.length === 0;
-        let { selectionLabel, cellListColumns, $filter, isBootstrapLoaded, apps } = this.props;
-        if (!isBootstrapLoaded){
-            return null;
-        }
+        let { selectionLabel, cellListColumns, $filter, apps } = this.props;
         let appCells;
         if(apps){
             appCells = _.map(apps, (app, key) => {

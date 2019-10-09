@@ -27,9 +27,8 @@ const instance = {
 
 function mapStateToProps() {
     return (state: any, ownProps: any) => {
-        let isBootstrapLoaded = getEntityState(state, "isBootstrapLoaded");
         let apps = getEntityState(state, "apps") || {}
-        return Object.assign({ isBootstrapLoaded,apps }, { ...ownProps });
+        return Object.assign({ apps }, { ...ownProps });
     };
 }
 
