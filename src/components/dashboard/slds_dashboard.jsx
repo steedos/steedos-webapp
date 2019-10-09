@@ -170,10 +170,14 @@ class Dashboard extends React.Component {
                             <Card
                                 id="InstanceCard"
                                 heading="待办事项"
-                                icon={<Icon category="standard" name="document" size="small" />}
+                                footer={
+                                    <a href={`/workflow/space/${spaceId}/inbox`}>
+                                    查看全部
+                                    </a>
+                                }
                             >
                                 <Grid searchMode="omitFilters"
-                                    pageSize={200} 
+                                    pageSize={5} 
                                     objectName="instances"
                                     columns={cellListColumns}
                                     selectionLabel={selectionLabel}
