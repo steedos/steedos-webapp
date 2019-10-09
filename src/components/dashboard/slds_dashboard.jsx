@@ -128,7 +128,12 @@ class Dashboard extends React.Component {
                         <AppLauncherTile
                             key={key}
                             description={app.description}
-                            iconText="APP"
+                            iconNode={
+                                <Icon
+                                    category="standard"
+                                    name={app.icon_slds}
+                                />
+                            }
                             title={app.name}
                         />
                     )

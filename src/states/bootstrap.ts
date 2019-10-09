@@ -49,8 +49,7 @@ function getCreatorApps(state: any) {
 
 function getVisibleApps(state: any, includeAdmin: boolean = true){
     let creatorApps = getCreatorApps(state);
-    var apps;
-    apps = [];
+    var apps: any = [];
     _.each(creatorApps, function (v: any, k: string) {
         if ((v.visible !== false && v._id !== "admin") || (includeAdmin && v._id === "admin")) {
             apps.push(v);
