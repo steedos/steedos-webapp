@@ -1,13 +1,10 @@
 import * as React from 'react';
-import Grid from '../grid'
-import OrganizationsTree from '../organizations'
 import PropTypes from 'prop-types';
-import { createAction as createActionGrid } from '../../actions/views/grid';
 import styled from 'styled-components'
 import _ from 'underscore'
-import { Card, CardEmpty, CardFilter, Icon, DataTable, DataTableColumn, 
+import { Card, Icon, DataTable, DataTableColumn, 
     AppLauncherTile, AppLauncherExpandableSection } from '@salesforce/design-system-react';
-import utils from '../../utils'
+import WidgetInstance from '../widget_instance';
 
 const sampleItems = [
     { id: '1', name: 'Cloudhub' },
@@ -46,57 +43,12 @@ let AppLauncherDesktopInternal = styled.div`
         }
     }
 `;
-
-const userId = utils.getCookie("X-User-Id");
-const spaceId = utils.getCookie("X-Space-Id");
-
-const instance = {
-    name: 'instances',
-    label: '申请单',
-    fields: {
-        name: {
-            label: '名称',
-            cellOnClick: function(event, data){
-                console.log('instance.name click, data is', data);
-            }
-        },
-        modified: {
-            label: '修改时间'
-        }
-    }
-}
-
 class Dashboard extends React.Component {
-
     constructor(props) {
         super(props)
-        // props.dispatch(loadEntitiesData({ objectName: 'organizations', filters: [{ columnName: 'parent', operation: 'equals', value: null }] }))
-        // props.dispatch(createActionGrid("$filter", (p) => {
-        //     return p.equals("space", spaceId).and(p.equals("inbox_users", userId).or(p.equals("cc_users", userId)));
-        // }, "instances"))
     };
 
     static defaultProps = {
-        selectionLabel: 'name',
-        cellListColumns: [
-            { 
-                field: 'name', 
-                label: '名称', 
-                onClick: function (event, data) { 
-                    console.log('instance.name click, data is', data);
-                    let url = `/workflow/space/${spaceId}/inbox/${data.id}`;
-                    window.location = url;
-                } 
-            },{ 
-                field: 'modified', 
-                label: '修改时间', 
-                type: 'datetime' 
-            }
-        ],
-        $select: ['name'],
-        $filter: (p) => {
-            return p.equals("space", spaceId).and(p.equals("inbox_users", userId).or(p.equals("cc_users", userId)));
-        }
     };
 
     static propTypes = {
@@ -108,11 +60,6 @@ class Dashboard extends React.Component {
             init(this.props)
         }
     }
-
-    // componentDidMount() {
-    //     const { init } = this.props as any
-    //     init(this.props)
-    // }
 
     static displayName = 'CardExample';
 
@@ -130,7 +77,7 @@ class Dashboard extends React.Component {
 
     render() {
         const isEmpty = this.state.items.length === 0;
-        let { selectionLabel, cellListColumns, $filter, apps } = this.props;
+        let { apps } = this.props;
         let appCells;
         if(apps){
             appCells = _.map(apps, (app, key) => {
@@ -167,23 +114,7 @@ class Dashboard extends React.Component {
                 <Column className="slds-dashboard-column">
                     <Cell className="slds-dashboard-cell">
                         <div className="slds-grid slds-grid_vertical">
-                            <Card
-                                id="InstanceCard"
-                                heading="待办事项"
-                                footer={
-                                    <a href={`/workflow/space/${spaceId}/inbox`}>
-                                    查看全部
-                                    </a>
-                                }
-                            >
-                                <Grid searchMode="omitFilters"
-                                    pageSize={5} 
-                                    objectName="instances"
-                                    columns={cellListColumns}
-                                    selectionLabel={selectionLabel}
-                                    $filter={$filter}
-                                />
-                            </Card>
+                            <WidgetInstance />
                         </div>
                     </Cell>
                     <Cell className="slds-dashboard-cell">
