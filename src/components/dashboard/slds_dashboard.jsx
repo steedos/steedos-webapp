@@ -79,8 +79,19 @@ class Dashboard extends React.Component {
     static defaultProps = {
         selectionLabel: 'name',
         cellListColumns: [
-            { field: 'name', label: '名称', onClick: function (event, data) { console.log('instance.name click, data is', data); } },
-            { field: 'modified', label: '修改时间', type: 'datetime' }
+            { 
+                field: 'name', 
+                label: '名称', 
+                onClick: function (event, data) { 
+                    console.log('instance.name click, data is', data);
+                    let url = `/workflow/space/${spaceId}/inbox/${data.id}`;
+                    window.location = url;
+                } 
+            },{ 
+                field: 'modified', 
+                label: '修改时间', 
+                type: 'datetime' 
+            }
         ],
         $select: ['name'],
         $filter: (p) => {
