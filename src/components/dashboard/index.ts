@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import states from '../../states';
 import Dashboard from './slds_dashboard'
 // import { createAction, loadEntitiesData } from '../../actions/bootstrap'
 import { createAction } from '../../actions/views/dashboard'
@@ -7,7 +8,7 @@ import { createAction as createActionGrid } from '../../actions/views/grid';
 
 function mapStateToProps() {
     return (state: any, ownProps: any) => {
-        let apps = getEntityState(state, "apps") || {}
+        let apps = states.getVisibleApps(state)
         return Object.assign({ apps }, { ...ownProps });
     };
 }
