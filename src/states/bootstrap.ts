@@ -4,16 +4,12 @@ function getCreatorApps(state: any) {
     let apps = state.entities ? state.entities.apps : {};
     let assigned_apps = state.entities ? state.entities.assigned_apps : [];
     let adminApp: any, sortedApps: any;
-    let isSpaceAdmin = true;
 
     _.each(apps, function (app: any, key: string) {
         if (!app._id) {
             app._id = key;
         }
         if (app.is_creator) {
-            if (isSpaceAdmin) {
-                app.visible = true;
-            }
         } else {
             app.visible = false;
         }
