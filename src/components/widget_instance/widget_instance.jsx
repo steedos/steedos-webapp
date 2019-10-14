@@ -1,12 +1,7 @@
 import * as React from 'react';
 import Grid from '../grid'
-import OrganizationsTree from '../organizations'
-import PropTypes from 'prop-types';
-import { createAction as createActionGrid } from '../../actions/views/grid';
-import styled from 'styled-components'
 import _ from 'underscore'
-import { Card, CardEmpty, CardFilter, Icon, DataTable, DataTableColumn, 
-    AppLauncherTile, AppLauncherExpandableSection } from '@salesforce/design-system-react';
+import { Card } from '@salesforce/design-system-react';
 import utils from '../../utils'
 
 
@@ -17,10 +12,6 @@ class WidgetInstance extends React.Component {
 
     constructor(props) {
         super(props)
-        // props.dispatch(loadEntitiesData({ objectName: 'organizations', filters: [{ columnName: 'parent', operation: 'equals', value: null }] }))
-        // props.dispatch(createActionGrid("$filter", (p) => {
-        //     return p.equals("space", spaceId).and(p.equals("inbox_users", userId).or(p.equals("cc_users", userId)));
-        // }, "instances"))
     };
 
     static defaultProps = {
@@ -54,8 +45,6 @@ class WidgetInstance extends React.Component {
             init(this.props)
         }
     }
-
-    static displayName = 'CardExample';
 
     state = {
     };
