@@ -2,9 +2,9 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import _ from 'underscore'
-import { Card, Icon, DataTable, DataTableColumn, 
-    AppLauncherTile, AppLauncherExpandableSection } from '@salesforce/design-system-react';
+import { Card, Icon, DataTable, DataTableColumn } from '@salesforce/design-system-react';
 import WidgetInstance from '../widget_instance';
+import WidgetAppLauncher from '../widget_appLauncher';
 
 const sampleItems = [
     { id: '1', name: 'Cloudhub' },
@@ -35,14 +35,6 @@ let Cell = styled.div`
     }
 `;
 
-let AppLauncherDesktopInternal = styled.div`
-    padding: 0px 1rem;
-    .slds-section.slds-is-open{
-        .slds-section__content{
-            padding-top: 0px;
-        }
-    }
-`;
 class Dashboard extends React.Component {
     constructor(props) {
         super(props)
@@ -77,38 +69,6 @@ class Dashboard extends React.Component {
 
     render() {
         const isEmpty = this.state.items.length === 0;
-        let { apps } = this.props;
-        let appCells;
-        if(apps){
-            appCells = _.map(apps, (app, key) => {
-                if (app.name) {
-                    return (
-                        <AppLauncherTile
-                            assistiveText={{ dragIconText: app.name }}
-                            key={key}
-                            description={app.description}
-                            iconNode={
-                                <Icon
-                                    assistiveText={{ label: app.name }}
-                                    category="standard"
-                                    name={app.icon_slds}
-                                />
-                            }
-                            title={app.name}
-                            href={`/app/${app._id}`}
-                            onClick={(event, args)=>{
-                                if (args.href){
-                                    window.location = args.href;
-                                }
-                            }}
-                        />
-                    )
-                }
-            })
-        }
-        else{
-
-        }
         return (
             <Container className="slds-dashboard">
                 <Column className="slds-dashboard-column">
@@ -136,17 +96,7 @@ class Dashboard extends React.Component {
                     </Cell>
                     <Cell className="slds-dashboard-cell">
                         <div className="slds-grid slds-grid_vertical">
-                            <Card
-                                id="ExampleCard"
-                                heading="应用程序启动器"
-                                icon={<Icon category="standard" name="document" size="small" />}
-                            >
-                                <AppLauncherDesktopInternal className="slds-app-launcher__content">
-                                    <AppLauncherExpandableSection title="所有应用程序">
-                                        {appCells}
-                                    </AppLauncherExpandableSection>
-                                </AppLauncherDesktopInternal>
-                            </Card>
+                            <WidgetAppLauncher />
                         </div>
                     </Cell>
                     <Cell className="slds-dashboard-cell flex-split">
