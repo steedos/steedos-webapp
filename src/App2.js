@@ -14,6 +14,19 @@ const sampleItems = [
   { id: '3', name: 'Cloud City' },
 ];
 
+const config = {
+  apps:{
+    label: "应用程序启动器",
+    position: "CENTER_TOP",
+    type: "apps",
+  },
+  instance: {
+    label: "待办事项2",
+    position: "CENTER_TOP",
+    type: "instance",
+  }
+}
+
 function App() {
   return (
     <div className="App">
@@ -21,7 +34,8 @@ function App() {
         <Provider store={store}>
           <Bootstrap>
             <Dashboard
-              centerTopSection = {(
+              config={config}
+              centerTopSection={(
                 <div>
                   <WidgetInstance />
                   <Card

@@ -49,6 +49,7 @@ class Dashboard extends React.Component {
     };
 
     static propTypes = {
+        config: PropTypes.object,
         leftSection: PropTypes.node,
         centerTopSection: PropTypes.node,
         centerBottomLeftSection: PropTypes.node,
@@ -66,20 +67,84 @@ class Dashboard extends React.Component {
     static displayName = 'Dashboard';
 
     state = {
-        items: sampleItems,
-        isFiltering: false,
+        leftSection: this.props.leftSection,
+        centerTopSection: this.props.centerTopSection,
+        centerBottomLeftSection: this.props.centerBottomLeftSection,
+        centerBottomRightSection: this.props.centerBottomRightSection,
+        rightSection: this.props.rightSection
     };
 
-    handleFilterChange = (event) => {
-        const filteredItems = sampleItems.filter((item) =>
-            RegExp(event.target.value, 'i').test(item.name)
-        );
-        this.setState({ isFiltering: true, items: filteredItems });
-    };
+    convertConfigItemToSection(value){
+        switch (value.type) {
+            case "apps":
+                return <WidgetAppLauncher />
+            case "instance":
+                return <WidgetInstance />
+        }
+    }
+
+    convertConfigToSection(config) {
+        let result = {}, section;
+        _.each(config, (value, key) => {
+            switch (value.position) {
+                case "LEFT":
+                    section = this.convertConfigItemToSection(value);
+                    if (section){
+                        if (!result.leftSection){
+                            result.leftSection = [];
+                        }
+                        result.leftSection.push(section);
+                    }
+                    break;
+                case "CENTER_TOP":
+                    section = this.convertConfigItemToSection(value);
+                    if (section) {
+                        if (!result.centerTopSection) {
+                            result.centerTopSection = [];
+                        }
+                        result.centerTopSection.push(section);
+                    }
+                    break;
+                case "CENTER_BOTTOM_LEFT":
+                    section = this.convertConfigItemToSection(value);
+                    if (section) {
+                        if (!result.centerBottomLeftSection) {
+                            result.centerBottomLeftSection = [];
+                        }
+                        result.centerBottomLeftSection.push(section);
+                    }
+                    break;
+                case "CENTER_BOTTOM_RIGHT":
+                    section = this.convertConfigItemToSection(value);
+                    if (section) {
+                        if (!result.centerBottomRightSection) {
+                            result.centerBottomRightSection = [];
+                        }
+                        result.centerBottomRightSection.push(section);
+                    }
+                    break;
+                case "RIGHT":
+                    section = this.convertConfigItemToSection(value);
+                    if (section) {
+                        if (!result.rightSection) {
+                            result.rightSection = [];
+                        }
+                        result.rightSection.push(section);
+                    }
+                    break;
+            }
+        });
+        return result;
+    }
 
     render() {
-        const isEmpty = this.state.items.length === 0;
-        const { leftSection, centerTopSection, centerBottomLeftSection, centerBottomRightSection, rightSection } = this.props;
+        const config = this.props.config;
+        let configSection = {};
+        if (config) {
+            configSection = this.convertConfigToSection(config);
+        }
+        let { leftSection, centerTopSection, centerBottomLeftSection, centerBottomRightSection, rightSection } = { ...this.state, ...configSection };
+
         return (
             <Container className="slds-dashboard">
                 <Column className="slds-dashboard-column">
