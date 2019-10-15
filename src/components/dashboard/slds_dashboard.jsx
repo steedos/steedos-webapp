@@ -41,9 +41,19 @@ class Dashboard extends React.Component {
     };
 
     static defaultProps = {
+        leftSection: null,
+        centerTopSection: <WidgetAppLauncher />,
+        centerBottomLeftSection: null,
+        centerBottomRightSection: null,
+        rightSection: null
     };
 
     static propTypes = {
+        leftSection: PropTypes.node,
+        centerTopSection: PropTypes.node,
+        centerBottomLeftSection: PropTypes.node,
+        centerBottomRightSection: PropTypes.node,
+        rightSection: PropTypes.node
     };
 
     componentDidMount() {
@@ -53,7 +63,7 @@ class Dashboard extends React.Component {
         }
     }
 
-    static displayName = 'CardExample';
+    static displayName = 'Dashboard';
 
     state = {
         items: sampleItems,
@@ -69,89 +79,48 @@ class Dashboard extends React.Component {
 
     render() {
         const isEmpty = this.state.items.length === 0;
+        const { leftSection, centerTopSection, centerBottomLeftSection, centerBottomRightSection, rightSection } = this.props;
         return (
             <Container className="slds-dashboard">
                 <Column className="slds-dashboard-column">
-                    <Cell className="slds-dashboard-cell">
-                        <div className="slds-grid slds-grid_vertical">
-                            <WidgetInstance />
-                        </div>
-                    </Cell>
-                    <Cell className="slds-dashboard-cell">
-                        <div className="slds-grid slds-grid_vertical">
-                            <Card
-                                id="ExampleCard"
-                                heading="今日事件"
-                                icon={<Icon category="standard" name="document" size="small" />}
-                            >
-                                <DataTable items={this.state.items} id="DataTableExample-1">
-                                    <DataTableColumn
-                                        label="Opportunity Name"
-                                        property="name"
-                                        truncate
-                                    />
-                                </DataTable>
-                            </Card>
-                        </div>
-                    </Cell>
-                    <Cell className="slds-dashboard-cell">
-                        <div className="slds-grid slds-grid_vertical">
-                            <WidgetAppLauncher />
-                        </div>
-                    </Cell>
-                    <Cell className="slds-dashboard-cell flex-split">
-                        <div className="slds-grid slds-grid_vertical">
-                            <Card
-                                id="ExampleCard"
-                                heading="左下1"
-                                icon={<Icon category="standard" name="document" size="small" />}
-                            >
-                                <DataTable items={this.state.items} id="DataTableExample-1">
-                                    <DataTableColumn
-                                        label="Opportunity Name"
-                                        property="name"
-                                        truncate
-                                    />
-                                </DataTable>
-                            </Card>
-                        </div>
-                    </Cell>
-                    <Cell className="slds-dashboard-cell flex-split">
-                        <div className="slds-grid slds-grid_vertical">
-                            <Card
-                                id="ExampleCard"
-                                heading="左下2"
-                                icon={<Icon category="standard" name="document" size="small" />}
-                            >
-                                <DataTable items={this.state.items} id="DataTableExample-1">
-                                    <DataTableColumn
-                                        label="Opportunity Name"
-                                        property="name"
-                                        truncate
-                                    />
-                                </DataTable>
-                            </Card>
-                        </div>
-                    </Cell>
+                    {
+                        centerTopSection ? (
+                            <Cell className = "slds-dashboard-cell" >
+                                <div className="slds-grid slds-grid_vertical">
+                                    {centerTopSection}
+                                </div>
+                            </Cell>
+                        ): null
+                    }
+                    {
+                        centerBottomLeftSection ? (
+                            <Cell className="slds-dashboard-cell flex-split" >
+                                <div className="slds-grid slds-grid_vertical">
+                                    {centerBottomLeftSection}
+                                </div>
+                            </Cell>
+                        ) : null
+                    }
+                    {
+                        centerBottomRightSection ? (
+                            <Cell className="slds-dashboard-cell flex-split" >
+                                <div className="slds-grid slds-grid_vertical">
+                                    {centerBottomRightSection}
+                                </div>
+                            </Cell>
+                        ) : null
+                    }
                 </Column>
                 <Column className="slds-dashboard-column">
-                    <Cell className="slds-dashboard-cell">
-                        <div className="slds-grid slds-grid_vertical">
-                            <Card
-                                id="ExampleCard"
-                                heading="右侧Card"
-                                icon={<Icon category="standard" name="document" size="small" />}
-                            >
-                                <DataTable items={this.state.items} id="DataTableExample-1">
-                                    <DataTableColumn
-                                        label="Opportunity Name"
-                                        property="name"
-                                        truncate
-                                    />
-                                </DataTable>
-                            </Card>
-                        </div>
-                    </Cell>
+                    {
+                        rightSection ? (
+                            <Cell className="slds-dashboard-cell" >
+                                <div className="slds-grid slds-grid_vertical">
+                                    {rightSection}
+                                </div>
+                            </Cell>
+                        ) : null
+                    }
                 </Column>
             </Container>
         );
