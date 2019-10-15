@@ -5,7 +5,7 @@ import store from './stores/configureStore'
 import SelectUsers from './components/select_users'
 import DXGrid from './components/dx_grid'
 import Grid from './components/grid'
-import { IconSettings } from '@salesforce/design-system-react';
+import { IconSettings,Illustration } from '@salesforce/design-system-react';
 import settings from './states/settings'
 import Bootstrap from './components/bootstrap'
 
@@ -103,10 +103,10 @@ function App() {
       <IconSettings iconPath={iconPath} >
         <Provider store={store}>
           <Bootstrap></Bootstrap>
-            <SelectUsers getRowId={getRowId} searchMode="omitFilters" rootNodes2={rootNodes} multiple={true} valueField2="user" selectionLabel2={selectionLabel} />
-            {/* <Grid objectName={gridObjectName} columns={gridColumns} selectRows='checkbox' enableSearch={true}></Grid>
+            {/* <SelectUsers getRowId={getRowId} searchMode="omitFilters" rootNodes2={rootNodes} multiple={true} valueField2="user" selectionLabel2={selectionLabel} /> */}
+            <Grid objectName={gridObjectName} columns={gridColumns} selectRows='checkbox' enableSearch={true}></Grid>
             <div style={{ height: 100 }}></div>
-            <Grid objectName={gridObjectName} columns={gridColumns2} selectRows='checkbox' enableSearch={true}></Grid> */}
+            <Grid objectName={gridObjectName} columns={gridColumns2} selectRows='checkbox' enableSearch={true}></Grid>
         </Provider>
       </IconSettings>
     </div>
