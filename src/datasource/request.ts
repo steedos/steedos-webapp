@@ -1,7 +1,7 @@
 import utils from '../utils'
 import fetch from "node-fetch";
 
-export async function request(url: string, options: any = { method: "GET", body: {}, headers: {}, credentials: 'include' }) {
+export async function request(url: string, options: any = { method: "GET", body: {}, headers: {}, compress: false }) {
     // let spaceId = utils.getCookie("X-Space-Id");
     let authToken = utils.getCookie("X-Auth-Token");
     let userId = utils.getCookie("X-User-Id");
