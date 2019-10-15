@@ -14,7 +14,7 @@ function mapStateToProps() {
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     return ({
         // handleChanged: (event: any, data: any) => dispatch(createActionBootstrap('changeSpace', data.spaceId)),
-        init: (options: any) => {
+        loadBootstrap: (options: any) => {
             dispatch(loadEntitiesData(options))
         }
     });
