@@ -74,12 +74,12 @@ class Dashboard extends React.Component {
         rightSection: this.props.rightSection
     };
 
-    convertConfigItemToSection(value){
+    convertConfigItemToSection(value, key){
         switch (value.type) {
             case "apps":
-                return <WidgetAppLauncher />
+                return <WidgetAppLauncher key={key} />
             case "instance":
-                return <WidgetInstance />
+                return <WidgetInstance key={key} />
         }
     }
 
@@ -88,7 +88,7 @@ class Dashboard extends React.Component {
         _.each(config, (value, key) => {
             switch (value.position) {
                 case "LEFT":
-                    section = this.convertConfigItemToSection(value);
+                    section = this.convertConfigItemToSection(value, key);
                     if (section){
                         if (!result.leftSection){
                             result.leftSection = [];
@@ -97,7 +97,7 @@ class Dashboard extends React.Component {
                     }
                     break;
                 case "CENTER_TOP":
-                    section = this.convertConfigItemToSection(value);
+                    section = this.convertConfigItemToSection(value, key);
                     if (section) {
                         if (!result.centerTopSection) {
                             result.centerTopSection = [];
@@ -106,7 +106,7 @@ class Dashboard extends React.Component {
                     }
                     break;
                 case "CENTER_BOTTOM_LEFT":
-                    section = this.convertConfigItemToSection(value);
+                    section = this.convertConfigItemToSection(value, key);
                     if (section) {
                         if (!result.centerBottomLeftSection) {
                             result.centerBottomLeftSection = [];
@@ -115,7 +115,7 @@ class Dashboard extends React.Component {
                     }
                     break;
                 case "CENTER_BOTTOM_RIGHT":
-                    section = this.convertConfigItemToSection(value);
+                    section = this.convertConfigItemToSection(value, key);
                     if (section) {
                         if (!result.centerBottomRightSection) {
                             result.centerBottomRightSection = [];
@@ -124,7 +124,7 @@ class Dashboard extends React.Component {
                     }
                     break;
                 case "RIGHT":
-                    section = this.convertConfigItemToSection(value);
+                    section = this.convertConfigItemToSection(value, key);
                     if (section) {
                         if (!result.rightSection) {
                             result.rightSection = [];
