@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Grid from '../grid'
+import PropTypes from 'prop-types';
 import _ from 'underscore'
 import { Card } from '@salesforce/design-system-react';
 import utils from '../../utils'
@@ -15,6 +16,7 @@ class WidgetInstance extends React.Component {
     };
 
     static defaultProps = {
+        label:"待办事项",
         selectionLabel: 'name',
         cellListColumns: [
             { 
@@ -37,6 +39,7 @@ class WidgetInstance extends React.Component {
     };
 
     static propTypes = {
+        label: PropTypes.string
     };
 
     componentDidMount() {
@@ -50,11 +53,11 @@ class WidgetInstance extends React.Component {
     };
 
     render() {
-        let { selectionLabel, cellListColumns, $filter } = this.props;
+        let { label, selectionLabel, cellListColumns, $filter } = this.props;
         return (
             <Card
                 id="InstanceCard"
-                heading="待办事项"
+                heading={label}
                 footer={
                     <a href={`/workflow/space/${spaceId}/inbox`}>
                         查看全部

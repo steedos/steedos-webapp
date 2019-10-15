@@ -2,15 +2,8 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import _ from 'underscore'
-import { Card, Icon, DataTable, DataTableColumn } from '@salesforce/design-system-react';
 import WidgetInstance from '../widget_instance';
 import WidgetAppLauncher from '../widget_appLauncher';
-
-const sampleItems = [
-    { id: '1', name: 'Cloudhub' },
-    { id: '2', name: 'Cloudhub + Anypoint Connectors' },
-    { id: '3', name: 'Cloud City' },
-];
 
 let Container = styled.div`
     display: flex;
@@ -77,9 +70,9 @@ class Dashboard extends React.Component {
     convertConfigItemToSection(value, key){
         switch (value.type) {
             case "apps":
-                return <WidgetAppLauncher key={key} />
+                return <WidgetAppLauncher key={key} label={value.label} />
             case "instance":
-                return <WidgetInstance key={key} />
+                return <WidgetInstance key={key} label={value.label} />
         }
     }
 

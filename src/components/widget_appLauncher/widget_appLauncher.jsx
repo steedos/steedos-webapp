@@ -19,9 +19,11 @@ class WidgetAppLauncher extends React.Component {
     };
 
     static defaultProps = {
+        label: "应用程序启动器"
     };
 
     static propTypes = {
+        label: PropTypes.string,
         apps: PropTypes.array
     };
 
@@ -37,7 +39,7 @@ class WidgetAppLauncher extends React.Component {
     };
 
     render() {
-        let { apps } = this.props;
+        let { label,apps } = this.props;
         let appCells;
         if (apps) {
             appCells = _.map(apps, (app, key) => {
@@ -69,7 +71,7 @@ class WidgetAppLauncher extends React.Component {
         return (
             <Card
                 id="AppLauncherCard"
-                heading="应用程序启动器"
+                heading={label}
                 icon={<Icon category="standard" name="document" size="small" />}
             >
                 <AppLauncherDesktopInternal className="slds-app-launcher__content">

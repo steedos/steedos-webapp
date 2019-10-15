@@ -21,7 +21,7 @@ const config = {
     type: "apps",
   },
   instance: {
-    label: "待办事项2",
+    label: "待办事项",
     position: "CENTER_TOP",
     type: "instance",
   }
