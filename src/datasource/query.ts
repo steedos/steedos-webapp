@@ -45,6 +45,9 @@ function getODataFilter(options: any, $select: any) : string{
         else if (_filters){
             result = _filters;
         }
+        else if (_query) {
+            result = _query;
+        }
         if (!result){
             return "";
         }
@@ -103,6 +106,7 @@ export async function query(service: string, options: any = { pageSize: 10, curr
     })
 
     let odataFilter: string = getODataFilter(options, $select);
+    console.log("====odataFilter=====", odataFilter);
     let odataUrl = query.provider.buildQuery(query.expression);
     console.log("====odataUrl=====", `${odataUrl}&$filter=${encodeURIComponent(odataFilter)}`);
     if (odataFilter){
