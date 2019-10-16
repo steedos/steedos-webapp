@@ -15,17 +15,17 @@ const sampleItems = [
 ];
 
 const config = {
-  apps:{
-    label: "应用程序启动器",
-    position: "CENTER_TOP",
-    type: "apps",
-  },
   workflow: {
     label: "待审批",
     position: "CENTER_TOP",
     type: "object",
     object_name: "instances",
-    filters: [['space', '=', '{spaceId}'], [['inbox_users', '=', '{userId}'], 'or', ['cc_users', '=', '{userId}']]],
+    filters: [
+      ['space', '=', '{spaceId}'],
+      [
+        ['inbox_users', '=', '{userId}'], 'or', ['cc_users', '=', '{userId}']
+      ]
+    ],
     columns: [{
       label: "名称",
       field: "name",
@@ -35,6 +35,29 @@ const config = {
       field: "modified",
       type: 'datetime'
     }]
+  },
+  pending_tasks: {
+    label: '待办任务',
+    position: 'CENTER_TOP',
+    type: 'object',
+    object_name: 'tasks',
+    filters: [
+      ['assignees', '=', '{userId}'],
+      ['state', '<>', 'complete']
+    ],
+    columns: [{
+      label: "名称",
+      field: 'name',
+      href: true
+    }, {
+      label: "优先级",
+      field: 'priority'
+    }]
+  },
+  apps: {
+    label: "应用程序启动器",
+    position: "CENTER_TOP",
+    type: "apps",
   }
 }
 
