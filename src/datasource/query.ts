@@ -45,6 +45,9 @@ function getODataFilter(options: any, $select: any) : string{
         else if (_filters){
             result = _filters;
         }
+        if (!result){
+            return "";
+        }
         const state = store.getState();
         let userContext: any = {};
         if (state.entities.user){
