@@ -33,7 +33,7 @@ class WidgetObject extends React.Component {
             cellListColumns: columns ? columns.map((column)=>{
                 if (column.href){
                     column.onClick = function (event, data) {
-                        let url = `/app/contracts/${object_name}/view/${data.id}`;
+                        let url = `/app/-/${object_name}/view/${data.id}`;
                         window.location = url;
                     }
                 }
@@ -62,7 +62,7 @@ class WidgetObject extends React.Component {
                 id="InstanceCard"
                 heading={label}
                 footer={
-                    <a href={`/app/contracts/${objectName}/grid/all`}>
+                    <a href={`/app/-/${objectName}/grid/all`}>
                         查看全部
                     </a>
                 }
