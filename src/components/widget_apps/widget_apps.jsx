@@ -13,7 +13,7 @@ let AppLauncherDesktopInternal = styled.div`
     }
 `;
 
-class WidgetAppLauncher extends React.Component {
+class WidgetApps extends React.Component {
     constructor(props) {
         super(props)
     };
@@ -84,4 +84,4 @@ class WidgetAppLauncher extends React.Component {
     }
 }
 
-export default WidgetAppLauncher;
+export default WidgetApps;

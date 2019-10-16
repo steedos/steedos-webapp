@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import _ from 'underscore'
 import WidgetInstance from '../widget_instance';
 import WidgetObject from '../widget_object';
-import WidgetAppLauncher from '../widget_appLauncher';
+import WidgetApps from '../widget_apps';
 
 let Container = styled.div`
     display: flex;
@@ -36,7 +36,7 @@ class Dashboard extends React.Component {
 
     static defaultProps = {
         leftSection: null,
-        centerTopSection: <WidgetAppLauncher />,
+        centerTopSection: <WidgetApps />,
         centerBottomLeftSection: null,
         centerBottomRightSection: null,
         rightSection: null
@@ -71,7 +71,7 @@ class Dashboard extends React.Component {
     convertConfigItemToSection(value, key){
         switch (value.type) {
             case "apps":
-                return <WidgetAppLauncher key={key} label={value.label} />
+                return <WidgetApps key={key} label={value.label} />
             case "object":
                 return <WidgetObject key={key} label={value.label} object_name={value.object_name} filters={value.filters} columns={value.columns} />
             case "instance":

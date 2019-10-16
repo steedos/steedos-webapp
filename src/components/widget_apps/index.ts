@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import states from '../../states';
-import WidgetAppLauncher from './widget_appLauncher'
+import WidgetApps from './widget_apps'
 
 function mapStateToProps() {
     return (state: any, ownProps: any) => {
@@ -15,5 +15,5 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
         }
     });
 }
-export default connect(mapStateToProps, mapDispatchToProps)(WidgetAppLauncher);
+export default connect(mapStateToProps, mapDispatchToProps)(WidgetApps);
 

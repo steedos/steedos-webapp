@@ -6,7 +6,7 @@ import Dashboard from './components/dashboard'
 import Bootstrap from './components/bootstrap'
 import { IconSettings, Card, DataTable, DataTableColumn } from '@salesforce/design-system-react';
 import WidgetInstance from './components/widget_instance';
-import WidgetAppLauncher from './components/widget_appLauncher';
+import WidgetApps from './components/widget_apps';
 
 const sampleItems = [
   { id: '1', name: 'Cloudhub' },
@@ -85,7 +85,7 @@ function App() {
                       />
                     </DataTable>
                   </Card>
-                  <WidgetAppLauncher />
+                  <WidgetApps />
                 </div>
               )}
               centerBottomLeftSection={(
