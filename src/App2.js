@@ -43,7 +43,8 @@ const config = {
     object_name: 'tasks',
     filters: [
       ['assignees', '=', '{userId}'],
-      ['state', '<>', 'complete']
+      ['state', '<>', 'complete'],
+      ['due_date', 'between', 'this_year']
     ],
     columns: [{
       label: "名称",

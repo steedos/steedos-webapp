@@ -1267,10 +1267,10 @@
     warning "^4.0.3"
     webpack-cli "^3.x"
 
-"@steedos/filters@^1.7.3":
-  version "1.7.3"
-  resolved "https://registry.yarnpkg.com/@steedos/filters/-/filters-1.7.3.tgz#b990c0306a31170da978c016460a981c218439ba"
-  integrity sha512-KMi7WGZo7BIw+kBrJrrfdzihc+TBOqOU4sxkQt0iwg6G89oFV90o2oCp3Lj4/g3Gs53v8hiDTRGnrB4zuCSQCA==
+"@steedos/filters@^1.7.4":
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/@steedos/filters/-/filters-1.7.4.tgz#3bfd2e611a6cbf83b7229651a42b1edeed96e853"
+  integrity sha512-HXRMIoVCErdtvzw+FIqkcaOxBmBZMyiqbHbVUiPaSpP/hugwTdxNRnGpXZEYIr7ITbYjNK3vPu8SZyCrM/FxeA==
   dependencies:
     moment "^2.24.0"
     underscore "^1.9.1"
