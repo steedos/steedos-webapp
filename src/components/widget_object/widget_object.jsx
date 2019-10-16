@@ -62,7 +62,7 @@ class WidgetObject extends React.Component {
                 id="InstanceCard"
                 heading={label}
                 footer={
-                    <a href={`/app/-/${objectName}/grid/all`}>
+                    <a href={`/app/-/${objectName}`}>
                         查看全部
                     </a>
                 }
