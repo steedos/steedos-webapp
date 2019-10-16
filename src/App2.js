@@ -20,10 +20,21 @@ const config = {
     position: "CENTER_TOP",
     type: "apps",
   },
-  instance: {
-    label: "待办事项",
+  workflow: {
+    label: "待审批",
     position: "CENTER_TOP",
-    type: "instance",
+    type: "object",
+    object_name: "instances",
+    filters: [['space', '=', '{spaceId}'], [['inbox_users', '=', '{userId}'], 'or', ['cc_users', '=', '{userId}']]],
+    columns: [{
+      label: "名称",
+      field: "name",
+      href: true
+    }, {
+      label: "修改时间",
+      field: "modified",
+      type: 'datetime'
+    }]
   }
 }
 

@@ -72,8 +72,10 @@ class Dashboard extends React.Component {
         switch (value.type) {
             case "apps":
                 return <WidgetAppLauncher key={key} label={value.label} />
+            case "object":
+                return <WidgetObject key={key} label={value.label} object_name={value.object_name} filters={value.filters} columns={value.columns} />
             case "instance":
-                return <WidgetObject key={key} label={value.label} />
+                return <WidgetInstance key={key} label={value.label} />
         }
     }
 

@@ -2,7 +2,8 @@ import * as Odata from 'ts-odata-client'
 import utils from '../utils'
 import _ from 'underscore'
 import { formatFiltersToODataQuery } from "@steedos/filters";
-import { request } from "./request"
+import { request } from "./request";
+import store from "../stores/configureStore";
 
 function getSelect(columns){
     return _.pluck(columns, 'field')
@@ -44,7 +45,19 @@ function getODataFilter(options: any, $select: any) : string{
         else if (_filters){
             result = _filters;
         }
-        return formatFiltersToODataQuery(result) as string;
+        const state = store.getState();
+        let userContext: any = {};
+        if (state.entities.user){
+            // 新版本的bootstrap接口返回的是user，要处理下
+            userContext.userId = state.entities.user.userId;
+            userContext.spaceId = state.entities.user.spaceId;
+            userContext.user = state.entities.user;
+        }
+        else{
+            // 老版本的bootstrap接口返回的是USER_CONTEXT，直接取值
+            userContext = state.entities.USER_CONTEXT;
+        }
+        return formatFiltersToODataQuery(result, userContext) as string;
     }
     else{
         return "";

@@ -9,7 +9,7 @@ import utils from '../../utils'
 const userId = utils.getCookie("X-User-Id");
 const spaceId = utils.getCookie("X-Space-Id");
 
-class WidgetInstance extends React.Component {
+class WidgetObject extends React.Component {
 
     constructor(props) {
         super(props)
@@ -22,30 +22,24 @@ class WidgetInstance extends React.Component {
         label: PropTypes.string,
         object_name: PropTypes.string,
         filters: PropTypes.array,
-        columns: PropTypes.object
+        columns: PropTypes.array
     };
 
     convertObjectProps(){
         let { label, object_name, filters, columns } = this.props;
         let defaultProps = {
-            label: "待办事项",
-            selectionLabel: 'name',
-            cellListColumns: [
-                {
-                    field: 'name',
-                    label: '名称',
-                    onClick: function (event, data) {
-                        let url = `/workflow/space/${spaceId}/inbox/${data.id}`;
+            label: label,
+            objectName: object_name,
+            cellListColumns: columns ? columns.map((column)=>{
+                if (column.href){
+                    column.onClick = function (event, data) {
+                        let url = `/app/contracts/${object_name}/view/${data.id}`;
                         window.location = url;
                     }
-                }, {
-                    field: 'modified',
-                    label: '修改时间',
-                    type: 'datetime'
                 }
-            ],
-            $select: ['name'],
-            filters: [['space', '=', spaceId], [['inbox_users', '=', userId], 'or', ['cc_users', '=', userId]]]
+                return column;
+            }) : [],
+            filters: filters
 
         };
         return defaultProps;
@@ -62,21 +56,20 @@ class WidgetInstance extends React.Component {
     };
 
     render() {
-        // let { label, selectionLabel, cellListColumns, $filter } = this.props;
-        let { label, selectionLabel, cellListColumns, filters } = this.convertObjectProps();
+        let { label, objectName, selectionLabel, cellListColumns, filters } = this.convertObjectProps();
         return (
             <Card
                 id="InstanceCard"
                 heading={label}
                 footer={
-                    <a href={`/workflow/space/${spaceId}/inbox`}>
+                    <a href={`/app/contracts/${objectName}/grid/all`}>
                         查看全部
                     </a>
                 }
             >
                 <Grid searchMode="omitFilters"
                     pageSize={5}
-                    objectName="instances"
+                    objectName={objectName}
                     columns={cellListColumns}
                     selectionLabel={selectionLabel}
                     filters={filters}
@@ -86,4 +79,4 @@ class WidgetInstance extends React.Component {
     }
 }
 
-export default WidgetInstance;
+export default WidgetObject;
