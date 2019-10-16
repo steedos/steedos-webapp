@@ -16,7 +16,7 @@ class OrganizationsTree extends React.Component {
     constructor(props) {
         super(props)
         if(_.isEmpty(props.rootNodes)){
-            props.dispatch(loadEntitiesData({id: props.id, objectName: props.objectName, filters: [{columnName: 'parent', operation: 'equals', value: null}], columns: props.columns}))
+            props.dispatch(loadEntitiesData({ id: props.id, objectName: props.objectName, filters: [["parent", "=", null]], columns: props.columns}))
         }
 		
     }

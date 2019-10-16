@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import _ from 'underscore'
 import WidgetInstance from '../widget_instance';
+import WidgetObject from '../widget_object';
 import WidgetAppLauncher from '../widget_appLauncher';
 
 let Container = styled.div`
@@ -72,7 +73,7 @@ class Dashboard extends React.Component {
             case "apps":
                 return <WidgetAppLauncher key={key} label={value.label} />
             case "instance":
-                return <WidgetInstance key={key} label={value.label} />
+                return <WidgetObject key={key} label={value.label} />
         }
     }
 

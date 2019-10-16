@@ -16,29 +16,40 @@ class WidgetInstance extends React.Component {
     };
 
     static defaultProps = {
-        label:"待办事项",
-        selectionLabel: 'name',
-        cellListColumns: [
-            { 
-                field: 'name', 
-                label: '名称', 
-                onClick: function (event, data) { 
-                    let url = `/workflow/space/${spaceId}/inbox/${data.id}`;
-                    window.location = url;
-                } 
-            },{ 
-                field: 'modified', 
-                label: '修改时间', 
-                type: 'datetime' 
-            }
-        ],
-        $select: ['name'],
-        filters: [['space', '=', spaceId], [['inbox_users', '=', userId], 'or', ['cc_users', '=', userId]]]
     };
 
     static propTypes = {
-        label: PropTypes.string
+        label: PropTypes.string,
+        object_name: PropTypes.string,
+        filters: PropTypes.array,
+        columns: PropTypes.object
     };
+
+    convertObjectProps(){
+        let { label, object_name, filters, columns } = this.props;
+        let defaultProps = {
+            label: "待办事项",
+            selectionLabel: 'name',
+            cellListColumns: [
+                {
+                    field: 'name',
+                    label: '名称',
+                    onClick: function (event, data) {
+                        let url = `/workflow/space/${spaceId}/inbox/${data.id}`;
+                        window.location = url;
+                    }
+                }, {
+                    field: 'modified',
+                    label: '修改时间',
+                    type: 'datetime'
+                }
+            ],
+            $select: ['name'],
+            filters: [['space', '=', spaceId], [['inbox_users', '=', userId], 'or', ['cc_users', '=', userId]]]
+
+        };
+        return defaultProps;
+    }
 
     componentDidMount() {
         const { init } = this.props;
@@ -51,7 +62,8 @@ class WidgetInstance extends React.Component {
     };
 
     render() {
-        let { label, selectionLabel, cellListColumns, filters } = this.props;
+        // let { label, selectionLabel, cellListColumns, $filter } = this.props;
+        let { label, selectionLabel, cellListColumns, filters } = this.convertObjectProps();
         return (
             <Card
                 id="InstanceCard"
@@ -68,6 +80,7 @@ class WidgetInstance extends React.Component {
                     columns={cellListColumns}
                     selectionLabel={selectionLabel}
                     filters={filters}
+                    enableSearch={true}
                 />
             </Card>
         );

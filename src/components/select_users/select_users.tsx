@@ -38,7 +38,7 @@ class SelectUsers extends React.Component {
 
         let onClick = function(event: any, data: any){
             return function(dispatch: any, getState: any){
-                dispatch(createAction("filters", [{ columnName: "organizations", value: data.node.id, operation: "equals" }], 'space_users'))
+                dispatch(createAction("filters", [["organizations", "=", data.node.id]], 'space_users'))
                 dispatch({
                     type: 'TREE_STATE_CHANGE',
                     partialStateName: 'onClick',

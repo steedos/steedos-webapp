@@ -1267,6 +1267,14 @@
     warning "^4.0.3"
     webpack-cli "^3.x"
 
+"@steedos/filters@^1.7.3":
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/@steedos/filters/-/filters-1.7.3.tgz#b990c0306a31170da978c016460a981c218439ba"
+  integrity sha512-KMi7WGZo7BIw+kBrJrrfdzihc+TBOqOU4sxkQt0iwg6G89oFV90o2oCp3Lj4/g3Gs53v8hiDTRGnrB4zuCSQCA==
+  dependencies:
+    moment "^2.24.0"
+    underscore "^1.9.1"
+
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-4.2.0.tgz#dadcb6218503532d6884b210e7f3c502caaa44b1"
