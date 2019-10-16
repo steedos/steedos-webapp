@@ -80,7 +80,6 @@ class WidgetInstance extends React.Component {
                     columns={cellListColumns}
                     selectionLabel={selectionLabel}
                     filters={filters}
-                    enableSearch={true}
                 />
             </Card>
         );
