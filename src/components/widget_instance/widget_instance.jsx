@@ -54,7 +54,6 @@ class WidgetInstance extends React.Component {
         let { label, selectionLabel, cellListColumns, filters } = this.props;
         return (
             <Card
-                id="InstanceCard"
                 heading={label}
                 footer={
                     <a href={`/workflow/space/${spaceId}/inbox`}>

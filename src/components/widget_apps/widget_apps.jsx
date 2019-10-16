@@ -70,9 +70,7 @@ class WidgetApps extends React.Component {
         }
         return (
             <Card
-                id="AppLauncherCard"
                 heading={label}
-                icon={<Icon category="standard" name="document" size="small" />}
             >
                 <AppLauncherDesktopInternal className="slds-app-launcher__content">
                     <AppLauncherExpandableSection title="所有应用程序">

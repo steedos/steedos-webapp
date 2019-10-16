@@ -59,7 +59,6 @@ class WidgetObject extends React.Component {
         let { label, objectName, selectionLabel, cellListColumns, filters } = this.convertObjectProps();
         return (
             <Card
-                id="InstanceCard"
                 heading={label}
                 footer={
                     <a href={`/app/-/${objectName}`}>
