@@ -65,12 +65,63 @@ const config = {
     label: "Test React Component",
     position: "CENTER_TOP",
     type: "react",
-    component: function (options, key){
+    component: function (options){
       // return <div>ssss</div>
       const AppLauncherExpandableSection = require('@salesforce/design-system-react').AppLauncherExpandableSection;
       return (
         <AppLauncherExpandableSection title={options.label}>
         </AppLauncherExpandableSection>
+      );
+    }
+  },
+  testReact2: {
+    label: "Test React Component2",
+    position: "CENTER_TOP",
+    type: "react",
+    component: function (options) {
+      class ShoppingList extends React.Component {
+        render() {
+          return (
+            <div className="shopping-list">
+              <h1>Shopping List for {this.props.name}</h1>
+              <ul>
+                <li>Instagram</li>
+                <li>WhatsApp</li>
+                <li>Oculus</li>
+              </ul>
+            </div>
+          );
+        }
+      }
+      return <ShoppingList name={options.label} />;
+    }
+  },
+  testReact3: {
+    label: "右侧Card",
+    position: "RIGHT",
+    type: "react",
+    component: function (options) {
+      const styled = require('styled-components').default;
+      let CustomStyledComponent = styled.div`
+        color: green;
+        .slds-card{
+          background: #eee;
+        }
+      `;
+      return (
+        <CustomStyledComponent className="styled-component">
+          <Card
+            heading={options.label}
+          >
+            <DataTable items={sampleItems}>
+              <DataTableColumn
+                label="Opportunity Name"
+                property="name"
+                truncate
+              />
+            </DataTable>
+          </Card>
+        </CustomStyledComponent>
       );
     }
   }
