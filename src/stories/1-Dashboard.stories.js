@@ -179,3 +179,72 @@ export const configTypeApps = () => (
     </Provider>
   </div>
 )
+
+const config4 = {
+  testReact1: {
+    label: "Test React Component1",
+    position: "CENTER_TOP",
+    type: "react",
+    component: function (options) {
+      let CenterDiv2 = styled.div`
+        text-align: center;
+        height: 230px;
+        background: #fff;
+        border: solid 1px #eee;
+        border-radius: 4px;
+        margin-bottom: 12px;
+      `;
+      return <CenterDiv2 className="testReact1">{options.label}</CenterDiv2>;
+    }
+  },
+  testReact2: {
+    label: "Test React Component2",
+    position: "CENTER_TOP",
+    type: "react",
+    component: function (options) {
+      const Card = require('@salesforce/design-system-react').Card;
+      const AppLauncherExpandableSection = require('@salesforce/design-system-react').AppLauncherExpandableSection;
+      const AppLauncherTile = require('@salesforce/design-system-react').AppLauncherTile;
+      const styledByRequire = require('styled-components').default;
+      let AppLauncherDesktopInternal = styledByRequire.div`
+          padding: 0px 1rem;
+          .slds-section.slds-is-open{
+              .slds-section__content{
+                  padding-top: 0px;
+              }
+          }
+      `;
+      return (
+        <Card
+          heading={options.label}
+        >
+          <AppLauncherDesktopInternal className="slds-app-launcher__content">
+            <AppLauncherExpandableSection title="Tile Section">
+              <AppLauncherTile
+                description="The primary internal Salesforce org. Used to run our online sales business and manage accounts."
+                iconText="SC"
+                title="Sales Cloud"
+              />
+              <AppLauncherTile
+                description="Salesforce Marketing Cloud lets businesses of any size engage with their customers through multiple channels of messaging."
+                iconBackgroundColor="#e0cf76"
+                iconText="MC"
+                title="Marketing Cloud"
+              />
+            </AppLauncherExpandableSection>
+          </AppLauncherDesktopInternal>
+        </Card>
+      );
+    }
+  },
+}
+
+export const configTypeReact = () => (
+  <div className="App">
+    <Provider store={store}>
+      <Bootstrap>
+        <Dashboard config={config4} />
+      </Bootstrap>
+    </Provider>
+  </div>
+)
