@@ -69,7 +69,7 @@ const config = {
       // return <div>ssss</div>
       const AppLauncherExpandableSection = require('@salesforce/design-system-react').AppLauncherExpandableSection;
       return (
-        <AppLauncherExpandableSection key={key} title="所有应用程序3333">
+        <AppLauncherExpandableSection title={options.label}>
         </AppLauncherExpandableSection>
       );
     }

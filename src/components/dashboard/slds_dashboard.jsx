@@ -77,7 +77,11 @@ class Dashboard extends React.Component {
             case "instance":
                 return <WidgetInstance key={key} label={value.label} />
             case "react":
-                return value.component(value, key)
+                return (
+                    <React.Fragment key={key}>
+                        {value.component(value)}
+                    </React.Fragment>
+                )
         }
     }
 
