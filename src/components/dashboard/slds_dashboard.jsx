@@ -76,6 +76,8 @@ class Dashboard extends React.Component {
                 return <WidgetObject key={key} label={value.label} object_name={value.object_name} filters={value.filters} columns={value.columns} />
             case "instance":
                 return <WidgetInstance key={key} label={value.label} />
+            case "react":
+                return value.component(value, key)
         }
     }
 

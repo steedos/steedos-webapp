@@ -8,6 +8,7 @@ import { IconSettings, Card, DataTable, DataTableColumn } from '@salesforce/desi
 import WidgetInstance from './components/widget_instance';
 import WidgetApps from './components/widget_apps';
 
+
 const sampleItems = [
   { id: '1', name: 'Cloudhub' },
   { id: '2', name: 'Cloudhub + Anypoint Connectors' },
@@ -59,6 +60,19 @@ const config = {
     label: "应用程序启动器",
     position: "CENTER_TOP",
     type: "apps",
+  },
+  testReact: {
+    label: "Test React Component",
+    position: "CENTER_TOP",
+    type: "react",
+    component: function (options, key){
+      // return <div>ssss</div>
+      const AppLauncherExpandableSection = require('@salesforce/design-system-react').AppLauncherExpandableSection;
+      return (
+        <AppLauncherExpandableSection key={key} title="所有应用程序3333">
+        </AppLauncherExpandableSection>
+      );
+    }
   }
 }
 
