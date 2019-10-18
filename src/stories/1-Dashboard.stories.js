@@ -46,4 +46,65 @@ export const sections = () => (
         </Bootstrap>
       </Provider>
   </div>
+);
+
+const config1 = {
+  sectionCT1: {
+    label: "Center Top Section 1",
+    position: "CENTER_TOP",
+    type: "react",
+    component: function (options) {
+      return <CenterDiv>{options.label}</CenterDiv>
+    }
+  },
+  sectionCT2: {
+    label: "Center Top Section 2",
+    position: "CENTER_TOP",
+    type: "react",
+    component: function (options) {
+      return <CenterDiv>{options.label}</CenterDiv>
+    }
+  },
+  sectionCBL: {
+    label: "Bottom Left Section",
+    position: "CENTER_BOTTOM_LEFT",
+    type: "react",
+    component: function (options) {
+      return <CenterDiv>{options.label}</CenterDiv>
+    }
+  },
+  sectionCBR: {
+    label: "Bottom Left Section",
+    position: "CENTER_BOTTOM_RIGHT",
+    type: "react",
+    component: function (options) {
+      return <CenterDiv>{options.label}</CenterDiv>
+    }
+  },
+  sectionR1: {
+    label: "Right Section 1",
+    position: "RIGHT",
+    type: "react",
+    component: function (options) {
+      return <CenterDiv>{options.label}</CenterDiv>
+    }
+  },
+  sectionR2: {
+    label: "Right Section 2",
+    position: "RIGHT",
+    type: "react",
+    component: function (options) {
+      return <CenterDiv>{options.label}</CenterDiv>
+    }
+  }
+}
+
+export const configPosition = () => (
+  <div className="App">
+    <Provider store={store}>
+      <Bootstrap>
+        <Dashboard config={config1}/>
+      </Bootstrap>
+    </Provider>
+  </div>
 )
