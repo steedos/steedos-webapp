@@ -14,7 +14,6 @@ export default {
 
 
 export const company = () => (
-    <IconSettings iconPath="/assets/icons" >
       <Provider store={store}>
         <Bootstrap>
             <Grid objectName={'company'} 
@@ -37,7 +36,6 @@ export const company = () => (
               enableSearch={true}></Grid>
         </Bootstrap>
       </Provider>
-    </IconSettings>
 )
 
 

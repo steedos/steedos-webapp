@@ -9,6 +9,12 @@ class Bootstrap extends React.Component {
         super(props)
     };
 
+	getChildContext() {
+		return {
+			iconPath: '/assets/icons',
+		};
+    }
+    
     static defaultProps = {
     };
 
@@ -38,5 +44,9 @@ class Bootstrap extends React.Component {
         );
     }
 }
+
+Bootstrap.childContextTypes = {
+	iconPath: PropTypes.string,
+};
 
 export default Bootstrap;
