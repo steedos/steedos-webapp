@@ -12,7 +12,7 @@ export default {
 
 export const instances = () => (
 
-    <div className="App">
+  <div className="App">
     <IconSettings iconPath="/assets/icons" >
       <Provider store={store}>
         <Bootstrap>

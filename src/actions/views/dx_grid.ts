@@ -1,7 +1,8 @@
 import states from '../../states';
 import { loadEntitiesDataRequest } from '../records_request'
 import { createAction as baseCreateAction } from '../base'
-export const DXGRID_STATE_CHANGE_ACTION = 'DXGRID_STATE_CHANGE';
+
+export var DXGRID_STATE_CHANGE_ACTION = 'DXGRID_STATE_CHANGE';
 
 export function createAction(partialStateName: any, partialStateValue: any, options: any) {
     if(["currentPage", "pageSize", "filters"].includes(partialStateName)){
