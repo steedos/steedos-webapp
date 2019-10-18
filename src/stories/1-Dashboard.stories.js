@@ -205,8 +205,8 @@ const config4 = {
       const Card = require('@salesforce/design-system-react').Card;
       const AppLauncherExpandableSection = require('@salesforce/design-system-react').AppLauncherExpandableSection;
       const AppLauncherTile = require('@salesforce/design-system-react').AppLauncherTile;
-      const styledByRequire = require('styled-components').default;
-      let AppLauncherDesktopInternal = styledByRequire.div`
+      const styled = require('styled-components').default;
+      let AppLauncherDesktopInternal = styled.div`
           padding: 0px 1rem;
           .slds-section.slds-is-open{
               .slds-section__content{
@@ -224,12 +224,14 @@ const config4 = {
                 description="The primary internal Salesforce org. Used to run our online sales business and manage accounts."
                 iconText="SC"
                 title="Sales Cloud"
+                href="/a"
               />
               <AppLauncherTile
                 description="Salesforce Marketing Cloud lets businesses of any size engage with their customers through multiple channels of messaging."
                 iconBackgroundColor="#e0cf76"
                 iconText="MC"
                 title="Marketing Cloud"
+                href="/b"
               />
             </AppLauncherExpandableSection>
           </AppLauncherDesktopInternal>
@@ -237,6 +239,61 @@ const config4 = {
       );
     }
   },
+  testReact3: {
+    label: "Test React Component3",
+    position: "RIGHT",
+    type: "react",
+    // component: function (options) {
+    //   const Card = require('@salesforce/design-system-react').Card;
+    //   let CenterDiv2 = styled.div`
+    //     text-align: center;
+    //     height: 230px;
+    //     background: #fff;
+    //     border: solid 1px #eee;
+    //     border-radius: 4px;
+    //     margin-bottom: 12px;
+    //   `;
+    //   return (
+    //     <Card
+    //       heading={options.label}
+    //     >
+          
+    //     </Card>
+    //   );
+    // },
+    component: function (options) {
+      const Card = require('@salesforce/design-system-react').Card;
+      const DataTable = require('@salesforce/design-system-react').DataTable;
+      const DataTableColumn = require('@salesforce/design-system-react').DataTableColumn;
+      const styled = require('styled-components').default;
+      let CustomStyledComponent = styled.div`
+        color: green;
+        .slds-card{
+          background: #eee;
+        }
+      `;
+      const sampleItems = [
+        { id: '1', name: 'Cloudhub' },
+        { id: '2', name: 'Cloudhub + Anypoint Connectors' },
+        { id: '3', name: 'Cloud City' },
+      ];
+      return (
+        <CustomStyledComponent className="styled-component">
+          <Card
+            heading={options.label}
+          >
+            <DataTable items={sampleItems}>
+              <DataTableColumn
+                label="Opportunity Name"
+                property="name"
+                truncate
+              />
+            </DataTable>
+          </Card>
+        </CustomStyledComponent>
+      );
+    }
+  }
 }
 
 export const configTypeReact = () => (
