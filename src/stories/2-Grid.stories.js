@@ -36,7 +36,7 @@ export const company = () => (
     <IconSettings iconPath="/assets/icons" >
       <Provider store={store}>
         <Bootstrap>
-            <Grid objectName={'company'} columns={companyColumns} selectRows='checkbox' enableSearch={true}></Grid>
+            <Grid objectName={'company'} columns={companyColumns} enableSearch={true}></Grid>
         </Bootstrap>
       </Provider>
     </IconSettings>

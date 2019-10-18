@@ -7,7 +7,7 @@ import { Provider  } from 'react-redux';
 import store from '../stores/configureStore'
 
 export default {
-  title: 'Dashboard',
+  title: 'Dashboard'
 };
 
 export const instances = () => (

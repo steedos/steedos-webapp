@@ -11,6 +11,7 @@
     "@salesforce-ux/design-system": "^2.10.0",
     "@salesforce/design-system-react": "^0.10.12",
     "@steedos/filters": "^1.7.4",
+    "@storybook/addon-cssresources": "^5.2.4",
     "@types/jest": "^24.0.13",
     "@types/node": "^12.0.4",
     "@types/react": "^16.8.19",
@@ -23,11 +24,11 @@
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
-    "redux-devtools-extension": "^2.13.8",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
     "react-scripts": "^3.1.2",
     "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "styled-components": "^4.4.0",
     "ts-odata-client": "^1.0.2",
@@ -35,11 +36,11 @@
     "underscore": "^1.9.1"
   },
   "devDependencies": {
-    "babel-preset-env": "^1.7.0",
     "@storybook/addon-actions": "^5.2.4",
     "@storybook/addon-links": "^5.2.4",
     "@storybook/addons": "^5.2.4",
     "@storybook/react": "^5.2.4",
+    "babel-preset-env": "^1.7.0",
     "redux-devtools-extension": "^2.13.8"
   },
   "scripts": {
