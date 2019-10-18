@@ -40,7 +40,6 @@ export const company = () => (
 
 
 export const space_users = () => (
-  <IconSettings iconPath="/assets/icons" >
     <Provider store={store}>
       <Bootstrap>
           <Grid objectName={'space_users'} 
@@ -63,5 +62,4 @@ export const space_users = () => (
             enableSearch={true}></Grid>
       </Bootstrap>
     </Provider>
-  </IconSettings>
 )
