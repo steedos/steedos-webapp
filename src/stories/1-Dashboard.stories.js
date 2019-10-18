@@ -243,24 +243,6 @@ const config4 = {
     label: "Test React Component3",
     position: "RIGHT",
     type: "react",
-    // component: function (options) {
-    //   const Card = require('@salesforce/design-system-react').Card;
-    //   let CenterDiv2 = styled.div`
-    //     text-align: center;
-    //     height: 230px;
-    //     background: #fff;
-    //     border: solid 1px #eee;
-    //     border-radius: 4px;
-    //     margin-bottom: 12px;
-    //   `;
-    //   return (
-    //     <Card
-    //       heading={options.label}
-    //     >
-          
-    //     </Card>
-    //   );
-    // },
     component: function (options) {
       const Card = require('@salesforce/design-system-react').Card;
       const DataTable = require('@salesforce/design-system-react').DataTable;
