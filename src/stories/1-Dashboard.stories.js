@@ -108,3 +108,74 @@ export const configPosition = () => (
     </Provider>
   </div>
 )
+
+const config2 = {
+  workflow: {
+    label: "待审批",
+    position: "CENTER_TOP",
+    type: "object",
+    object_name: "instances",
+    filters: [
+      ['space', '=', '{spaceId}'],
+      [
+        ['inbox_users', '=', '{userId}'], 'or', ['cc_users', '=', '{userId}']
+      ]
+    ],
+    columns: [{
+      label: "名称",
+      field: "name",
+      href: true
+    }, {
+      label: "修改时间",
+      field: "modified",
+      type: 'datetime'
+    }]
+  },
+  pending_tasks: {
+    label: '待办任务',
+    position: 'CENTER_TOP',
+    type: 'object',
+    object_name: 'tasks',
+    filters: [
+      ['assignees', '=', '{userId}'],
+      ['state', '<>', 'complete'],
+      ['due_date', 'between', 'this_year']
+    ],
+    columns: [{
+      label: "名称",
+      field: 'name',
+      href: true
+    }, {
+      label: "优先级",
+      field: 'priority'
+    }]
+  }
+}
+
+export const configTypeObject = () => (
+  <div className="App">
+    <Provider store={store}>
+      <Bootstrap>
+        <Dashboard config={config2} />
+      </Bootstrap>
+    </Provider>
+  </div>
+)
+
+const config3 = {
+  apps: {
+    label: "应用程序启动器",
+    position: "CENTER_TOP",
+    type: "apps"
+  },
+}
+
+export const configTypeApps = () => (
+  <div className="App">
+    <Provider store={store}>
+      <Bootstrap>
+        <Dashboard config={config3} />
+      </Bootstrap>
+    </Provider>
+  </div>
+)
