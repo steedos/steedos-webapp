@@ -1,7 +1,7 @@
 
 import { TREE_STATE_CHANGE_ACTION } from '../../actions/views/tree'
 import _ from 'underscore'
-
+import produce from "immer"
 
 /**
  * return: {id: {label: ,type: , id}}
@@ -23,35 +23,37 @@ function transformData(records: any) {
 }
 
 //TODO: 优化expandClick，click
-function reducer(state: any = {}, action: any) {
+const reducer = produce((draft: any = {}, action: any)=>{
     if (action.type === TREE_STATE_CHANGE_ACTION) {
         const payload = action.payload
         let value = payload.partialStateValue
         let nodeId: string = value.node ? value.node.id : ""
         switch (payload.partialStateName) {
             case 'expandClick':
-                state.nodes[value.node.id]["expanded"] = value.expand
+                draft.nodes[value.node.id]["expanded"] = value.expand
                 break;
             case 'click':
-                let selectedNodeIds = state.selectedNode || []
+                let selectedNodeIds = draft.selectedNode || []
                 if (selectedNodeIds.length > 0) {
-                    (state.nodes[selectedNodeIds[0]] as any).selected = false
+                    (draft.nodes[selectedNodeIds[0]] as any).selected = false
                 }
                 let selected = value.select ? true : value.node.selected
-                state.nodes[nodeId]["selected"] = selected
+                draft.nodes[nodeId]["selected"] = selected
                 if (selected) {
-                    state.selectedNode = [nodeId]
+                    draft.selectedNode = [nodeId]
                 }
                 break;
             case 'loadDataSauce':
-                return Object.assign({}, state, { nodes: transformData(payload.partialStateValue.records), totalCount: payload.partialStateValue.totalCount });
+                draft.nodes = transformData(payload.partialStateValue.records);
+                draft.totalCount = payload.partialStateValue.totalCount ;
             default:
                 break;
         }
-        return Object.assign({}, state, { [payload.partialStateName]: payload.partialStateValue });
+        draft[payload.partialStateName] = payload.partialStateValue
+        // return Object.assign({}, draft, { [payload.partialStateName]: payload.partialStateValue });
 
     }
-    return state;
-};
+    return draft;
+});
 
 export default reducer

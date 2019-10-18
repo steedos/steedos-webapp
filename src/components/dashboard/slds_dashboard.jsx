@@ -1,19 +1,10 @@
 import * as React from 'react';
-import Grid from '../grid'
-import OrganizationsTree from '../organizations'
 import PropTypes from 'prop-types';
-import { createAction as createActionGrid } from '../../actions/views/grid';
 import styled from 'styled-components'
 import _ from 'underscore'
-import { Card, CardEmpty, CardFilter, Icon, DataTable, DataTableColumn, 
-    AppLauncherTile, AppLauncherExpandableSection } from '@salesforce/design-system-react';
-import utils from '../../utils'
-
-const sampleItems = [
-    { id: '1', name: 'Cloudhub' },
-    { id: '2', name: 'Cloudhub + Anypoint Connectors' },
-    { id: '3', name: 'Cloud City' },
-];
+import WidgetInstance from '../widget_instance';
+import WidgetObject from '../widget_object';
+import WidgetApps from '../widget_apps';
 
 let Container = styled.div`
     display: flex;
@@ -38,68 +29,26 @@ let Cell = styled.div`
     }
 `;
 
-let AppLauncherDesktopInternal = styled.div`
-    padding: 0px 1rem;
-    .slds-section.slds-is-open{
-        .slds-section__content{
-            padding-top: 0px;
-        }
-    }
-`;
-
-const userId = utils.getCookie("X-User-Id");
-const spaceId = utils.getCookie("X-Space-Id");
-
-const instance = {
-    name: 'instances',
-    label: '申请单',
-    fields: {
-        name: {
-            label: '名称',
-            cellOnClick: function(event, data){
-                console.log('instance.name click, data is', data);
-            }
-        },
-        modified: {
-            label: '修改时间'
-        }
-    }
-}
-
 class Dashboard extends React.Component {
-
     constructor(props) {
         super(props)
-        // props.dispatch(loadEntitiesData({ objectName: 'organizations', filters: [{ columnName: 'parent', operation: 'equals', value: null }] }))
-        // props.dispatch(createActionGrid("$filter", (p) => {
-        //     return p.equals("space", spaceId).and(p.equals("inbox_users", userId).or(p.equals("cc_users", userId)));
-        // }, "instances"))
     };
 
     static defaultProps = {
-        selectionLabel: 'name',
-        cellListColumns: [
-            { 
-                field: 'name', 
-                label: '名称', 
-                onClick: function (event, data) { 
-                    console.log('instance.name click, data is', data);
-                    let url = `/workflow/space/${spaceId}/inbox/${data.id}`;
-                    window.location = url;
-                } 
-            },{ 
-                field: 'modified', 
-                label: '修改时间', 
-                type: 'datetime' 
-            }
-        ],
-        $select: ['name'],
-        $filter: (p) => {
-            return p.equals("space", spaceId).and(p.equals("inbox_users", userId).or(p.equals("cc_users", userId)));
-        }
+        leftSection: null,
+        centerTopSection: <WidgetApps />,
+        centerBottomLeftSection: null,
+        centerBottomRightSection: null,
+        rightSection: null
     };
 
     static propTypes = {
+        config: PropTypes.object,
+        leftSection: PropTypes.node,
+        centerTopSection: PropTypes.node,
+        centerBottomLeftSection: PropTypes.node,
+        centerBottomRightSection: PropTypes.node,
+        rightSection: PropTypes.node
     };
 
     componentDidMount() {
@@ -109,164 +58,136 @@ class Dashboard extends React.Component {
         }
     }
 
-    // componentDidMount() {
-    //     const { init } = this.props as any
-    //     init(this.props)
-    // }
-
-    static displayName = 'CardExample';
+    static displayName = 'Dashboard';
 
     state = {
-        items: sampleItems,
-        isFiltering: false,
+        leftSection: this.props.leftSection,
+        centerTopSection: this.props.centerTopSection,
+        centerBottomLeftSection: this.props.centerBottomLeftSection,
+        centerBottomRightSection: this.props.centerBottomRightSection,
+        rightSection: this.props.rightSection
     };
 
-    handleFilterChange = (event) => {
-        const filteredItems = sampleItems.filter((item) =>
-            RegExp(event.target.value, 'i').test(item.name)
-        );
-        this.setState({ isFiltering: true, items: filteredItems });
-    };
+    convertConfigItemToSection(value, key){
+        switch (value.type) {
+            case "apps":
+                return <WidgetApps key={key} label={value.label} />
+            case "object":
+                return <WidgetObject key={key} label={value.label} object_name={value.object_name} filters={value.filters} columns={value.columns} />
+            case "instance":
+                return <WidgetInstance key={key} label={value.label} />
+            case "react":
+                return (
+                    <React.Fragment key={key}>
+                        {value.component(value)}
+                    </React.Fragment>
+                )
+        }
+    }
+
+    convertConfigToSection(config) {
+        let result = {}, section;
+        _.each(config, (value, key) => {
+            switch (value.position) {
+                case "LEFT":
+                    section = this.convertConfigItemToSection(value, key);
+                    if (section){
+                        if (!result.leftSection){
+                            result.leftSection = [];
+                        }
+                        result.leftSection.push(section);
+                    }
+                    break;
+                case "CENTER_TOP":
+                    section = this.convertConfigItemToSection(value, key);
+                    if (section) {
+                        if (!result.centerTopSection) {
+                            result.centerTopSection = [];
+                        }
+                        result.centerTopSection.push(section);
+                    }
+                    break;
+                case "CENTER_BOTTOM_LEFT":
+                    section = this.convertConfigItemToSection(value, key);
+                    if (section) {
+                        if (!result.centerBottomLeftSection) {
+                            result.centerBottomLeftSection = [];
+                        }
+                        result.centerBottomLeftSection.push(section);
+                    }
+                    break;
+                case "CENTER_BOTTOM_RIGHT":
+                    section = this.convertConfigItemToSection(value, key);
+                    if (section) {
+                        if (!result.centerBottomRightSection) {
+                            result.centerBottomRightSection = [];
+                        }
+                        result.centerBottomRightSection.push(section);
+                    }
+                    break;
+                case "RIGHT":
+                    section = this.convertConfigItemToSection(value, key);
+                    if (section) {
+                        if (!result.rightSection) {
+                            result.rightSection = [];
+                        }
+                        result.rightSection.push(section);
+                    }
+                    break;
+            }
+        });
+        return result;
+    }
 
     render() {
-        const isEmpty = this.state.items.length === 0;
-        let { selectionLabel, cellListColumns, $filter, apps } = this.props;
-        let appCells;
-        if(apps){
-            appCells = _.map(apps, (app, key) => {
-                if (app.name) {
-                    return (
-                        <AppLauncherTile
-                            assistiveText={{ dragIconText: app.name }}
-                            key={key}
-                            description={app.description}
-                            iconNode={
-                                <Icon
-                                    assistiveText={{ label: app.name }}
-                                    category="standard"
-                                    name={app.icon_slds}
-                                />
-                            }
-                            title={app.name}
-                            href={`/app/${app._id}`}
-                            onClick={(event, args)=>{
-                                if (args.href){
-                                    window.location = args.href;
-                                }
-                            }}
-                        />
-                    )
-                }
-            })
+        const config = this.props.config;
+        let configSection = {};
+        if (config) {
+            configSection = this.convertConfigToSection(config);
         }
-        else{
+        let { leftSection, centerTopSection, centerBottomLeftSection, centerBottomRightSection, rightSection } = { ...this.state, ...configSection };
 
-        }
         return (
             <Container className="slds-dashboard">
                 <Column className="slds-dashboard-column">
-                    <Cell className="slds-dashboard-cell">
-                        <div className="slds-grid slds-grid_vertical">
-                            <Card
-                                id="InstanceCard"
-                                heading="待办事项"
-                                icon={<Icon category="standard" name="document" size="small" />}
-                            >
-                                <Grid searchMode="omitFilters"
-                                    pageSize={200} 
-                                    objectName="instances"
-                                    columns={cellListColumns}
-                                    selectionLabel={selectionLabel}
-                                    $filter={$filter}
-                                />
-                            </Card>
-                        </div>
-                    </Cell>
-                    <Cell className="slds-dashboard-cell">
-                        <div className="slds-grid slds-grid_vertical">
-                            <Card
-                                id="ExampleCard"
-                                heading="今日事件"
-                                icon={<Icon category="standard" name="document" size="small" />}
-                            >
-                                <DataTable items={this.state.items} id="DataTableExample-1">
-                                    <DataTableColumn
-                                        label="Opportunity Name"
-                                        property="name"
-                                        truncate
-                                    />
-                                </DataTable>
-                            </Card>
-                        </div>
-                    </Cell>
-                    <Cell className="slds-dashboard-cell">
-                        <div className="slds-grid slds-grid_vertical">
-                            <Card
-                                id="ExampleCard"
-                                heading="应用程序启动器"
-                                icon={<Icon category="standard" name="document" size="small" />}
-                            >
-                                <AppLauncherDesktopInternal className="slds-app-launcher__content">
-                                    <AppLauncherExpandableSection title="所有应用程序">
-                                        {appCells}
-                                    </AppLauncherExpandableSection>
-                                </AppLauncherDesktopInternal>
-                            </Card>
-                        </div>
-                    </Cell>
-                    <Cell className="slds-dashboard-cell flex-split">
-                        <div className="slds-grid slds-grid_vertical">
-                            <Card
-                                id="ExampleCard"
-                                heading="左下1"
-                                icon={<Icon category="standard" name="document" size="small" />}
-                            >
-                                <DataTable items={this.state.items} id="DataTableExample-1">
-                                    <DataTableColumn
-                                        label="Opportunity Name"
-                                        property="name"
-                                        truncate
-                                    />
-                                </DataTable>
-                            </Card>
-                        </div>
-                    </Cell>
-                    <Cell className="slds-dashboard-cell flex-split">
-                        <div className="slds-grid slds-grid_vertical">
-                            <Card
-                                id="ExampleCard"
-                                heading="左下2"
-                                icon={<Icon category="standard" name="document" size="small" />}
-                            >
-                                <DataTable items={this.state.items} id="DataTableExample-1">
-                                    <DataTableColumn
-                                        label="Opportunity Name"
-                                        property="name"
-                                        truncate
-                                    />
-                                </DataTable>
-                            </Card>
-                        </div>
-                    </Cell>
+                    {
+                        centerTopSection ? (
+                            <Cell className = "slds-dashboard-cell" >
+                                <div className="slds-grid slds-grid_vertical">
+                                    {centerTopSection}
+                                </div>
+                            </Cell>
+                        ): null
+                    }
+                    {
+                        centerBottomLeftSection ? (
+                            <Cell className="slds-dashboard-cell flex-split" >
+                                <div className="slds-grid slds-grid_vertical">
+                                    {centerBottomLeftSection}
+                                </div>
+                            </Cell>
+                        ) : null
+                    }
+                    {
+                        centerBottomRightSection ? (
+                            <Cell className="slds-dashboard-cell flex-split" >
+                                <div className="slds-grid slds-grid_vertical">
+                                    {centerBottomRightSection}
+                                </div>
+                            </Cell>
+                        ) : null
+                    }
                 </Column>
                 <Column className="slds-dashboard-column">
-                    <Cell className="slds-dashboard-cell">
-                        <div className="slds-grid slds-grid_vertical">
-                            <Card
-                                id="ExampleCard"
-                                heading="右侧Card"
-                                icon={<Icon category="standard" name="document" size="small" />}
-                            >
-                                <DataTable items={this.state.items} id="DataTableExample-1">
-                                    <DataTableColumn
-                                        label="Opportunity Name"
-                                        property="name"
-                                        truncate
-                                    />
-                                </DataTable>
-                            </Card>
-                        </div>
-                    </Cell>
+                    {
+                        rightSection ? (
+                            <Cell className="slds-dashboard-cell" >
+                                <div className="slds-grid slds-grid_vertical">
+                                    {rightSection}
+                                </div>
+                            </Cell>
+                        ) : null
+                    }
                 </Column>
             </Container>
         );

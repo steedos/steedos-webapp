@@ -1,11 +1,13 @@
 import { connect } from 'react-redux';
 import Lookup from './salesforce_comboboxes'
 import { loadEntitiesData } from '../../actions/views/dx_grid'
-import { getEntityState } from '../../states/entitys'
+import states from '../../states'
+import { makeNewID } from '../index';
 
 function mapStateToProps() {
     return (state: any, ownProps: any) => {
-      let entityState = getEntityState(state, ownProps.objectName) || {}
+      ownProps.id = ownProps.id || makeNewID(ownProps)
+      let entityState = states.getViewState(state, ownProps.id) || {}
       return entityState;
     };
   }

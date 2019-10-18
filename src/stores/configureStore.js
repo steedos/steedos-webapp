@@ -3,25 +3,18 @@ import thunkMiddleware from 'redux-thunk'
 import rootReducer from '../reducers'
 import { composeWithDevTools } from 'redux-devtools-extension';
 const composeEnhancers = composeWithDevTools({ realtime: true});
+
+let steedosService = process.env.REACT_APP_API_BASE_URL;
+if(window.Meteor && window.Meteor.settings && window.Meteor.settings.public && window.Meteor.settings.public.webservices && window.Meteor.settings.public.webservices.steedos){
+    steedosService = window.Meteor.settings.public.webservices.steedos.url
+}
+
 const initialStore = {
     settings: {
         services: {
-            steedos: process.env.REACT_APP_API_BASE_URL
+            steedos: steedosService
         }
-    },
-    // views: {
-    //     grid: {
-    //         [gid]: {
-
-    //         },
-    //         [gid]: {
-
-    //         }
-    //     },
-    //     tree: {
-
-    //     },
-    // }
+    }
 }
 
 const store = createStore(

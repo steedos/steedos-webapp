@@ -1267,6 +1267,14 @@
     warning "^4.0.3"
     webpack-cli "^3.x"
 
+"@steedos/filters@^1.7.4":
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/@steedos/filters/-/filters-1.7.4.tgz#3bfd2e611a6cbf83b7229651a42b1edeed96e853"
+  integrity sha512-HXRMIoVCErdtvzw+FIqkcaOxBmBZMyiqbHbVUiPaSpP/hugwTdxNRnGpXZEYIr7ITbYjNK3vPu8SZyCrM/FxeA==
+  dependencies:
+    moment "^2.24.0"
+    underscore "^1.9.1"
+
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-4.2.0.tgz#dadcb6218503532d6884b210e7f3c502caaa44b1"
@@ -5138,6 +5146,11 @@ immer@1.10.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/immer/-/immer-1.10.0.tgz#bad67605ba9c810275d91e1c2a47d4582e98286d"
   integrity sha512-O3sR1/opvCDGLEVcvrGTMtLac8GJ5IwZC4puPrLuRj3l7ICKvkmA0vGuU9OW8mV9WIBRnaxp5GJh9IEAaNOoYg==
+
+immer@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-4.0.1.tgz#9108c1ece7fdd7efb91d21e5eb4bac26f7c3a8ba"
+  integrity sha512-qZFpWApnbubcJ03gvWa6zUQz2OTkDc6yINdFXI1lm2IoMYsiVVMrxvfeLDURFhUGJfsQysDUjHSXYnJfMMHAwQ==
 
 import-cwd@^2.0.0:
   version "2.1.0"

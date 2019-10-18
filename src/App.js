@@ -5,7 +5,7 @@ import store from './stores/configureStore'
 import SelectUsers from './components/select_users'
 import DXGrid from './components/dx_grid'
 import Grid from './components/grid'
-import { IconSettings } from '@salesforce/design-system-react';
+import { IconSettings,Illustration } from '@salesforce/design-system-react';
 import settings from './states/settings'
 import Bootstrap from './components/bootstrap'
 
@@ -61,7 +61,29 @@ function App() {
     {
       field: 'code',
       label: '公司名称',
-      
+
+    },
+    {
+      field: 'modified_by',
+      label: '修改人',
+      type: 'lookup'
+    },
+    {
+      field: 'modified',
+      label: '修改时间',
+      type: 'datetime'
+    },
+  ]
+
+  let gridColumns2 = [
+    {
+      field: 'name',
+      label: '公司名称'
+    },
+    {
+      field: 'code',
+      label: '公司名称',
+
     },
     {
       field: 'modified_by',
@@ -80,10 +102,11 @@ function App() {
     < div className="App">
       <IconSettings iconPath={iconPath} >
         <Provider store={store}>
-          <Bootstrap>
-            <SelectUsers getRowId={getRowId} searchMode="omitFilters" rootNodes2={rootNodes} multiple={true} valueField2="user" selectionLabel2={selectionLabel} />
-            {/* <Grid objectName={gridObjectName} columns={gridColumns}></Grid> */}
-          </Bootstrap>
+          <Bootstrap></Bootstrap>
+            {/* <SelectUsers getRowId={getRowId} searchMode="omitFilters" rootNodes2={rootNodes} multiple={true} valueField2="user" selectionLabel2={selectionLabel} /> */}
+            <Grid objectName={gridObjectName} columns={gridColumns} selectRows='checkbox' enableSearch={true}></Grid>
+            <div style={{ height: 100 }}></div>
+            <Grid objectName={gridObjectName} columns={gridColumns2} selectRows='checkbox' enableSearch={true}></Grid>
         </Provider>
       </IconSettings>
     </div>

@@ -1,6 +1,9 @@
 import * as Odata from 'ts-odata-client'
 import utils from '../utils'
 import _ from 'underscore'
+import { formatFiltersToODataQuery } from "@steedos/filters";
+import { request } from "./request";
+import store from "../stores/configureStore";
 
 function getSelect(columns){
     return _.pluck(columns, 'field')
@@ -15,8 +18,60 @@ function getExpand(columns) {
     }), 'field')
 }
 
+function getODataFilter(options: any, $select: any) : string{
+    if (options.filters || (options.search && $select)) {
+        let { searchMode } = options;
+        let result: any, _filters: any, _query: any;
+        if (options.filters && options.filters.length) {
+            _filters = options.filters;
+        }
+        if (options.search && $select) {
+            $select = _.union($select, ["_id"]);
+            _query = [];
+            $select.forEach((element: string, i: number) => {
+                if(i > 0){
+                    _query.push('or');
+                }
+                _query.push([element, 'contains', options.search]);
+            });
+        }
+
+        if (searchMode && _query) {
+            result = _query;
+        }
+        else if (_filters && _query) {
+            result = [_filters, 'and', _query];
+        }
+        else if (_filters){
+            result = _filters;
+        }
+        else if (_query) {
+            result = _query;
+        }
+        if (!result){
+            return "";
+        }
+        const state = store.getState();
+        let userContext: any = {};
+        if (state.entities.user){
+            // 新版本的bootstrap接口返回的是user，要处理下
+            userContext.userId = state.entities.user.userId;
+            userContext.spaceId = state.entities.user.spaceId;
+            userContext.user = state.entities.user;
+        }
+        else{
+            // 老版本的bootstrap接口返回的是USER_CONTEXT，直接取值
+            userContext = state.entities.USER_CONTEXT;
+        }
+        return formatFiltersToODataQuery(result, userContext) as string;
+    }
+    else{
+        return "";
+    }
+}
+
 export async function query(service: string, options: any = { pageSize: 10, currentPage: 0 }) {
-    let { currentPage, pageSize, searchMode, objectName, columns } = options
+    let { currentPage, pageSize, objectName, columns } = options
 
     let $select = getSelect(columns);
     let $expand = getExpand(columns);
@@ -50,44 +105,13 @@ export async function query(service: string, options: any = { pageSize: 10, curr
         query = query.expand(e);
     })
 
-    if (typeof options.$filter === "function") {
-        query = query.filter(options.$filter);
+    let odataFilter: string = getODataFilter(options, $select);
+    console.log("====odataFilter=====", odataFilter);
+    let odataUrl = query.provider.buildQuery(query.expression);
+    console.log("====odataUrl=====", `${odataUrl}&$filter=${encodeURIComponent(odataFilter)}`);
+    if (odataFilter){
+        odataUrl = `${odataUrl}&$filter=${encodeURIComponent(odataFilter)}`;
     }
-    else if (options.filters || (options.search && $select)) {
-
-        query = query.filter((p: any) => {
-            let _filters: any = null, _query: any = null
-            if(options.filters){
-                _filters = p
-                options.filters.forEach((element: any) => {
-                    _filters = p[element.operation](element.columnName, element.value)
-                });
-            }
-            
-            if(options.search && $select){
-                _query = p
-                $select = _.union($select, ["_id"]);
-                $select.forEach((element: any, i: number) => {
-                    if(_query.or){
-                        _query = _query.or(p["contains"](element, options.search))
-                    }else{
-                        _query = p["contains"](element, options.search)
-                    }
-                    
-                });
-            }
-
-            if(searchMode && _query){
-                return _query
-            }
-            
-            if(_filters && _query){
-                return _filters.and(_query)
-            }
-            return _filters || _query || p
-        });
-    }
-
-    let results = await query.getManyAsync();
+    let results = await request(odataUrl);
     return results
 }
