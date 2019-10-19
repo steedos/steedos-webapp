@@ -29,6 +29,65 @@ let Cell = styled.div`
     }
 `;
 
+
+class RemoteWidget extends React.Component {
+    constructor(props) {
+        super(props);
+        const url = this.props.url;
+        this.remoteComponentFetched = this.remoteComponentFetched.bind(this);
+        this.remoteComponentFetchFaild = this.remoteComponentFetchFaild.bind(this);
+        this.fetchRemoteComponent(url).then(this.remoteComponentFetched).catch(this.remoteComponentFetchFaild);
+    };
+
+    static propTypes = {
+        url: PropTypes.string,
+        renderFun: PropTypes.func
+    };
+
+    componentDidMount() {
+    }
+
+    static displayName = 'RemoteWidget';
+
+    state = {
+        renderFun: this.props.renderFun,
+        errorMsg: this.props.string
+    };
+
+    async fetchRemoteComponent(url) {
+        const response = await fetch(url);
+        if (response.ok) return await response.text();
+        throw new Error(response.statusText);
+    }
+
+    remoteComponentFetched(res) {
+        this.setState({
+            renderFun: eval(res)
+        });
+    }
+
+    remoteComponentFetchFaild(res) {
+        this.setState({
+            errorMsg: res.message
+        });
+    }
+
+    render() {
+        let { renderFun, errorMsg } = this.state;
+        if(!renderFun){
+            if (errorMsg){
+                return <div>加载远程组件失败：{errorMsg}</div>;   
+            }
+            else{
+                return <div>...</div>;   
+            }
+        }
+        return (
+            <div>{renderFun(React, this.props)}</div>
+        );
+    }
+}
+
 class Dashboard extends React.Component {
     constructor(props) {
         super(props)
@@ -77,11 +136,16 @@ class Dashboard extends React.Component {
             case "instance":
                 return <WidgetInstance key={key} label={value.label} />
             case "react":
-                return (
-                    <React.Fragment key={key}>
-                        {value.component(value)}
-                    </React.Fragment>
-                )
+                if (typeof value.component === "function") {
+                    return (
+                        <React.Fragment key={key}>
+                            {value.component(value)}
+                        </React.Fragment>
+                    )
+                }
+                else if (typeof value.component === "string" && value.component.length){
+                    return <RemoteWidget key={key} label={value.label} url={value.component} />
+                }
         }
     }
 

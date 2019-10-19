@@ -182,7 +182,7 @@ export const configTypeApps = () => (
 
 const config4 = {
   testReact1: {
-    label: "Test React Component1",
+    label: "Test React Component Simple",
     position: "CENTER_TOP",
     type: "react",
     component: function (options) {
@@ -198,7 +198,7 @@ const config4 = {
     }
   },
   testReact2: {
-    label: "Test React Component2",
+    label: "Test React Component require",
     position: "CENTER_TOP",
     type: "react",
     component: function (options) {
@@ -240,7 +240,7 @@ const config4 = {
     }
   },
   testReact3: {
-    label: "Test React Component3",
+    label: "Test React Component Styled",
     position: "RIGHT",
     type: "react",
     component: function (options) {
@@ -275,6 +275,12 @@ const config4 = {
         </CustomStyledComponent>
       );
     }
+  },
+  testReact4: {
+    label: "Test React ComponentUrl",
+    position: "CENTER_TOP",
+    type: "react",
+    component: "/dashboard_type_react_url.js"
   }
 }
 
