@@ -17,7 +17,7 @@ export const widgetApps = () => (
   </Provider>
 );
 
-export const widgetObject = () => (
+export const widgetPendingTasks = () => (
   <Provider store={store}>
     <Bootstrap>
       <WidgetObject label="待办任务" object_name="tasks" filters={[
@@ -34,5 +34,26 @@ export const widgetObject = () => (
       }]} />
     </Bootstrap>
   </Provider>
-)
+);
+
+export const widgetInstances = () => (
+  <Provider store={store}>
+    <Bootstrap>
+      <WidgetObject label="待审批" object_name="instances" filters={[
+        ['space', '=', '{spaceId}'],
+        [
+          ['inbox_users', '=', '{userId}'], 'or', ['cc_users', '=', '{userId}']
+        ]
+      ]} columns={[{
+        label: "名称",
+        field: "name",
+        href: true
+      }, {
+        label: "修改时间",
+        field: "modified",
+        type: 'datetime'
+      }]} />
+    </Bootstrap>
+  </Provider>
+);
 
