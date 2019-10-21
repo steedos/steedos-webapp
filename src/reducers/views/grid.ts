@@ -1,7 +1,7 @@
 import { GRID_STATE_CHANGE_ACTION } from '../../actions/views/grid'
 
-function transformEntityState(state: any, payload: any){
-    return Object.assign({}, state, {rows: payload.partialStateValue.records, totalCount: payload.partialStateValue.totalCount});
+function transformEntityState(state: any, payload: any, options: any){
+    return Object.assign({}, state, { rows: payload.partialStateValue.records, totalCount: payload.partialStateValue.totalCount }, options);
 }
 
 function reducer(state:any = {}, action: any){
@@ -9,11 +9,11 @@ function reducer(state:any = {}, action: any){
         const payload = action.payload
         switch (payload.partialStateName) {
             case 'loadDataSauce':
-                return transformEntityState(state, payload);
+                return transformEntityState(state, payload, {loading: false});
             case 'requestRemoveSelectedOption':
                 return Object.assign({}, state, {selection: payload.partialStateValue});
             case 'search':
-                return Object.assign({}, state, {search: payload.partialStateValue});
+                return Object.assign({}, state, { search: payload.partialStateValue }, { loading: false });
             default:
                 break;
         }

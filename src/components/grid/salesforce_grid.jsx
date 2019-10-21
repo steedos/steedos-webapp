@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import { DataTable, DataTableColumn, DataTableCell } from '@salesforce/design-system-react';
+import { DataTable, DataTableColumn, DataTableCell, Illustration } from '@salesforce/design-system-react';
 import Lookup from '../lookup'
 import { createAction } from '../../actions/views/grid'
 import PropTypes from 'prop-types';
@@ -213,30 +213,50 @@ class Grid extends React.Component {
 			}
 		}
 
+		const items = rows || this.state.items;
+		const isLoading = this.props.loading;
+		const isEmpty = isLoading ? false : items.length === 0;
+		let DataTableEmpty = () => {
+			return (
+				<Illustration
+					heading="没有可显示的项目"
+					messageBody=""
+					name="No Results"
+					path="/assets/images/illustrations/empty-state-no-results.svg#no-results"
+				/>
+			);
+		};
+
 		return (
 			<Counter className="slds-grid slds-nowrap" >
 				<div className="slds-col slds-grid slds-grid_vertical slds-nowrap">
-						<DataTableSearch/>
-						<DataTable
-							assistiveText={{
-								actionsHeader: 'actions',
-								columnSort: 'sort this column',
-								columnSortedAscending: 'asc',
-								columnSortedDescending: 'desc',
-								selectAllRows: 'all rows',
-								selectRow: 'Select this row',
-							}}
-							fixedHeader
-							fixedLayout
-							items={rows || this.state.items}
-							id={id}
-							onRowChange={handleChanged || this.handleChanged}
-							// onSort={this.handleSort}
-							selection={selection || this.state.selection}
-							selectRows={selectRows}
-						>
-							{DataTableColumns}
-						</DataTable>
+					<DataTableSearch/>
+					{
+						isEmpty ? (
+							<DataTableEmpty />
+						) : (
+							<DataTable
+								assistiveText={{
+									actionsHeader: 'actions',
+									columnSort: 'sort this column',
+									columnSortedAscending: 'asc',
+									columnSortedDescending: 'desc',
+									selectAllRows: 'all rows',
+									selectRow: 'Select this row',
+								}}
+								fixedHeader
+								fixedLayout
+								items={items}
+								id={id}
+								onRowChange={handleChanged || this.handleChanged}
+								// onSort={this.handleSort}
+								selection={selection || this.state.selection}
+								selectRows={selectRows}
+							>
+								{DataTableColumns}
+							</DataTable>
+						)
+					}
 				</div>
 			</Counter>
 		);
