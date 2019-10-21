@@ -5,10 +5,13 @@ import WidgetObject from './widget_object'
 import { createAction } from '../../actions/views/dashboard'
 import { getEntityState } from '../../states/entitys'
 import { createAction as createActionGrid } from '../../actions/views/grid';
+import { makeNewID } from '../index';
 
 function mapStateToProps() {
     return (state: any, ownProps: any) => {
-        return Object.assign({ }, { ...ownProps });
+        ownProps.id = ownProps.id || makeNewID(ownProps)
+        let entityState = states.getViewState(state, ownProps.id) || {};
+        return Object.assign({}, entityState, { ...entityState, ...ownProps });
     };
 }
 
