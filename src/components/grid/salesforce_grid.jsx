@@ -216,13 +216,26 @@ class Grid extends React.Component {
 		const items = rows || this.state.items;
 		const isLoading = this.props.loading;
 		const isEmpty = isLoading ? false : items.length === 0;
+		let illustration = this.props.illustration;
+		if (!illustration){
+			illustration = {};
+		}
+		if (!illustration.heading){
+			illustration.heading = "没有可显示的项目";
+		}
+		if (!illustration.name) {
+			illustration.name = "No Results";
+		}
+		if (!illustration.path) {
+			illustration.path = "/assets/images/illustrations/empty-state-no-results.svg#no-results";
+		}
 		let DataTableEmpty = () => {
 			return (
 				<Illustration
-					heading=""
-					messageBody="没有可显示的项目"
-					name="No Results"
-					path="/assets/images/illustrations/empty-state-no-results.svg#no-results"
+					heading={illustration.heading}
+					messageBody={illustration.messageBody}
+					name={illustration.name}
+					path={illustration.path}
 				/>
 			);
 		};

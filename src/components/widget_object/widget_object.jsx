@@ -22,7 +22,8 @@ class WidgetObject extends React.Component {
         label: PropTypes.string,
         object_name: PropTypes.string,
         filters: PropTypes.array,
-        columns: PropTypes.array
+        columns: PropTypes.array,
+        illustration: PropTypes.object
     };
 
     convertObjectProps(){
@@ -72,6 +73,7 @@ class WidgetObject extends React.Component {
                     columns={cellListColumns}
                     selectionLabel={selectionLabel}
                     filters={filters}
+                    illustration={this.props.illustration}
                 />
             </Card>
         );

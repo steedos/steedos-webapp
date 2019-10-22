@@ -158,6 +158,10 @@ const config2 = {
     filters: [
       ['state', '=', 'xxx']
     ],
+    illustration:{
+      path: "/assets/images/illustrations/empty-state-no-results.svg#no-results",
+      heading: "没有找到日历事件"
+    },
     columns: [{
       label: "名称",
       field: 'name',
