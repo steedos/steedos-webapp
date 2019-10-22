@@ -57,3 +57,16 @@ export const widgetInstances = () => (
   </Provider>
 );
 
+export const widgetEmpty = () => (
+  <Provider store={store}>
+    <Bootstrap>
+      <WidgetObject label="日历事件" object_name="events" filters={[
+        ['state', '=', 'xx']
+      ]} columns={[{
+        label: "名称",
+        field: 'name',
+        href: true
+      }]} />
+    </Bootstrap>
+  </Provider>
+);

@@ -219,8 +219,8 @@ class Grid extends React.Component {
 		let DataTableEmpty = () => {
 			return (
 				<Illustration
-					heading="没有可显示的项目"
-					messageBody=""
+					heading=""
+					messageBody="没有可显示的项目"
 					name="No Results"
 					path="/assets/images/illustrations/empty-state-no-results.svg#no-results"
 				/>

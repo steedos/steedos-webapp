@@ -149,6 +149,20 @@ const config2 = {
       label: "优先级",
       field: 'priority'
     }]
+  },
+  empty_tasks: {
+    label: '日历事件',
+    position: 'RIGHT',
+    type: 'object',
+    object_name: 'events',
+    filters: [
+      ['state', '=', 'xxx']
+    ],
+    columns: [{
+      label: "名称",
+      field: 'name',
+      href: true
+    }]
   }
 }
 
