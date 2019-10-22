@@ -1,7 +1,8 @@
 {
   "name": "@steedos/react",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "main": "lib/index.js",
   "dependencies": {
     "@devexpress/dx-react-core": "^2.0.4",
     "@devexpress/dx-react-grid": "^2.0.4",
@@ -49,6 +50,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "tsc": "tsc",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
   },
