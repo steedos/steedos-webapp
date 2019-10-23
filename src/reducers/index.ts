@@ -27,10 +27,8 @@ function crossSliceReducer(state: any, action: any) {
     }
 }
 
-function rootReducer(state: any, action: any) {
+export function rootReducer(state: any, action: any) {
     const intermediateState = combinedReducer(state, action)
     const finalState = crossSliceReducer(intermediateState, action)
     return finalState
 }
-
-export default rootReducer

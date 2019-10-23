@@ -1,8 +1,46 @@
-export {default as bootstrapReducer} from './bootstrap';
-export {default as dashboardReducer} from './dashboard';
-export {default as gridReducer} from './grid';
-export {default as lookupReducer} from './lookup';
-export {default as organizationsReducer} from './organizations';
-export {default as selectUsersReducer} from './select_users';
-export {default as treeReducer} from './tree';
-export {default as widgetInstanceReducer} from './widget_instance';
+import { combineReducers } from 'redux'
+import { DXGRID_STATE_CHANGE_ACTION } from '../../actions/views/dx_grid'
+import { GRID_STATE_CHANGE_ACTION } from '../../actions/views/grid'
+import { TREE_STATE_CHANGE_ACTION } from '../../actions/views/tree'
+import { ORGANIZATIONS_STATE_CHANGE_ACTION } from '../../actions/views/organizations'
+import TreeReducer from './tree'
+import DXGridReducer from './dx_grid'
+import GridReducer from './grid'
+import OrgReducer from './organizations'
+import produce from "immer"
+
+
+function changeState(id, draft: any, newState: any) {
+    return draft[id] = newState
+}
+
+function getState(state, id) {
+    return state ? state[id] : { id: id }
+}
+
+const byId = produce((draft = {}, action) => {
+    let id, viewState
+    if (action.payload) {
+        id = action.payload.id
+        viewState = getState(draft, id)
+    }
+    switch (action.type) {
+        case DXGRID_STATE_CHANGE_ACTION:
+            changeState(id, draft, DXGridReducer(viewState, action))
+            break;
+        case GRID_STATE_CHANGE_ACTION:
+            changeState(id, draft, GridReducer(viewState, action))
+            break;
+        case TREE_STATE_CHANGE_ACTION:
+            changeState(id, draft, TreeReducer(viewState, action))
+            break;
+        case ORGANIZATIONS_STATE_CHANGE_ACTION:
+            changeState(id, draft, OrgReducer(viewState, action))
+            break;
+    }
+    return draft;
+});
+
+export default combineReducers({
+    byId
+});
