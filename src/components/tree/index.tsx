@@ -1,7 +1,6 @@
 
 import { connect } from 'react-redux';
-import { createAction, loadEntitiesData } from '../../actions/views/tree'
-import { entityStateSelector } from '../../selectors';
+import { createTreeAction } from '../../actions'
 import SteedosTree from './salesforce_tree';
 import { viewStateSelector } from '../../selectors';
 import { makeNewID } from '../index';
@@ -16,7 +15,7 @@ function mapStateToProps() {
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return ({
-    onExpandClick: (event: any, data: any) => dispatch(createAction('expandClick', data, ownProps)),
+    onExpandClick: (event: any, data: any) => dispatch(createTreeAction('expandClick', data, ownProps)),
     onClick: (event: any, data: any) => dispatch(ownProps.onClick(event, data)),
     init: (options: any) => dispatch(ownProps.init(options))
   });

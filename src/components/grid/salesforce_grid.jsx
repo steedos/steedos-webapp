@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'underscore';
 import { DataTable, DataTableColumn, DataTableCell, Illustration } from '@salesforce/design-system-react';
 import Lookup from '../lookup'
-import { createAction } from '../../actions/views/grid'
+import { createGridAction } from '../../actions'
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import moment from 'moment'
@@ -194,11 +194,11 @@ class Grid extends React.Component {
 		})
 
 		const onRequestRemoveSelectedOption = (event, data) => {
-			return createAction('requestRemoveSelectedOption', data.selection, this.props)
+			return createGridAction('requestRemoveSelectedOption', data.selection, this.props)
 		}
 
 		const onSearch = (event, data)=> {
-			return createAction('search', data.value, this.props)
+			return createGridAction('search', data.value, this.props)
 		}
 
 		const DataTableSearch = ()=>{

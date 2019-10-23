@@ -1,9 +1,9 @@
 import { dataServicesSelector } from '../../selectors';
 import { loadBootstrapDataRequest } from '../bootstrap_request'
 import { createAction as baseCreateAction } from 'base'
-export const BOOTSTRAP_STATE_CHANGE_ACTION = 'BOOTSTRAP_STATE_CHANGE';
+export var BOOTSTRAP_STATE_CHANGE_ACTION = 'BOOTSTRAP_STATE_CHANGE';
 
-export function createAction(partialStateName: any, partialStateValue: any) {
+export function createBootstrapAction(partialStateName: any, partialStateValue: any) {
     if (["changeSpace"].includes(partialStateName)){
         return function(dispatch: any, getState: any){
             dispatch(baseCreateAction(BOOTSTRAP_STATE_CHANGE_ACTION, partialStateName, partialStateValue))
@@ -13,7 +13,7 @@ export function createAction(partialStateName: any, partialStateValue: any) {
     }
 } 
 
-export function loadEntitiesData(options: any) {
+export function loadBootstrapEntitiesData(options: any) {
     return function (dispatch: any, getState: any) {
         const service = dataServicesSelector(getState())
         return loadBootstrapDataRequest(dispatch, BOOTSTRAP_STATE_CHANGE_ACTION, service, options)

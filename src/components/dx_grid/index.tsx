@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SteedosDXGrid from './dx_grid';
-import { createAction, loadEntitiesData } from '../../actions/views/dx_grid'
+import { createDXGridAction, loadDXGridEntitiesData } from '../../actions'
 import { entityStateSelector } from '../../selectors';
 // const mapStateToProps = (state: any) => state;
 
@@ -17,18 +17,18 @@ function mapStateToProps() {
 }
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => ({
-  onSortingChange: (sorting: any) => dispatch(createAction('sorting', sorting, ownProps.objectName)),
-  onSelectionChange: (selection: any) => dispatch(createAction('selection', selection, ownProps.objectName)),
-  onExpandedRowIdsChange: (expandedRowIds: any) => dispatch(createAction('expandedRowIds', expandedRowIds, ownProps.objectName)),
-  onGroupingChange: (grouping: any) => dispatch(createAction('grouping', grouping, ownProps.objectName)),
-  onExpandedGroupsChange: (expandedGroups: any) => dispatch(createAction('expandedGroups', expandedGroups, ownProps.objectName)),
-  onFiltersChange: (filters: any) => dispatch(createAction('filters', filters, ownProps.objectName)),
-  onCurrentPageChange: (currentPage: any) => dispatch(createAction('currentPage', currentPage, ownProps.objectName)),
-  onPageSizeChange: (pageSize: any) => dispatch(createAction('pageSize', pageSize, ownProps.objectName)),
-  onColumnOrderChange: (order: any) => dispatch(createAction('columnOrder', order, ownProps.objectName)),
-  onColumnWidthsChange: (widths: any) => dispatch(createAction('columnWidths', widths, ownProps.objectName)),
-  onSearchValueChange: (widths: any) => dispatch(createAction('searchValue', widths, ownProps.objectName)),
-  init: (options: any) => dispatch(loadEntitiesData(options))
+  onSortingChange: (sorting: any) => dispatch(createDXGridAction('sorting', sorting, ownProps.objectName)),
+  onSelectionChange: (selection: any) => dispatch(createDXGridAction('selection', selection, ownProps.objectName)),
+  onExpandedRowIdsChange: (expandedRowIds: any) => dispatch(createDXGridAction('expandedRowIds', expandedRowIds, ownProps.objectName)),
+  onGroupingChange: (grouping: any) => dispatch(createDXGridAction('grouping', grouping, ownProps.objectName)),
+  onExpandedGroupsChange: (expandedGroups: any) => dispatch(createDXGridAction('expandedGroups', expandedGroups, ownProps.objectName)),
+  onFiltersChange: (filters: any) => dispatch(createDXGridAction('filters', filters, ownProps.objectName)),
+  onCurrentPageChange: (currentPage: any) => dispatch(createDXGridAction('currentPage', currentPage, ownProps.objectName)),
+  onPageSizeChange: (pageSize: any) => dispatch(createDXGridAction('pageSize', pageSize, ownProps.objectName)),
+  onColumnOrderChange: (order: any) => dispatch(createDXGridAction('columnOrder', order, ownProps.objectName)),
+  onColumnWidthsChange: (widths: any) => dispatch(createDXGridAction('columnWidths', widths, ownProps.objectName)),
+  onSearchValueChange: (widths: any) => dispatch(createDXGridAction('searchValue', widths, ownProps.objectName)),
+  init: (options: any) => dispatch(loadDXGridEntitiesData(options))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SteedosDXGrid);

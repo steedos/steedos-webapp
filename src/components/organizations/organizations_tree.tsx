@@ -1,7 +1,7 @@
 import * as React from 'react';
 import SteedosTree from '../../components/tree'
-import { loadEntitiesData } from '../../actions/views/organizations'
-import { loadEntitiesData as loadTreeData } from '../../actions/views/tree'
+import { loadOrganizationsEntitiesData } from '../../actions'
+import { loadTreeEntitiesData } from '../../actions'
 import PropTypes from 'prop-types';
 import _ from 'underscore'
 
@@ -16,7 +16,7 @@ class OrganizationsTree extends React.Component {
     constructor(props) {
         super(props)
         if(_.isEmpty(props.rootNodes)){
-            props.dispatch(loadEntitiesData({ id: props.id, objectName: props.objectName, filters: [["parent", "=", null]], columns: props.columns}))
+            props.dispatch(loadOrganizationsEntitiesData({ id: props.id, objectName: props.objectName, filters: [["parent", "=", null]], columns: props.columns}))
         }
 		
     }
@@ -49,7 +49,7 @@ class OrganizationsTree extends React.Component {
         let init = (options: any)=>{
             const newOptions = Object.assign({}, options)
             newOptions.columns = columns
-            return loadTreeData(newOptions)
+            return loadTreeEntitiesData(newOptions)
         }
 
         return (

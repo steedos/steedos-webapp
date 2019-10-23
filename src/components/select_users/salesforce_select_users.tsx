@@ -1,8 +1,7 @@
 import * as React from 'react';
-import Grid from '../../components/grid'
-import OrganizationsTree from '../../components/organizations'
+import { Organizations, Grid } from '../../components'
 import PropTypes from 'prop-types';
-import { createAction } from '../../actions/views/grid';
+import { createGridAction } from '../../actions';
 import styled from 'styled-components'
 import { makeNewID } from '../index';
 
@@ -103,7 +102,7 @@ class SelectUsers extends React.Component {
 
         let onClick = function(event: any, data: any){
             return (dispatch: any, getState: any)=>{
-                dispatch(createAction("filters", [["organizations", "=", data.node.id]], {id: gridId, objectName: gridObjectName, columns: gridColumns, searchMode, pageSize}))
+                dispatch(createGridAction("filters", [["organizations", "=", data.node.id]], {id: gridId, objectName: gridObjectName, columns: gridColumns, searchMode, pageSize}))
                 dispatch({
                     type: 'TREE_STATE_CHANGE',
                     payload: {
@@ -123,7 +122,7 @@ class SelectUsers extends React.Component {
 
         return (
             <Counter className="select-users">
-                <OrgsCounter className="organizations"><OrganizationsTree id={treeId} rootNodes={rootNodes} onClick={onClick}/></OrgsCounter>
+                <OrgsCounter className="organizations"><Organizations id={treeId} rootNodes={rootNodes} onClick={onClick}/></OrgsCounter>
                 <UsersCounter className="users"><Grid id={gridId} objectName={gridObjectName} enableSearch={true} columns={gridColumns} searchMode={searchMode} pageSize={pageSize} selectionLabel={selectionLabel} selectRows={selectRows}/></UsersCounter>
             </Counter>
         )

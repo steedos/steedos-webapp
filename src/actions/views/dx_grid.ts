@@ -2,9 +2,9 @@ import { dataServicesSelector, entityStateSelector } from '../../selectors';
 import { loadEntitiesDataRequest } from '../records_request'
 import { createAction as baseCreateAction } from '../base'
 
-export var DXGRID_STATE_CHANGE_ACTION = 'DXGRID_STATE_CHANGE';
+export const DXGRID_STATE_CHANGE_ACTION = 'DXGRID_STATE_CHANGE';
 
-export function createAction(partialStateName: any, partialStateValue: any, options: any) {
+export function createDXGridAction(partialStateName: any, partialStateValue: any, options: any) {
     if(["currentPage", "pageSize", "filters"].includes(partialStateName)){
         return function(dispatch: any, getState: any){
             let entityState = entityStateSelector(getState(), options.objectName);
@@ -18,7 +18,7 @@ export function createAction(partialStateName: any, partialStateValue: any, opti
     }
 } 
 
-export function loadEntitiesData(options: any) {
+export function loadDXGridEntitiesData(options: any) {
     return function (dispatch: any, getState: any) {
         const service = dataServicesSelector(getState())
         return loadEntitiesDataRequest(dispatch, DXGRID_STATE_CHANGE_ACTION, service, options)

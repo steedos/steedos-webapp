@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Grid from './salesforce_grid'
-import { createAction, loadEntitiesData } from '../../actions/views/grid'
+import { createGridAction, loadGridEntitiesData } from '../../actions'
 import { viewStateSelector } from '../../selectors';
 import { makeNewID } from '../index';
 
@@ -13,10 +13,9 @@ function mapStateToProps() {
   }
   
   const mapDispatchToProps = (dispatch: any, ownProps: any) => {
-    // console.log('grid mapDispatchToProps', ownProps);
     return ({
-      handleChanged: (event: any, data: any)=> dispatch(createAction('selection', data.selection, ownProps)),
-      init: (options: any) => dispatch(loadEntitiesData(options))
+      handleChanged: (event: any, data: any)=> dispatch(createGridAction('selection', data.selection, ownProps)),
+      init: (options: any) => dispatch(loadGridEntitiesData(options))
     });
   }
 export default connect(mapStateToProps, mapDispatchToProps)(Grid);

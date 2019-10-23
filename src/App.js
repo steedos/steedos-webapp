@@ -6,7 +6,7 @@ import SelectUsers from './components/select_users'
 import DXGrid from './components/dx_grid'
 import Grid from './components/grid'
 import { IconSettings,Illustration } from '@salesforce/design-system-react';
-import { dataServicesSelector } from '../../states';
+import { dataServicesSelector } from './selectors';
 import Bootstrap from './components/bootstrap'
 
 function App() {

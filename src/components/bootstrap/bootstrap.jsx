@@ -1,6 +1,5 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { createAction as createActionGrid } from '../../actions/views/grid';
 import _ from 'underscore'
 
 class Bootstrap extends React.Component {

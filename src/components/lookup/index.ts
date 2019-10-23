@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Lookup from './salesforce_comboboxes'
-import { loadEntitiesData } from '../../actions/views/dx_grid'
+import { loadGridEntitiesData } from '../../actions'
 import { viewStateSelector } from '../../selectors';
 import { makeNewID } from '../index';
 
@@ -16,7 +16,7 @@ function mapStateToProps() {
     return ({
       onSearch: (event: any, data: any)=> dispatch(ownProps.onSearch(event, data)),
       onRequestRemoveSelectedOption: (event: any, data: any)=> dispatch(ownProps.onRequestRemoveSelectedOption(event, data)),
-      init: (options: any) => dispatch(loadEntitiesData(options))
+      init: (options: any) => dispatch(loadGridEntitiesData(options))
     });
   }
 export default connect(mapStateToProps, mapDispatchToProps)(Lookup);

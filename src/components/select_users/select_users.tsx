@@ -2,7 +2,7 @@ import * as React from 'react';
 import DXGrid from '../../components/dx_grid'
 import OrganizationsTree from '../../components/organizations'
 import PropTypes from 'prop-types';
-import { createAction } from '../../actions/views/dx_grid';
+import { createDXGridAction } from '../../actions/views/dx_grid';
 let userObject = {
     name: 'space_users',
     label: '用户',
@@ -38,7 +38,7 @@ class SelectUsers extends React.Component {
 
         let onClick = function(event: any, data: any){
             return function(dispatch: any, getState: any){
-                dispatch(createAction("filters", [["organizations", "=", data.node.id]], 'space_users'))
+                dispatch(createDXGridAction("filters", [["organizations", "=", data.node.id]], 'space_users'))
                 dispatch({
                     type: 'TREE_STATE_CHANGE',
                     partialStateName: 'onClick',

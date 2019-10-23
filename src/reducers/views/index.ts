@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import { DXGRID_STATE_CHANGE_ACTION } from '../../actions/views/dx_grid'
 import { GRID_STATE_CHANGE_ACTION } from '../../actions/views/grid'
+import { DXGRID_STATE_CHANGE_ACTION } from '../../actions/views/dx_grid'
 import { TREE_STATE_CHANGE_ACTION } from '../../actions/views/tree'
 import { ORGANIZATIONS_STATE_CHANGE_ACTION } from '../../actions/views/organizations'
 import TreeReducer from './tree'

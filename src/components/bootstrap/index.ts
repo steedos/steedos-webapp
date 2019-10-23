@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Dashboard from './bootstrap'
-import { createAction, loadEntitiesData } from '../../actions/views/bootstrap'
+import { loadBootstrapEntitiesData } from '../../actions'
 import { entityStateSelector } from '../../selectors';
 
 
@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     return ({
         // handleChanged: (event: any, data: any) => dispatch(createActionBootstrap('changeSpace', data.spaceId)),
         loadBootstrap: (options: any) => {
-            dispatch(loadEntitiesData(options))
+            dispatch(loadBootstrapEntitiesData(options))
         }
     });
 }
