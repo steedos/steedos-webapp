@@ -15,7 +15,8 @@ let AppLauncherDesktopInternal = styled.div`
 
 class WidgetApps extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
+        this.textInput = React.createRef();
     };
 
     static defaultProps = {
@@ -43,7 +44,11 @@ class WidgetApps extends React.Component {
         let appCells;
         if (apps) {
             appCells = _.map(apps, (app, key) => {
-                if (app.name) {
+                if (app && app.name) {
+                    let url = `/app/${app._id}`;
+                    if(app.url){
+                        url = app.url;
+                    }
                     return (
                         <AppLauncherTile
                             assistiveText={{ dragIconText: app.name }}
@@ -57,10 +62,15 @@ class WidgetApps extends React.Component {
                                 />
                             }
                             title={app.name}
-                            href={`/app/${app._id}`}
+                            href={url}
                             onClick={(event, args) => {
                                 if (args.href) {
-                                    window.location = args.href;
+                                    if (app.is_new_window) {
+                                        window.open(args.href);
+                                    }
+                                    else{
+                                        window.location = args.href;
+                                    }
                                 }
                             }}
                         />
