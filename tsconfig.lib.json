@@ -9,7 +9,6 @@
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
     "jsx": "react",
     "rootDir": "src",
     "moduleResolution": "node",
@@ -20,11 +19,11 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "noEmit": false,
+    "declaration": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true
+    "resolveJsonModule": true
   },
   "include": [
     "src"

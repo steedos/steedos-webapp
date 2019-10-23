@@ -1,6 +1,6 @@
 {
   "name": "@steedos/react",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": false,
   "main": "lib/export.js",
   "dependencies": {
@@ -50,7 +50,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "tsc": "tsc",
+    "build-lib": "tsc -p tsconfig.lib.json",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
   },
