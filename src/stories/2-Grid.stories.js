@@ -7,6 +7,7 @@ import store from '../stores/configureStore'
 import settings from '../selectors/settings'
 
 import Grid from '../components/grid'
+import SelectUsers from  '../components/select_users'
 
 export default {
   title: 'Grid',
@@ -62,4 +63,12 @@ export const space_users = () => (
             enableSearch={true}></Grid>
       </Bootstrap>
     </Provider>
+)
+
+export const select_users = () => (
+  <Provider store={store}>
+    <Bootstrap>
+      <SelectUsers searchMode="omitFilters" multiple={true} valueField="user" />
+    </Bootstrap>
+  </Provider>
 )
