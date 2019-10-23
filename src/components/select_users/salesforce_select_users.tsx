@@ -23,6 +23,7 @@ let UsersCounter = styled.div`
     margin-left: 24rem;
     &>.slds-grid{
         position: absolute;
+        width: calc(100% - 24rem);
     }
 `
 let userObject = {
