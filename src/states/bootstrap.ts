@@ -1,6 +1,6 @@
 import _ from 'underscore';
 
-function getCreatorApps(state: any) {
+export function getCreatorApps(state: any) {
     let apps = state.entities ? state.entities.apps : {};
     let assigned_apps = state.entities ? state.entities.assigned_apps : [];
     let adminApp: any, sortedApps: any;
@@ -43,7 +43,7 @@ function getCreatorApps(state: any) {
     return creatorApps;
 }
 
-function getVisibleApps(state: any, includeAdmin: boolean = true){
+export function getVisibleApps(state: any, includeAdmin: boolean = true){
     let creatorApps = getCreatorApps(state);
     var apps: any = [];
     _.each(creatorApps, function (v: any, k: string) {
@@ -52,9 +52,4 @@ function getVisibleApps(state: any, includeAdmin: boolean = true){
         }
     });
     return apps;
-}
-
-export default {
-    getCreatorApps,
-    getVisibleApps
 }

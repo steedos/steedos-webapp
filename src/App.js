@@ -6,7 +6,7 @@ import SelectUsers from './components/select_users'
 import DXGrid from './components/dx_grid'
 import Grid from './components/grid'
 import { IconSettings,Illustration } from '@salesforce/design-system-react';
-import settings from './states/settings'
+import { getDataServices } from '../../states';
 import Bootstrap from './components/bootstrap'
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
     return `${item.name}(${item.email})`
   }
 
-  let service = settings.getDataServices(store.getState());
+  let service = getDataServices(store.getState());
   let iconPath = `/assets/icons`;
 
   // let company = {

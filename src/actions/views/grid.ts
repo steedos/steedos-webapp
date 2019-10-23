@@ -1,4 +1,5 @@
 import states from '../../states';
+import { getDataServices } from '../../states';
 import { loadEntitiesDataRequest } from '../records_request'
 import { createAction as baseCreateAction } from '../base'
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
@@ -7,7 +8,7 @@ export function createAction(partialStateName: any, partialStateValue: any, opti
     if(["currentPage", "pageSize", "filters", "search"].includes(partialStateName)){
         return function(dispatch: any, getState: any){
             let entityState = states.getViewState(getState(), options.id);
-            const service = states.getDataServices(getState())
+            const service = getDataServices(getState())
             let newOptions: any = Object.assign({}, options, entityState, {[partialStateName]: partialStateValue})
             dispatch(createAction("loading", true, options));
             loadEntitiesDataRequest(dispatch, GRID_STATE_CHANGE_ACTION, service, newOptions)
@@ -20,7 +21,7 @@ export function createAction(partialStateName: any, partialStateValue: any, opti
 
 export function loadEntitiesData(options: any) {
     return function (dispatch: any, getState: any) {
-        const service = states.getDataServices(getState())
+        const service = getDataServices(getState())
         dispatch(createAction("loading", true, options));
         return loadEntitiesDataRequest(dispatch, GRID_STATE_CHANGE_ACTION, service, options)
     };

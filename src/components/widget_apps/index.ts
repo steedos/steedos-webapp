@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import states from '../../states';
+import { getVisibleApps } from '../../states';
 import WidgetApps from './widget_apps'
 
 function mapStateToProps() {
     return (state: any, ownProps: any) => {
-        let apps = states.getVisibleApps(state)
+        let apps = getVisibleApps(state)
         return Object.assign({},{ apps }, { ...ownProps });
     };
 }
