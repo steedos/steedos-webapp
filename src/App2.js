@@ -20,7 +20,7 @@ const config = {
     label: "待审批",
     position: "CENTER_TOP",
     type: "object",
-    object_name: "instances",
+    objectName: "instances",
     filters: [
       ['space', '=', '{spaceId}'],
       [
@@ -41,7 +41,7 @@ const config = {
     label: '待办任务',
     position: 'CENTER_TOP',
     type: 'object',
-    object_name: 'tasks',
+    objectName: 'tasks',
     filters: [
       ['assignees', '=', '{userId}'],
       ['state', '<>', 'complete'],

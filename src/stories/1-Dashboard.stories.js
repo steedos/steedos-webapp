@@ -114,7 +114,7 @@ const config2 = {
     label: "待审批",
     position: "CENTER_TOP",
     type: "object",
-    object_name: "instances",
+    objectName: "instances",
     filters: [
       ['space', '=', '{spaceId}'],
       [
@@ -135,7 +135,7 @@ const config2 = {
     label: '待办任务',
     position: 'CENTER_TOP',
     type: 'object',
-    object_name: 'tasks',
+    objectName: 'tasks',
     filters: [
       ['assignees', '=', '{userId}'],
       ['state', '<>', 'complete'],
@@ -154,7 +154,7 @@ const config2 = {
     label: '日历事件',
     position: 'RIGHT',
     type: 'object',
-    object_name: 'events',
+    objectName: 'events',
     filters: [
       ['state', '=', 'xxx']
     ],

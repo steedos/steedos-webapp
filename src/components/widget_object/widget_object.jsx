@@ -20,21 +20,21 @@ class WidgetObject extends React.Component {
 
     static propTypes = {
         label: PropTypes.string,
-        object_name: PropTypes.string,
+        objectName: PropTypes.string,
         filters: PropTypes.array,
         columns: PropTypes.array,
         showAllLink: PropTypes.bool
     };
 
     convertObjectProps(){
-        let { label, object_name, filters, columns, showAllLink, illustration } = this.props;
+        let { label, objectName, filters, columns, showAllLink, illustration } = this.props;
         return {
             label: label,
-            objectName: object_name,
+            objectName: objectName,
             cellListColumns: columns ? columns.map((column)=>{
                 if (column.href){
                     column.onClick = function (event, data) {
-                        let url = `/app/-/${object_name}/view/${data.id}`;
+                        let url = `/app/-/${objectName}/view/${data.id}`;
                         window.location = url;
                     }
                 }

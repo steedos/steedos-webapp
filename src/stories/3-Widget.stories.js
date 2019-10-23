@@ -20,7 +20,7 @@ export const widgetApps = () => (
 export const widgetPendingTasks = () => (
   <Provider store={store}>
     <Bootstrap>
-      <WidgetObject label="待办任务" object_name="tasks" filters={[
+      <WidgetObject label="待办任务" objectName="tasks" filters={[
         ['assignees', '=', '{userId}'],
         ['state', '<>', 'complete'],
         ['due_date', 'between', 'this_year']
@@ -39,7 +39,7 @@ export const widgetPendingTasks = () => (
 export const widgetInstances = () => (
   <Provider store={store}>
     <Bootstrap>
-      <WidgetObject label="待审批" object_name="instances" filters={[
+      <WidgetObject label="待审批" objectName="instances" filters={[
         ['space', '=', '{spaceId}'],
         [
           ['inbox_users', '=', '{userId}'], 'or', ['cc_users', '=', '{userId}']
@@ -60,7 +60,7 @@ export const widgetInstances = () => (
 export const widgetEmpty = () => (
   <Provider store={store}>
     <Bootstrap>
-      <WidgetObject label="日历事件" object_name="events" filters={[
+      <WidgetObject label="日历事件" objectName="events" filters={[
         ['state', '=', 'xx']
       ]} columns={[{
         label: "名称",
