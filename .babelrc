@@ -1,3 +1,4 @@
 {
-    // "presets": ["@salesforce/babel-preset-design-system-react"]
+    //"presets": ["@salesforce/babel-preset-design-system-react"],
+    "plugins": ["@babel/plugin-syntax-dynamic-import"]
 }
