@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Dashboard from './bootstrap'
 import { createAction, loadEntitiesData } from '../../actions/views/bootstrap'
-import { getEntityState } from '../../states/entitys'
+import { getEntityState } from '../../states';
 
 
 function mapStateToProps() {

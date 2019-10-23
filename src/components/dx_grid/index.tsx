@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import SteedosDXGrid from './dx_grid';
 import { createAction, loadEntitiesData } from '../../actions/views/dx_grid'
-import { getEntityState } from '../../states/entitys'
+import { getEntityState } from '../../states';
 // const mapStateToProps = (state: any) => state;
 
 function mapStateToProps() {

@@ -3,7 +3,7 @@ import states from '../../states';
 import WidgetObject from './widget_object'
 // import { createAction, loadEntitiesData } from '../../actions/bootstrap'
 import { createAction } from '../../actions/views/dashboard'
-import { getEntityState } from '../../states/entitys'
+import { getEntityState } from '../../states';
 import { createAction as createActionGrid } from '../../actions/views/grid';
 import { makeNewID } from '../index';
 

@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux';
 import { createAction, loadEntitiesData } from '../../actions/views/tree'
-import { getEntityState } from '../../states/entitys'
+import { getEntityState } from '../../states';
 import SteedosTree from './salesforce_tree';
 import states from '../../states'
 import { makeNewID } from '../index';

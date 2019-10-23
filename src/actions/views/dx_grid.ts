@@ -1,5 +1,4 @@
-import states from '../../states';
-import { getDataServices } from '../../states';
+import { getDataServices, getEntityState } from '../../states';
 import { loadEntitiesDataRequest } from '../records_request'
 import { createAction as baseCreateAction } from '../base'
 
@@ -8,7 +7,7 @@ export var DXGRID_STATE_CHANGE_ACTION = 'DXGRID_STATE_CHANGE';
 export function createAction(partialStateName: any, partialStateValue: any, options: any) {
     if(["currentPage", "pageSize", "filters"].includes(partialStateName)){
         return function(dispatch: any, getState: any){
-            let entityState = states.getEntityState(getState(), options.objectName);
+            let entityState = getEntityState(getState(), options.objectName);
             const service = getDataServices(getState())
             let newOptions: any = Object.assign({}, entityState, {[partialStateName]: partialStateValue})
             loadEntitiesDataRequest(dispatch, DXGRID_STATE_CHANGE_ACTION, service, newOptions)

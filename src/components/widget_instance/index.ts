@@ -3,7 +3,7 @@ import states from '../../states';
 import WidgetInstance from './widget_instance'
 // import { createAction, loadEntitiesData } from '../../actions/bootstrap'
 import { createAction } from '../../actions/views/dashboard'
-import { getEntityState } from '../../states/entitys'
+import { getEntityState } from '../../states';
 import { createAction as createActionGrid } from '../../actions/views/grid';
 
 function mapStateToProps() {
