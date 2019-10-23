@@ -159,14 +159,15 @@ const config2 = {
       ['state', '=', 'xxx']
     ],
     illustration:{
-      path: "/assets/images/illustrations/empty-state-no-results.svg#no-results",
+      path: "/assets/images/illustrations/empty-state-not-available-in-lightning.svg#not-available-in-lightning",
       heading: "没有找到日历事件"
     },
     columns: [{
       label: "名称",
       field: 'name',
       href: true
-    }]
+    }],
+    showAllLink: true
   }
 }
 

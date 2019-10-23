@@ -69,7 +69,7 @@ export const widgetEmpty = () => (
         }]} illustration={{
           path: "/assets/images/illustrations/empty-state-no-results.svg#no-results",
           heading: "没有找到日历事件"
-        }}
+        }} showAllLink={true}
       />
     </Bootstrap>
   </Provider>

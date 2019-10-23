@@ -23,12 +23,12 @@ class WidgetObject extends React.Component {
         object_name: PropTypes.string,
         filters: PropTypes.array,
         columns: PropTypes.array,
-        illustration: PropTypes.object
+        showAllLink: PropTypes.bool
     };
 
     convertObjectProps(){
-        let { label, object_name, filters, columns } = this.props;
-        let defaultProps = {
+        let { label, object_name, filters, columns, showAllLink, illustration } = this.props;
+        return {
             label: label,
             objectName: object_name,
             cellListColumns: columns ? columns.map((column)=>{
@@ -40,10 +40,10 @@ class WidgetObject extends React.Component {
                 }
                 return column;
             }) : [],
-            filters: filters
-
+            filters,
+            illustration,
+            showAllLink
         };
-        return defaultProps;
     }
 
     componentDidMount() {
@@ -57,15 +57,19 @@ class WidgetObject extends React.Component {
     };
 
     render() {
-        let { label, objectName, selectionLabel, cellListColumns, filters } = this.convertObjectProps();
+        let { label, objectName, selectionLabel, cellListColumns, filters, illustration, showAllLink } = this.convertObjectProps();
+        let footer;
+        if (showAllLink){
+            footer = (
+                <a href={`/app/-/${objectName}`}>
+                    查看全部
+                    </a>
+            )
+        }
         return (
             <Card
                 heading={label}
-                footer={
-                    <a href={`/app/-/${objectName}`}>
-                        查看全部
-                    </a>
-                }
+                footer={footer}
             >
                 <Grid searchMode="omitFilters"
                     pageSize={5}
@@ -73,7 +77,7 @@ class WidgetObject extends React.Component {
                     columns={cellListColumns}
                     selectionLabel={selectionLabel}
                     filters={filters}
-                    illustration={this.props.illustration}
+                    illustration={illustration}
                 />
             </Card>
         );
