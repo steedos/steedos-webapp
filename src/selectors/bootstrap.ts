@@ -1,6 +1,6 @@
 import _ from 'underscore';
 
-export function getCreatorApps(state: any) {
+export function creatorAppsSelector(state: any) {
     let apps = state.entities ? state.entities.apps : {};
     let assigned_apps = state.entities ? state.entities.assigned_apps : [];
     let adminApp: any, sortedApps: any;
@@ -43,8 +43,8 @@ export function getCreatorApps(state: any) {
     return creatorApps;
 }
 
-export function getVisibleApps(state: any, includeAdmin: boolean = true){
-    let creatorApps = getCreatorApps(state);
+export function visibleAppsSelector(state: any, includeAdmin: boolean = true){
+    let creatorApps = creatorAppsSelector(state);
     var apps: any = [];
     _.each(creatorApps, function (v: any, k: string) {
         if ((v.visible !== false && v._id !== "admin") || (includeAdmin && v._id === "admin")) {

@@ -1,7 +1,7 @@
-export function getSettingsState(state: any){
+export function settingsStateSelector(state: any){
     return state.settings ? state.settings: undefined
 }
 
-export function getDataServices(state: any){
+export function dataServicesSelector(state: any){
     return state.settings ? state.settings.services.steedos: undefined
 }

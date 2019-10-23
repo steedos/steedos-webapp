@@ -1,16 +1,16 @@
 import { connect } from 'react-redux';
-import { getViewState } from '../../states';
+import { viewStateSelector } from '../../selectors';
 import WidgetObject from './widget_object'
 // import { createAction, loadEntitiesData } from '../../actions/bootstrap'
 import { createAction } from '../../actions/views/dashboard'
-import { getEntityState } from '../../states';
+import { entityStateSelector } from '../../selectors';
 import { createAction as createActionGrid } from '../../actions/views/grid';
 import { makeNewID } from '../index';
 
 function mapStateToProps() {
     return (state: any, ownProps: any) => {
         ownProps.id = ownProps.id || makeNewID(ownProps)
-        let entityState = getViewState(state, ownProps.id) || {};
+        let entityState = viewStateSelector(state, ownProps.id) || {};
         return Object.assign({}, entityState, { ...entityState, ...ownProps });
     };
 }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import states from '../../states';
+import * as states from '../../selectors';
 import store from "../../stores/configureStore";
 
 class WidgetRemote extends React.Component {

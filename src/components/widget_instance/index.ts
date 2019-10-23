@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
-import states from '../../states';
 import WidgetInstance from './widget_instance'
 // import { createAction, loadEntitiesData } from '../../actions/bootstrap'
 import { createAction } from '../../actions/views/dashboard'
-import { getEntityState } from '../../states';
+import { entityStateSelector } from '../../selectors';
 import { createAction as createActionGrid } from '../../actions/views/grid';
 
 function mapStateToProps() {

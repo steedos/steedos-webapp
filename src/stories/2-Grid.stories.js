@@ -4,7 +4,7 @@ import Bootstrap from '../components/bootstrap'
 import { IconSettings } from '@salesforce/design-system-react';
 import { Provider  } from 'react-redux';
 import store from '../stores/configureStore'
-import settings from '../states/settings'
+import settings from '../selectors/settings'
 
 import Grid from '../components/grid'
 

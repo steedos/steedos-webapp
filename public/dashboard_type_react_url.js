@@ -1,5 +1,5 @@
 (function (react, options, getState, states){
-  let apps = states.getVisibleApps(getState());
+  let apps = states.visibleAppsSelector(getState());
   let names = apps.map(function (n) { return n.name });
   return react.createElement('div', null, `Hello ${options.label}, ${names}`);
 

@@ -1,4 +1,4 @@
-import { getDataServices } from '../../states';
+import { dataServicesSelector } from '../../selectors';
 import { loadBootstrapDataRequest } from '../bootstrap_request'
 import { createAction as baseCreateAction } from 'base'
 export const BOOTSTRAP_STATE_CHANGE_ACTION = 'BOOTSTRAP_STATE_CHANGE';
@@ -15,7 +15,7 @@ export function createAction(partialStateName: any, partialStateValue: any) {
 
 export function loadEntitiesData(options: any) {
     return function (dispatch: any, getState: any) {
-        const service = getDataServices(getState())
+        const service = dataServicesSelector(getState())
         return loadBootstrapDataRequest(dispatch, BOOTSTRAP_STATE_CHANGE_ACTION, service, options)
     };
 }

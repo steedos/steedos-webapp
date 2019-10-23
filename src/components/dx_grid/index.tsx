@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import SteedosDXGrid from './dx_grid';
 import { createAction, loadEntitiesData } from '../../actions/views/dx_grid'
-import { getEntityState } from '../../states';
+import { entityStateSelector } from '../../selectors';
 // const mapStateToProps = (state: any) => state;
 
 function mapStateToProps() {
   return (state: any, ownProps: any) => {
     let objectName = ownProps.objectName
-    let entityState = getEntityState(state, objectName) || {}
+    let entityState = entityStateSelector(state, objectName) || {}
     let pageSize = entityState.pageSize;
     if(!pageSize){
       pageSize = ownProps.pageSize || 10
