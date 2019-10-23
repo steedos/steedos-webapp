@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import states from '../../states';
+import { getViewState } from '../../states';
 import WidgetObject from './widget_object'
 // import { createAction, loadEntitiesData } from '../../actions/bootstrap'
 import { createAction } from '../../actions/views/dashboard'
@@ -10,7 +10,7 @@ import { makeNewID } from '../index';
 function mapStateToProps() {
     return (state: any, ownProps: any) => {
         ownProps.id = ownProps.id || makeNewID(ownProps)
-        let entityState = states.getViewState(state, ownProps.id) || {};
+        let entityState = getViewState(state, ownProps.id) || {};
         return Object.assign({}, entityState, { ...entityState, ...ownProps });
     };
 }
