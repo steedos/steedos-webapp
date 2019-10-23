@@ -4,13 +4,14 @@ import _ from 'underscore'
 
 class Bootstrap extends React.Component {
 
-    constructor(props) {
-        super(props)
-    };
-
 	getChildContext() {
-		return {
-			iconPath: '/assets/icons',
+        let iconPath = '/assets/icons';
+
+		if (window.__meteor_runtime_config__)
+            iconPath = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX + "/assets/icons";
+        
+        return {
+			iconPath: iconPath,
 		};
     }
     

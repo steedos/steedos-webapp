@@ -226,14 +226,14 @@ class Grid extends React.Component {
 		if (!illustration){
 			illustration = {};
 		}
-		if (!illustration.heading){
-			illustration.heading = "没有可显示的项目";
-		}
-		if (!illustration.name) {
-			illustration.name = "No Results";
+		if (!illustration.messageBody){
+			illustration.messageBody = "没有可显示的项目";
 		}
 		if (!illustration.path) {
-			illustration.path = "/assets/images/illustrations/empty-state-no-results.svg#no-results";
+			if (window.__meteor_runtime_config__)
+				illustration.path = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX + "/assets/images/illustrations/empty-state-no-results.svg#no-results";
+			else
+				illustration.path = "/assets/images/illustrations/empty-state-no-results.svg#no-results";
 		}
 		let DataTableEmpty = () => {
 			return (
