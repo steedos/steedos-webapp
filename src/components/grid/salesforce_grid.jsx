@@ -105,7 +105,13 @@ class Grid extends React.Component {
 		selectionLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 		selectRows: PropTypes.oneOf(['radio', 'checkbox', false]),
 		type: PropTypes.oneOf(['date', 'datetime', 'boolean', 'lookup', 'master_detail', 'text']),
-		id: PropTypes.string
+		id: PropTypes.string,
+		illustration: PropTypes.shape({
+			heading: PropTypes.string,
+			messageBody: PropTypes.string,
+			name: PropTypes.string,
+			path: PropTypes.string
+		})
     }
 
 

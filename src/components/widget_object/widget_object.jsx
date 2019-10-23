@@ -23,6 +23,12 @@ class WidgetObject extends React.Component {
         objectName: PropTypes.string,
         filters: PropTypes.array,
         columns: PropTypes.array,
+        illustration: PropTypes.shape({
+            heading: PropTypes.string,
+            messageBody: PropTypes.string,
+            name: PropTypes.string,
+            path: PropTypes.string
+        }),
         showAllLink: PropTypes.bool
     };
 
