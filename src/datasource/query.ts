@@ -81,7 +81,7 @@ export async function query(service: string, options: any = { pageSize: 10, curr
     let authToken = utils.getCookie("X-Auth-Token");
     let userId = utils.getCookie("X-User-Id")
 
-    const endpoint = `${service}/api/odata/v4/${spaceId}/${objectName}`;
+    const endpoint = `${service}/api/v4/${objectName}`;
     const requestInit = () => {
         return {
             headers: {
