@@ -16,7 +16,6 @@ let AppLauncherDesktopInternal = styled.div`
 class WidgetApps extends React.Component {
     constructor(props) {
         super(props);
-        this.textInput = React.createRef();
     };
 
     static defaultProps = {
