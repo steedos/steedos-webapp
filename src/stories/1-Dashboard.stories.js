@@ -140,8 +140,33 @@ const config2 = {
     unborderedRow: true
   },
   pending_tasks: {
-    label: '待办任务',
+    label: '待办任务1',
     position: 'CENTER_TOP',
+    type: 'object',
+    objectName: 'tasks',
+    filters: [
+      ['assignees', '=', '{userId}'],
+      ['state', '<>', 'complete'],
+      ['due_date', 'between', 'this_year']
+    ],
+    columns: [{
+      label: "名称",
+      field: 'name',
+      href: true
+    }, {
+      label: "优先级",
+      field: 'priority'
+    }]
+  },
+  bottomRightApps: {
+    label: '应用',
+    position: 'CENTER_BOTTOM_LEFT',
+    type: 'apps',
+    mobile: true
+  },
+  bottomLeftTask: {
+    label: '待办任务2',
+    position: 'CENTER_BOTTOM_RIGHT',
     type: 'object',
     objectName: 'tasks',
     filters: [

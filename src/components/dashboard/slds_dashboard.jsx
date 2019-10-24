@@ -11,6 +11,20 @@ let Container = styled.div`
     display: flex;
     flex: 1;
     flex-wrap: wrap;
+    margin: 1rem;
+    &>.slds-dashboard-column-center{
+        .slds-dashboard-cell-bottom-left{
+            padding-right: 0.5rem;
+            margin-top: 1rem;
+        }
+        .slds-dashboard-cell-bottom-right{
+            padding-left: 0.5rem;
+            margin-top: 1rem;
+        }
+    }
+    &>.slds-dashboard-column-right{
+        margin-left: 1rem;
+    }
 `;
 
 let Column = styled.div`
@@ -24,7 +38,6 @@ let Column = styled.div`
 
 let Cell = styled.div`
     flex: 0 0 100%;
-    padding: 12px;
     &.flex-split{
         flex: 0 0 50%;
     }
@@ -158,10 +171,10 @@ class Dashboard extends React.Component {
 
         return (
             <Container className="slds-dashboard">
-                <Column className="slds-dashboard-column">
+                <Column className="slds-dashboard-column slds-dashboard-column-center">
                     {
                         centerTopSection ? (
-                            <Cell className = "slds-dashboard-cell" >
+                            <Cell className= "slds-dashboard-cell slds-dashboard-cell-center-top" >
                                 <div className="slds-grid slds-grid_vertical">
                                     {centerTopSection}
                                 </div>
@@ -170,7 +183,7 @@ class Dashboard extends React.Component {
                     }
                     {
                         centerBottomLeftSection ? (
-                            <Cell className="slds-dashboard-cell flex-split" >
+                            <Cell className="slds-dashboard-cell flex-split slds-dashboard-cell-bottom-left" >
                                 <div className="slds-grid slds-grid_vertical">
                                     {centerBottomLeftSection}
                                 </div>
@@ -179,7 +192,7 @@ class Dashboard extends React.Component {
                     }
                     {
                         centerBottomRightSection ? (
-                            <Cell className="slds-dashboard-cell flex-split" >
+                            <Cell className="slds-dashboard-cell flex-split slds-dashboard-cell-bottom-right" >
                                 <div className="slds-grid slds-grid_vertical">
                                     {centerBottomRightSection}
                                 </div>
@@ -187,7 +200,7 @@ class Dashboard extends React.Component {
                         ) : null
                     }
                 </Column>
-                <Column className="slds-dashboard-column">
+                <Column className="slds-dashboard-column slds-dashboard-column-right">
                     {
                         rightSection ? (
                             <Cell className="slds-dashboard-cell" >
