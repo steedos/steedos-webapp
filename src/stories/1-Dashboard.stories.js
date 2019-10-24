@@ -122,14 +122,18 @@ const config2 = {
       ]
     ],
     columns: [{
-      label: "名称",
-      field: "name",
-      href: true
-    }, {
-      label: "修改时间",
-      field: "modified",
-      type: 'datetime',
-      width: "14rem"
+        label: "名称",
+        field: "name",
+        href: true
+      }, {
+        label: "提交人",
+        field: "submitter_name",
+        width: "16rem"
+      }, {
+        label: "修改时间",
+        field: "modified",
+        type: 'datetime',
+        width: "14rem"
     }],
     showAllLink: true
   },
