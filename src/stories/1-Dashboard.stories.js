@@ -124,12 +124,14 @@ const config2 = {
     columns: [{
       label: "名称",
       field: "name",
-      href: true
+      href: true,
+      width: "14rem"
     }, {
       label: "修改时间",
       field: "modified",
       type: 'datetime'
-    }]
+    }],
+    showAllLink: true
   },
   pending_tasks: {
     label: '待办任务',

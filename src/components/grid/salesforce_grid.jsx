@@ -111,7 +111,8 @@ class Grid extends React.Component {
 			messageBody: PropTypes.string,
 			name: PropTypes.string,
 			path: PropTypes.string
-		})
+		}),
+		width: PropTypes.string
     }
 
 
@@ -192,7 +193,7 @@ class Grid extends React.Component {
 		const DataTableColumns = _.map(columns, (column)=>{
 			if(!column.hidden){
 				return (
-					<DataTableColumn label={column.label} property={column.field} key={column.field} >
+					<DataTableColumn label={column.label} property={column.field} key={column.field} width={column.width} >
 						<CustomDataTableCell field={column}/>
 					</DataTableColumn>
 				)

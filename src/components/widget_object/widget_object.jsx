@@ -23,6 +23,7 @@ class WidgetObject extends React.Component {
         objectName: PropTypes.string,
         filters: PropTypes.array,
         columns: PropTypes.array,
+        width: PropTypes.string,
         illustration: PropTypes.shape({
             heading: PropTypes.string,
             messageBody: PropTypes.string,
@@ -33,7 +34,7 @@ class WidgetObject extends React.Component {
     };
 
     convertObjectProps(){
-        let { label, objectName, filters, columns, showAllLink, illustration } = this.props;
+        let { label, objectName, filters, columns, showAllLink, width, illustration } = this.props;
         return {
             label: label,
             objectName: objectName,
@@ -49,6 +50,7 @@ class WidgetObject extends React.Component {
                 }
                 return column;
             }) : [],
+            width,
             filters,
             illustration,
             showAllLink
@@ -66,7 +68,7 @@ class WidgetObject extends React.Component {
     };
 
     render() {
-        let { label, objectName, selectionLabel, cellListColumns, filters, illustration, showAllLink } = this.convertObjectProps();
+        let { label, objectName, selectionLabel, cellListColumns, width, filters, illustration, showAllLink } = this.convertObjectProps();
         let footer;
         if (showAllLink){
             footer = (
@@ -84,6 +86,7 @@ class WidgetObject extends React.Component {
                     pageSize={5}
                     objectName={objectName}
                     columns={cellListColumns}
+                    width={width}
                     selectionLabel={selectionLabel}
                     filters={filters}
                     illustration={illustration}

@@ -22,12 +22,14 @@ export const company = () => (
                 {
                   field: 'modified_by',
                   label: '修改人',
-                  type: 'lookup'
+                  type: 'lookup',
+                  width: "14rem"
                 },
                 {
                   field: 'modified',
                   label: '修改时间',
-                  type: 'datetime'
+                  type: 'datetime',
+                  width: "14rem"
                 },
               ]} 
               enableSearch={true}></Grid>
