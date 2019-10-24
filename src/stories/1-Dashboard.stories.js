@@ -135,7 +135,9 @@ const config2 = {
         type: 'datetime',
         width: "14rem"
     }],
-    showAllLink: true
+    showAllLink: true,
+    noHeader: true,
+    unborderedRow: true
   },
   pending_tasks: {
     label: '待办任务',
@@ -154,7 +156,9 @@ const config2 = {
     }, {
       label: "优先级",
       field: 'priority'
-    }]
+    }],
+    noHeader: true,
+    unborderedRow: true
   },
   empty_tasks: {
     label: '日历事件',

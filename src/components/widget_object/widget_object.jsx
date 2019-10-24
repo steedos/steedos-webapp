@@ -30,11 +30,13 @@ class WidgetObject extends React.Component {
             name: PropTypes.string,
             path: PropTypes.string
         }),
-        showAllLink: PropTypes.bool
+        showAllLink: PropTypes.bool,
+		noHeader: false,
+        unborderedRow: false
     };
 
     convertObjectProps(){
-        let { label, objectName, filters, columns, showAllLink, width, illustration } = this.props;
+        let { label, objectName, filters, columns, width, illustration, showAllLink, noHeader, unborderedRow } = this.props;
         return {
             label: label,
             objectName: objectName,
@@ -56,7 +58,9 @@ class WidgetObject extends React.Component {
             width,
             filters,
             illustration,
-            showAllLink
+            showAllLink,
+            noHeader,
+            unborderedRow
         };
     }
 
@@ -71,7 +75,7 @@ class WidgetObject extends React.Component {
     };
 
     render() {
-        let { label, objectName, selectionLabel, cellListColumns, width, filters, illustration, showAllLink } = this.convertObjectProps();
+        let { label, objectName, selectionLabel, cellListColumns, width, filters, illustration, showAllLink, noHeader, unborderedRow } = this.convertObjectProps();
         let footer;
         if (showAllLink){
             footer = (
@@ -93,6 +97,8 @@ class WidgetObject extends React.Component {
                     selectionLabel={selectionLabel}
                     filters={filters}
                     illustration={illustration}
+                    noHeader={noHeader}
+                    unborderedRow={unborderedRow}
                 />
             </Card>
         );

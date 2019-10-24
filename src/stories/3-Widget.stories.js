@@ -21,20 +21,25 @@ export const widgetPendingTasks = () => (
   <Provider store={store}>
     <Bootstrap>
       <WidgetObject label="待办任务" objectName="tasks" filters={[
-        ['assignees', '=', '{userId}'],
-        ['state', '<>', 'complete'],
-        ['due_date', 'between', 'this_year']
-      ]} columns={[{
-        label: "名称",
-        field: 'name',
-        href: true
-      }, {
-        label: "状态",
-        field: 'state'
-      }, {
-        label: "分派给",
-        field: 'assignees'
-      }]} />
+          ['assignees', '=', '{userId}'],
+          ['state', '<>', 'complete'],
+          ['due_date', 'between', 'this_year']
+        ]}
+        columns={[{
+            label: "名称",
+            field: 'name',
+            href: true
+          }, {
+            label: "状态",
+            field: 'state'
+          }, {
+            label: "分派给",
+            field: 'assignees'
+          }
+        ]} 
+        noHeader
+        unborderedRow
+      />
     </Bootstrap>
   </Provider>
 );
@@ -43,25 +48,27 @@ export const widgetInstances = () => (
   <Provider store={store}>
     <Bootstrap>
       <WidgetObject label="待审批" objectName="instances" filters={[
-        ['space', '=', '{spaceId}'],
-        [
-          ['inbox_users', '=', '{userId}'], 'or', ['cc_users', '=', '{userId}']
-        ]
-      ]} columns={[{
-          label: "名称",
-          field: "name",
-          href: true
-        }, {
-          label: "提交人",
-          field: "submitter_name",
-          width: "16rem"
-        }, {
-          label: "修改时间",
-          field: "modified",
-          type: 'datetime',
-          width: "14rem"
-        }
-      ]} />
+          ['space', '=', '{spaceId}'],
+          [
+            ['inbox_users', '=', '{userId}'], 'or', ['cc_users', '=', '{userId}']
+          ]
+        ]}
+        columns={[{
+            label: "名称",
+            field: "name",
+            href: true
+          }, {
+            label: "提交人",
+            field: "submitter_name",
+            width: "10rem"
+          }, {
+            label: "修改时间",
+            field: "modified",
+            type: 'datetime',
+            width: "14rem"
+          }
+        ]}
+      />
     </Bootstrap>
   </Provider>
 );
@@ -70,15 +77,18 @@ export const widgetEmpty = () => (
   <Provider store={store}>
     <Bootstrap>
       <WidgetObject label="日历事件" objectName="events" filters={[
-        ['state', '=', 'xx']
-      ]} columns={[{
-        label: "名称",
-        field: 'name',
-        href: true
-        }]} illustration={{
+          ['state', '=', 'xx']
+        ]}
+        columns={[{
+          label: "名称",
+          field: 'name',
+          href: true
+        }]}
+        illustration={{
           path: "/assets/images/illustrations/empty-state-no-results.svg#no-results",
           heading: "没有找到日历事件"
-        }} showAllLink={true}
+        }}
+        showAllLink={true}
       />
     </Bootstrap>
   </Provider>

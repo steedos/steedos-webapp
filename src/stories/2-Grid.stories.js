@@ -13,26 +13,29 @@ export default {
 export const company = () => (
       <Provider store={store}>
         <Bootstrap>
-            <Grid objectName={'company'} 
-              columns={[
-                {
-                  field: 'name',
-                  label: '公司名称'
-                },
-                {
-                  field: 'modified_by',
-                  label: '修改人',
-                  type: 'lookup',
-                  width: "14rem"
-                },
-                {
-                  field: 'modified',
-                  label: '修改时间',
-                  type: 'datetime',
-                  width: "14rem"
-                },
-              ]} 
-              enableSearch={true}></Grid>
+          <Grid objectName={'company'} 
+            columns={[
+              {
+                field: 'name',
+                label: '公司名称'
+              },
+              {
+                field: 'modified_by',
+                label: '修改人',
+                type: 'lookup',
+                width: "14rem"
+              },
+              {
+                field: 'modified',
+                label: '修改时间',
+                type: 'datetime',
+                width: "14rem"
+              },
+            ]} 
+            unborderedRow={true}
+            noHeader={true}
+            enableSearch={true}>
+          </Grid>
         </Bootstrap>
       </Provider>
 )

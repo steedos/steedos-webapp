@@ -9,6 +9,11 @@ import moment from 'moment'
 
 let Counter = styled.div`
 	height: 100%;
+	&.slds-grid-no-header{
+		.slds-table thead{
+			display: none;
+		}
+	}
 `
 
 const CustomDataTableCell = ({ children, ...props }) => {
@@ -76,7 +81,9 @@ class Grid extends React.Component {
 		rows: [],
 		selection: [],
 		selectRows: false,
-		type: 'text'
+		type: 'text',
+		noHeader: false,
+		unborderedRow: false
 	};
 
 	// static propTypes = {
@@ -112,7 +119,9 @@ class Grid extends React.Component {
 			name: PropTypes.string,
 			path: PropTypes.string
 		}),
-		width: PropTypes.string
+		width: PropTypes.string,
+		noHeader: PropTypes.bool,
+		unborderedRow: PropTypes.bool
     }
 
 
@@ -188,7 +197,7 @@ class Grid extends React.Component {
 
 	render() {
 
-		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id } = this.props
+		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, noHeader, unborderedRow  } = this.props
 
 		const DataTableColumns = _.map(columns, (column)=>{
 			if(!column.hidden){
@@ -247,8 +256,14 @@ class Grid extends React.Component {
 			);
 		};
 
+		let extraClassNames = [];
+		if (noHeader){
+			extraClassNames.push('slds-grid-no-header');
+		}
+		let extraClassName = extraClassNames.length ? extraClassNames.join(" ") : "";
+
 		return (
-			<Counter className="slds-grid slds-nowrap" >
+			<Counter className={`slds-grid slds-nowrap ${extraClassName}`} >
 				<div className="slds-col slds-grid slds-grid_vertical slds-nowrap">
 					<DataTableSearch/>
 					{
@@ -264,7 +279,8 @@ class Grid extends React.Component {
 									selectAllRows: 'all rows',
 									selectRow: 'Select this row',
 								}}
-								fixedHeader
+								unborderedRow={unborderedRow}
+								fixedHeader={!noHeader}
 								fixedLayout
 								items={items}
 								id={id}
