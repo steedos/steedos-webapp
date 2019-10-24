@@ -13,6 +13,7 @@ export const widgetApps = () => (
   <Provider store={store}>
     <Bootstrap>
       <WidgetApps />
+      <WidgetApps showAllItems={true} label="showAllItems模式的应用程序启动器" />
       <WidgetApps mobile={true} label="Mobile模式的应用程序启动器" />
     </Bootstrap>
   </Provider>

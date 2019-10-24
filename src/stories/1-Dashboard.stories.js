@@ -195,7 +195,8 @@ const config3 = {
   apps: {
     label: "应用程序启动器",
     position: "CENTER_TOP",
-    type: "apps"
+    type: "apps",
+    showAllItems: false
   },
   apps_mobile: {
     label: '应用列表',

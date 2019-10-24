@@ -2,7 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'underscore';
-import { Card, Icon, AppLauncherTile, AppLauncherExpandableSection } from '@salesforce/design-system-react';
+import { Card, Icon, AppLauncher, AppLauncherTile, AppLauncherExpandableSection } from '@salesforce/design-system-react';
 import utils from '../../utils'
 
 let AppLauncherDesktopInternal = styled.div`
@@ -10,6 +10,14 @@ let AppLauncherDesktopInternal = styled.div`
     .slds-section.slds-is-open{
         .slds-section__content{
             padding-top: 0px;
+        }
+    }
+    .slds-section__title{
+        display: none;
+    }
+    &.slds-app-launcher__show-all-items{
+        .slds-section__title{
+            display: block;
         }
     }
 `;
@@ -21,13 +29,15 @@ class WidgetApps extends React.Component {
 
     static defaultProps = {
         label: "应用程序启动器",
-        mobile: false
+        mobile: false,
+        showAllItems: false
     };
 
     static propTypes = {
         label: PropTypes.string,
         apps: PropTypes.array,
-        mobile: PropTypes.bool
+        mobile: PropTypes.bool,
+        showAllItems: PropTypes.bool
     };
 
     componentDidMount() {
@@ -41,15 +51,13 @@ class WidgetApps extends React.Component {
         apps: []
     };
 
-    render() {
-        let { label, apps, mobile } = this.props;
-        let appCells;
+    getAppCells(apps){
         if (apps) {
             let token = utils.getCookie("X-Access-Token");
-            appCells = _.map(apps, (app, key) => {
+            return _.map(apps, (app, key) => {
                 if (app && app.name) {
                     let url = `/app/${app._id}`;
-                    if(app.url){
+                    if (app.url) {
                         url = app.url;
                     }
                     if (!/^http(s?):\/\//.test(url)) {
@@ -57,10 +65,10 @@ class WidgetApps extends React.Component {
                             url = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX + url;
                     }
 
-                    if(url.indexOf("?") > -1){
+                    if (url.indexOf("?") > -1) {
                         url += `&token=${token}`
                     }
-                    else{
+                    else {
                         url += `?token=${token}`
                     }
                     return (
@@ -82,7 +90,7 @@ class WidgetApps extends React.Component {
                                     if (app.is_new_window) {
                                         window.open(args.href);
                                     }
-                                    else{
+                                    else {
                                         window.location = args.href;
                                     }
                                 }
@@ -92,6 +100,14 @@ class WidgetApps extends React.Component {
                 }
             })
         }
+        else{
+            return null;
+        }
+    }
+
+    render() {
+        let { label, apps, mobile, showAllItems } = this.props;
+        let appCells = this.getAppCells(apps);
         let appLauncherDesktopInternal;
         if (mobile){
             appLauncherDesktopInternal = (
@@ -101,8 +117,12 @@ class WidgetApps extends React.Component {
             );
         }
         else {
+            let extraClassName = "";
+            if (showAllItems){
+                extraClassName = "slds-app-launcher__show-all-items";
+            }
             appLauncherDesktopInternal = (
-                <AppLauncherDesktopInternal className="slds-app-launcher__content">
+                <AppLauncherDesktopInternal className={`slds-app-launcher__content ${extraClassName}`}>
                     <AppLauncherExpandableSection title="所有应用程序">
                         {appCells}
                     </AppLauncherExpandableSection>
