@@ -50,7 +50,7 @@ class WidgetApps extends React.Component {
                     if(app.url){
                         url = app.url;
                     }
-                    if (!/^http:\/\//.test(this.url)) {
+                    if (!/^http:\/\//.test(url)) {
                         if (window.__meteor_runtime_config__)
                             url = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX + url;
                     }
