@@ -47,13 +47,14 @@ class WidgetApps extends React.Component {
             appCells = _.map(apps, (app, key) => {
                 if (app && app.name) {
                     let url = `/app/${app._id}`;
-
-		            if (window.__meteor_runtime_config__)
-                        url = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX +url;
-    
                     if(app.url){
                         url = app.url;
                     }
+                    if (!/^http:\/\//.test(this.url)) {
+                        if (window.__meteor_runtime_config__)
+                            url = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX + url;
+                    }
+
                     if(url.indexOf("?") > -1){
                         url += `&token=${token}`
                     }
