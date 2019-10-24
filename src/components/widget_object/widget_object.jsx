@@ -4,10 +4,31 @@ import PropTypes from 'prop-types';
 import _ from 'underscore'
 import { Card } from '@salesforce/design-system-react';
 import utils from '../../utils'
-
+import styled from 'styled-components'
 
 const userId = utils.getCookie("X-User-Id");
 const spaceId = utils.getCookie("X-Space-Id");
+
+let WidgetObjectContent = styled.div`
+    .slds-table{
+        thead{
+            th{
+                &:first-child{
+                    .slds-p-horizontal_x-small{
+                        padding-left: 1rem;
+                    }
+                }
+            }
+        }
+        tbody{
+            td{
+                &:first-child{
+                    padding-left: 1rem;
+                }
+            }
+        }
+    }
+`
 
 class WidgetObject extends React.Component {
 
@@ -89,17 +110,19 @@ class WidgetObject extends React.Component {
                 heading={label}
                 footer={footer}
             >
-                <Grid searchMode="omitFilters"
-                    pageSize={5}
-                    objectName={objectName}
-                    columns={cellListColumns}
-                    width={width}
-                    selectionLabel={selectionLabel}
-                    filters={filters}
-                    illustration={illustration}
-                    noHeader={noHeader}
-                    unborderedRow={unborderedRow}
-                />
+                <WidgetObjectContent>
+                    <Grid searchMode="omitFilters"
+                        pageSize={5}
+                        objectName={objectName}
+                        columns={cellListColumns}
+                        width={width}
+                        selectionLabel={selectionLabel}
+                        filters={filters}
+                        illustration={illustration}
+                        noHeader={noHeader}
+                        unborderedRow={unborderedRow}
+                    />
+                </WidgetObjectContent>
             </Card>
         );
     }
