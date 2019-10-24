@@ -51,7 +51,8 @@ export const widgetInstances = () => (
       }, {
         label: "修改时间",
         field: "modified",
-        type: 'datetime'
+        type: 'datetime',
+        width: "14rem"
       }]} />
     </Bootstrap>
   </Provider>
