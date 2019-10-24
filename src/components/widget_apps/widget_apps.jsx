@@ -20,12 +20,14 @@ class WidgetApps extends React.Component {
     };
 
     static defaultProps = {
-        label: "应用程序启动器"
+        label: "应用程序启动器",
+        mobile: false
     };
 
     static propTypes = {
         label: PropTypes.string,
-        apps: PropTypes.array
+        apps: PropTypes.array,
+        mobile: PropTypes.bool
     };
 
     componentDidMount() {
@@ -40,7 +42,7 @@ class WidgetApps extends React.Component {
     };
 
     render() {
-        let { label,apps } = this.props;
+        let { label, apps, mobile } = this.props;
         let appCells;
         if (apps) {
             let token = utils.getCookie("X-Access-Token");
@@ -90,15 +92,28 @@ class WidgetApps extends React.Component {
                 }
             })
         }
-        return (
-            <Card
-                heading={label}
-            >
+        let appLauncherDesktopInternal;
+        if (mobile){
+            appLauncherDesktopInternal = (
+                <AppLauncherDesktopInternal className="slds-app-launcher__content">
+                    {appCells}
+                </AppLauncherDesktopInternal>
+            );
+        }
+        else {
+            appLauncherDesktopInternal = (
                 <AppLauncherDesktopInternal className="slds-app-launcher__content">
                     <AppLauncherExpandableSection title="所有应用程序">
                         {appCells}
                     </AppLauncherExpandableSection>
                 </AppLauncherDesktopInternal>
+            );
+        }
+        return (
+            <Card
+                heading={label}
+            >
+                {appLauncherDesktopInternal}
             </Card>
         );
     }

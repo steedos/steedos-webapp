@@ -197,6 +197,12 @@ const config3 = {
     position: "CENTER_TOP",
     type: "apps"
   },
+  apps_mobile: {
+    label: '应用列表',
+    position: 'RIGHT',
+    type: 'apps',
+    mobile: true
+  }
 }
 
 export const configTypeApps = () => (
