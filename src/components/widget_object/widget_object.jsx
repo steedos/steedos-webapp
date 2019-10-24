@@ -52,8 +52,8 @@ class WidgetObject extends React.Component {
             path: PropTypes.string
         }),
         showAllLink: PropTypes.bool,
-		noHeader: false,
-        unborderedRow: false
+        noHeader: PropTypes.bool,
+        unborderedRow: PropTypes.bool
     };
 
     convertObjectProps(){
