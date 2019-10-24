@@ -29,8 +29,11 @@ export const widgetPendingTasks = () => (
         field: 'name',
         href: true
       }, {
-        label: "优先级",
-        field: 'priority'
+        label: "状态",
+        field: 'state'
+      }, {
+        label: "分派给",
+        field: 'assignees'
       }]} />
     </Bootstrap>
   </Provider>
