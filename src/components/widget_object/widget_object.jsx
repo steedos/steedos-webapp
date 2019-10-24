@@ -42,6 +42,9 @@ class WidgetObject extends React.Component {
                 if (column.href){
                     column.onClick = function (event, data) {
                         let url = `/app/-/${objectName}/view/${data.id}`;
+                        if (objectName === "instances"){
+                            url = `/workflow/space/${spaceId}/inbox/${data.id}`;
+                        }
                         if (window.__meteor_runtime_config__)
                             url = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX + url;
                         
