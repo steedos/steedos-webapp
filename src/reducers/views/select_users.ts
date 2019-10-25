@@ -1,7 +1,6 @@
 import { GRID_STATE_CHANGE_ACTION } from '../../actions/views/grid'
 
 function reducer(state:any = {}, action: any){
-    console.log('selectUsers reducer', state, action)
     if (action.type === GRID_STATE_CHANGE_ACTION) {
         const payload = action.payload
         // switch (action.partialStateName) {

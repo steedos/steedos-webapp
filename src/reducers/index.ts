@@ -15,7 +15,6 @@ const combinedReducer = combineReducers({
 // }
 
 function crossSliceReducer(state: any, action: any) {
-    console.log('crossSliceReducer state', state, action)
     if (action.type === TREE_STATE_CHANGE_ACTION) {
         switch (action.partialStateName) {
             default:
