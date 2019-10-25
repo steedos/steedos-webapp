@@ -51,26 +51,31 @@ class WidgetApps extends React.Component {
         apps: []
     };
 
+    getAppUrl(app, token){
+        let url = `/app/${app._id}`;
+        if (app.url) {
+            url = app.url;
+        }
+        if (!/^http(s?):\/\//.test(url)) {
+            if (window.__meteor_runtime_config__)
+                url = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX + url;
+        }
+
+        if (url.indexOf("?") > -1) {
+            url += `&token=${token}`
+        }
+        else {
+            url += `?token=${token}`
+        }
+        return url;
+    }
+
     getAppCells(apps){
         if (apps) {
             let token = utils.getCookie("X-Access-Token");
             return _.map(apps, (app, key) => {
                 if (app && app.name) {
-                    let url = `/app/${app._id}`;
-                    if (app.url) {
-                        url = app.url;
-                    }
-                    if (!/^http(s?):\/\//.test(url)) {
-                        if (window.__meteor_runtime_config__)
-                            url = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX + url;
-                    }
-
-                    if (url.indexOf("?") > -1) {
-                        url += `&token=${token}`
-                    }
-                    else {
-                        url += `?token=${token}`
-                    }
+                    let url = this.getAppUrl(app, token);
                     return (
                         <AppLauncherTile
                             assistiveText={{ dragIconText: app.name }}
