@@ -100,7 +100,7 @@ class Grid extends React.Component {
 		columns: PropTypes.arrayOf(PropTypes.shape({
 			field: PropTypes.string.isRequired,
 			label: PropTypes.string.isRequired,
-			// width: PropTypes.number,
+			width: PropTypes.string,
 			// wrap: PropTypes.bool,
 			hidden: PropTypes.bool,
 			onClick: PropTypes.func,
@@ -119,7 +119,6 @@ class Grid extends React.Component {
 			name: PropTypes.string,
 			path: PropTypes.string
 		}),
-		width: PropTypes.string,
 		noHeader: PropTypes.bool,
 		unborderedRow: PropTypes.bool
     }

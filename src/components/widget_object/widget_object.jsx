@@ -43,8 +43,15 @@ class WidgetObject extends React.Component {
         label: PropTypes.string,
         objectName: PropTypes.string,
         filters: PropTypes.array,
-        columns: PropTypes.array,
-        width: PropTypes.string,
+        columns: PropTypes.arrayOf(PropTypes.shape({
+            field: PropTypes.string.isRequired,
+            label: PropTypes.string.isRequired,
+            width: PropTypes.string,
+            // wrap: PropTypes.bool,
+            hidden: PropTypes.bool,
+            onClick: PropTypes.func,
+            renderCell: PropTypes.func
+        })),
         illustration: PropTypes.shape({
             heading: PropTypes.string,
             messageBody: PropTypes.string,
@@ -57,7 +64,7 @@ class WidgetObject extends React.Component {
     };
 
     convertObjectProps(){
-        let { label, objectName, filters, columns, width, illustration, showAllLink, noHeader, unborderedRow } = this.props;
+        let { label, objectName, filters, columns, illustration, showAllLink, noHeader, unborderedRow } = this.props;
         return {
             label: label,
             objectName: objectName,
@@ -76,7 +83,6 @@ class WidgetObject extends React.Component {
                 }
                 return column;
             }) : [],
-            width,
             filters,
             illustration,
             showAllLink,
@@ -96,7 +102,7 @@ class WidgetObject extends React.Component {
     };
 
     render() {
-        let { label, objectName, selectionLabel, cellListColumns, width, filters, illustration, showAllLink, noHeader, unborderedRow } = this.convertObjectProps();
+        let { label, objectName, selectionLabel, cellListColumns, filters, illustration, showAllLink, noHeader, unborderedRow } = this.convertObjectProps();
         let footer;
         if (showAllLink){
             footer = (
@@ -115,7 +121,6 @@ class WidgetObject extends React.Component {
                         pageSize={5}
                         objectName={objectName}
                         columns={cellListColumns}
-                        width={width}
                         selectionLabel={selectionLabel}
                         filters={filters}
                         illustration={illustration}
