@@ -194,6 +194,35 @@ class Grid extends React.Component {
 		this.setState(newState);
 	};
 
+	getDataTableEmpty(isEmpty){
+		if (!isEmpty){
+			return null;
+		}
+		let illustration = this.props.illustration;
+		if (!illustration) {
+			illustration = {};
+		}
+		if (!illustration.messageBody) {
+			illustration.messageBody = "没有可显示的项目";
+		}
+		if (!illustration.path) {
+			if (window.__meteor_runtime_config__)
+				illustration.path = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX + "/assets/images/illustrations/empty-state-no-results.svg#no-results";
+			else
+				illustration.path = "/assets/images/illustrations/empty-state-no-results.svg#no-results";
+		}
+		return () => {
+			return (
+				<Illustration
+					heading={illustration.heading}
+					messageBody={illustration.messageBody}
+					name={illustration.name}
+					path={illustration.path}
+				/>
+			);
+		};
+	}
+
 	render() {
 
 		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, noHeader, unborderedRow  } = this.props
@@ -231,29 +260,7 @@ class Grid extends React.Component {
 		const items = rows || this.state.items;
 		const isLoading = this.props.loading;
 		const isEmpty = isLoading ? false : items.length === 0;
-		let illustration = this.props.illustration;
-		if (!illustration){
-			illustration = {};
-		}
-		if (!illustration.messageBody){
-			illustration.messageBody = "没有可显示的项目";
-		}
-		if (!illustration.path) {
-			if (window.__meteor_runtime_config__)
-				illustration.path = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX + "/assets/images/illustrations/empty-state-no-results.svg#no-results";
-			else
-				illustration.path = "/assets/images/illustrations/empty-state-no-results.svg#no-results";
-		}
-		let DataTableEmpty = () => {
-			return (
-				<Illustration
-					heading={illustration.heading}
-					messageBody={illustration.messageBody}
-					name={illustration.name}
-					path={illustration.path}
-				/>
-			);
-		};
+		let DataTableEmpty = this.getDataTableEmpty(isEmpty);
 
 		let extraClassNames = [];
 		if (noHeader){
