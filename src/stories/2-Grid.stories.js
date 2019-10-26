@@ -34,7 +34,7 @@ export const company = () => (
             ]} 
             unborderedRow={true}
             noHeader={true}
-            orderBy="name, modified desc"
+            sort="name, modified desc"
             enableSearch={true}>
           </Grid>
         </Bootstrap>
@@ -97,6 +97,7 @@ export const cms_files = () => (
         ]}
         filters={[['space', '=', '{spaceId}']]}
         pageSize={10}
+        sort={[["created", "desc"], ["name"]]}
         enableSearch={true}></Grid>
     </Bootstrap>
   </Provider>
