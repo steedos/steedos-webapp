@@ -137,7 +137,8 @@ const config2 = {
     }],
     showAllLink: true,
     noHeader: true,
-    unborderedRow: true
+    unborderedRow: true,
+    sort: "modified desc, name"
   },
   pending_tasks: {
     label: '待办任务1',
@@ -154,9 +155,16 @@ const config2 = {
       field: 'name',
       href: true
     }, {
-      label: "优先级",
-      field: 'priority'
-    }]
+      label: "状态",
+      field: 'state',
+      width: "10rem"
+    }, {
+      label: "截止时间",
+      field: 'due_date',
+      width: "10rem",
+      type: "datetime"
+    }],
+    sort: [["due_date", "desc"], ["state"]]
   },
   bottomRightApps: {
     label: '应用',

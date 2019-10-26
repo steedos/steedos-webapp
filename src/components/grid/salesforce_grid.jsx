@@ -138,7 +138,8 @@ class Grid extends React.Component {
 			path: PropTypes.string
 		}),
 		noHeader: PropTypes.bool,
-		unborderedRow: PropTypes.bool
+		unborderedRow: PropTypes.bool,
+		sort: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
     }
 
 
@@ -243,7 +244,7 @@ class Grid extends React.Component {
 
 	render() {
 
-		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, noHeader, unborderedRow  } = this.props
+		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, noHeader, unborderedRow, sort } = this.props
 
 		const DataTableColumns = _.map(columns, (column)=>{
 			if(!column.hidden){
@@ -304,6 +305,7 @@ class Grid extends React.Component {
 									selectRow: 'Select this row',
 								}}
 								unborderedRow={unborderedRow}
+								sort={sort}
 								fixedHeader={!noHeader}
 								fixedLayout
 								items={items}
