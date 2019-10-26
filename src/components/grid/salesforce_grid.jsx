@@ -16,6 +16,21 @@ let Counter = styled.div`
 	}
 `
 
+const formatFileSize = function (filesize) {
+	var rev, unit;
+	rev = filesize / 1024.00;
+	unit = 'KB';
+	if (rev > 1024.00) {
+		rev = rev / 1024.00;
+		unit = 'MB';
+	}
+	if (rev > 1024.00) {
+		rev = rev / 1024.00;
+		unit = 'GB';
+	}
+	return rev.toFixed(2) + unit;
+};
+
 const CustomDataTableCell = ({ children, ...props }) => {
 	let { field } = props
 	let { onClick, format } = field
@@ -47,6 +62,9 @@ const CustomDataTableCell = ({ children, ...props }) => {
 				break;
 			case 'master_detail':
 				children = children._NAME_FIELD_VALUE
+				break;
+			case 'filesize':
+				children = formatFileSize(children)
 				break;
 			default:
 				break;

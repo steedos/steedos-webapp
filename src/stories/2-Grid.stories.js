@@ -65,3 +65,38 @@ export const space_users = () => (
       </Bootstrap>
     </Provider>
 )
+
+export const cms_files = () => (
+  <Provider store={store}>
+    <Bootstrap>
+      <Grid objectName={'cms_files'}
+        columns={[
+          {
+            field: 'name',
+            label: '名称'
+          },
+          {
+            field: 'size',
+            label: '文件大小',
+            type: 'filesize',
+            width: '10rem'
+          },
+          {
+            field: 'owner',
+            label: '所有者',
+            type: 'lookup',
+            width: '10rem'
+          },
+          {
+            field: 'created',
+            label: '创建时间',
+            type: 'datetime',
+            width: '10rem'
+          },
+        ]}
+        filters={[['space', '=', '{spaceId}']]}
+        pageSize={10}
+        enableSearch={true}></Grid>
+    </Bootstrap>
+  </Provider>
+)
