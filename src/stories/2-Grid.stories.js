@@ -34,6 +34,7 @@ export const company = () => (
             ]} 
             unborderedRow={true}
             noHeader={true}
+            orderBy="name, modified desc"
             enableSearch={true}>
           </Grid>
         </Bootstrap>
