@@ -22,7 +22,7 @@ function getODataFilter(options: any, $select: any) : string{
     if (options.filters || (options.search && $select)) {
         let { searchMode } = options;
         let result: any, _filters: any, _query: any;
-        if (options.filters && options.filters.length) {
+        if (options.filters && (options.filters.length || typeof options.filters === "function")) {
             _filters = options.filters;
         }
         if (options.search && $select) {

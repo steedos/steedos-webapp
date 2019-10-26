@@ -42,7 +42,7 @@ class WidgetObject extends React.Component {
     static propTypes = {
         label: PropTypes.string,
         objectName: PropTypes.string,
-        filters: PropTypes.array,
+        filters: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
         columns: PropTypes.arrayOf(PropTypes.shape({
             field: PropTypes.string.isRequired,
             label: PropTypes.string.isRequired,

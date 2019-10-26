@@ -22,11 +22,12 @@ export const widgetApps = () => (
 export const widgetPendingTasks = () => (
   <Provider store={store}>
     <Bootstrap>
-      <WidgetObject label="待办任务" objectName="tasks" filters={[
+      <WidgetObject label="待办任务" objectName="tasks" filters={() => {
+        return [
           ['assignees', '=', '{userId}'],
           ['state', '<>', 'complete'],
           ['due_date', 'between', 'this_year']
-        ]}
+        ]}}
         columns={[{
             label: "名称",
             field: 'name',
