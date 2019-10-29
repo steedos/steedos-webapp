@@ -90,6 +90,10 @@ const propTypes = {
 	 * App name for the tile's title.
 	 */
 	title: PropTypes.string.isRequired,
+	/**
+	 * target attr of link tag <a target="_blank">...</a>
+	 */
+	target: PropTypes.string,
 
 	// Future feature: add Highlighter to Truncate text (https://github.com/ShinyChang/React-Text-Truncate/issues/32)
 };
@@ -129,7 +133,7 @@ class AppLauncherTile extends React.Component {
 		}
 
 		return (
-			<div
+			<a
 				className={classNames(
 					'slds-app-launcher__tile slds-text-link_reset slds-is-draggable', // NOTE: while the draggable class is here for stylistic purposes, the draggable attribute is not present as draggability has not been implemented yet
 					this.props.className
@@ -137,6 +141,8 @@ class AppLauncherTile extends React.Component {
 				onClick={this.handleClick}
 				role="button"
 				tabIndex="0"
+				href={this.props.href}
+				target={this.props.target}
 			>
 				<div className="slds-app-launcher__tile-figure">
 					{this.props.iconNode || (
@@ -166,6 +172,7 @@ class AppLauncherTile extends React.Component {
 				<div className="slds-app-launcher__tile-body">
 					<a
 						href={this.props.href} // eslint-disable-line no-script-url
+						target={this.props.target}
 					>
 						<Highlighter search={this.props.search}>
 							{this.props.title}
@@ -215,7 +222,7 @@ class AppLauncherTile extends React.Component {
 						)}
 					/>
 				</div>
-			</div>
+			</a>
 		);
 	}
 }

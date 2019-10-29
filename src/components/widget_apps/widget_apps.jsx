@@ -79,6 +79,7 @@ class WidgetApps extends React.Component {
             return _.map(apps, (app, key) => {
                 if (app && app.name) {
                     let url = this.getAppUrl(app, token);
+                    let target = app.is_new_window ? "_blank" : null;
                     return (
                         <AppLauncherTile
                             assistiveText={{ dragIconText: app.name }}
@@ -93,17 +94,7 @@ class WidgetApps extends React.Component {
                             }
                             title={app.name}
                             href={url}
-                            target="_blank"
-                            // onClick={(event, args) => {
-                            //     if (args.href) {
-                            //         if (app.is_new_window) {
-                            //             window.open(args.href);
-                            //         }
-                            //         else {
-                            //             window.location = args.href;
-                            //         }
-                            //     }
-                            // }}
+                            target={target}
                         />
                     )
                 }
