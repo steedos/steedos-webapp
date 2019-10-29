@@ -71,6 +71,7 @@ export const widgetInstances = () => (
             width: "14rem"
           }
         ]}
+        hrefTarget="_blank"
       />
     </Bootstrap>
   </Provider>

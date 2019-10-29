@@ -50,7 +50,8 @@ class WidgetObject extends React.Component {
             // wrap: PropTypes.bool,
             hidden: PropTypes.bool,
             onClick: PropTypes.func,
-            renderCell: PropTypes.func
+            format: PropTypes.func,
+            href: PropTypes.bool
         })),
         illustration: PropTypes.shape({
             heading: PropTypes.string,
@@ -59,27 +60,32 @@ class WidgetObject extends React.Component {
             path: PropTypes.string
         }),
         showAllLink: PropTypes.bool,
+        hrefTarget: PropTypes.string,
         noHeader: PropTypes.bool,
         unborderedRow: PropTypes.bool,
         sort: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
     };
 
     convertObjectProps(){
-        let { label, objectName, filters, columns, illustration, showAllLink, noHeader, unborderedRow, sort } = this.props;
+        let { label, objectName, filters, columns, illustration, showAllLink, hrefTarget, noHeader, unborderedRow, sort } = this.props;
         return {
             label: label,
             objectName: objectName,
             cellListColumns: columns ? columns.map((column)=>{
                 if (column.href){
-                    column.onClick = function (event, data) {
+                    column.format = (children, data)=>{
                         let url = `/app/-/${objectName}/view/${data.id}`;
                         if (objectName === "instances"){
                             url = `/workflow/space/${spaceId}/inbox/${data.id}`;
                         }
                         if (window.__meteor_runtime_config__)
                             url = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX + url;
-                        
-                        window.location = url;
+
+                        return (
+                            <a target={hrefTarget} href={url} title={children}>
+                                {children}
+                            </a>
+                        )
                     }
                 }
                 return column;
@@ -87,6 +93,7 @@ class WidgetObject extends React.Component {
             filters,
             illustration,
             showAllLink,
+            hrefTarget,
             noHeader,
             unborderedRow,
             sort
@@ -104,11 +111,11 @@ class WidgetObject extends React.Component {
     };
 
     render() {
-        let { label, objectName, selectionLabel, cellListColumns, filters, illustration, showAllLink, noHeader, unborderedRow, sort } = this.convertObjectProps();
+        let { label, objectName, selectionLabel, cellListColumns, filters, illustration, showAllLink, hrefTarget, noHeader, unborderedRow, sort } = this.convertObjectProps();
         let footer;
         if (showAllLink){
             footer = (
-                <a href={`/app/-/${objectName}`}>
+                <a href={`/app/-/${objectName}`} target={hrefTarget}>
                     查看全部
                     </a>
             )

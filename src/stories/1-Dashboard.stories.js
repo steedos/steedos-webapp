@@ -136,6 +136,7 @@ const config2 = {
         width: "14rem"
     }],
     showAllLink: true,
+    hrefTarget: "_blank",
     noHeader: true,
     unborderedRow: true,
     sort: "modified desc, name"
