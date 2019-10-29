@@ -61,13 +61,14 @@ class WidgetObject extends React.Component {
         }),
         showAllLink: PropTypes.bool,
         hrefTarget: PropTypes.string,
+        footer: PropTypes.func,
         noHeader: PropTypes.bool,
         unborderedRow: PropTypes.bool,
         sort: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
     };
 
     convertObjectProps(){
-        let { label, objectName, filters, columns, illustration, showAllLink, hrefTarget, noHeader, unborderedRow, sort } = this.props;
+        let { label, objectName, filters, columns, illustration, showAllLink, hrefTarget, footer, noHeader, unborderedRow, sort } = this.props;
         return {
             label: label,
             objectName: objectName,
@@ -94,6 +95,7 @@ class WidgetObject extends React.Component {
             illustration,
             showAllLink,
             hrefTarget,
+            footer,
             noHeader,
             unborderedRow,
             sort
@@ -111,10 +113,14 @@ class WidgetObject extends React.Component {
     };
 
     render() {
-        let { label, objectName, selectionLabel, cellListColumns, filters, illustration, showAllLink, hrefTarget, noHeader, unborderedRow, sort } = this.convertObjectProps();
-        let footer;
-        if (showAllLink){
-            footer = (
+        let convertedObjectProps = this.convertObjectProps();
+        let { label, objectName, selectionLabel, cellListColumns, filters, illustration, showAllLink, hrefTarget, footer, noHeader, unborderedRow, sort } = convertedObjectProps;
+        let cardFooter;
+        if (_.isFunction(footer)) {
+            cardFooter = footer(convertedObjectProps)
+        }
+        else if (showAllLink){
+            cardFooter = (
                 <a href={`/app/-/${objectName}`} target={hrefTarget}>
                     查看全部
                     </a>
@@ -123,7 +129,7 @@ class WidgetObject extends React.Component {
         return (
             <Card
                 heading={label}
-                footer={footer}
+                footer={cardFooter}
             >
                 <WidgetObjectContent>
                     <Grid searchMode="omitFilters"

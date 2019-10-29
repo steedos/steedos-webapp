@@ -177,7 +177,15 @@ const config2 = {
       width: "10rem",
       type: "datetime"
     }],
-    sort: [["due_date", "desc"], ["state"]]
+    sort: [["due_date", "desc"], ["state"]],
+    footer: (options) => {
+      let objectName = options.objectName;
+      return (
+        <a href={`/app/-/${objectName}`} target="_blank">
+          查看全部任务
+        </a>
+      )
+    }
   },
   bottomRightApps: {
     label: '应用',

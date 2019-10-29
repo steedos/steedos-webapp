@@ -89,7 +89,7 @@ class Dashboard extends React.Component {
             case "object":
                 return <WidgetObject key={key} label={value.label} 
                     objectName={value.objectName} filters={value.filters} columns={value.columns} 
-                    illustration={value.illustration} showAllLink={value.showAllLink} hrefTarget={value.hrefTarget}
+                    illustration={value.illustration} showAllLink={value.showAllLink} hrefTarget={value.hrefTarget} footer={value.footer}
                     noHeader={value.noHeader} unborderedRow={value.unborderedRow} sort={value.sort} />
             case "instance":
                 return <WidgetInstance key={key} label={value.label} />
