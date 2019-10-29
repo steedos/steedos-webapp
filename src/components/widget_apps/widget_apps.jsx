@@ -2,9 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'underscore';
-import { Card, Icon, AppLauncher, AppLauncherExpandableSection} from '@salesforce/design-system-react';
-// import { Highlighter, Truncate, Button, Tooltip } from '@salesforce/design-system-react';
-import classNames from 'classnames';
+import { Card, Icon, AppLauncherExpandableSection} from '@salesforce/design-system-react';
 import utils from '../../utils';
 import AppLauncherTile from '../slds_app_launcher/tile';
 
