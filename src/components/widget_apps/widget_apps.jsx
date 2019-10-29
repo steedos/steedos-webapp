@@ -2,8 +2,10 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'underscore';
-import { Card, Icon, AppLauncher, AppLauncherTile, AppLauncherExpandableSection } from '@salesforce/design-system-react';
-import utils from '../../utils'
+import { Card, Icon, AppLauncher, AppLauncherTile, AppLauncherExpandableSection} from '@salesforce/design-system-react';
+// import { Highlighter, Truncate, Button, Tooltip } from '@salesforce/design-system-react';
+import classNames from 'classnames';
+import utils from '../../utils';
 
 let AppLauncherDesktopInternal = styled.div`
     padding: 0px 1rem;
@@ -21,6 +23,35 @@ let AppLauncherDesktopInternal = styled.div`
         }
     }
 `;
+
+
+class AppLauncherLinkTile extends AppLauncherTile {
+    render() {
+        let tile = super.render();
+        const { target, href } = this.props;
+        const { children, ...otherPorps } = tile.props;
+        let newProps = {
+            target,
+            ...otherPorps
+        };
+        const linkTile = React.cloneElement(
+            <a
+                className={classNames(
+                    'slds-app-launcher__tile slds-text-link_reset slds-is-draggable',
+                    tile.props.className
+                )}
+                onClick={this.handleClick}
+                role="button"
+                tabIndex="0"
+                href={href}
+                target={target}
+            />,
+            newProps,
+            children
+        );
+        return linkTile;
+    }
+}
 
 class WidgetApps extends React.Component {
     constructor(props) {
@@ -77,7 +108,7 @@ class WidgetApps extends React.Component {
                 if (app && app.name) {
                     let url = this.getAppUrl(app, token);
                     return (
-                        <AppLauncherTile
+                        <AppLauncherLinkTile
                             assistiveText={{ dragIconText: app.name }}
                             key={key}
                             description={app.description}
@@ -90,16 +121,17 @@ class WidgetApps extends React.Component {
                             }
                             title={app.name}
                             href={url}
-                            onClick={(event, args) => {
-                                if (args.href) {
-                                    if (app.is_new_window) {
-                                        window.open(args.href);
-                                    }
-                                    else {
-                                        window.location = args.href;
-                                    }
-                                }
-                            }}
+                            target="_blank"
+                            // onClick={(event, args) => {
+                            //     if (args.href) {
+                            //         if (app.is_new_window) {
+                            //             window.open(args.href);
+                            //         }
+                            //         else {
+                            //             window.location = args.href;
+                            //         }
+                            //     }
+                            // }}
                         />
                     )
                 }
