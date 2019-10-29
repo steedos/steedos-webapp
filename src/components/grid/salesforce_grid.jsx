@@ -36,7 +36,7 @@ const CustomDataTableCell = ({ children, ...props }) => {
 	let { onClick, format } = field
 
 	if(_.isFunction(format)){
-		children = format(children, props.item)
+		children = format(children, props.item, props.options)
 	}if(children || _.isBoolean(children)){
 		switch (field.type) {
 			case 'datetime':
@@ -251,7 +251,7 @@ class Grid extends React.Component {
 			if(!column.hidden){
 				return (
 					<DataTableColumn label={column.label} property={column.field} key={column.field} width={column.width} >
-						<CustomDataTableCell field={column}/>
+						<CustomDataTableCell field={column} options={this.props}/>
 					</DataTableColumn>
 				)
 			}
