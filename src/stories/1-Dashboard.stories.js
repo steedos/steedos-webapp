@@ -154,7 +154,19 @@ const config2 = {
     columns: [{
       label: "名称",
       field: 'name',
-      href: true
+      href: true,
+      format: (children, data, options) => {
+        let objectName = options.objectName;
+        let url = `/app/-/${objectName}/view/${data.id}`;
+        if (window.__meteor_runtime_config__)
+          url = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX + url;
+
+        return (
+          <a target="_blank" href={url} title={children}>
+            {children}
+          </a>
+        )
+      }
     }, {
       label: "状态",
       field: 'state',

@@ -72,8 +72,8 @@ class WidgetObject extends React.Component {
             label: label,
             objectName: objectName,
             cellListColumns: columns ? columns.map((column)=>{
-                if (column.href){
-                    column.format = (children, data)=>{
+                if (column.href && typeof column.format !== "function"){
+                    column.format = (children, data, options)=>{
                         let url = `/app/-/${objectName}/view/${data.id}`;
                         if (objectName === "instances"){
                             url = `/workflow/space/${spaceId}/inbox/${data.id}`;
