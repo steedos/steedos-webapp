@@ -65,16 +65,40 @@ const config1 = {
       return <CenterDiv>{options.label}</CenterDiv>
     }
   },
-  sectionCBL: {
-    label: "Bottom Left Section",
+  sectionCBL1: {
+    label: "Bottom Left Section 1",
     position: "CENTER_BOTTOM_LEFT",
     type: "react",
     component: function (options) {
       return <CenterDiv>{options.label}</CenterDiv>
     }
   },
-  sectionCBR: {
-    label: "Bottom Left Section",
+  sectionCBL2: {
+    label: "Bottom Left Section 2",
+    position: "CENTER_BOTTOM_LEFT",
+    type: "react",
+    component: function (options) {
+      return <CenterDiv>{options.label}</CenterDiv>
+    }
+  },
+  sectionCBL3: {
+    label: "Bottom Left Section 3",
+    position: "CENTER_BOTTOM_LEFT",
+    type: "react",
+    component: function (options) {
+      return <CenterDiv>{options.label}</CenterDiv>
+    }
+  },
+  sectionCBR1: {
+    label: "Bottom Right Section 1",
+    position: "CENTER_BOTTOM_RIGHT",
+    type: "react",
+    component: function (options) {
+      return <CenterDiv>{options.label}</CenterDiv>
+    }
+  },
+  sectionCBR2: {
+    label: "Bottom Right Section 2",
     position: "CENTER_BOTTOM_RIGHT",
     type: "react",
     component: function (options) {

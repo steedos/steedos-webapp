@@ -39,7 +39,7 @@ let Column = styled.div`
 let Cell = styled.div`
     flex: 0 0 100%;
     &.flex-split{
-        flex: 0 0 50%;
+        flex: 1;
     }
 `;
 
