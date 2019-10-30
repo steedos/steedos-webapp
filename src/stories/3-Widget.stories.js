@@ -80,9 +80,11 @@ export const widgetInstances = () => (
 export const widgetEmpty = () => (
   <Provider store={store}>
     <Bootstrap>
-      <WidgetObject label="日历事件" objectName="events" filters={[
-          ['state', '=', 'xx']
-        ]}
+      <WidgetObject label="日历事件" objectName="events" filters={()=>{
+        return [
+          ['created', '>=', '{now}']
+        ]
+      }}
         columns={[{
           label: "名称",
           field: 'name',

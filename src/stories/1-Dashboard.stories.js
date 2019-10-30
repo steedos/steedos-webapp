@@ -146,11 +146,11 @@ const config2 = {
     position: 'CENTER_TOP',
     type: 'object',
     objectName: 'tasks',
-    filters: [
-      ['assignees', '=', '{userId}'],
-      ['state', '<>', 'complete'],
-      ['due_date', 'between', 'this_year']
-    ],
+    filters: ()=>{
+      return [
+        ['due_date', '<=', '{now}']
+      ]
+    },
     columns: [{
       label: "名称",
       field: 'name',
