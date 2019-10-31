@@ -2,12 +2,14 @@ import { combineReducers } from 'redux'
 import entitiesReducer from './entities'
 import settingsReducer from './settings'
 import viewsReducer from './views'
+import pluginReducer from './plugins'
 import {TREE_STATE_CHANGE_ACTION} from '../actions/views/tree'
 
 const combinedReducer = combineReducers({
     entities: entitiesReducer,
     settings: settingsReducer,
-    views: viewsReducer
+    views: viewsReducer,
+    plugins: pluginReducer
 })
 
 // function updateState(oldState: any, newState: any){
