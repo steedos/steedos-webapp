@@ -14,7 +14,6 @@ import { savePluginInstance, savePluginObjectComponentNode } from '../actions';
 export const registerPlugin = ( pluginName, pluginInstance ) => {
     // 保存到 store 中。
     // 调用 pluginInstance.initialize() 函数
-    debugger;
     store.dispatch(savePluginInstance(pluginName, pluginInstance))
     const registry = new PluginRegistry();
     pluginInstance.initialize(registry, store);
@@ -39,7 +38,6 @@ export class PluginRegistry {
     registerObjectHomeComponent = ( objectName, componentClass ) => {
         // 保存到 store 中。
         store.dispatch(savePluginObjectComponentNode(objectName, componentClass))
-        debugger;
     }
 
 }

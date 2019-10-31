@@ -20,7 +20,6 @@ function transformObjectComponentNodeState(oldState: any, newState: any) {
 function reducer(state: any = {}, action: any) {
     if (action.type === PLUGIN_STATE_CHANGE_ACTION){
         const payload = action.payload
-        debugger;
         switch (payload.partialStateName) {
             case "savePluginInstance":
                 return transformInstanceState(state, payload.partialStateValue);

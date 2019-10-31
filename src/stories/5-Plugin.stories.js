@@ -11,7 +11,7 @@ export default {
 
 registerWindowLibraries();
 
-export const widgetApps = () => (
+const widgetApps = () => (
   <Provider store={store}>
     <Bootstrap>
       <WidgetApps />
@@ -31,3 +31,5 @@ class TestPlugin {
 }
 
 registerPlugin('myplugin', new TestPlugin());
+
+export const widgetAppsNode = store.getState().plugins.objectComponentNode.tasks
