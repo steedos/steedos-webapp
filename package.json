@@ -1,6 +1,6 @@
 {
   "name": "@steedos/react",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": false,
   "files": [
     "package.json",
@@ -53,7 +53,8 @@
     "redux-devtools-extension": "^2.13.8"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "start-storybook -p 9009 -s public",
+    "start-react": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

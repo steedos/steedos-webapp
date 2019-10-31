@@ -1,5 +1,2 @@
-import cookies from './cookies'
-
-export default {
-    ...cookies
-}
+export * from './cookies'
+export * from './plugin'
