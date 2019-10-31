@@ -11,6 +11,7 @@ import * as ReactSteedos from '../index';
 */
 export const registerPlugin = ( pluginName, pluginInstance ) => {
     // 保存到 store 中。
+    // 调用 pluginInstance.initialize() 函数
 }
 
 export const registerWindowLibraries = () => {
