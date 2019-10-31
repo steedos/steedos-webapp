@@ -4,7 +4,7 @@ import * as Redux from 'redux';
 import * as ReactRedux from 'react-redux';
 import PropTypes from 'prop-types';
 import * as ReactDesignSystem from '@salesforce/design-system-react';
-import * as ReactSteedos from '../index';
+import * as ReactSteedos from '../components/index';
 
 /**
 * Register a plugin to window
