@@ -77,7 +77,7 @@ function getODataFilter(options: any, $select: any) : string{
 }
 
 export async function query(service: string, options: any = { pageSize: 10, currentPage: 0 }) {
-    let { currentPage, pageSize, objectName, columns, sort } = options
+    let { currentPage, pageSize, objectName, columns, sort, count } = options
 
     let $select = getSelect(columns);
     let $expand = getExpand(columns);
@@ -125,6 +125,13 @@ export async function query(service: string, options: any = { pageSize: 10, curr
         sort = sort.replace(/, /g, ",").trim();//清除空格符
         odataUrl = `${odataUrl}&$orderby=${encodeURIComponent(sort)}`;
     }
+    if (count === undefined) {
+        odataUrl = `${odataUrl}&$count=false`;
+    }
+    else{
+        odataUrl = `${odataUrl}&$count=${count}`;
+    }
+    
     let results = await request(odataUrl);
     return results
 }
