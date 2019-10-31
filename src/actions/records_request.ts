@@ -1,6 +1,5 @@
 import * as DataSource from '../datasource'
 import { createAction } from './base'
-import utils from '../utils'
 
 export function loadEntitiesDataRequest(dispatch: any, actionType: string, dataService: string, options: any) {
     return loadData(dataService, options).then(
