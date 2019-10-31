@@ -5,7 +5,6 @@ import store from './stores/configureStore'
 import Dashboard from './components/dashboard'
 import Bootstrap from './components/bootstrap'
 import { IconSettings, Card, DataTable, DataTableColumn } from '@salesforce/design-system-react';
-import WidgetInstance from './components/widget_instance';
 import WidgetApps from './components/widget_apps';
 
 
@@ -137,7 +136,6 @@ function App() {
               config={config}
               centerTopSection={(
                 <div>
-                  <WidgetInstance />
                   <Card
                     id="ExampleCard"
                     heading="今日事件"

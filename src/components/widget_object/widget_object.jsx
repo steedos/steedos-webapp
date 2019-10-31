@@ -3,11 +3,8 @@ import Grid from '../grid'
 import PropTypes from 'prop-types';
 import _ from 'underscore'
 import { Card } from '@salesforce/design-system-react';
-import utils from '../../utils'
-import styled from 'styled-components'
-
-const userId = utils.getCookie("X-User-Id");
-const spaceId = utils.getCookie("X-Space-Id");
+import { getCookie } from '../../utils';
+import styled from 'styled-components';
 
 let WidgetObjectContent = styled.div`
     .slds-table{
@@ -69,6 +66,7 @@ class WidgetObject extends React.Component {
 
     convertObjectProps(){
         let { label, objectName, filters, columns, illustration, showAllLink, hrefTarget, footer, noHeader, unborderedRow, sort } = this.props;
+        const spaceId = getCookie("X-Space-Id");
         return {
             label: label,
             objectName: objectName,

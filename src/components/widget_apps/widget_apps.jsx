@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'underscore';
 import { Card, Icon, AppLauncherExpandableSection} from '@salesforce/design-system-react';
-import utils from '../../utils';
+import { getCookie } from '../../utils';
 import AppLauncherTile from '../slds_app_launcher/tile';
 
 let AppLauncherDesktopInternal = styled.div`
@@ -73,7 +73,7 @@ class WidgetApps extends React.Component {
 
     getAppCells(apps){
         if (apps) {
-            let token = utils.getCookie("X-Access-Token");
+            let token = getCookie("X-Access-Token");
             return _.map(apps, (app, key) => {
                 if (app && app.name) {
                     let url = this.getAppUrl(app, token);

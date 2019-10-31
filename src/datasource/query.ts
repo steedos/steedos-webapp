@@ -1,5 +1,5 @@
 import * as Odata from 'ts-odata-client'
-import utils from '../utils'
+import { getCookie } from '../utils';
 import _ from 'underscore'
 import { formatFiltersToODataQuery } from "@steedos/filters";
 import { request } from "./request";
@@ -83,9 +83,9 @@ export async function query(service: string, options: any = { pageSize: 10, curr
     let $expand = getExpand(columns);
     let skip = currentPage * pageSize
 
-    let spaceId = utils.getCookie("X-Space-Id");
-    let authToken = utils.getCookie("X-Auth-Token");
-    let userId = utils.getCookie("X-User-Id")
+    // let spaceId = getCookie("X-Space-Id");
+    let authToken = getCookie("X-Auth-Token");
+    let userId = getCookie("X-User-Id");
 
     const endpoint = `${service}/api/v4/${objectName}`;
     const requestInit = () => {

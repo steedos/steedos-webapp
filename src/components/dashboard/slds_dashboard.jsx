@@ -2,7 +2,6 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import _ from 'underscore'
-import WidgetInstance from '../widget_instance';
 import WidgetObject from '../widget_object';
 import WidgetApps from '../widget_apps';
 import WidgetRemote from '../widget_remote';
@@ -91,8 +90,6 @@ class Dashboard extends React.Component {
                     objectName={value.objectName} filters={value.filters} columns={value.columns} 
                     illustration={value.illustration} showAllLink={value.showAllLink} hrefTarget={value.hrefTarget} footer={value.footer}
                     noHeader={value.noHeader} unborderedRow={value.unborderedRow} sort={value.sort} />
-            case "instance":
-                return <WidgetInstance key={key} label={value.label} />
             case "react":
                 if (typeof value.component === "function") {
                     return (
