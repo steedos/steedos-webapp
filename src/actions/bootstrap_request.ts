@@ -1,4 +1,4 @@
-import * as DataSource from '../datasource'
+import { request } from '../datasource'
 import { createAction } from './base'
 import { getCookie } from '../utils'
 
@@ -12,7 +12,7 @@ export function loadBootstrapDataRequest(dispatch: any, actionType: string, data
 export async function loadBootstrapData(dataService: string, options: any) {
     let spaceId = getCookie("X-Space-Id");
     let url = `${dataService}/api/bootstrap/${spaceId}`;
-    return await DataSource.request(url)
+    return await request(url)
 }
 
 function loadBootstrapDataSauce(actionType: string, results: any, options: any) {

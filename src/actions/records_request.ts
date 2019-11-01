@@ -1,4 +1,4 @@
-import * as DataSource from '../datasource'
+import { query } from '../datasource'
 import { createAction } from './base'
 
 export function loadEntitiesDataRequest(dispatch: any, actionType: string, dataService: string, options: any) {
@@ -9,7 +9,7 @@ export function loadEntitiesDataRequest(dispatch: any, actionType: string, dataS
 }
 
 async function loadData(dataService: string, options: any) {
-    return await DataSource.query(dataService, options)
+    return await query(dataService, options)
 }
 
 function loadDataSauce(actionType: string, results: any, options: any) {
