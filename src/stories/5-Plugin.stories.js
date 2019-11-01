@@ -53,7 +53,41 @@ class TestPlugin1 {
   }
 }
 
-registerPlugin('myplugin', new TestPlugin1());
+registerPlugin('myPlugin', new TestPlugin1());
 
 export const widgetApps = pluginComponentSelector(configureStore.getState(), "ObjectHome" ,"tasks");
 export const configedDashboard = pluginComponentSelector(configureStore.getState(), "ObjectHome", "home");
+
+
+class TestPlugin2 {
+  initialize(registry, store) {
+    const WProvider = window["ReactRedux"].Provider;
+    const WBootstrap = window["ReactSteedos"].Bootstrap;
+    const WCard = window["ReactDesignSystem"].Card;
+    const WStyled = window["StyledComponents"];
+    let Container = WStyled.div`
+      background: #eee;
+      padding: 1rem;
+    `;
+    const hw = () => (
+      <WProvider store={store}>
+        <WBootstrap>
+          <WCard heading="Test Plugin Component">
+            <Container>
+              Hellow World
+            </Container>
+          </WCard>
+        </WBootstrap>
+      </WProvider>
+    );
+    registry.registerObjectHomeComponent("hw", hw);
+  }
+
+  uninitialize() {
+    // No clean up required.
+  }
+}
+
+registerPlugin('hwPlugin', new TestPlugin2());
+
+export const hellowWorld = pluginComponentSelector(configureStore.getState(), "ObjectHome", "hw");

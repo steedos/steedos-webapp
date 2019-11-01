@@ -7,6 +7,7 @@ import * as ReactDesignSystem from '@salesforce/design-system-react';
 import * as ReactSteedos from '../export';
 import store from "../stores/configureStore";
 import { receivePluginInstance, receivePluginComponent } from '../actions';
+import styled from 'styled-components';
 
 /**
 * Register a plugin to window
@@ -27,6 +28,7 @@ export const registerWindowLibraries = () => {
     window["ReactRedux"] = ReactRedux;
     window["ReactDesignSystem"] = ReactDesignSystem;
     window["ReactSteedos"] = ReactSteedos;
+    window["StyledComponents"] = styled;
     window["registerPlugin"] = registerPlugin;
 }
 
