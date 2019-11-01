@@ -6,14 +6,15 @@ function updateState(oldState: any, newState: any) {
 }
 
 function transformInstanceState(oldState: any, newState: any) {
-    let result = {};
-    result[newState.name] = newState.instance;
+    let result = oldState.instances ? oldState.instances : {};
+    result = Object.assign({}, result, { [newState.name]: newState.instance });
     return updateState(oldState, { "instances": result })
 }
 
 function transformObjectComponentNodeState(oldState: any, newState: any) {
-    let result = {};
-    result[newState.objectName] = newState.componentNode;
+    let result = oldState.objectComponentNode ? oldState.objectComponentNode : {};
+    debugger;
+    result = Object.assign({}, result, { [newState.objectName]: newState.componentNode });
     return updateState(oldState, { "objectComponentNode": result })
 }
 
