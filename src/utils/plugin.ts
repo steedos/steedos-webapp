@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import * as ReactDesignSystem from '@salesforce/design-system-react';
 import * as ReactSteedos from '../components/index';
 import store from "../stores/configureStore";
-import { savePluginInstance, savePluginObjectHomeComponent } from '../actions';
+import { receivePluginInstance, receivePluginComponent } from '../actions';
 
 /**
 * Register a plugin to window
@@ -14,7 +14,7 @@ import { savePluginInstance, savePluginObjectHomeComponent } from '../actions';
 export const registerPlugin = ( pluginName, pluginInstance ) => {
     // 保存到 store 中。
     // 调用 pluginInstance.initialize() 函数
-    store.dispatch(savePluginInstance(pluginName, pluginInstance))
+    store.dispatch(receivePluginInstance(pluginName, pluginInstance))
     const registry = new PluginRegistry();
     pluginInstance.initialize(registry, store);
 }
@@ -30,6 +30,37 @@ export const registerWindowLibraries = () => {
     window["registerPlugin"] = registerPlugin;
 }
 
+function dispatchPluginComponentAction(name: string, component: any, id: string) {
+    if(!id){
+        id = generateId();
+    }
+    store.dispatch(receivePluginComponent(name, {
+        id,
+        component
+    }))
+
+    return id;
+}
+
+export function generateId() {
+    // implementation taken from http://stackoverflow.com/a/2117523
+    var id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
+
+    id = id.replace(/[xy]/g, (c) => {
+        var r = Math.floor(Math.random() * 16);
+
+        var v;
+        if (c === 'x') {
+            v = r;
+        } else {
+            v = (r & 0x3) | 0x8;
+        }
+
+        return v.toString(16);
+    });
+
+    return id;
+}
 export class PluginRegistry {
 
     /**
@@ -37,7 +68,7 @@ export class PluginRegistry {
     */
     registerObjectHomeComponent = ( objectName, componentClass ) => {
         // 保存到 store 中。
-        store.dispatch(savePluginObjectHomeComponent(objectName, componentClass))
+        dispatchPluginComponentAction("ObjectHome", componentClass, objectName)
     }
 
 }

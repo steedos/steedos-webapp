@@ -1,10 +1,12 @@
 import { createAction } from './base';
-export var PLUGIN_STATE_CHANGE_ACTION = 'PLUGIN_STATE_CHANGE_ACTION';
+export var PLUGIN_INSTANCE_RECEIVED_ACTION = 'PLUGIN_INSTANCE_RECEIVED';
+export var PLUGIN_COMPONENT_RECEIVED_ACTION = 'PLUGIN_COMPONENT_RECEIVED';
 
-export function savePluginInstance(name: string, instance: any) {
-    return createAction(PLUGIN_STATE_CHANGE_ACTION, 'savePluginInstance', { name, instance }, null)
+export function receivePluginInstance(name: string, instance: any) {
+    return createAction(PLUGIN_INSTANCE_RECEIVED_ACTION, 'received', { name, instance }, null)
 }
 
-export function savePluginObjectHomeComponent(objectName: string, component: any) {
-    return createAction(PLUGIN_STATE_CHANGE_ACTION, 'savePluginObjectHomeComponent', { objectName, component}, null)
+export function receivePluginComponent(name: string, data: any) {
+    data.name = name;
+    return createAction(PLUGIN_COMPONENT_RECEIVED_ACTION, 'received', data, null)
 }

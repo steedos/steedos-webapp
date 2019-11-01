@@ -3,7 +3,7 @@ export function pluginInstanceSelector(state: any, name: string){
     return instances[name];
 }
 
-export function pluginObjectComponentSelector(state: any, objectName: string) {
-    let components = state.plugins ? state.plugins.objectHomeComponents : {};
-    return components[objectName];
+export function pluginComponentSelector(state: any, name: string, id: string) {
+    let components = state.plugins ? state.plugins.components : {};
+    return components[name] ? components[name][id] : null;
 }

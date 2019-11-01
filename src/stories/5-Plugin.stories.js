@@ -5,7 +5,7 @@ import configureStore from '../stores/configureStore';
 import { registerWindowLibraries, registerPlugin } from '../utils/plugin';
 import WidgetApps from '../components/widget_apps';
 import Dashboard from '../components/dashboard';
-import { pluginObjectComponentSelector } from '../selectors';
+import { pluginComponentSelector } from '../selectors';
 
 export default {
   title: 'Plugin',
@@ -55,5 +55,5 @@ class TestPlugin1 {
 
 registerPlugin('myplugin', new TestPlugin1());
 
-export const widgetApps = pluginObjectComponentSelector(configureStore.getState(), "tasks");
-export const configedDashboard = pluginObjectComponentSelector(configureStore.getState(), "home");
+export const widgetApps = pluginComponentSelector(configureStore.getState(), "ObjectHome" ,"tasks");
+export const configedDashboard = pluginComponentSelector(configureStore.getState(), "ObjectHome", "home");

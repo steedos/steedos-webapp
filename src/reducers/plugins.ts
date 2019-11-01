@@ -1,5 +1,5 @@
 
-import { PLUGIN_STATE_CHANGE_ACTION } from '../actions/plugin'
+import { PLUGIN_INSTANCE_RECEIVED_ACTION, PLUGIN_COMPONENT_RECEIVED_ACTION } from '../actions/plugin'
 
 function updateState(oldState: any, newState: any) {
     return Object.assign({}, oldState, newState)
@@ -12,18 +12,27 @@ function transformInstanceState(oldState: any, newState: any) {
 }
 
 function transformObjectHomeComponentState(oldState: any, newState: any) {
-    let result = oldState.objectHomeComponents ? oldState.objectHomeComponents : {};
-    result = Object.assign({}, result, { [newState.objectName]: newState.component });
-    return updateState(oldState, { "objectHomeComponents": result })
+    let result = oldState.components ? oldState.components : {};
+    let resultName = result[newState.name] ? result[newState.name] : {};
+    result[newState.name] = Object.assign({}, resultName, { [newState.id]: newState.component });
+    return updateState(oldState, { "components": result })
 }
 
 function reducer(state: any = {}, action: any) {
-    if (action.type === PLUGIN_STATE_CHANGE_ACTION){
+    if (action.type === PLUGIN_INSTANCE_RECEIVED_ACTION){
         const payload = action.payload
         switch (payload.partialStateName) {
-            case "savePluginInstance":
+            case "received":
                 return transformInstanceState(state, payload.partialStateValue);
-            case "savePluginObjectHomeComponent":
+            default:
+                break;
+        }
+        return Object.assign({}, state, { [payload.partialStateName]: payload.partialStateValue });
+    }
+    else if (action.type === PLUGIN_COMPONENT_RECEIVED_ACTION) {
+        const payload = action.payload
+        switch (payload.partialStateName) {
+            case "received":
                 return transformObjectHomeComponentState(state, payload.partialStateValue);
             default:
                 break;
