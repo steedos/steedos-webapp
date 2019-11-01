@@ -15,7 +15,7 @@ export const registerPlugin = ( pluginName, pluginInstance ) => {
     // 保存到 store 中。
     // 调用 pluginInstance.initialize() 函数
     store.dispatch(receivePluginInstance(pluginName, pluginInstance))
-    const registry = new PluginRegistry();
+    const registry = new PluginRegistry(pluginName);
     pluginInstance.initialize(registry, store);
 }
 
@@ -30,12 +30,13 @@ export const registerWindowLibraries = () => {
     window["registerPlugin"] = registerPlugin;
 }
 
-function dispatchPluginComponentAction(name: string, component: any, id: string) {
+function dispatchPluginComponentAction(name: string, pluginId: string, component: any, id: string) {
     if(!id){
         id = generateId();
     }
     store.dispatch(receivePluginComponent(name, {
         id,
+        pluginId,
         component
     }))
 
@@ -62,13 +63,18 @@ export function generateId() {
     return id;
 }
 export class PluginRegistry {
+    id: string;
+
+    constructor(id: string) {
+        this.id = id;
+    }
 
     /**
     * Register a component that show a dashboard
     */
     registerObjectHomeComponent = ( objectName, componentClass ) => {
         // 保存到 store 中。
-        dispatchPluginComponentAction("ObjectHome", componentClass, objectName)
+        dispatchPluginComponentAction("ObjectHome", this.id, componentClass, objectName)
     }
 
 }

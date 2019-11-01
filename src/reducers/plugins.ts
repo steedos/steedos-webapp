@@ -13,8 +13,12 @@ function transformInstanceState(oldState: any, newState: any) {
 
 function transformObjectHomeComponentState(oldState: any, newState: any) {
     let result = oldState.components ? oldState.components : {};
-    let resultName = result[newState.name] ? result[newState.name] : {};
-    result[newState.name] = Object.assign({}, resultName, { [newState.id]: newState.component });
+    let resultName = result[newState.name] ? [...result[newState.name]] : [];
+    if (resultName.find((n: any) => { return newState.data && n.id === newState.data.id })){
+        console.warn(`The same plugin component ${newState.data.id} is already exists,you need to check your repeated component id`)
+    }
+    resultName.push(newState.data);
+    result[newState.name] = resultName;
     return updateState(oldState, { "components": result })
 }
 

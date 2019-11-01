@@ -7,6 +7,5 @@ export function receivePluginInstance(name: string, instance: any) {
 }
 
 export function receivePluginComponent(name: string, data: any) {
-    data.name = name;
-    return createAction(PLUGIN_COMPONENT_RECEIVED_ACTION, 'received', data, null)
+    return createAction(PLUGIN_COMPONENT_RECEIVED_ACTION, 'received', { name, data }, null)
 }
