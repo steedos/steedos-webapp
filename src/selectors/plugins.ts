@@ -4,6 +4,6 @@ export function pluginInstanceSelector(state: any, name: string){
 }
 
 export function pluginObjectComponentSelector(state: any, objectName: string) {
-    let components = state.plugins ? state.plugins.objectComponentNode : {};
+    let components = state.plugins ? state.plugins.objectHomeComponents : {};
     return components[objectName];
 }

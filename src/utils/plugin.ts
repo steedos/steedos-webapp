@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import * as ReactDesignSystem from '@salesforce/design-system-react';
 import * as ReactSteedos from '../components/index';
 import store from "../stores/configureStore";
-import { savePluginInstance, savePluginObjectComponentNode } from '../actions';
+import { savePluginInstance, savePluginObjectHomeComponent } from '../actions';
 
 /**
 * Register a plugin to window
@@ -37,7 +37,7 @@ export class PluginRegistry {
     */
     registerObjectHomeComponent = ( objectName, componentClass ) => {
         // 保存到 store 中。
-        store.dispatch(savePluginObjectComponentNode(objectName, componentClass))
+        store.dispatch(savePluginObjectHomeComponent(objectName, componentClass))
     }
 
 }

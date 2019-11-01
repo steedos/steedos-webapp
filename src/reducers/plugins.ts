@@ -11,11 +11,10 @@ function transformInstanceState(oldState: any, newState: any) {
     return updateState(oldState, { "instances": result })
 }
 
-function transformObjectComponentNodeState(oldState: any, newState: any) {
-    let result = oldState.objectComponentNode ? oldState.objectComponentNode : {};
-    debugger;
-    result = Object.assign({}, result, { [newState.objectName]: newState.componentNode });
-    return updateState(oldState, { "objectComponentNode": result })
+function transformObjectHomeComponentState(oldState: any, newState: any) {
+    let result = oldState.objectHomeComponents ? oldState.objectHomeComponents : {};
+    result = Object.assign({}, result, { [newState.objectName]: newState.component });
+    return updateState(oldState, { "objectHomeComponents": result })
 }
 
 function reducer(state: any = {}, action: any) {
@@ -24,8 +23,8 @@ function reducer(state: any = {}, action: any) {
         switch (payload.partialStateName) {
             case "savePluginInstance":
                 return transformInstanceState(state, payload.partialStateValue);
-            case "savePluginObjectComponentNode":
-                return transformObjectComponentNodeState(state, payload.partialStateValue);
+            case "savePluginObjectHomeComponent":
+                return transformObjectHomeComponentState(state, payload.partialStateValue);
             default:
                 break;
         }
