@@ -5,7 +5,12 @@ export function pluginInstanceSelector(state: any, name: string){
 
 export function pluginComponentsSelector(state: any, name: string) {
     let components = state.plugins ? state.plugins.components : {};
-    return components[name] ? components[name] : [];
+    if (components){
+        return components[name] ? components[name] : [];
+    }
+    else{
+        return [];
+    }
 }
 
 export function pluginComponentObjectSelector(state: any, name: string, id: string) {
