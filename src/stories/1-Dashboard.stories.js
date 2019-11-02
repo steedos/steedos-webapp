@@ -163,7 +163,12 @@ const config2 = {
     hrefTarget: "_blank",
     noHeader: true,
     unborderedRow: true,
-    sort: "modified desc, name"
+    sort: "modified desc, name",
+    rowIcon: {
+      category:"standard",
+      name:"account",
+      size:"small"
+    }
   },
   pending_tasks: {
     label: '待办任务1',

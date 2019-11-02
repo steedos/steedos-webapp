@@ -42,6 +42,11 @@ export const widgetPendingTasks = () => (
         ]} 
         noHeader
         unborderedRow
+        rowIcon={{
+          category: "standard",
+          name: "account",
+          size: "small"
+        }}
       />
     </Bootstrap>
   </Provider>

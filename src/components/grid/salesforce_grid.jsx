@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import { DataTable, DataTableColumn, DataTableCell, Illustration } from '@salesforce/design-system-react';
+import { DataTable, DataTableColumn, DataTableCell, Illustration, Icon } from '@salesforce/design-system-react';
 import Lookup from '../lookup'
 import { createGridAction } from '../../actions'
 import PropTypes from 'prop-types';
@@ -94,6 +94,21 @@ const CustomDataTableCell = ({ children, ...props }) => {
 
 CustomDataTableCell.displayName = DataTableCell.displayName;
 
+
+const CustomDataTableIconCell = ({ children, ...props }) => {
+	return (
+		<DataTableCell {...props}>
+			<Icon
+				category={props.category}
+				name={props.name}
+				size={props.size}
+			/>
+		</DataTableCell>
+	)
+}
+
+CustomDataTableIconCell.displayName = DataTableCell.displayName;
+
 class Grid extends React.Component {
 	static displayName = 'SteedosDataTable';
 	static defaultProps = {
@@ -140,7 +155,13 @@ class Grid extends React.Component {
 		}),
 		noHeader: PropTypes.bool,
 		unborderedRow: PropTypes.bool,
-		sort: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
+		sort: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+		rowIcon: PropTypes.shape({
+			width: PropTypes.string,
+			category: PropTypes.string,
+			name: PropTypes.string,
+			size: PropTypes.string
+		})
     }
 
 
@@ -245,9 +266,9 @@ class Grid extends React.Component {
 
 	render() {
 
-		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, noHeader, unborderedRow, sort } = this.props
+		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, noHeader, unborderedRow, sort, rowIcon} = this.props
 
-		const DataTableColumns = _.map(columns, (column)=>{
+		let dataTableColumns = _.map(columns, (column)=>{
 			if(!column.hidden){
 				return (
 					<DataTableColumn label={column.label} property={column.field} key={column.field} width={column.width} >
@@ -255,7 +276,19 @@ class Grid extends React.Component {
 					</DataTableColumn>
 				)
 			}
-		})
+		});
+
+		if (rowIcon) {
+			let iconWidth = rowIcon.width; 
+			if (!iconWidth){
+				iconWidth = "3rem";
+			}
+			dataTableColumns.unshift((
+				<DataTableColumn label="" key="grid-first-column-icon" width={iconWidth} >
+					<CustomDataTableIconCell {...rowIcon} />
+				</DataTableColumn>
+			));
+		}
 
 		const onRequestRemoveSelectedOption = (event, data) => {
 			return createGridAction('requestRemoveSelectedOption', data.selection, this.props)
@@ -316,7 +349,7 @@ class Grid extends React.Component {
 								selection={selection || this.state.selection}
 								selectRows={selectRows}
 							>
-								{DataTableColumns}
+								{dataTableColumns}
 							</DataTable>
 						)
 					}

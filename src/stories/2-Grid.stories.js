@@ -35,6 +35,11 @@ export const company = () => (
             unborderedRow={true}
             noHeader={true}
             sort="name, modified desc"
+            rowIcon={{
+              category:"standard",
+              name:"account",
+              size:"small"
+            }}
             enableSearch={true}>
           </Grid>
         </Bootstrap>

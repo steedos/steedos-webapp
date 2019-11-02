@@ -61,11 +61,17 @@ class WidgetObject extends React.Component {
         footer: PropTypes.func,
         noHeader: PropTypes.bool,
         unborderedRow: PropTypes.bool,
-        sort: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
+        sort: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+        rowIcon: PropTypes.shape({
+            width: PropTypes.string,
+            category: PropTypes.string,
+            name: PropTypes.string,
+            size: PropTypes.string
+        })
     };
 
     convertObjectProps(){
-        let { label, objectName, filters, columns, illustration, showAllLink, hrefTarget, footer, noHeader, unborderedRow, sort } = this.props;
+        let { label, objectName, filters, columns, illustration, showAllLink, hrefTarget, footer, noHeader, unborderedRow, sort, rowIcon } = this.props;
         const spaceId = getCookie("X-Space-Id");
         return {
             label: label,
@@ -96,7 +102,8 @@ class WidgetObject extends React.Component {
             footer,
             noHeader,
             unborderedRow,
-            sort
+            sort,
+            rowIcon
         };
     }
 
@@ -112,7 +119,7 @@ class WidgetObject extends React.Component {
 
     render() {
         let convertedObjectProps = this.convertObjectProps();
-        let { label, objectName, selectionLabel, cellListColumns, filters, illustration, showAllLink, hrefTarget, footer, noHeader, unborderedRow, sort } = convertedObjectProps;
+        let { label, objectName, selectionLabel, cellListColumns, filters, illustration, showAllLink, hrefTarget, footer, noHeader, unborderedRow, sort, rowIcon } = convertedObjectProps;
         let cardFooter;
         if (_.isFunction(footer)) {
             cardFooter = footer(convertedObjectProps)
@@ -140,6 +147,7 @@ class WidgetObject extends React.Component {
                         noHeader={noHeader}
                         unborderedRow={unborderedRow}
                         sort={sort}
+                        rowIcon={rowIcon}
                     />
                 </WidgetObjectContent>
             </Card>
