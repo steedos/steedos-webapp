@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import {Paper} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import {
     SortingState, SelectionState, PagingState, RowDetailState,SearchState,IntegratedFiltering,
