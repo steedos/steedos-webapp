@@ -172,7 +172,7 @@ const config2 = {
   },
   pending_tasks: {
     label: '待办任务1',
-    position: 'CENTER_TOP',
+    position: 'CENTER_BOTTOM_LEFT',
     type: 'object',
     objectName: 'tasks',
     filters: ()=>{
@@ -207,6 +207,7 @@ const config2 = {
       type: "datetime"
     }],
     sort: [["due_date", "desc"], ["state"]],
+    noHeader: true,
     footer: (options) => {
       let objectName = options.objectName;
       return (
@@ -215,12 +216,6 @@ const config2 = {
         </a>
       )
     }
-  },
-  bottomRightApps: {
-    label: '应用',
-    position: 'CENTER_BOTTOM_LEFT',
-    type: 'apps',
-    mobile: true
   },
   bottomLeftTask: {
     label: '待办任务2',
@@ -243,24 +238,74 @@ const config2 = {
     noHeader: true,
     unborderedRow: true
   },
-  empty_tasks: {
-    label: '日历事件',
-    position: 'RIGHT',
+  bottomLeftTask3: {
+    label: '待办任务3',
+    position: 'CENTER_BOTTOM_LEFT',
     type: 'object',
-    objectName: 'events',
+    objectName: 'tasks',
     filters: [
-      ['state', '=', 'xxx']
+      ['assignees', '=', '{userId}'],
+      ['state', '<>', 'complete'],
+      ['due_date', 'between', 'this_year']
     ],
-    illustration:{
-      path: "/assets/images/illustrations/empty-state-not-available-in-lightning.svg#not-available-in-lightning",
-      heading: "没有找到日历事件"
-    },
     columns: [{
       label: "名称",
       field: 'name',
       href: true
+    }, {
+      label: "优先级",
+      field: 'priority'
     }],
-    showAllLink: true
+    noHeader: true,
+    unborderedRow: true
+  },
+  bottomLeftTask4: {
+    label: '待办任务4',
+    position: 'CENTER_BOTTOM_RIGHT',
+    type: 'object',
+    objectName: 'tasks',
+    filters: [
+      ['assignees', '=', '{userId}'],
+      ['state', '<>', 'complete'],
+      ['due_date', 'between', 'this_year']
+    ],
+    columns: [{
+      label: "名称",
+      field: 'name',
+      href: true
+    }, {
+      label: "优先级",
+      field: 'priority'
+    }],
+    noHeader: true,
+    unborderedRow: true
+  },
+  bottomRightApps: {
+    label: '应用',
+    position: 'RIGHT',
+    type: 'apps',
+    mobile: true
+  },
+  bottomLeftTask5: {
+    label: '待办任务5',
+    position: 'RIGHT',
+    type: 'object',
+    objectName: 'tasks',
+    filters: [
+      ['assignees', '=', '{userId}'],
+      ['state', '<>', 'complete'],
+      ['due_date', 'between', 'this_year']
+    ],
+    columns: [{
+      label: "名称",
+      field: 'name',
+      href: true
+    }, {
+      label: "优先级",
+      field: 'priority'
+    }],
+    noHeader: true,
+    unborderedRow: true
   }
 }
 
