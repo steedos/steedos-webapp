@@ -5,7 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 const composeEnhancers = composeWithDevTools({ realtime: true});
 
 let steedosService = process.env.REACT_APP_API_BASE_URL;
-if(window.Meteor){
+if(window && window.Meteor){
     steedosService = window.Meteor.absoluteUrl()
 }
 if (steedosService){
