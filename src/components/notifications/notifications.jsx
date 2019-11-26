@@ -23,6 +23,12 @@ let AppLauncherDesktopInternal = styled.div`
     }
 `;
 
+const HeaderNotificationsCustomHeading = (props) => (
+    <div>通知</div>
+)
+
+HeaderNotificationsCustomHeading.displayName = 'HeaderNotificationsCustomHeading';
+
 
 // Notifications content is currently the contents of a generic `Popover` with markup copied from https://www.lightningdesignsystem.com/components/global-header/#Notifications. This allows content to have tab stops and focus trapping. If you need a more specific/explicit `GlobalHeaderNotification` content, please create an issue.
 const HeaderNotificationsCustomContent = (props) => (
@@ -110,59 +116,8 @@ class Notifications extends React.Component {
         apps: []
     };
 
-    getAppUrl(app, token){
-        let url = `/app/${app._id}`;
-        if (app.url) {
-            url = app.url;
-        }
-        if (!/^http(s?):\/\//.test(url)) {
-            if (window.__meteor_runtime_config__)
-                url = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX + url;
-        }
-
-        if (url.indexOf("?") > -1) {
-            url += `&token=${token}`
-        }
-        else {
-            url += `?token=${token}`
-        }
-        return url;
-    }
-
-    getAppCells(apps){
-        if (apps) {
-            let token = getCookie("X-Access-Token");
-            return _.map(apps, (app, key) => {
-                if (app && app.name) {
-                    let url = this.getAppUrl(app, token);
-                    let target = app.is_new_window ? "_blank" : null;
-                    return (
-                        <AppLauncherTile
-                            assistiveText={{ dragIconText: app.name }}
-                            key={key}
-                            description={app.description}
-                            iconNode={
-                                <Icon
-                                    assistiveText={{ label: app.name }}
-                                    category="standard"
-                                    name={app.icon_slds}
-                                />
-                            }
-                            title={app.name}
-                            href={url}
-                            target={target}
-                        />
-                    )
-                }
-            })
-        }
-        else{
-            return null;
-        }
-    }
-
-    render() {
-        let items = [
+    getItems(){
+        return [
             {
                 action: 'mentioned you',
                 avatar: 'avatar2',
@@ -192,21 +147,35 @@ class Notifications extends React.Component {
                 timePosted: '1 day ago',
             },
         ];
+    }
+
+    getPopover(items){
+        return (
+            <Popover
+                ariaLabelledby="header-notifications-custom-popover-content"
+                body={
+                    <HeaderNotificationsCustomContent
+                        items={items}
+                    />
+                }
+                heading={
+                    <HeaderNotificationsCustomHeading
+                        isEmpty={!!items.length}
+                    />
+                }
+                id="header-notifications-popover-id"
+            />
+        )
+    }
+
+    render() {
+        const items = this.getItems();
+        const popover = this.getPopover(items);
 
         return (
             <GlobalHeaderNotifications
                 notificationCount={5}
-                popover={
-                    <Popover
-                        ariaLabelledby="header-notifications-custom-popover-content"
-                        body={
-                            <HeaderNotificationsCustomContent
-                                items={items}
-                            />
-                        }
-                        id="header-notifications-popover-id"
-                    />
-                }
+                popover={popover}
             />
         );
     }
