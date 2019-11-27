@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'underscore';
 import { GlobalHeaderNotifications, Popover } from '@salesforce/design-system-react';
+import { getObjectRecordUrl, getAbsoluteUrl } from '../../utils';
+
+const notificationsObjectName = "notifications";
 
 const LoadingContainer = styled.div`
     text-align: center;
@@ -17,6 +20,15 @@ const HeaderNotificationsCustomHeading = (props) => (
 )
 
 HeaderNotificationsCustomHeading.displayName = 'HeaderNotificationsCustomHeading';
+
+const getItemUrl = (item)=>{
+    if(item.url){
+        return getAbsoluteUrl(item.url);
+    }
+    else{
+        return getObjectRecordUrl(notificationsObjectName, item._id, item.space)
+    }
+}
 
 
 const HeaderNotificationsCustomContent = (props) => {
@@ -49,7 +61,8 @@ const HeaderNotificationsCustomContent = (props) => {
                             <div className="slds-media__body">
                                 <div className="slds-grid slds-grid_align-spread">
                                     <a
-                                        href="javascript:void(0);"
+                                        href={getItemUrl(item)}
+                                        target="_blank"
                                         className="slds-text-link_reset slds-has-flexi-truncate"
                                     >
                                         <h3
@@ -93,34 +106,32 @@ class Notifications extends React.Component {
     static defaultProps = {
         title: "通知",
 		rows: [],
-        objectName: "notifications",
-        columns: [
-            { field: "name" },
-            { field: "body" },
-            { field: "related_to" },
-            { field: "related_name" },
-            { field: "url" },
-            { field: "owner" },
-            { field: "is_read" },
-            { field: "created" }
-        ],
         interval: 5 //定时5秒抓取一次数据
     };
 
     static propTypes = {
         title: PropTypes.string,
         rows: PropTypes.array,
-		objectName: PropTypes.string.isRequired,
-		columns: PropTypes.arrayOf(PropTypes.shape({
-			field: PropTypes.string.isRequired
-		})).isRequired,
         interval: PropTypes.number
     };
 
     componentDidMount() {
         const { init } = this.props;
         if (init) {
-            init(this.props);
+            let options = Object.assign({}, this.props, {
+                objectName: notificationsObjectName,
+                columns: [
+                    { field: "name" },
+                    { field: "body" },
+                    { field: "related_to" },
+                    { field: "related_name" },
+                    { field: "url" },
+                    { field: "owner" },
+                    { field: "is_read" },
+                    { field: "created" }
+                ]
+            });
+            init(options);
         }
     }
 
