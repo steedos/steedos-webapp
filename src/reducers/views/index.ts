@@ -4,6 +4,7 @@ import { DXGRID_STATE_CHANGE_ACTION } from '../../actions/views/dx_grid'
 import { TREE_STATE_CHANGE_ACTION } from '../../actions/views/tree'
 import { ORGANIZATIONS_STATE_CHANGE_ACTION } from '../../actions/views/organizations'
 import { NOTIFICATIONS_STATE_CHANGE_ACTION } from '../../actions/views/notifications'
+import { NOTIFICATIONS_INTERVAL_CHANGE_ACTION } from '../../actions/views/notifications'
 import TreeReducer from './tree'
 import DXGridReducer from './dx_grid'
 import GridReducer from './grid'
@@ -40,6 +41,9 @@ const byId = produce((draft = {}, action) => {
             changeState(id, draft, OrgReducer(viewState, action))
             break;
         case NOTIFICATIONS_STATE_CHANGE_ACTION:
+            changeState(id, draft, NotificationsReducer(viewState, action))
+            break;
+        case NOTIFICATIONS_INTERVAL_CHANGE_ACTION:
             changeState(id, draft, NotificationsReducer(viewState, action))
             break;
     }

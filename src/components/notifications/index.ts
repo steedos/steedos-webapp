@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Notifications from './notifications'
-import { createNotificationsAction, loadNotificationsData } from '../../actions'
+import { loadNotificationsDataInterval, loadNotificationsData } from '../../actions'
 import { viewStateSelector } from '../../selectors';
 import { makeNewID } from '../index';
 
@@ -14,8 +14,14 @@ function mapStateToProps() {
   
   const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     return ({
-      handleChanged: (event: any, data: any)=> dispatch(createNotificationsAction('selection', data.selection, ownProps)),
-      init: (options: any) => dispatch(loadNotificationsData(options))
+      init: (options: any) => {
+        if(options.interval){
+          dispatch(loadNotificationsDataInterval(options))
+        }
+        else{
+          dispatch(loadNotificationsData(options))
+        }
+      }
     });
   }
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

@@ -2,9 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'underscore';
-import { GlobalHeaderNotifications, Popover, Icon, AppLauncherExpandableSection} from '@salesforce/design-system-react';
-import { getCookie } from '../../utils';
-import { createNotificationsAction } from '../../actions'
+import { GlobalHeaderNotifications, Popover } from '@salesforce/design-system-react';
 
 const LoadingContainer = styled.div`
     text-align: center;
@@ -105,7 +103,8 @@ class Notifications extends React.Component {
             { field: "owner" },
             { field: "is_read" },
             { field: "created" }
-        ]
+        ],
+        interval: 5 //定时5秒抓取一次数据
     };
 
     static propTypes = {
@@ -114,13 +113,14 @@ class Notifications extends React.Component {
 		objectName: PropTypes.string.isRequired,
 		columns: PropTypes.arrayOf(PropTypes.shape({
 			field: PropTypes.string.isRequired
-		})).isRequired
+		})).isRequired,
+        interval: PropTypes.number
     };
 
     componentDidMount() {
         const { init } = this.props;
         if (init) {
-            init(this.props)
+            init(this.props);
         }
     }
 
