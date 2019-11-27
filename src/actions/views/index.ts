@@ -5,3 +5,4 @@ export * from './grid';
 export * from './lookup';
 export * from './organizations';
 export * from './tree';
+export * from './notifications';
