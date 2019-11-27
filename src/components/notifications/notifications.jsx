@@ -2,6 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'underscore';
+import moment from 'moment';
 import { GlobalHeaderNotifications, Popover } from '@salesforce/design-system-react';
 import { getObjectRecordUrl, getAbsoluteUrl } from '../../utils';
 
@@ -75,7 +76,7 @@ const HeaderNotificationsCustomContent = (props) => {
                                             {item.body}
                                         </p>
                                         <p className="slds-m-top_x-small slds-text-color_weak">
-                                            {item.created}{' '}
+                                            {moment(item.created).startOf().fromNow()}{' '}
                                             {item.is_read ?  null : (
                                                 <abbr
                                                     className="slds-text-link slds-m-horizontal_xxx-small"
