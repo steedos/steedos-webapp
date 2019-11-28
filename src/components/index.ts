@@ -11,4 +11,5 @@ export {default as SelectUsers} from './select_users';
 export {default as Tree} from './tree';
 export {default as WidgetApps} from './widget_apps';
 export {default as WidgetObject} from './widget_object';
+export {default as Notifications} from './notifications';
 
