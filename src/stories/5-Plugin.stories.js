@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider  } from 'react-redux';
 import styled from 'styled-components'
 import configureStore from '../stores/configureStore';
-import { registerWindowLibraries, registerPlugin } from '../utils/plugin';
+import { registerWindowLibraries, registerPlugin, registerDefaultPlugins } from '../utils';
 import { Bootstrap, Dashboard, WidgetApps, Notifications} from '../components';
 import { pluginComponentSelector } from '../selectors';
 
@@ -108,3 +108,18 @@ class TestPlugin2 {
 registerPlugin('hwPlugin', new TestPlugin2());
 
 export const hellowWorld = pluginComponentSelector(configureStore.getState(), "ObjectHome", "hw");
+
+registerDefaultPlugins();
+
+const NotificationsContainer = styled.div`
+  float: right;
+  margin: 2rem;
+  clear: both;
+`;
+const NotificationsInDefaultPlugin = pluginComponentSelector(configureStore.getState(), "Notifications", "steedos-default-header");
+
+export const defaultPlugin = () => (
+  <NotificationsContainer>
+    <NotificationsInDefaultPlugin />
+  </NotificationsContainer>
+)
