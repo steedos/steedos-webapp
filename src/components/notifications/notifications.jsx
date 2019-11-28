@@ -157,6 +157,13 @@ class Notifications extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        const { exist } = this.props;
+        if (exist) {
+            exist(this.props);
+        }
+    }
+
     state = {
     };
 

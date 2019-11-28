@@ -15,11 +15,22 @@ const Container = styled.div`
   clear: both;
 `;
 
-export const notifications = () => (
+export const once = () => (
   <Provider store={store}>
     <Bootstrap>
       <Container>
         <Notifications />
+      </Container>
+    </Bootstrap>
+  </Provider>
+);
+
+
+export const interval = () => (
+  <Provider store={store}>
+    <Bootstrap>
+      <Container>
+        <Notifications interval={5} />
       </Container>
     </Bootstrap>
   </Provider>

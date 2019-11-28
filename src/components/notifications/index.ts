@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Notifications from './notifications'
-import { loadNotificationsDataInterval, loadNotificationsData } from '../../actions'
+import { loadNotificationsDataInterval, clearNotificationsInterval, loadNotificationsData } from '../../actions'
 import { viewStateSelector } from '../../selectors';
 import { makeNewID } from '../index';
 
@@ -20,6 +20,11 @@ function mapStateToProps() {
         }
         else{
           dispatch(loadNotificationsData(options))
+        }
+      },
+      exist: (options: any) => {
+        if(options.interval){
+          dispatch(clearNotificationsInterval(options))
         }
       }
     });
