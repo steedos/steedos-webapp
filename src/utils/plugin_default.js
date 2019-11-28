@@ -8,7 +8,7 @@ import { registerPlugin  } from './plugin';
 const HeaderNotifications = () => (
     <Provider store={store}>
         <Bootstrap>
-            <Notifications interval={5} />
+            <Notifications interval={5 * 60} />
         </Bootstrap>
     </Provider>
 )

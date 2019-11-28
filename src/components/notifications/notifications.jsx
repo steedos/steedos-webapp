@@ -128,13 +128,18 @@ class Notifications extends React.Component {
 
     static defaultProps = {
         title: "通知",
-		rows: []
+        rows: [],
+        filters: [
+            ['space', '=', '{spaceId}'],
+            ['owner', '=', '{userId}']
+        ]
     };
 
     static propTypes = {
         title: PropTypes.string,
         rows: PropTypes.array,
-        interval: PropTypes.number //定时多少秒抓取一次数据
+        interval: PropTypes.number, //定时多少秒抓取一次数据
+        filters: PropTypes.array
     };
 
     componentDidMount() {
