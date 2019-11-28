@@ -44,7 +44,7 @@ export const registerWindowLibraries = () => {
     window["registerPlugin"] = registerPlugin;
 }
 
-function dispatchPluginComponentAction(name: string, pluginId: string, component: any, id: string) {
+function dispatchPluginComponentAction(name: string, pluginId: string, component: any, id: string = "") {
     if(!id){
         id = generateId();
     }
@@ -86,9 +86,17 @@ export class PluginRegistry {
     /**
     * Register a component that show a dashboard
     */
-    registerObjectHomeComponent = ( objectName, componentClass ) => {
+    registerObjectHomeComponent = ( objectName: string, componentClass: any ) => {
         // 保存到 store 中。
         dispatchPluginComponentAction("ObjectHome", this.id, componentClass, objectName)
+    }
+
+    /**
+    * Register a component that show a dashboard
+    */
+    registerNotificationsComponent = ( name: string, componentClass: any ) => {
+        // 保存到 store 中。
+        dispatchPluginComponentAction("Notifications", this.id, componentClass, name)
     }
 
 }

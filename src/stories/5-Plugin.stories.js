@@ -1,10 +1,9 @@
 import React from 'react';
-import Bootstrap from '../components/bootstrap';
 import { Provider  } from 'react-redux';
+import styled from 'styled-components'
 import configureStore from '../stores/configureStore';
 import { registerWindowLibraries, registerPlugin } from '../utils/plugin';
-import WidgetApps from '../components/widget_apps';
-import Dashboard from '../components/dashboard';
+import { Bootstrap, Dashboard, WidgetApps, Notifications} from '../components';
 import { pluginComponentSelector } from '../selectors';
 
 export default {
@@ -46,6 +45,23 @@ class TestPlugin1 {
       </Provider>
     )
     registry.registerObjectHomeComponent("home", configedDashboard);
+
+    const NotificationsContainer = styled.div`
+      float: right;
+      margin: 2rem;
+      clear: both;
+    `;
+
+    const notifications = () => (
+      <Provider store={store}>
+        <Bootstrap>
+          <NotificationsContainer>
+            <Notifications />
+          </NotificationsContainer>
+        </Bootstrap>
+      </Provider>
+    )
+    registry.registerNotificationsComponent("top", notifications);
   }
 
   uninitialize() {
@@ -57,6 +73,7 @@ registerPlugin('myPlugin', new TestPlugin1());
 
 export const widgetApps = pluginComponentSelector(configureStore.getState(), "ObjectHome" ,"tasks");
 export const configedDashboard = pluginComponentSelector(configureStore.getState(), "ObjectHome", "home");
+export const notifications = pluginComponentSelector(configureStore.getState(), "Notifications", "top");
 
 
 class TestPlugin2 {
