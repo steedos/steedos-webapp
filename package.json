@@ -1,6 +1,6 @@
 {
   "name": "@steedos/react",
-  "version": "1.11.0",
+  "version": "1.11.1",
   "private": false,
   "files": [
     "package.json",
@@ -59,7 +59,9 @@
     "eject": "react-scripts eject",
     "build-lib": "tsc -p tsconfig.lib.json",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "compile": "yarn build-lib",
+    "prepare": "yarn build-lib"
   },
   "eslintConfig": {
     "extends": "react-app"
