@@ -16,6 +16,13 @@ const EmptyContainer = styled.div`
     text-align: center;
 `;
 
+const ContentContainer = styled.div`
+    .slds-avatar img{
+        width: 100%;
+        height: 100%;
+    }
+`;
+
 const HeaderNotificationsCustomHeading = (props) => (
     <div>{props.title}</div>
 )
@@ -36,6 +43,14 @@ const getItemUrl = (item)=>{
     }
 }
 
+const getItemAvatarUrl = (item)=>{
+    if(item.from){
+        return getAbsoluteUrl(`/avatar/${item.from}`);
+    }
+    else{
+        return getAbsoluteUrl(`/packages/steedos_lightning-design-system/client/images/themes/oneSalesforce/lightning_lite_profile_avatar_96.png`);
+    }
+}
 
 const HeaderNotificationsCustomContent = (props) => {
     if(props.isEmpty){
@@ -46,58 +61,60 @@ const HeaderNotificationsCustomContent = (props) => {
     }
     else{
         return (
-            <ul id="header-notifications-custom-popover-content">
-                {props.items.map((item) => (
-                    <li
-                        className={`slds-global-header__notification ${
-                            item.is_read ? '' : 'slds-global-header__notification_unread'
-                        }`}
-                        key={`notification-item-${item._id}`}
-                    >
-                        <div className="slds-media slds-has-flexi-truncate slds-p-around_x-small">
-                            <div className="slds-media__figure">
-                                <span className="slds-avatar slds-avatar_small">
-                                    <img
-                                        alt={item.name}
-                                        src={`/assets/images/${item.avatar}.jpg`}
-                                        title={`${item.name} avatar"`}
-                                    />
-                                </span>
-                            </div>
-                            <div className="slds-media__body">
-                                <div className="slds-grid slds-grid_align-spread">
-                                    <a
-                                        href={getItemUrl(item)}
-                                        target="_blank"
-                                        className="slds-text-link_reset slds-has-flexi-truncate"
-                                    >
-                                        <h3
-                                            className="slds-truncate"
-                                            title={`${item.name}`}
+            <ContentContainer>
+                <ul id="header-notifications-custom-popover-content">
+                    {props.items.map((item) => (
+                        <li
+                            className={`slds-global-header__notification ${
+                                item.is_read ? '' : 'slds-global-header__notification_unread'
+                            }`}
+                            key={`notification-item-${item._id}`}
+                        >
+                            <div className="slds-media slds-has-flexi-truncate slds-p-around_x-small">
+                                <div className="slds-media__figure">
+                                    <span className="slds-avatar slds-avatar_small">
+                                        <img
+                                            alt={item.name}
+                                            src={getItemAvatarUrl(item)}
+                                            title={`${item.name}"`}
+                                        />
+                                    </span>
+                                </div>
+                                <div className="slds-media__body">
+                                    <div className="slds-grid slds-grid_align-spread">
+                                        <a
+                                            href={getItemUrl(item)}
+                                            target="_blank"
+                                            className="slds-text-link_reset slds-has-flexi-truncate"
                                         >
-                                            <strong>{`${item.name}`}</strong>
-                                        </h3>
-                                        <p className="slds-truncate" title={item.body}>
-                                            {item.body}
-                                        </p>
-                                        <p className="slds-m-top_x-small slds-text-color_weak">
-                                            {moment(item.created).startOf().fromNow()}{' '}
-                                            {item.is_read ?  null : (
-                                                <abbr
-                                                    className="slds-text-link slds-m-horizontal_xxx-small"
-                                                    title="unread"
-                                                >
-                                                    ●
-                                                </abbr>
-                                            )}
-                                        </p>
-                                    </a>
+                                            <h3
+                                                className="slds-truncate"
+                                                title={`${item.name}`}
+                                            >
+                                                <strong>{`${item.name}`}</strong>
+                                            </h3>
+                                            <p className="slds-truncate" title={item.body}>
+                                                {item.body}
+                                            </p>
+                                            <p className="slds-m-top_x-small slds-text-color_weak">
+                                                {moment(item.created).startOf().fromNow()}{' '}
+                                                {item.is_read ?  null : (
+                                                    <abbr
+                                                        className="slds-text-link slds-m-horizontal_xxx-small"
+                                                        title="unread"
+                                                    >
+                                                        ●
+                                                    </abbr>
+                                                )}
+                                            </p>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                ))}
-            </ul>
+                        </li>
+                    ))}
+                </ul>
+            </ContentContainer>
         );
     }
 }
@@ -111,14 +128,13 @@ class Notifications extends React.Component {
 
     static defaultProps = {
         title: "通知",
-		rows: [],
-        interval: 5 //定时5秒抓取一次数据
+		rows: []
     };
 
     static propTypes = {
         title: PropTypes.string,
         rows: PropTypes.array,
-        interval: PropTypes.number
+        interval: PropTypes.number //定时多少秒抓取一次数据
     };
 
     componentDidMount() {
