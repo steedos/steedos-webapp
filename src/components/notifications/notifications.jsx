@@ -27,7 +27,12 @@ const getItemUrl = (item)=>{
         return getAbsoluteUrl(item.url);
     }
     else{
-        return getObjectRecordUrl(notificationsObjectName, item._id, item.space)
+        if(item.related_to){
+            return getObjectRecordUrl(item.related_to.o, item.related_to.ids[0], item.space)
+        }
+        else{
+            return "";
+        }
     }
 }
 
