@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import _ from 'underscore';
 import moment from 'moment';
 import { GlobalHeaderNotifications, Popover } from '@salesforce/design-system-react';
-import { getObjectRecordUrl, getAbsoluteUrl } from '../../utils';
+import { getAbsoluteUrl } from '../../utils';
 
 const notificationsObjectName = "notifications";
 
@@ -30,17 +30,7 @@ const HeaderNotificationsCustomHeading = (props) => (
 HeaderNotificationsCustomHeading.displayName = 'HeaderNotificationsCustomHeading';
 
 const getItemUrl = (item)=>{
-    if(item.url){
-        return getAbsoluteUrl(item.url);
-    }
-    else{
-        if(item.related_to){
-            return getObjectRecordUrl(item.related_to.o, item.related_to.ids[0], item.space)
-        }
-        else{
-            return "";
-        }
-    }
+    return getAbsoluteUrl(`/api/v4/notifications/${item._id}/read`);
 }
 
 const getItemAvatarUrl = (item)=>{
