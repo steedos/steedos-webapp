@@ -2,6 +2,8 @@ import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { rootReducer } from '../reducers'
 import { composeWithDevTools } from 'redux-devtools-extension';
+import 'moment/locale/zh-cn';
+
 const composeEnhancers = composeWithDevTools({ realtime: true});
 
 let steedosService = process.env.REACT_APP_API_BASE_URL;
