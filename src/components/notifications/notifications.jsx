@@ -166,7 +166,7 @@ class Notifications extends React.Component {
     };
 
     getPopover(){
-		const { rows: items, loading: isLoading, title } = this.props;
+		const { rows: items, itemLoading: isLoading, title } = this.props;
         const isEmpty = isLoading ? false : items.length === 0;
         return (
             <Popover
@@ -190,11 +190,11 @@ class Notifications extends React.Component {
     }
 
     render() {
-		const { unreadCount } = this.props;
+		const { unreadCount, countLoading } = this.props;
         const popover = this.getPopover();
         return (
             <GlobalHeaderNotifications
-                notificationCount={unreadCount}
+                notificationCount={countLoading ? 0 : unreadCount}
                 popover={popover}
             />
         );

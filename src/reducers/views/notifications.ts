@@ -13,7 +13,7 @@ function reducer(state:any = {}, action: any){
         const payload = action.payload;
         switch (payload.partialStateName) {
             case 'loadDataSauce':
-                return transformEntityState(state, payload, {loading: false});
+                return transformEntityState(state, payload, {itemLoading: false});
             default:
                 break;
         }
@@ -23,7 +23,7 @@ function reducer(state:any = {}, action: any){
         const payload = action.payload;
         switch (payload.partialStateName) {
             case 'loadDataSauce':
-                return transformEntityStateForCount(state, payload, {loading: false});
+                return transformEntityStateForCount(state, payload, {countLoading: false});
             default:
                 break;
         }

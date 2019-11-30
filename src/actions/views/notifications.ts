@@ -16,7 +16,7 @@ export function loadNotificationsData(options: any) {
 export function loadNotificationsItems(options: any) {
     return function (dispatch: any, getState: any) {
         const service = dataServicesSelector(getState());
-        dispatch(baseCreateAction(NOTIFICATIONS_STATE_CHANGE_ACTION, "loading", true, options));
+        dispatch(baseCreateAction(NOTIFICATIONS_STATE_CHANGE_ACTION, "itemLoading", true, options));
         loadEntitiesDataRequest(dispatch, NOTIFICATIONS_STATE_CHANGE_ACTION, service, options);
     };
 }
@@ -29,7 +29,7 @@ export function loadNotificationsCount(options: any) {
         options.filters = [...options.filters];
         // 只显示未读数量
         options.filters.push([['is_read', '=', null], 'or', ['is_read', '=', false]]);
-        dispatch(baseCreateAction(NOTIFICATIONS_COUNT_CHANGE_ACTION, "loading", true, options));
+        dispatch(baseCreateAction(NOTIFICATIONS_COUNT_CHANGE_ACTION, "countLoading", true, options));
         loadEntitiesDataRequest(dispatch, NOTIFICATIONS_COUNT_CHANGE_ACTION, service, options);
     };
 }
@@ -47,7 +47,7 @@ export function loadNotificationsDataInterval(options: any) {
         }, options.interval * 1000);
         const intervalTime = new Date();
         dispatch(baseCreateAction(NOTIFICATIONS_INTERVAL_CHANGE_ACTION, 'startInterval', {intervalId, intervalCount, intervalTime}, options));
-        if(entityState && entityState.loading){
+        if(entityState && entityState.itemLoading){
             // 如果当前正在请求数据，说明网络可能有问题或者options.interval值太小执行间隔太短不执行请求。
             return;
         }
