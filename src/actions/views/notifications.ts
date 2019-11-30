@@ -3,13 +3,34 @@ import { loadEntitiesDataRequest } from '../records_request'
 import { createAction as baseCreateAction } from '../base'
 
 export var NOTIFICATIONS_STATE_CHANGE_ACTION = 'NOTIFICATIONS_STATE_CHANGE';
+export var NOTIFICATIONS_COUNT_CHANGE_ACTION = 'NOTIFICATIONS_COUNT_CHANGE';
 export var NOTIFICATIONS_INTERVAL_CHANGE_ACTION = 'NOTIFICATIONS_INTERVAL_CHANGE';
 
 export function loadNotificationsData(options: any) {
     return function (dispatch: any, getState: any) {
-        const service = dataServicesSelector(getState())
+        dispatch(loadNotificationsItems(options));
+        dispatch(loadNotificationsCount(options));
+    };
+}
+
+export function loadNotificationsItems(options: any) {
+    return function (dispatch: any, getState: any) {
+        const service = dataServicesSelector(getState());
         dispatch(baseCreateAction(NOTIFICATIONS_STATE_CHANGE_ACTION, "loading", true, options));
-        return loadEntitiesDataRequest(dispatch, NOTIFICATIONS_STATE_CHANGE_ACTION, service, options)
+        loadEntitiesDataRequest(dispatch, NOTIFICATIONS_STATE_CHANGE_ACTION, service, options);
+    };
+}
+
+export function loadNotificationsCount(options: any) {
+    return function (dispatch: any, getState: any) {
+        const service = dataServicesSelector(getState());
+        // options.count = true;
+        options = { ...options, count: true, pageSize: 0 };
+        options.filters = [...options.filters];
+        // 只显示未读数量
+        options.filters.push([['is_read', '=', null], 'or', ['is_read', '=', false]]);
+        dispatch(baseCreateAction(NOTIFICATIONS_COUNT_CHANGE_ACTION, "loading", true, options));
+        loadEntitiesDataRequest(dispatch, NOTIFICATIONS_COUNT_CHANGE_ACTION, service, options);
     };
 }
 

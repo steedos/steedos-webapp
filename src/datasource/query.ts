@@ -99,7 +99,7 @@ export async function query(service: string, options: any = { pageSize: 10, curr
     const baseQuery = Odata.ODataV4QueryProvider.createQuery<any>(endpoint, requestInit);
     let query = baseQuery.skip(skip || 0)
 
-    if (pageSize) {
+    if (_.isNumber(pageSize)) {
         query = query.top(pageSize)
     }
 

@@ -122,14 +122,16 @@ class Notifications extends React.Component {
         filters: [
             ['space', '=', '{spaceId}'],
             ['owner', '=', '{userId}']
-        ]
+        ],
+        top: 10
     };
 
     static propTypes = {
         title: PropTypes.string,
         rows: PropTypes.array,
         interval: PropTypes.number, //定时多少秒抓取一次数据
-        filters: PropTypes.array
+        filters: PropTypes.array,
+        top: PropTypes.number //抓取多少条数据
     };
 
     componentDidMount() {
@@ -146,7 +148,8 @@ class Notifications extends React.Component {
                     { field: "owner" },
                     { field: "is_read" },
                     { field: "created" }
-                ]
+                ],
+                pageSize: this.props.top
             });
             init(options);
         }
@@ -187,11 +190,11 @@ class Notifications extends React.Component {
     }
 
     render() {
-		const { rows } = this.props;
+		const { unreadCount } = this.props;
         const popover = this.getPopover();
         return (
             <GlobalHeaderNotifications
-                notificationCount={rows.length}
+                notificationCount={unreadCount}
                 popover={popover}
             />
         );
