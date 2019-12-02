@@ -17,7 +17,7 @@ function reducer(state:any = {}, action: any){
     if (action.type === NOTIFICATIONS_STATE_CHANGE_ACTION) {
         switch (payload.partialStateName) {
             case 'loadDataSauce':
-                return transformEntityState(state, payload, {loading: false});
+                return transformEntityState(state, payload, {loading: false, itemsLoaded: true});
             case 'loadDataError':
                 return Object.assign({}, state, defaultPayLoad, {loading: false});
             case 'executeApiSauce':

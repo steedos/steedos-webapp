@@ -3,10 +3,18 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'underscore';
 import moment from 'moment';
-import { GlobalHeaderNotifications, Popover, Button } from '@salesforce/design-system-react';
+import { GlobalHeaderNotifications, Popover, Button, Icon } from '@salesforce/design-system-react';
 import { getAbsoluteUrl } from '../../utils';
 
 const notificationsObjectName = "notifications";
+
+const Container = styled.div`
+    &.loading{
+        .slds-button_icon-container{
+            display: none;
+        }
+    }
+`;
 
 const LoadingContainer = styled.div`
     text-align: center;
@@ -23,19 +31,37 @@ const ContentContainer = styled.div`
     }
 `;
 
+const LoadingIcon = (props) => (
+    <Icon
+        containerStyle={{ backgroundColor: 'transparent' }}
+        style={{ fill: '#000' }}
+        category="standard"
+        colorVariant="base"
+        name="generic_loading"
+    /> 
+);
+
 const HeaderNotificationsCustomHeading = (props) => (
     <div>
         <span>{props.title}</span>
-        <Button
-            label="全部标记为已读"
-            onClick={props.onMarkReadAll}
-            variant="link"
-            style={{
-                float: "right",
-                fontSize: "0.9rem",
-                marginTop: "2px"
-            }}
-        />
+        {
+            props.isUnreadEmpty ? 
+            null :
+            <Button
+                label="全部标记为已读"
+                onClick={props.onMarkReadAll}
+                variant="link"
+                style={{
+                    float: "right",
+                    fontSize: "0.9rem",
+                    marginTop: "2px",
+                    outline: "none"
+                }}
+                iconCategory="standard"
+                iconName={props.isMethodLoading ? "generic_loading": ""}
+                iconSize="large"
+            />
+        }
     </div>
 )
 
@@ -59,7 +85,11 @@ const HeaderNotificationsCustomContent = (props) => {
         return (<EmptyContainer>您现在没有任何通知。</EmptyContainer>);
     }
     else if(props.isLoading){
-        return (<LoadingContainer>...</LoadingContainer>);
+        return (
+            <LoadingContainer>
+                <LoadingIcon />  
+            </LoadingContainer>
+        );
     }
     else{
         return (
@@ -179,23 +209,25 @@ class Notifications extends React.Component {
     };
 
     getPopover(){
-		const { rows: items, loading: isLoading, title, onMarkReadAll } = this.props;
+		const { rows: items, loading: isLoading, methodLoading: isMethodLoading, itemsLoaded: isItemsLoaded, title, onMarkReadAll, unreadCount } = this.props;
         const isEmpty = isLoading ? false : items.length === 0;
+        const isUnreadEmpty = !!!unreadCount;
         return (
             <Popover
                 ariaLabelledby="header-notifications-custom-popover-content"
                 body={
                     <HeaderNotificationsCustomContent
-                        isLoading={isLoading}
+                        isLoading={ isItemsLoaded ? false : isLoading}
                         isEmpty={isEmpty}
                         items={items}
                     />
                 }
                 heading={
                     <HeaderNotificationsCustomHeading
-                        isEmpty={isEmpty}
+                        isUnreadEmpty={isUnreadEmpty}
                         title={title}
                         onMarkReadAll={onMarkReadAll}
+                        isMethodLoading={isMethodLoading}
                     />
                 }
                 id="header-notifications-popover-id"
@@ -206,11 +238,16 @@ class Notifications extends React.Component {
     render() {
 		const { unreadCount, countLoading } = this.props;
         const popover = this.getPopover();
+
         return (
-            <GlobalHeaderNotifications
-                notificationCount={countLoading ? 0 : unreadCount}
-                popover={popover}
-            />
+            <Container className={countLoading ? "loading" : ""}>
+                <GlobalHeaderNotifications
+                    notificationCount={countLoading ? 0 : unreadCount}
+                    popover={popover}
+                />
+                { countLoading ? <LoadingIcon /> : ""}
+            </Container>
+
         );
     }
 }
