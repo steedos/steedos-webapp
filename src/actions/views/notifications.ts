@@ -1,5 +1,6 @@
 import { dataServicesSelector, viewStateSelector } from '../../selectors';
 import { loadEntitiesDataRequest } from '../records_request'
+import { executeApiRequest } from '../api_request'
 import { createAction as baseCreateAction } from '../base'
 
 export var NOTIFICATIONS_STATE_CHANGE_ACTION = 'NOTIFICATIONS_STATE_CHANGE';
@@ -16,7 +17,7 @@ export function loadNotificationsData(options: any) {
 export function loadNotificationsItems(options: any) {
     return function (dispatch: any, getState: any) {
         const service = dataServicesSelector(getState());
-        dispatch(baseCreateAction(NOTIFICATIONS_STATE_CHANGE_ACTION, "itemLoading", true, options));
+        dispatch(baseCreateAction(NOTIFICATIONS_STATE_CHANGE_ACTION, "loading", true, options));
         loadEntitiesDataRequest(dispatch, NOTIFICATIONS_STATE_CHANGE_ACTION, service, options);
     };
 }
@@ -47,7 +48,7 @@ export function loadNotificationsDataInterval(options: any) {
         }, options.interval * 1000);
         const intervalTime = new Date();
         dispatch(baseCreateAction(NOTIFICATIONS_INTERVAL_CHANGE_ACTION, 'startInterval', {intervalId, intervalCount, intervalTime}, options));
-        if(entityState && entityState.itemLoading){
+        if(entityState && entityState.loading){
             // 如果当前正在请求数据，说明网络可能有问题或者options.interval值太小执行间隔太短不执行请求。
             return;
         }
@@ -62,5 +63,37 @@ export function clearNotificationsInterval(options: any) {
             clearTimeout(entityState.intervalId);
         }
         dispatch(baseCreateAction(NOTIFICATIONS_INTERVAL_CHANGE_ACTION, 'clearInterval', { intervalId: null, intervalCount: 0, intervalTime: null }, options));
+    };
+}
+
+export function postNotificationsMethod(options: any) {
+    return function (dispatch: any, getState: any) {
+        const service = dataServicesSelector(getState());
+        dispatch(baseCreateAction(NOTIFICATIONS_STATE_CHANGE_ACTION, "methodLoading", true, options));
+        if(!options.url){
+            options.url = `/api/v4/notifications/${options.methodRecordId}/${options.methodName}`;
+        }
+        return executeApiRequest(dispatch, NOTIFICATIONS_STATE_CHANGE_ACTION, service, options).then(
+            (sauce) => {
+                let entityState = viewStateSelector(getState(), options.id);
+                let partialStateName = sauce.payload.partialStateName;
+                let partialStateValue = sauce.payload.partialStateValue;
+                if(partialStateName === "executeApiSauce" && partialStateValue.success){
+                    if(options.methodName === "markReadAll"){
+                        // 如果全部标记为已读成功，则自动设置store中所有通知记录为已读状态
+                        let records = [...entityState.rows];
+                        records = records.map((item) => {
+                            let re = {...item};
+                            re.is_read = true;
+                            return re;
+                        });
+                        dispatch(baseCreateAction(NOTIFICATIONS_STATE_CHANGE_ACTION, options.methodName, { records }, options));
+                    }
+                }
+                else if(partialStateName === "executeApiError" || !partialStateValue.success){
+                    dispatch(baseCreateAction(NOTIFICATIONS_STATE_CHANGE_ACTION, "executeApiError", partialStateValue, options));
+                } 
+            }
+        );
     };
 }

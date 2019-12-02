@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'underscore';
 import moment from 'moment';
-import { GlobalHeaderNotifications, Popover } from '@salesforce/design-system-react';
+import { GlobalHeaderNotifications, Popover, Button } from '@salesforce/design-system-react';
 import { getAbsoluteUrl } from '../../utils';
 
 const notificationsObjectName = "notifications";
@@ -24,7 +24,19 @@ const ContentContainer = styled.div`
 `;
 
 const HeaderNotificationsCustomHeading = (props) => (
-    <div>{props.title}</div>
+    <div>
+        <span>{props.title}</span>
+        <Button
+            label="全部标记为已读"
+            onClick={props.onMarkReadAll}
+            variant="link"
+            style={{
+                float: "right",
+                fontSize: "0.9rem",
+                marginTop: "2px"
+            }}
+        />
+    </div>
 )
 
 HeaderNotificationsCustomHeading.displayName = 'HeaderNotificationsCustomHeading';
@@ -131,7 +143,8 @@ class Notifications extends React.Component {
         rows: PropTypes.array,
         interval: PropTypes.number, //定时多少秒抓取一次数据
         filters: PropTypes.array,
-        top: PropTypes.number //抓取多少条数据
+        top: PropTypes.number, //抓取多少条数据
+        markReadAllApiUrl: PropTypes.string //全部标记为已读的url可配置，默认不需要配置，未配置时为：/api/v4/notifications/all/markReadAll
     };
 
     componentDidMount() {
@@ -166,7 +179,7 @@ class Notifications extends React.Component {
     };
 
     getPopover(){
-		const { rows: items, itemLoading: isLoading, title } = this.props;
+		const { rows: items, loading: isLoading, title, onMarkReadAll } = this.props;
         const isEmpty = isLoading ? false : items.length === 0;
         return (
             <Popover
@@ -182,6 +195,7 @@ class Notifications extends React.Component {
                     <HeaderNotificationsCustomHeading
                         isEmpty={isEmpty}
                         title={title}
+                        onMarkReadAll={onMarkReadAll}
                     />
                 }
                 id="header-notifications-popover-id"

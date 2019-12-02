@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Notifications from './notifications'
-import { loadNotificationsDataInterval, clearNotificationsInterval, loadNotificationsData } from '../../actions'
+import { loadNotificationsDataInterval, clearNotificationsInterval, loadNotificationsData, postNotificationsMethod } from '../../actions'
 import { viewStateSelector } from '../../selectors';
 import { makeNewID } from '../index';
 
@@ -26,7 +26,17 @@ function mapStateToProps() {
         if(options.interval){
           dispatch(clearNotificationsInterval(options))
         }
-      }
+      },
+      onMarkReadAll: (event: any, data: any)=> {
+        let options: any;
+        if(ownProps.markReadAllApiUrl){
+          options = { url: ownProps.markReadAllApiUrl, methodName: "markReadAll" };
+        }
+        else{
+          options = { methodRecordId: "all", methodName: "markReadAll"};
+        }
+        dispatch(postNotificationsMethod({...ownProps, ...options}))
+      },
     });
   }
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
