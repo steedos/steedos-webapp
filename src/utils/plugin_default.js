@@ -5,10 +5,10 @@ import store from '../stores/configureStore';
 import Notifications from '../components/notifications';
 import { registerPlugin  } from './plugin';
 
-const HeaderNotifications = () => (
+const HeaderNotifications = (props) => (
     <Provider store={store}>
         <Bootstrap>
-            <Notifications interval={5 * 60} />
+            <Notifications id={props.id} />
         </Bootstrap>
     </Provider>
 )
@@ -16,7 +16,7 @@ const HeaderNotifications = () => (
 class DefaultPlugin {
     initialize(registry, store) {
         registry.registerNotificationsComponent(
-            'steedos-default-header',
+            'steedos-default-header-notifications',
             HeaderNotifications
         );
     }

@@ -116,10 +116,10 @@ const NotificationsContainer = styled.div`
   margin: 2rem;
   clear: both;
 `;
-const NotificationsInDefaultPlugin = pluginComponentSelector(configureStore.getState(), "Notifications", "steedos-default-header");
+const NotificationsInDefaultPlugin = pluginComponentSelector(configureStore.getState(), "Notifications", "steedos-default-header-notifications");
 
 export const defaultPlugin = () => (
   <NotificationsContainer>
-    <NotificationsInDefaultPlugin />
+    <NotificationsInDefaultPlugin id="test_notifications_in_default_plugin" />
   </NotificationsContainer>
 )

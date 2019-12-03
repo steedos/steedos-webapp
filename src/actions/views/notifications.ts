@@ -8,6 +8,29 @@ export var NOTIFICATIONS_COUNT_CHANGE_ACTION = 'NOTIFICATIONS_COUNT_CHANGE';
 export var NOTIFICATIONS_INTERVAL_CHANGE_ACTION = 'NOTIFICATIONS_INTERVAL_CHANGE';
 
 export function loadNotificationsData(options: any) {
+    options = Object.assign({}, options, {
+        objectName: "notifications",
+        columns: [
+            { field: "name" },
+            { field: "body" },
+            { field: "related_to" },
+            { field: "related_name" },
+            { field: "url" },
+            { field: "owner" },
+            { field: "is_read" },
+            { field: "created" }
+        ]
+    });
+    if(!options.pageSize){
+        options.pageSize = 10;
+    }
+    if(!options.filters){
+        // 默认过滤当前用户收到的工作区范围所有通知
+        options.filters = [
+            ['space', '=', '{spaceId}'],
+            ['owner', '=', '{userId}']
+        ];
+    }
     return function (dispatch: any, getState: any) {
         dispatch(loadNotificationsItems(options));
         dispatch(loadNotificationsCount(options));
@@ -37,6 +60,7 @@ export function loadNotificationsCount(options: any) {
 
 export function loadNotificationsDataInterval(options: any) {
     return function (dispatch: any, getState: any) {
+        let interval = options.interval ? options.interval : 5 * 60;
         let intervalCount = 1;
         let entityState = viewStateSelector(getState(), options.id);
         if(entityState && entityState.intervalId){
@@ -45,7 +69,7 @@ export function loadNotificationsDataInterval(options: any) {
         }
         const intervalId = setTimeout(()=>{
             dispatch(loadNotificationsDataInterval(options));
-        }, options.interval * 1000);
+        }, interval * 1000);
         const intervalTime = new Date();
         dispatch(baseCreateAction(NOTIFICATIONS_INTERVAL_CHANGE_ACTION, 'startInterval', {intervalId, intervalCount, intervalTime}, options));
         if(entityState && entityState.loading){

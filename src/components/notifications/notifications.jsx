@@ -6,8 +6,6 @@ import moment from 'moment';
 import { GlobalHeaderNotifications, Popover, Button, Icon } from '@salesforce/design-system-react';
 import { getAbsoluteUrl } from '../../utils';
 
-const notificationsObjectName = "notifications";
-
 const Container = styled.div`
     &.loading{
         .slds-button_icon-container{
@@ -161,10 +159,6 @@ class Notifications extends React.Component {
     static defaultProps = {
         title: "通知",
         rows: [],
-        filters: [
-            ['space', '=', '{spaceId}'],
-            ['owner', '=', '{userId}']
-        ],
         top: 10
     };
 
@@ -172,7 +166,7 @@ class Notifications extends React.Component {
         title: PropTypes.string,
         rows: PropTypes.array,
         interval: PropTypes.number, //定时多少秒抓取一次数据
-        filters: PropTypes.array,
+        filters: PropTypes.array, //过滤条件，默认过滤当前用户收到的工作区范围所有通知
         top: PropTypes.number, //抓取多少条数据
         markReadAllApiUrl: PropTypes.string //全部标记为已读的url可配置，默认不需要配置，未配置时为：/api/v4/notifications/all/markReadAll
     };
@@ -181,17 +175,6 @@ class Notifications extends React.Component {
         const { init } = this.props;
         if (init) {
             let options = Object.assign({}, this.props, {
-                objectName: notificationsObjectName,
-                columns: [
-                    { field: "name" },
-                    { field: "body" },
-                    { field: "related_to" },
-                    { field: "related_name" },
-                    { field: "url" },
-                    { field: "owner" },
-                    { field: "is_read" },
-                    { field: "created" }
-                ],
                 pageSize: this.props.top
             });
             init(options);
