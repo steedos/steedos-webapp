@@ -18,6 +18,7 @@ export function loadNotificationsData(options: any) {
             { field: "url" },
             { field: "owner" },
             { field: "is_read" },
+            { field: "from" },
             { field: "created" }
         ]
     });
