@@ -31,6 +31,9 @@ export function loadNotificationsData(options: any) {
             ['owner', '=', '{userId}']
         ];
     }
+    if(!options.sort){
+        options.sort = "created desc, name";
+    }
     return function (dispatch: any, getState: any) {
         dispatch(loadNotificationsItems(options));
         dispatch(loadNotificationsCount(options));

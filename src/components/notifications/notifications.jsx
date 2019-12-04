@@ -168,6 +168,7 @@ class Notifications extends React.Component {
         interval: PropTypes.number, //定时多少秒抓取一次数据
         filters: PropTypes.array, //过滤条件，默认过滤当前用户收到的工作区范围所有通知
         top: PropTypes.number, //抓取多少条数据
+		sort: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),// 未配置时为"created desc, name"
         markReadAllApiUrl: PropTypes.string //全部标记为已读的url可配置，默认不需要配置，未配置时为：/api/v4/notifications/all/markReadAll
     };
 
