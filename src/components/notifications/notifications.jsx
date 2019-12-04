@@ -226,6 +226,11 @@ class Notifications extends React.Component {
         return (
             <Container className={countLoading ? "loading" : ""}>
                 <GlobalHeaderNotifications
+                    assistiveText={{
+                        newNotificationsAfter: '条新通知',
+                        newNotificationsBefore: '收到',
+                        noNotifications: '无新通知'
+                    }}
                     notificationCount={countLoading ? 0 : unreadCount}
                     popover={popover}
                 />
