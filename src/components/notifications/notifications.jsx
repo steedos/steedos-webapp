@@ -12,6 +12,10 @@ const Container = styled.div`
             display: none;
         }
     }
+    .slds-popover__body{
+        max-height: 420px;
+        overflow-y: auto;
+    }
 `;
 
 const LoadingContainer = styled.div`
