@@ -16,6 +16,31 @@ const Container = styled.div`
         max-height: 420px;
         overflow-y: auto;
     }
+    .slds-popover{
+        .slds-popover__body{
+            padding: 0;
+            width: 100%;
+        }
+    }
+    @media (max-width: 767px) {
+        .slds-notification-badge{
+            top: 6px;
+            right: 6px;
+        }
+        .slds-popover{
+            .slds-popover__close{
+                margin: 0px;
+            }
+            .slds-text-heading_small{
+                .slds-text-link{
+                    margin-top: 0.3rem!important;
+                }
+            }
+            .slds-popover__body{
+                top: -0.2rem;
+            }
+        }
+    }
 `;
 
 const LoadingContainer = styled.div`
@@ -56,7 +81,7 @@ const HeaderNotificationsCustomHeading = (props) => (
                 style={{
                     float: "right",
                     fontSize: "0.9rem",
-                    marginTop: "2px",
+                    marginTop: "0.12rem",
                     outline: "none"
                 }}
                 iconCategory="standard"
