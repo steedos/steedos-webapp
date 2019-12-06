@@ -21,6 +21,17 @@ let AppLauncherDesktopInternal = styled.div`
             display: block;
         }
     }
+    .slds-link{
+        color: #006dcc;
+        text-decoration: none;
+        transition: color .1s linear;
+        background-color: transparent;
+        cursor: pointer;
+        &:hover, &:focus{
+            text-decoration: underline;
+            color: #005fb2;
+        }
+    }
 `;
 
 class WidgetApps extends React.Component {

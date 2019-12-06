@@ -170,14 +170,11 @@ class AppLauncherTile extends React.Component {
 					</div>
 				</div>
 				<div className="slds-app-launcher__tile-body">
-					<a
-						href={this.props.href} // eslint-disable-line no-script-url
-						target={this.props.target}
-					>
+					<span className="slds-link">
 						<Highlighter search={this.props.search}>
 							{this.props.title}
 						</Highlighter>
-					</a>
+					</span>
 					<Truncate
 						line={2}
 						prefix={
