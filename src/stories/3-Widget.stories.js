@@ -14,6 +14,7 @@ export const widgetApps = () => (
     <Bootstrap>
       <WidgetApps />
       <WidgetApps showAllItems={true} label="showAllItems模式的应用程序启动器" />
+      <WidgetApps ignoreApps={['admin']} label="忽略部分应用" />
       <WidgetApps mobile={true} label="Mobile模式的应用程序启动器" />
     </Bootstrap>
   </Provider>

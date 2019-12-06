@@ -38,7 +38,8 @@ class WidgetApps extends React.Component {
         label: PropTypes.string,
         apps: PropTypes.array,
         mobile: PropTypes.bool,
-        showAllItems: PropTypes.bool
+        showAllItems: PropTypes.bool,
+        ignoreApps: PropTypes.array
     };
 
     componentDidMount() {
@@ -104,7 +105,10 @@ class WidgetApps extends React.Component {
     }
 
     render() {
-        let { label, apps, mobile, showAllItems } = this.props;
+        let { label, apps, mobile, showAllItems, ignoreApps } = this.props;
+        if(ignoreApps && ignoreApps.length){
+            apps = _.reject(apps, function(o) { return ignoreApps.indexOf(o._id) > -1 });
+        }
         let appCells = this.getAppCells(apps);
         let appLauncherDesktopInternal;
         if (mobile){
