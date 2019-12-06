@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import _ from 'underscore';
 import { Card, Icon, AppLauncherExpandableSection} from '@salesforce/design-system-react';
 import { getCookie } from '../../utils';
-import {AppLauncherTile} from '@salesforce/design-system-react';
+import {AppLauncherTile} from '../slds_app_launcher';
 
 let AppLauncherDesktopInternal = styled.div`
     padding: 0px 1rem;
