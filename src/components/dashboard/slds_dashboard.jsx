@@ -84,7 +84,7 @@ class Dashboard extends React.Component {
     convertConfigItemToSection(value, key){
         switch (value.type) {
             case "apps":
-                return <WidgetApps key={key} label={value.label} mobile={value.mobile} showAllItems={value.showAllItems} />
+                return <WidgetApps key={key} label={value.label} mobile={value.mobile} showAllItems={value.showAllItems} ignoreApps={value.ignoreApps} />
             case "object":
                 return <WidgetObject key={key} label={value.label} 
                     objectName={value.objectName} filters={value.filters} columns={value.columns} 

@@ -327,10 +327,11 @@ const config3 = {
     showAllItems: false
   },
   apps_mobile: {
-    label: '应用列表',
+    label: '应用列表(忽略了设置)',
     position: 'RIGHT',
     type: 'apps',
-    mobile: true
+    mobile: true,
+    ignoreApps: ['admin']
   }
 }
 
