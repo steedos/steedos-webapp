@@ -49,6 +49,7 @@ const LoadingContainer = styled.div`
 
 const EmptyContainer = styled.div`
     text-align: center;
+    padding: .5rem .75rem;
 `;
 
 const ContentContainer = styled.div`
