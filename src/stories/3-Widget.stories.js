@@ -83,14 +83,14 @@ export const widgetInstances = () => (
   </Provider>
 );
 
-export const widgetEmpty = () => (
+export const widgetObjectEmpty = () => (
   <Provider store={store}>
     <Bootstrap>
-      <WidgetObject label="日历事件" objectName="events" filters={()=>{
-        return [
-          ['created', '>=', '{now}']
-        ]
-      }}
+      <WidgetObject label="日程" objectName="events" filters={()=>{
+          return [
+            ['created', '>=', '{now}']
+          ]
+        }}
         columns={[{
           label: "名称",
           field: 'name',

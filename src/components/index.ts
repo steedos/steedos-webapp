@@ -13,5 +13,6 @@ export {default as WidgetApps} from './widget_apps';
 export {default as WidgetObject} from './widget_object';
 export {default as Notifications} from './notifications';
 export * from './slds_app_launcher'
+export * from './slds_illustration'
 
 
