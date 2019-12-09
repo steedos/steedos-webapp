@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Illustration as SLDSIllustration } from '@salesforce/design-system-react';
-import classNames from '@salesforce/design-system-react/utilities/class-names';
-import { ReactComponent as WalkthroughNotAvailable } from './walkthrough-not-available.svg';
+import classNames from 'classnames';
+// import { ReactComponent as WalkthroughNotAvailable } from './walkthrough-not-available.svg';
 
 class Illustration extends React.Component {
 	static displayName = SLDSIllustration.displayName;
@@ -20,11 +20,11 @@ class Illustration extends React.Component {
 			illustrationSvg = ( <IllustrationSvg name={kababCaseName} style={styles}/> );
 		}
 		else{
-			switch(illustrationSvgName){
-				case "walkthrough-not-available":
-					illustrationSvg = ( <WalkthroughNotAvailable name={kababCaseName} style={styles}/> );
-					break;
-			}
+			// switch(illustrationSvgName){
+			// 	case "walkthrough-not-available":
+			// 		illustrationSvg = ( <WalkthroughNotAvailable name={kababCaseName} style={styles}/> );
+			// 		break;
+			// }
 		}
 		if(illustrationSvg){
 			return (
