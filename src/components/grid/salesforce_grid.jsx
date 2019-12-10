@@ -14,6 +14,22 @@ let Counter = styled.div`
 			display: none;
 		}
 	}
+	&>.slds-grid_vertical{
+		/*fix IE11 宽度在门户界面会跳出widget范围*/
+		width: 100%;
+		/*fix IE11 grid列表顶部th列标题栏文字高度没有居中对齐*/
+		.slds-table_header-fixed{
+			.slds-cell-fixed{
+				.slds-p-horizontal_x-small{
+					line-height: 2rem!important
+				}
+			}
+		}
+	}
+	.slds-illustration.slds-illustration_small .slds-illustration__svg {
+		/*fix IE11 高度未定义会造成footer有内容时底部界面错乱*/
+		height: 10rem;
+	}
 `
 
 const formatFileSize = function (filesize) {
