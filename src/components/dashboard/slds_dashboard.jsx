@@ -30,6 +30,7 @@ let Column = styled.div`
     display: flex;
     flex: 1;
     flex-wrap: wrap;
+    align-content: flex-start;
     &:nth-child(2){
         flex: 0 0 33%;
     }
@@ -37,6 +38,7 @@ let Column = styled.div`
 
 let Cell = styled.div`
     flex: 0 0 100%;
+    align-content: flex-start;
     &.flex-split{
         flex: 1;
     }
