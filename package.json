@@ -1,6 +1,6 @@
 {
   "name": "@steedos/react",
-  "version": "1.12.6",
+  "version": "1.13.1",
   "private": false,
   "files": [
     "package.json",
