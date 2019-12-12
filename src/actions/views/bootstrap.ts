@@ -4,13 +4,7 @@ import { createAction as baseCreateAction } from '../base'
 export var BOOTSTRAP_STATE_CHANGE_ACTION = 'BOOTSTRAP_STATE_CHANGE';
 
 export function createBootstrapAction(partialStateName: any, partialStateValue: any) {
-    if (["changeSpace"].includes(partialStateName)){
-        return function(dispatch: any, getState: any){
-            dispatch(baseCreateAction(BOOTSTRAP_STATE_CHANGE_ACTION, partialStateName, partialStateValue, {}))
-        }
-    }else{
-        return baseCreateAction(BOOTSTRAP_STATE_CHANGE_ACTION, partialStateName, partialStateValue, {})
-    }
+    return baseCreateAction(BOOTSTRAP_STATE_CHANGE_ACTION, partialStateName, partialStateValue, {})
 } 
 
 export function loadBootstrapEntitiesData(options: any) {
