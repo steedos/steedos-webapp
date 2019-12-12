@@ -58,3 +58,7 @@ export function visibleAppsSelector(state: any, includeAdmin: boolean = true){
 export function isRequestStarted(state: any){
     return state.requests.bootStrap.getBootStrap.status === RequestStatusOption.STARTED
 }
+
+export function getBootstrapData(state: any){
+    return state.entities
+}
