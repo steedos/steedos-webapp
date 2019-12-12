@@ -59,6 +59,18 @@ export function isRequestStarted(state: any){
     return state.requests.bootStrap.getBootStrap.status === RequestStatusOption.STARTED
 }
 
+export function isRequestSuccess(state: any){
+    return state.requests.bootStrap.getBootStrap.status === RequestStatusOption.SUCCESS
+}
+
+export function isRequestFailure(state: any){
+    return state.requests.bootStrap.getBootStrap.status === RequestStatusOption.FAILURE
+}
+
+export function getRequestStatus(state: any){
+    return state.requests.bootStrap.getBootStrap.status
+}
+
 export function getBootstrapData(state: any){
     return state.entities
 }
