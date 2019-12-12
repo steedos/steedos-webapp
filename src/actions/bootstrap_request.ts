@@ -2,6 +2,7 @@ import { request } from '../datasource'
 import { createAction } from './base'
 import { getCookie } from '../utils'
 import { BootstrapTypes } from '../action_types'
+import _ from 'underscore'
 
 export function loadBootstrapDataRequest(dispatch: any, actionType: string, dataService: string, options: any) {
     dispatch(createAction(actionType, BootstrapTypes.GET_BOOTSTRAP_REQUEST, {}, {}))
@@ -14,7 +15,11 @@ export function loadBootstrapDataRequest(dispatch: any, actionType: string, data
 export async function loadBootstrapData(dataService: string, options: any) {
     let spaceId = getCookie("X-Space-Id");
     let url = `${dataService}/api/bootstrap/${spaceId}`;
-    return await request(url)
+    const result = await request(url);
+    if(_.isFunction(options.callback)){
+        options.callback(result);
+    }
+    return result;
 }
 
 function loadBootstrapDataSauce(actionType: string, results: any, options: any) {
