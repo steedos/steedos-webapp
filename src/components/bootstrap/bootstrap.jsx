@@ -22,8 +22,8 @@ class Bootstrap extends React.Component {
     };
 
     componentDidMount() {
-        const { loadBootstrap, isBootstrapLoaded } = this.props;
-        if (!isBootstrapLoaded && loadBootstrap) {
+        const { loadBootstrap, isRequestStarted } = this.props;
+        if (!isRequestStarted && loadBootstrap) {
             loadBootstrap(this.props)
         }
     }

@@ -3,13 +3,15 @@ import entitiesReducer from './entities'
 import settingsReducer from './settings'
 import viewsReducer from './views'
 import pluginReducer from './plugins'
+import requests from './requests';
 import {TREE_STATE_CHANGE_ACTION} from '../actions/views/tree'
 
 const combinedReducer = combineReducers({
     entities: entitiesReducer,
     settings: settingsReducer,
     views: viewsReducer,
-    plugins: pluginReducer
+    plugins: pluginReducer,
+    requests
 })
 
 // function updateState(oldState: any, newState: any){

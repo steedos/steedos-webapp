@@ -1,4 +1,5 @@
 import _ from 'underscore';
+import { RequestStatusOption } from '../constants'
 
 export function creatorAppsSelector(state: any) {
     let apps = state.entities ? state.entities.apps : {};
@@ -52,4 +53,8 @@ export function visibleAppsSelector(state: any, includeAdmin: boolean = true){
         }
     });
     return apps;
+}
+
+export function isRequestStarted(state: any){
+    return state.requests.bootStrap.getBootStrap.status === RequestStatusOption.STARTED
 }

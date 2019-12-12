@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import Dashboard from './bootstrap'
 import { loadBootstrapEntitiesData } from '../../actions'
-import { entityStateSelector } from '../../selectors';
+import { entityStateSelector, isRequestStarted } from '../../selectors';
 
 
 function mapStateToProps() {
     return (state: any, ownProps: any) => {
         let space = entityStateSelector(state, "space") || null;
-        return Object.assign({ isBootstrapLoaded: !!space }, { ...ownProps });
+        return Object.assign({ isBootstrapLoaded: !!space }, { ...ownProps, isRequestStarted: isRequestStarted(state)});
     };
 }
 
