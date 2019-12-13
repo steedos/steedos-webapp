@@ -18,7 +18,7 @@ function mapStateToProps() {
         if(options.interval){
           dispatch(loadNotificationsDataInterval(options))
         }
-        else{
+        else if(options.loadDataAfterRender){
           dispatch(loadNotificationsData(options))
         }
       },

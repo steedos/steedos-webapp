@@ -28,7 +28,6 @@ export function loadNotificationsData(options: any) {
     if(!options.filters){
         // 默认过滤当前用户收到的工作区范围所有通知
         options.filters = [
-            ['space', '=', '{spaceId}'],
             ['owner', '=', '{userId}']
         ];
     }

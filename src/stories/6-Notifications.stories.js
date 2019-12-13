@@ -19,7 +19,7 @@ export const once = () => (
   <Provider store={store}>
     <Bootstrap>
       <Container>
-        <Notifications />
+        <Notifications loadDataAfterRender={true}/>
       </Container>
     </Bootstrap>
   </Provider>

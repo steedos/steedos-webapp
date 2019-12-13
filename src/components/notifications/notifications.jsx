@@ -189,7 +189,8 @@ class Notifications extends React.Component {
     static defaultProps = {
         title: "通知",
         rows: [],
-        top: 10
+        top: 10,
+        loadDataAfterRender: true
     };
 
     static propTypes = {
@@ -199,7 +200,8 @@ class Notifications extends React.Component {
         filters: PropTypes.array, //过滤条件，默认过滤当前用户收到的工作区范围所有通知
         top: PropTypes.number, //抓取多少条数据
         sort: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),// 未配置时为"created desc, name"
-        markReadAllApiUrl: PropTypes.string //全部标记为已读的url可配置，默认不需要配置，未配置时为：/api/v4/notifications/all/markReadAll
+        markReadAllApiUrl: PropTypes.string, //全部标记为已读的url可配置，默认不需要配置，未配置时为：/api/v4/notifications/all/markReadAll
+        loadDataAfterRender: PropTypes.bool //组件加载后是否默认请求一次数据
     };
 
     componentDidMount() {
