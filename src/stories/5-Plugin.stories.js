@@ -120,6 +120,6 @@ const NotificationsInDefaultPlugin = pluginComponentSelector(configureStore.getS
 
 export const defaultPlugin = () => (
   <NotificationsContainer>
-    <NotificationsInDefaultPlugin id="test_notifications_in_default_plugin" />
+    <NotificationsInDefaultPlugin id="test_notifications_in_default_plugin" loadDataAfterRender={false} />
   </NotificationsContainer>
 )

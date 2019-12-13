@@ -5,10 +5,10 @@ import store from '../stores/configureStore';
 import Notifications from '../components/notifications';
 import { registerPlugin  } from './plugin';
 
-const HeaderNotifications = (props) => (
+const HeaderNotifications = ({ children, ...props }) => (
     <Provider store={store}>
         <Bootstrap>
-            <Notifications id={props.id} />
+            <Notifications {...props} />
         </Bootstrap>
     </Provider>
 )
