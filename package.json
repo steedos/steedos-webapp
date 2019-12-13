@@ -57,7 +57,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build-lib": "tsc -p tsconfig.lib.json",
+    "build-lib": "rm -rf lib && tsc -p tsconfig.lib.json",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "compile": "yarn build-lib",
