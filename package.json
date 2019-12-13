@@ -1,6 +1,6 @@
 {
   "name": "@steedos/react",
-  "version": "1.13.3",
+  "version": "1.13.4",
   "private": false,
   "files": [
     "package.json",
@@ -25,11 +25,10 @@
     "redux-thunk": "^2.3.0",
     "styled-components": "^4.4.0",
     "ts-odata-client": "^1.0.2",
-    "redux-devtools-extension": "^2.13.8",
-    "underscore": "^1.9.1"
+    "underscore": "^1.9.1",
+    "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "react-scripts": "^3.1.2",
     "@devexpress/dx-react-core": "^2.0.4",
     "@devexpress/dx-react-grid": "^2.0.4",
     "@devexpress/dx-react-grid-material-ui": "^2.0.4",
@@ -49,6 +48,7 @@
     "@types/styled-components": "^4.1.19",
     "@types/underscore": "^1.9.2",
     "babel-preset-env": "^1.7.0",
+    "react-scripts": "^3.1.2",
     "typescript": "^3.6.2"
   },
   "scripts": {

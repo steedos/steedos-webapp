@@ -71,6 +71,10 @@ export function getRequestStatus(state: any){
     return state.requests.bootStrap.getBootStrap.status
 }
 
+export function getRequestError(state: any){
+    return state.requests.bootStrap.getBootStrap.error
+}
+
 export function getBootstrapData(state: any){
     return state.entities
 }
