@@ -56,7 +56,7 @@ class TestPlugin1 {
       <Provider store={store}>
         <Bootstrap>
           <NotificationsContainer>
-            <Notifications />
+            <Notifications loadDataAfterRender={true}/>
           </NotificationsContainer>
         </Bootstrap>
       </Provider>
