@@ -15,6 +15,12 @@ export const widgetApps = () => (
       <WidgetApps />
       <WidgetApps showAllItems={true} label="showAllItems模式的应用程序启动器" />
       <WidgetApps ignoreApps={['admin']} label="忽略部分应用" />
+      <WidgetApps label="onTileClick" onTileClick={(event, app, tile, index)=>{
+        if(index < 3){
+          event.preventDefault();
+        }
+        alert(`触发了onTileClick事件，点击的APP是:${app.name}，且前3个应用preventDefault了，不会跳转`);
+      }}/>
       <WidgetApps mobile={true} label="Mobile模式的应用程序启动器" />
     </Bootstrap>
   </Provider>

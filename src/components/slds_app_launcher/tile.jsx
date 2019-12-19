@@ -119,7 +119,7 @@ class AppLauncherTile extends React.Component {
 
 	handleClick = (event) => {
 		if (this.props.onClick) {
-			event.preventDefault();
+			// event.preventDefault();//preventDefault功能可以放在click脚本中，不需要默认执行
 			this.props.onClick(event, { href: this.props.href });
 		}
 	};

@@ -50,7 +50,8 @@ class WidgetApps extends React.Component {
         apps: PropTypes.array,
         mobile: PropTypes.bool,
         showAllItems: PropTypes.bool,
-        ignoreApps: PropTypes.array
+        ignoreApps: PropTypes.array,
+        onTileClick: PropTypes.func
     };
 
     componentDidMount() {
@@ -83,9 +84,21 @@ class WidgetApps extends React.Component {
         return url;
     }
 
+    onTileClick(event, app, tile, index){
+        if(app && window.Creator && window.Creator.openApp){
+            window.Creator.openApp(app._id, event);
+        }
+        const { onTileClick } = this.props;
+        if(onTileClick){
+            onTileClick.call(this, event, app, tile, index);
+        }
+    }
+
     getAppCells(apps){
         if (apps) {
+            const onTileClick = this.onTileClick;
             let token = getCookie("X-Access-Token");
+            const self = this;
             return _.map(apps, (app, key) => {
                 if (app && app.name) {
                     let url = this.getAppUrl(app, token);
@@ -105,6 +118,9 @@ class WidgetApps extends React.Component {
                             title={app.name}
                             href={url}
                             target={target}
+                            onClick={(e)=>{
+                                onTileClick.call(self, e, app, {...this}, key);
+                            }}
                         />
                     )
                 }
