@@ -124,6 +124,14 @@ class AppLauncherTile extends React.Component {
 		}
 	};
 
+	componentDidMount() {
+		this.tileLink.addEventListener("click", this.handleClick);
+	}
+	
+	componentWillUnmount() {
+		this.tileLink.removeEventListener("click", this.handleClick);
+	}
+
 	render() {
 		const dragButtonAriaProps = { 'aria-pressed': false };
 		const iconStyles = {};
@@ -138,11 +146,12 @@ class AppLauncherTile extends React.Component {
 					'slds-app-launcher__tile slds-text-link_reset slds-is-draggable', // NOTE: while the draggable class is here for stylistic purposes, the draggable attribute is not present as draggability has not been implemented yet
 					this.props.className
 				)}
-				onClick={this.handleClick}
+				// onClick={this.handleClick} //creator中a链接带href时可能不会触发onClick事件，只能用removeEventListener原生事件绑定来处理
 				role="button"
 				tabIndex="0"
 				href={this.props.href}
 				target={this.props.target}
+				ref={elem => this.tileLink = elem}
 			>
 				<div className="slds-app-launcher__tile-figure">
 					{this.props.iconNode || (
