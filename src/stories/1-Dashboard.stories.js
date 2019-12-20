@@ -320,10 +320,16 @@ export const configTypeObject = () => (
 
 const config3 = {
   apps: {
-    label: "应用程序启动器",
+    label: "应用程序启动器(前3个应用preventDefault不会跳转)",
     position: "CENTER_TOP",
     type: "apps",
-    showAllItems: false
+    showAllItems: false,
+    onTileClick: (event, app, tile, index)=>{
+      if(index < 3){
+        event.preventDefault();
+      }
+      alert(`触发了onTileClick事件，点击的APP是:${app.name}，且前3个应用preventDefault了，不会跳转`);
+    }
   },
   apps_mobile: {
     label: '应用列表(忽略了设置)',
