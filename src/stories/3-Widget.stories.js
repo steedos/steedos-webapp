@@ -111,3 +111,66 @@ export const widgetObjectEmpty = () => (
     </Bootstrap>
   </Provider>
 );
+
+
+export const widgetObjectMaxRows10 = () => (
+  <Provider store={store}>
+    <Bootstrap>
+      <WidgetObject label="待审批（top 10）" objectName="instances" filters={[
+          ['space', '=', '{spaceId}'],
+          [
+            ['inbox_users', '=', '{userId}'], 'or', ['cc_users', '=', '{userId}']
+          ]
+        ]}
+        columns={[{
+            label: "名称",
+            field: "name",
+            href: true
+          }, {
+            label: "提交人",
+            field: "submitter_name",
+            width: "10rem"
+          }, {
+            label: "修改时间",
+            field: "modified",
+            type: 'datetime',
+            width: "14rem"
+          }
+        ]}
+        hrefTarget="_blank"
+        maxRows={10}
+      />
+    </Bootstrap>
+  </Provider>
+);
+
+export const widgetObjectMaxRowsAll = () => (
+  <Provider store={store}>
+    <Bootstrap>
+      <WidgetObject label="待审批(all)" objectName="instances" filters={[
+          ['space', '=', '{spaceId}'],
+          [
+            ['inbox_users', '=', '{userId}'], 'or', ['cc_users', '=', '{userId}']
+          ]
+        ]}
+        columns={[{
+            label: "名称",
+            field: "name",
+            href: true
+          }, {
+            label: "提交人",
+            field: "submitter_name",
+            width: "10rem"
+          }, {
+            label: "修改时间",
+            field: "modified",
+            type: 'datetime',
+            width: "14rem"
+          }
+        ]}
+        hrefTarget="_blank"
+        maxRows={"all"}
+      />
+    </Bootstrap>
+  </Provider>
+);

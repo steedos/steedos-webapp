@@ -34,6 +34,7 @@ class WidgetObject extends React.Component {
     };
 
     static defaultProps = {
+        maxRows: 5
     };
 
     static propTypes = {
@@ -67,11 +68,12 @@ class WidgetObject extends React.Component {
             category: PropTypes.string,
             name: PropTypes.string,
             size: PropTypes.string
-        })
+        }),
+        maxRows: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     };
 
     convertObjectProps(){
-        let { label, objectName, filters, columns, illustration, showAllLink, hrefTarget, footer, noHeader, unborderedRow, sort, rowIcon } = this.props;
+        let { label, objectName, filters, columns, illustration, showAllLink, hrefTarget, ...others } = this.props;
         const spaceId = getCookie("X-Space-Id");
         return {
             label: label,
@@ -99,11 +101,7 @@ class WidgetObject extends React.Component {
             illustration,
             showAllLink,
             hrefTarget,
-            footer,
-            noHeader,
-            unborderedRow,
-            sort,
-            rowIcon
+            ...others
         };
     }
 
@@ -119,7 +117,8 @@ class WidgetObject extends React.Component {
 
     render() {
         let convertedObjectProps = this.convertObjectProps();
-        let { label, objectName, selectionLabel, cellListColumns, filters, illustration, showAllLink, hrefTarget, footer, noHeader, unborderedRow, sort, rowIcon } = convertedObjectProps;
+        let { label, objectName, selectionLabel, cellListColumns, filters, illustration, showAllLink, hrefTarget, 
+            footer, noHeader, unborderedRow, sort, rowIcon, maxRows } = convertedObjectProps;
         let cardFooter;
         if (_.isFunction(footer)) {
             cardFooter = footer(convertedObjectProps)
@@ -138,7 +137,7 @@ class WidgetObject extends React.Component {
             >
                 <WidgetObjectContent>
                     <Grid searchMode="omitFilters"
-                        pageSize={5}
+                        pageSize={maxRows}
                         objectName={objectName}
                         columns={cellListColumns}
                         selectionLabel={selectionLabel}

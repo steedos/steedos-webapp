@@ -259,7 +259,7 @@ const config2 = {
     unborderedRow: true
   },
   bottomLeftTask4: {
-    label: '待办任务4',
+    label: '待办任务 all',
     position: 'CENTER_BOTTOM_RIGHT',
     type: 'object',
     objectName: 'tasks',
@@ -277,7 +277,8 @@ const config2 = {
       field: 'priority'
     }],
     noHeader: true,
-    unborderedRow: true
+    unborderedRow: true,
+    maxRows:"all"
   },
   bottomRightApps: {
     label: '应用',

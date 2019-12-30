@@ -91,7 +91,7 @@ class Dashboard extends React.Component {
                 return <WidgetObject key={key} label={value.label} 
                     objectName={value.objectName} filters={value.filters} columns={value.columns} 
                     illustration={value.illustration} showAllLink={value.showAllLink} hrefTarget={value.hrefTarget} footer={value.footer}
-                    noHeader={value.noHeader} unborderedRow={value.unborderedRow} sort={value.sort} rowIcon={value.rowIcon} />
+                    noHeader={value.noHeader} unborderedRow={value.unborderedRow} sort={value.sort} rowIcon={value.rowIcon} maxRows={value.maxRows} />
             case "react":
                 if (typeof value.component === "function") {
                     return (
