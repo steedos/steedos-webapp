@@ -94,6 +94,10 @@ const propTypes = {
 	 * target attr of link tag <a target="_blank">...</a>
 	 */
 	target: PropTypes.string,
+	/**
+	 * is the tile draggable
+	 */
+	isDraggable: PropTypes.bool,
 
 	// Future feature: add Highlighter to Truncate text (https://github.com/ShinyChang/React-Text-Truncate/issues/32)
 };
@@ -104,6 +108,7 @@ const defaultProps = {
 	},
 	href: 'javascript:void(0);', // eslint-disable-line no-script-url
 	moreLabel: ' More',
+	isDraggable: true
 };
 
 /**
@@ -143,7 +148,7 @@ class AppLauncherTile extends React.Component {
 		return (
 			<a
 				className={classNames(
-					'slds-app-launcher__tile slds-text-link_reset slds-is-draggable', // NOTE: while the draggable class is here for stylistic purposes, the draggable attribute is not present as draggability has not been implemented yet
+					`slds-app-launcher__tile slds-text-link_reset ${this.props.isDraggable ? 'slds-is-draggable' : ''}`, // NOTE: while the draggable class is here for stylistic purposes, the draggable attribute is not present as draggability has not been implemented yet
 					this.props.className
 				)}
 				// onClick={this.handleClick} //creator中a链接带href时可能不会触发onClick事件，只能用removeEventListener原生事件绑定来处理
@@ -165,18 +170,20 @@ class AppLauncherTile extends React.Component {
 							</abbr>
 						</span>
 					)}
-					<div className="slds-m-top_xxx-small">
-						<Button
-							assistiveText={{
-								icon: this.props.assistiveText.dragIconText,
-							}}
-							iconCategory="utility"
-							iconName="rows"
-							title={this.props.assistiveText.dragIconText}
-							variant="icon"
-							{...dragButtonAriaProps}
-						/>
-					</div>
+					{this.props.isDraggable ? (
+						<div className="slds-m-top_xxx-small">
+							<Button
+								assistiveText={{
+									icon: this.props.assistiveText.dragIconText,
+								}}
+								iconCategory="utility"
+								iconName="rows"
+								title={this.props.assistiveText.dragIconText}
+								variant="icon"
+								{...dragButtonAriaProps}
+							/>
+						</div>
+					) : null}
 				</div>
 				<div className="slds-app-launcher__tile-body">
 					<span className="slds-link">

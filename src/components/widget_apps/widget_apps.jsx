@@ -121,6 +121,7 @@ class WidgetApps extends React.Component {
                             onClick={(e)=>{
                                 onTileClick.call(self, e, app, {...this}, key);
                             }}
+                            isDraggable={false}
                         />
                     )
                 }
