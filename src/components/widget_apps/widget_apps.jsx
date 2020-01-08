@@ -40,7 +40,7 @@ class WidgetApps extends React.Component {
     };
 
     static defaultProps = {
-        label: "应用程序启动器",
+        label: "应用",
         mobile: false,
         showAllItems: false
     };
