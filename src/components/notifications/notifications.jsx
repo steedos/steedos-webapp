@@ -40,6 +40,10 @@ const Container = styled.div`
                 top: -0.2rem;
             }
         }
+        .slds-global-actions__notifications{
+            width: 2.75rem!important;
+            height: 2.75rem!important;
+        }
     }
 `;
 
