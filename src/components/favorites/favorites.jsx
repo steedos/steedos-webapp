@@ -2,11 +2,12 @@ import React from 'react';
 import { GlobalHeaderFavorites, Popover, MediaObject, Icon} from '@salesforce/design-system-react';
 import PropTypes from 'prop-types';
 import { getObject } from '../../selectors'
+import { store } from '../../stores'
 
 const getRecordIcon = (record) => {
     let icon = null;
     if(record.object_name){
-        const object = getObject(record.object_name)
+        const object = getObject(store.getState(),record.object_name)
         if(object){
             const objectIcon = object.icon;
             let category = 'standard'
@@ -35,7 +36,7 @@ const getRecordIcon = (record) => {
 const getRecordBody = (record) => {
     let body = null 
     if(record.object_name){
-        const object = getObject(record.object_name)
+        const object = getObject(store.getState(), record.object_name)
         if(object){
             body = (<div id={record._id}>
                 <span className="slds-listbox__option-text slds-listbox__option-text_entity">{record.name}</span>

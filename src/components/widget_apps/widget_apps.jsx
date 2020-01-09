@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'underscore';
 import { Card, Icon, AppLauncherExpandableSection} from '@salesforce/design-system-react';
-import { getCookie } from '../../utils';
+import { getCookie, getAbsoluteUrl } from '../../utils';
 import {AppLauncherTile} from '../slds_app_launcher';
-import { getAbsoluteUrl } from '../../utils';
 
 let AppLauncherDesktopInternal = styled.div`
     padding: 0px 1rem;

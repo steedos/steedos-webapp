@@ -3,9 +3,8 @@ import Grid from '../grid'
 import PropTypes from 'prop-types';
 import _ from 'underscore'
 import { Card } from '@salesforce/design-system-react';
-import { getSpaceId } from '../../utils';
+import { getSpaceId, getAbsoluteUrl } from '../../utils';
 import styled from 'styled-components';
-import { getAbsoluteUrl } from '../../utils';
 
 let WidgetObjectContent = styled.div`
     .slds-table{
