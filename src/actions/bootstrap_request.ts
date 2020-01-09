@@ -12,7 +12,7 @@ export function loadBootstrapDataRequest(dispatch: any, actionType: string, data
 }
 
 export async function loadBootstrapData(dataService: string, options: any) {
-    let spaceId = getCookie("X-Space-Id");
+    let spaceId = options.spaceId || getCookie("X-Space-Id");
     let url = `${dataService}/api/bootstrap/${spaceId}`;
     return await request(url);
 }
