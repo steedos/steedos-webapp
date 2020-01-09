@@ -33,6 +33,13 @@ let Container = styled.div`
             margin-left: 0;
         }
     }
+    &>.slds-dashboard-column{
+        @media (max-width: 767px) {
+            &:not(:first-of-type){
+                margin-top: 1rem;
+            }
+        }
+    }
 `;
 
 let Column = styled.div`
