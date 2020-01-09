@@ -15,14 +15,23 @@ let Container = styled.div`
         .slds-dashboard-cell-bottom-left{
             padding-right: 0.5rem;
             margin-top: 1rem;
+            @media (max-width: 767px) {
+                padding-right: 0;
+            }
         }
         .slds-dashboard-cell-bottom-right{
             padding-left: 0.5rem;
             margin-top: 1rem;
+            @media (max-width: 767px) {
+                padding-left: 0;
+            }
         }
     }
     &>.slds-dashboard-column-right{
         margin-left: 1rem;
+        @media (max-width: 767px) {
+            margin-left: 0;
+        }
     }
 `;
 
@@ -33,6 +42,9 @@ let Column = styled.div`
     align-content: flex-start;
     &:nth-child(2){
         flex: 0 0 33%;
+        @media (max-width: 767px) {
+            flex: 0 0 100%;
+        }
     }
 `;
 
@@ -41,6 +53,9 @@ let Cell = styled.div`
     align-content: flex-start;
     &.flex-split{
         flex: 1;
+        @media (max-width: 767px) {
+            flex: 0 0 100%;
+        }
     }
 `;
 
