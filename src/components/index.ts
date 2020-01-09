@@ -12,6 +12,7 @@ export {default as Tree} from './tree';
 export {default as WidgetApps} from './widget_apps';
 export {default as WidgetObject} from './widget_object';
 export {default as Notifications} from './notifications';
+export {default as Favorites} from './favorites';
 export * from './slds_app_launcher'
 export * from './slds_illustration'
 

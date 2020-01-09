@@ -3,13 +3,15 @@ import { GRID_STATE_CHANGE_ACTION } from '../../actions/views/grid'
 import { DXGRID_STATE_CHANGE_ACTION } from '../../actions/views/dx_grid'
 import { TREE_STATE_CHANGE_ACTION } from '../../actions/views/tree'
 import { ORGANIZATIONS_STATE_CHANGE_ACTION } from '../../actions/views/organizations'
-import { NOTIFICATIONS_STATE_CHANGE_ACTION, NOTIFICATIONS_INTERVAL_CHANGE_ACTION, NOTIFICATIONS_COUNT_CHANGE_ACTION } from '../../actions/views/notifications'
+import { NOTIFICATIONS_STATE_CHANGE_ACTION, NOTIFICATIONS_INTERVAL_CHANGE_ACTION, NOTIFICATIONS_COUNT_CHANGE_ACTION} from '../../actions/views/notifications'
+import { FAVORITES_STATE_CHANGE_ACTION } from '../../actions/views/favorites';
 import TreeReducer from './tree'
 import DXGridReducer from './dx_grid'
 import GridReducer from './grid'
 import OrgReducer from './organizations'
 import produce from "immer"
 import NotificationsReducer from './notifications'
+import FavoritesReducer from './favorites'
 
 
 function changeState(id, draft: any, newState: any) {
@@ -47,6 +49,9 @@ const byId = produce((draft = {}, action) => {
             break;
         case NOTIFICATIONS_INTERVAL_CHANGE_ACTION:
             changeState(id, draft, NotificationsReducer(viewState, action))
+            break;
+        case FAVORITES_STATE_CHANGE_ACTION:
+            changeState(id, draft, FavoritesReducer(viewState, action))
             break;
     }
     return draft;

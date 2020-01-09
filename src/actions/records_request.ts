@@ -1,5 +1,6 @@
 import { query } from '../datasource'
 import { createAction } from './base'
+const _ = require('underscore')
 
 export function loadEntitiesDataRequest(dispatch: any, actionType: string, dataService: string, options: any) {
     return loadData(dataService, options).then(
@@ -19,9 +20,21 @@ function loadDataSauce(actionType: string, results: any, options: any) {
         item.id = item._id
         return item
     })
-    return createAction(actionType, 'loadDataSauce', {records, totalCount}, options)
+
+    let partialStateName = 'loadDataSauce';
+
+    if(!_.isEmpty(options.RequestStatus) && options.RequestStatus.SUCCESS){
+        partialStateName = options.RequestStatus.SUCCESS
+    }
+
+    return createAction(actionType, partialStateName, {records, totalCount}, options)
 }
 
 function loadDataError(actionType: string, error: any, options: any) {
-    return createAction(actionType, 'loadDataError', {error: error}, options)
+    let partialStateName = 'loadDataError';
+
+    if(!_.isEmpty(options.RequestStatus) && options.RequestStatus.FAILURE){
+        partialStateName = options.RequestStatus.FAILURE
+    }
+    return createAction(actionType, partialStateName, {error: error}, options)
 }

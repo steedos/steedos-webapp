@@ -6,3 +6,4 @@ export * from './lookup';
 export * from './organizations';
 export * from './tree';
 export * from './notifications';
+export * from './favorites';
