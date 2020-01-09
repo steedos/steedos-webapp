@@ -96,6 +96,7 @@ class WidgetApps extends React.Component {
     getAppCells(apps){
         if (apps) {
             const onTileClick = this.onTileClick;
+            //TODO 标准参数不应该直接从cookies中获取，因为手机版暂时获取不到cookie
             let token = getCookie("X-Access-Token");
             const self = this;
             return _.map(apps, (app, key) => {

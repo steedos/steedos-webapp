@@ -1,6 +1,6 @@
 import { request } from '../datasource'
 import { createAction } from './base'
-import { getCookie } from '../utils'
+import { getSpaceId } from '../utils'
 import { BootstrapTypes } from '../action_types'
 
 export function loadBootstrapDataRequest(dispatch: any, actionType: string, dataService: string, options: any) {
@@ -12,7 +12,7 @@ export function loadBootstrapDataRequest(dispatch: any, actionType: string, data
 }
 
 export async function loadBootstrapData(dataService: string, options: any) {
-    let spaceId = options.spaceId || getCookie("X-Space-Id");
+    let spaceId = options.spaceId || getSpaceId();
     let url = `${dataService}/api/bootstrap/${spaceId}`;
     return await request(url);
 }

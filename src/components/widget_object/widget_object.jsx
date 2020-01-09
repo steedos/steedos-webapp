@@ -3,7 +3,7 @@ import Grid from '../grid'
 import PropTypes from 'prop-types';
 import _ from 'underscore'
 import { Card } from '@salesforce/design-system-react';
-import { getCookie } from '../../utils';
+import { getSpaceId } from '../../utils';
 import styled from 'styled-components';
 import { getAbsoluteUrl } from '../../utils';
 
@@ -75,7 +75,7 @@ class WidgetObject extends React.Component {
 
     convertObjectProps(){
         let { label, objectName, filters, columns, illustration, showAllLink, hrefTarget, ...others } = this.props;
-        const spaceId = getCookie("X-Space-Id");
+        const spaceId = getSpaceId();
         return {
             label: label,
             objectName: objectName,

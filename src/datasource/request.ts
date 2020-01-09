@@ -1,10 +1,9 @@
-import { getCookie } from '../utils';
+import { getUserId, getAuthToken } from '../utils';
 import { fetch } from "whatwg-fetch";
 
 export async function request(url: string, options: any = { method: "GET", compress: false }) {
-    // let spaceId = getCookie("X-Space-Id");
-    let authToken = getCookie("X-Auth-Token");
-    let userId = getCookie("X-User-Id");
+    let authToken = getAuthToken();
+    let userId = getUserId();
     let authHeaders = {
         'X-Auth-Token': authToken,
         'X-User-Id': userId
