@@ -5,6 +5,7 @@ import _ from 'underscore'
 import { Card } from '@salesforce/design-system-react';
 import { getCookie } from '../../utils';
 import styled from 'styled-components';
+import { getAbsoluteUrl } from '../../utils';
 
 let WidgetObjectContent = styled.div`
     .slds-table{
@@ -85,9 +86,7 @@ class WidgetObject extends React.Component {
                         if (objectName === "instances"){
                             url = `/workflow/space/${spaceId}/inbox/${data.id}`;
                         }
-                        if (window.__meteor_runtime_config__)
-                            url = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX + url;
-
+                        url = getAbsoluteUrl(url);
                         return (
                             <a target={hrefTarget} href={url} title={children}>
                                 {children}

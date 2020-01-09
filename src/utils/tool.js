@@ -7,9 +7,8 @@ export const getObjectRecordUrl = (objectName, recordId, spaceId)=>{
 }
 
 export const getAbsoluteUrl = (url)=>{
-    if (!/^http(s?):\/\//.test(url)) {
-        if (window.__meteor_runtime_config__)
-            url = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX + url;
+    if(window.Meteor && !/^http(s?):\/\//.test(url)){
+        return window.Steedos.absoluteUrl(url)
     }
     return url;
 }

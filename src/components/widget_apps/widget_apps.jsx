@@ -5,6 +5,7 @@ import _ from 'underscore';
 import { Card, Icon, AppLauncherExpandableSection} from '@salesforce/design-system-react';
 import { getCookie } from '../../utils';
 import {AppLauncherTile} from '../slds_app_launcher';
+import { getAbsoluteUrl } from '../../utils';
 
 let AppLauncherDesktopInternal = styled.div`
     padding: 0px 1rem;
@@ -70,10 +71,8 @@ class WidgetApps extends React.Component {
         if (app.url) {
             url = app.url;
         }
-        if (!/^http(s?):\/\//.test(url)) {
-            if (window.__meteor_runtime_config__)
-                url = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX + url;
-        }
+
+        url = getAbsoluteUrl(url);
 
         if (url.indexOf("?") > -1) {
             url += `&token=${token}`

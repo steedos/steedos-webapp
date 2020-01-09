@@ -1,15 +1,12 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'underscore'
+import { getAbsoluteUrl } from '../../utils';
 
 class Bootstrap extends React.Component {
 
 	getChildContext() {
-        let iconPath = '/assets/icons';
-
-		if (window.__meteor_runtime_config__)
-            iconPath = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX + "/assets/icons";
-        
+        let iconPath = getAbsoluteUrl('/assets/icons');
         return {
 			iconPath: iconPath,
 		};
