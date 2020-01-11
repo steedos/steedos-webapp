@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import _ from 'underscore';
 import moment from 'moment';
 import { GlobalHeaderNotifications, Popover, Button, Icon } from '@salesforce/design-system-react';
-import { getAbsoluteUrl } from '../../utils';
+import { getAbsoluteUrl, getRelativeUrl } from '../../utils';
 
 const Container = styled.div`
     &.loading{
@@ -108,7 +108,7 @@ const getItemAvatarUrl = (item)=>{
         return getAbsoluteUrl(`/avatar/${item.from}`);
     }
     else{
-        return getAbsoluteUrl(`/packages/steedos_lightning-design-system/client/images/themes/oneSalesforce/lightning_lite_profile_avatar_96.png`);
+        return getRelativeUrl(`/packages/steedos_lightning-design-system/client/images/themes/oneSalesforce/lightning_lite_profile_avatar_96.png`);
     }
 }
 

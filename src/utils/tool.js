@@ -12,3 +12,10 @@ export const getAbsoluteUrl = (url)=>{
     }
     return url;
 }
+
+export const getRelativeUrl = (url)=>{
+    if(window.Meteor && !/^http(s?):\/\//.test(url)){
+        return window.Creator.getRelativeUrl(url)
+    }
+    return url;
+}

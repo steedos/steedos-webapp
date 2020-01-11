@@ -6,7 +6,7 @@ import { createGridAction } from '../../actions'
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import moment from 'moment'
-import { getAbsoluteUrl } from '../../utils';
+import { getRelativeUrl } from '../../utils';
 
 let Counter = styled.div`
 	height: 100%;
@@ -264,7 +264,7 @@ class Grid extends React.Component {
 			illustration.messageBody = "没有可显示的项目";
 		}
 		if (!illustration.path) {
-			illustration.path = getAbsoluteUrl("/assets/images/illustrations/empty-state-no-results.svg#no-results");
+			illustration.path = getRelativeUrl("/assets/images/illustrations/empty-state-no-results.svg#no-results");
 		}
 		return () => {
 			return (
