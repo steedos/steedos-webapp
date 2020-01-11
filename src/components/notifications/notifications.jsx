@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import _ from 'underscore';
 import moment from 'moment';
 import { GlobalHeaderNotifications, Popover, Button, Icon } from '@salesforce/design-system-react';
-import { getAbsoluteUrl, getRelativeUrl } from '../../utils';
+import { getAbsoluteUrl, getRelativeUrl, getUserId, getAuthToken, getSpaceId } from '../../utils';
 
 const Container = styled.div`
     &.loading{
@@ -100,7 +100,33 @@ const HeaderNotificationsCustomHeading = (props) => (
 HeaderNotificationsCustomHeading.displayName = 'HeaderNotificationsCustomHeading';
 
 const getItemUrl = (item)=>{
-    return getAbsoluteUrl(`/api/v4/notifications/${item._id}/read`);
+    if(window.Meteor && window.Steedos.isMobile()){
+        return 'javascript:void(0);';
+    }else{
+        return getRelativeUrl(`/api/v4/notifications/${item._id}/read`);
+    }
+}
+
+const itemOnClick = (item)=>{
+    if(window.Meteor && window.Steedos.isMobile()){
+        $.ajax({
+            url : getAbsoluteUrl(`/api/v4/notifications/${item._id}/read?async`),
+            type : "get",
+            data : {},
+            async : false,
+            beforeSend: function(request){
+                request.setRequestHeader('X-User-Id', getUserId())
+                request.setRequestHeader('X-Auth-Token', getAuthToken())
+                request.setRequestHeader('X-Space-Id', getSpaceId())
+            },
+            success : function(result) {
+                if(result && result.redirect){
+                    window.$("#header-notifications-popover-id").click();
+                    window.FlowRouter.go(result.redirect)
+                }
+            }
+        }); 
+    }
 }
 
 const getItemAvatarUrl = (item)=>{
@@ -150,6 +176,7 @@ const HeaderNotificationsCustomContent = (props) => {
                                             href={getItemUrl(item)}
                                             target="_blank"
                                             className="slds-text-link_reset slds-has-flexi-truncate"
+                                            onClick={()=>{itemOnClick(item)}}
                                         >
                                             <h3
                                                 className="slds-truncate"
