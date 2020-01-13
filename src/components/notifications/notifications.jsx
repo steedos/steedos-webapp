@@ -109,7 +109,7 @@ const getItemUrl = (item)=>{
 
 const itemOnClick = (item)=>{
     if(window.Meteor && window.Steedos.isMobile()){
-        $.ajax({
+        window.$.ajax({
             url : getAbsoluteUrl(`/api/v4/notifications/${item._id}/read?async`),
             type : "get",
             data : {},
@@ -121,7 +121,7 @@ const itemOnClick = (item)=>{
             },
             success : function(result) {
                 if(result && result.redirect){
-                    window.$("#header-notifications-popover-id").click();
+                    window.$("#header-notifications-popover-id").trigger('click');
                     window.FlowRouter.go(result.redirect)
                 }
             }

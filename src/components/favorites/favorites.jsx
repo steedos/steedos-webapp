@@ -49,8 +49,8 @@ const getRecordBody = (record) => {
 
 const onClick = (record, recordOnClick)=>{
     if(recordOnClick){
+        window.$("#header-favorites-popover-id").trigger('click');
         recordOnClick(record);
-        window.$("#header-favorites-popover-id").click()
     }
 }
 

@@ -19,7 +19,7 @@ export const MyFavorites = () => (
     <Provider store={store}>
         <Bootstrap>
             <Container>
-                <Favorites/>
+                <Favorites id="header-favorites-popover-id"/>
             </Container>
         </Bootstrap>
     </Provider>
