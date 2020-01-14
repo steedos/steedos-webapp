@@ -49,7 +49,9 @@ const getRecordBody = (record) => {
 
 const onClick = (record, recordOnClick)=>{
     if(recordOnClick){
-        window.$("#header-favorites-popover-id").trigger('click');
+        //此处连续调用2次click用于解决IOS设备上，点击关注记录后，popover不关闭问题。
+        window.$(".slds-button_icon", window.$('#header-favorites-popover-id-popover')).trigger('click');
+        window.$(".slds-button_icon", window.$('#header-favorites-popover-id-popover')).trigger('click');
         recordOnClick(record);
     }
 }

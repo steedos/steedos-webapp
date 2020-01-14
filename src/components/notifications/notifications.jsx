@@ -121,7 +121,9 @@ const itemOnClick = (item)=>{
             },
             success : function(result) {
                 if(result && result.redirect){
-                    window.$("#header-notifications-popover-id").trigger('click');
+                    //此处连续调用2次click用于解决IOS设备上，点击通知记录后，popover不关闭问题。
+                    window.$(".slds-button_icon", window.$('#header-notifications-popover-id-popover')).trigger('click');
+                    window.$(".slds-button_icon", window.$('#header-notifications-popover-id-popover')).trigger('click');
                     window.FlowRouter.go(result.redirect)
                 }
             }
