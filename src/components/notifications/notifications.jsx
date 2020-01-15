@@ -125,8 +125,9 @@ const itemOnClick = (item)=>{
                     window.$(".slds-button_icon", window.$('#header-notifications-popover-id-popover')).trigger('click');
                     window.$(".slds-button_icon", window.$('#header-notifications-popover-id-popover')).trigger('click');
                     var url = result.redirect;
-                    if(window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX){
-                        url = url.replace(window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX, '');
+                    var ROOT_URL_PATH_PREFIX = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX
+                    if(ROOT_URL_PATH_PREFIX && url.startsWith(ROOT_URL_PATH_PREFIX)){
+                        url = url.replace(ROOT_URL_PATH_PREFIX, '');
                     }
                     window.FlowRouter.go(url);
                 }
