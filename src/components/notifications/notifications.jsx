@@ -27,19 +27,6 @@ const Container = styled.div`
             top: 6px;
             right: 6px;
         }
-        .slds-popover{
-            .slds-popover__close{
-                margin: 0px;
-            }
-            .slds-text-heading_small{
-                .slds-text-link{
-                    margin-top: 0.3rem!important;
-                }
-            }
-            .slds-popover__body{
-                top: -0.2rem;
-            }
-        }
         .slds-global-actions__notifications{
             width: 2.75rem!important;
             height: 2.75rem!important;
