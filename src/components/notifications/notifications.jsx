@@ -141,7 +141,7 @@ const getItemAvatarUrl = (item)=>{
         return getAbsoluteUrl(`/avatar/${item.from}`);
     }
     else{
-        return `/packages/steedos_lightning-design-system/client/images/themes/oneSalesforce/lightning_lite_profile_avatar_96.png`;
+        return getRelativeUrl(`/packages/steedos_lightning-design-system/client/images/themes/oneSalesforce/lightning_lite_profile_avatar_96.png`);
     }
 }
 
