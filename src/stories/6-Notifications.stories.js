@@ -11,8 +11,14 @@ export default {
 
 const Container = styled.div`
   float: right;
-  margin: 2rem;
+  margin: 1.2rem;
   clear: both;
+  @media (max-width: 767px) {
+      .slds-popover__body{
+        /* stories 案例在手机上高度不够，不方便调式 */
+        max-height: 320px;
+      }
+  }
 `;
 
 export const once = () => (
