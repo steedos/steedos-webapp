@@ -124,7 +124,11 @@ const itemOnClick = (item)=>{
                     //此处连续调用2次click用于解决IOS设备上，点击通知记录后，popover不关闭问题。
                     window.$(".slds-button_icon", window.$('#header-notifications-popover-id-popover')).trigger('click');
                     window.$(".slds-button_icon", window.$('#header-notifications-popover-id-popover')).trigger('click');
-                    window.FlowRouter.go(result.redirect)
+                    var url = result.redirect;
+                    if(window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX){
+                        url = url.replace(window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX, '');
+                    }
+                    window.FlowRouter.go(url);
                 }
             }
         }); 
@@ -136,7 +140,7 @@ const getItemAvatarUrl = (item)=>{
         return getAbsoluteUrl(`/avatar/${item.from}`);
     }
     else{
-        return getRelativeUrl(`/packages/steedos_lightning-design-system/client/images/themes/oneSalesforce/lightning_lite_profile_avatar_96.png`);
+        return `/packages/steedos_lightning-design-system/client/images/themes/oneSalesforce/lightning_lite_profile_avatar_96.png`;
     }
 }
 
