@@ -1419,20 +1419,20 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
-"@salesforce-ux/design-system@^2.10.0":
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/@salesforce-ux/design-system/-/design-system-2.10.0.tgz#a7291c0f335cdece3f1a6d4a610f84a7e2f80d30"
-  integrity sha512-lHzZ41l24XdcsDYD/Je0ScxgAqlta7Tb1kgY67sQ/u2SP9jxapunHToRmso9BaM1n37cPgyaakQmKcG0G6dl2Q==
+"@salesforce-ux/design-system@^2.11.0":
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/@salesforce-ux/design-system/-/design-system-2.11.0.tgz#35f7e6a4c4fcac63f72bb63ee403ace7027bba49"
+  integrity sha512-a4WeszSk8WQDGA/eMubG+yeOAOMQrPrNH6HZ4O/dIFJmKNOFuV2R3DFPjHNSiXr1GPjTWyznTtj8B4WgcPj0FQ==
 
 "@salesforce/babel-preset-design-system-react@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@salesforce/babel-preset-design-system-react/-/babel-preset-design-system-react-3.0.0.tgz#b8334d14fc3801064ac5b6e5349145dc057bc17f"
   integrity sha512-NM3aObtfYl9RpfVu5eDU96fmTW7Mj2V1Y1O5b8dpLGESgXxqHiGIV7d4bKHzmD8O00g1qjPAPusd0f2IB7Yi0Q==
 
-"@salesforce/design-system-react@^0.10.12":
-  version "0.10.12"
-  resolved "https://registry.yarnpkg.com/@salesforce/design-system-react/-/design-system-react-0.10.12.tgz#92916cc4ae7dde48a5c5908cc7b91fd31ce38186"
-  integrity sha512-p6Wbs/b2gMoNpmbprbNCevFtyUfIZ3dX/IW6pSv0rb+miHNi3ls7xh/5+l+54D+OQa/CZB2HQiBHIraI0GHrvg==
+"@salesforce/design-system-react@^0.10.17":
+  version "0.10.17"
+  resolved "https://registry.yarnpkg.com/@salesforce/design-system-react/-/design-system-react-0.10.17.tgz#fbf5fa2e350f53555fba687bbcf7bed217146f7e"
+  integrity sha512-FYpLULu+5JZfOM+qD1oCMeGY6Mpujg35ILsao4YSoBMwXO7VEen1gNYzuuF0m9PqUepEPgHwzQKk5zdQcr3gNg==
   dependencies:
     "@salesforce/babel-preset-design-system-react" "^3.0.0"
     classnames "^2.2.6"
