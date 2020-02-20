@@ -1,4 +1,3 @@
-
 import { CATEGORIES_STATE_CHANGE_ACTION } from '../../actions/views/categories'
 import _ from 'underscore'
 

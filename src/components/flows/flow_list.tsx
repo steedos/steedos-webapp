@@ -42,37 +42,22 @@ class Flows extends React.Component {
         valueField: '_id',
         selectionLabel: 'name',
         rootNodes: [],
-        pageSize: 200
+        pageSize: 200,
+        treeId: makeNewID({}),
+        gridId: makeNewID({})
     }
 
     constructor(props) {
         super(props);
-        this.state = {
-            treeId: makeNewID(props),
-            gridId: makeNewID(props)
-        }
         if(_.isEmpty(props.rootNodes)){
-            props.dispatch(loadCategoriesEntitiesData({ id: props.id, objectName: "categories", filters: [], columns: [{field: 'name'}]}))
+            props.dispatch(loadCategoriesEntitiesData({ id: props.treeId, objectName: "categories", filters: [], columns: [{field: 'name'}]}))
         }
     }
     render() {
-        let { searchMode, multiple, pageSize, rootNodes, id } = this.props as any
-        let {treeId, gridId} = this.state as any;
-        let getNodes = (node: any)=>{
-            if(!node.nodes){
-                return []
-            }
-            let { nodes:stateNodes = {} } = this.props as any
-            let nodes: any = []
-            node.nodes.forEach((element: any) => {
-                if(stateNodes[element]){
-                    nodes.push(stateNodes[element])
-                }
-            });
-            return nodes
-        }
+        let { searchMode, multiple, pageSize, rootNodes, treeId, gridId } = this.props as any
+
         let init = (options: any)=>{
-            const newOptions = Object.assign({}, options)
+            const newOptions = Object.assign({}, options, {id: treeId})
             newOptions.columns = [{field: 'name'}]
             return loadTreeEntitiesData(newOptions)
         }
@@ -92,10 +77,15 @@ class Flows extends React.Component {
             }
         }
 
+        let selectRows = 'radio';
+        if(multiple){
+            selectRows = 'checkbox';
+        }
+
         return (
             <Counter className="flows-list">
-               <CategoriesCounter className="categories"><SteedosTree objectName="categories" rootNodes={rootNodes} onClick={onClick} getNodes={getNodes} init={init} id={treeId}/></CategoriesCounter>
-               <FlowsCounter className="flows"><Grid id={gridId} objectName={gridObjectName} enableSearch={true} columns={gridColumns} selectRows="checkbox" baseFilters={[["state", "=", "enabled"]]} searchMode={searchMode}/></FlowsCounter>
+               <CategoriesCounter className="categories"><SteedosTree objectName="categories" rootNodes={rootNodes} onClick={onClick} init={init} id={treeId}/></CategoriesCounter>
+               <FlowsCounter className="flows"><Grid id={gridId} objectName={gridObjectName} enableSearch={true} columns={gridColumns} selectRows={selectRows} baseFilters={[["state", "=", "enabled"]]} searchMode={searchMode}/></FlowsCounter>
             </Counter>
         )
     }

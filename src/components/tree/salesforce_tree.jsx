@@ -28,7 +28,7 @@ class SFTree extends React.Component {
 	static propTypes = {
 		objectName: PropTypes.string.isRequired,
 		rootNodes: PropTypes.array.isRequired,
-		getNodes: PropTypes.func.isRequired,
+		getNodes: PropTypes.func,
 		id: PropTypes.string,
 		onClick: PropTypes.func.isRequired,
 		init: PropTypes.func
@@ -46,8 +46,21 @@ class SFTree extends React.Component {
 		searchTerm: this.props.searchable ? 'fruit' : undefined,
 	};
 
-	getNodes = (node) => {
-		return node.nodes ? node.nodes.map((id) => this.state.nodes[id]) : [];
+	// getNodes = (node) => {
+	// 	return node.nodes ? node.nodes.map((id) => this.state.nodes[id]) : [];
+	// }
+	getNodes = (node)=>{
+		if(!node.nodes){
+			return []
+		}
+		let { nodes:stateNodes = {} } = this.props
+		let nodes = []
+		node.nodes.forEach((element) => {
+			if(stateNodes[element]){
+				nodes.push(stateNodes[element])
+			}
+		});
+		return nodes
 	}
 		
 

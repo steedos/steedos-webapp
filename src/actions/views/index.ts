@@ -8,3 +8,4 @@ export * from './tree';
 export * from './notifications';
 export * from './favorites';
 export * from './categories'
+export * from './flows_modal'

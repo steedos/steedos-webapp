@@ -4,6 +4,7 @@ import { DXGRID_STATE_CHANGE_ACTION } from '../../actions/views/dx_grid'
 import { TREE_STATE_CHANGE_ACTION } from '../../actions/views/tree'
 import { ORGANIZATIONS_STATE_CHANGE_ACTION } from '../../actions/views/organizations'
 import { CATEGORIES_STATE_CHANGE_ACTION } from '../../actions/views/categories'
+import { FLOWSMODAL_STATE_CHANGE_ACTION } from '../../actions/views/flows_modal'
 import { NOTIFICATIONS_STATE_CHANGE_ACTION, NOTIFICATIONS_INTERVAL_CHANGE_ACTION, NOTIFICATIONS_COUNT_CHANGE_ACTION} from '../../actions/views/notifications'
 import { FAVORITES_STATE_CHANGE_ACTION } from '../../actions/views/favorites';
 import TreeReducer from './tree'
@@ -14,6 +15,7 @@ import produce from "immer"
 import NotificationsReducer from './notifications'
 import FavoritesReducer from './favorites'
 import CategoriesReducer from './categories'
+import FlowsModalReducer from './flows_modal'
 
 
 function changeState(id, draft: any, newState: any) {
@@ -58,6 +60,8 @@ const byId = produce((draft = {}, action) => {
         case CATEGORIES_STATE_CHANGE_ACTION:
             changeState(id, draft, CategoriesReducer(viewState, action))
             break;
+        case FLOWSMODAL_STATE_CHANGE_ACTION:
+            changeState(id, draft, FlowsModalReducer(viewState, action))
     }
     return draft;
 });
