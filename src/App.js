@@ -3,6 +3,7 @@ import './App.css';
 import { Provider } from 'react-redux';
 import store from './stores/configureStore'
 import SelectUsers from './components/select_users'
+import { FlowsModal } from './components'
 import DXGrid from './components/dx_grid'
 import Grid from './components/grid'
 import { IconSettings,Illustration } from '@salesforce/design-system-react';
@@ -103,7 +104,8 @@ function App() {
       <IconSettings iconPath={iconPath} >
         <Provider store={store}>
           <Bootstrap></Bootstrap>
-            <SelectUsers getRowId={getRowId} searchMode="omitFilters" rootNodes2={rootNodes} multiple={true} valueField2="user" selectionLabel2={selectionLabel} />
+          <FlowsModal></FlowsModal>
+            {/* <SelectUsers getRowId={getRowId} searchMode="omitFilters" rootNodes2={rootNodes} multiple={true} valueField2="user" selectionLabel2={selectionLabel} /> */}
             {/* <Grid objectName={gridObjectName} columns={gridColumns} selectRows='checkbox' enableSearch={true}></Grid>
             <div style={{ height: 100 }}></div>
             <Grid objectName={gridObjectName} columns={gridColumns2} selectRows='checkbox' enableSearch={true}></Grid> */}

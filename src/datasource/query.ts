@@ -25,8 +25,8 @@ function convertSortToString(sort: Array<[]>){
 }
 
 function getODataFilter(options: any, $select: any) : string{
-    if (options.filters || (options.search && $select)) {
-        let { searchMode } = options;
+    if (options.filters || options.baseFilters || (options.search && $select)) {
+        let { searchMode, baseFilters } = options;
         let result: any, _filters: any, _query: any;
         if (options.filters && (options.filters.length || typeof options.filters === "function")) {
             _filters = options.filters;
@@ -54,6 +54,17 @@ function getODataFilter(options: any, $select: any) : string{
         else if (_query) {
             result = _query;
         }
+        
+        if (result){
+            if (baseFilters){
+                result = [baseFilters, 'and', result];
+            }
+        }else{
+            if (baseFilters){
+                result = baseFilters;
+            }
+        }
+
         if (!result){
             return "";
         }

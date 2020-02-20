@@ -13,6 +13,8 @@ export {default as WidgetApps} from './widget_apps';
 export {default as WidgetObject} from './widget_object';
 export {default as Notifications} from './notifications';
 export {default as Favorites} from './favorites';
+export {default as Flows} from './flows';
+export {default as FlowsModal} from './flows_modal';
 export * from './slds_app_launcher'
 export * from './slds_illustration'
 

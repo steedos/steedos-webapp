@@ -6,6 +6,7 @@ import { createGridAction } from '../../actions'
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import moment from 'moment'
+import marked from 'marked'
 import { getRelativeUrl } from '../../utils';
 
 let Counter = styled.div`
@@ -82,6 +83,9 @@ const CustomDataTableCell = ({ children, ...props }) => {
 				break;
 			case 'filesize':
 				children = formatFileSize(children)
+				break;
+			case 'markdown':
+				children = (<div dangerouslySetInnerHTML={{__html: marked(children)}} />)
 				break;
 			default:
 				break;
@@ -178,7 +182,8 @@ class Grid extends React.Component {
 			category: PropTypes.string,
 			name: PropTypes.string,
 			size: PropTypes.string
-		})
+		}),
+		baseFilters: PropTypes.array
     }
 
 
