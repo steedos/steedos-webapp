@@ -113,6 +113,12 @@ class WidgetObject extends React.Component {
     state = {
     };
 
+    getObjectUrl(objectName){
+        let url = `/app/-/${objectName}`;
+        url = getAbsoluteUrl(url);
+        return url;
+    }
+
     render() {
         let convertedObjectProps = this.convertObjectProps();
         let { label, objectName, selectionLabel, cellListColumns, filters, illustration, showAllLink, hrefTarget, 
@@ -123,7 +129,7 @@ class WidgetObject extends React.Component {
         }
         else if (showAllLink){
             cardFooter = (
-                <a href={`/app/-/${objectName}`} target={hrefTarget}>
+                <a href={this.getObjectUrl(objectName)} target={hrefTarget}>
                     查看全部
                     </a>
             )
