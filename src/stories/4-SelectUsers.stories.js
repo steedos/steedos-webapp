@@ -12,7 +12,7 @@ export default {
 export const select_users = () => (
   <Provider store={store}>
     <Bootstrap>
-      <SelectUsers searchMode="omitFilters" multiple={true} valueField="user" />
+      <SelectUsers searchMode="omitFilters" multiple={true} gridId="selectUsers"/>
     </Bootstrap>
   </Provider>
 )

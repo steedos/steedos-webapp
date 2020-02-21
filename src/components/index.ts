@@ -1,5 +1,15 @@
+function getRandomString(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
+
 export function makeNewID(props){
-    return props.id ? props.id : btoa(props.toString()) + Math.floor(Math.random() * 10000);
+    return props.id ? props.id : getRandomString(16);
 }
 
 export {default as Bootstrap} from './bootstrap';

@@ -74,18 +74,14 @@ class SelectUsers extends React.Component {
         valueField: '_id',
         selectionLabel: 'name',
         rootNodes: [],
-        pageSize: 200
+        pageSize: 200,
+        treeId: makeNewID({}),
+        gridId: makeNewID({})
     }
 
     constructor(props) {
         super(props);
-        this.state = {
-            treeId: makeNewID(props),
-            gridId: makeNewID(props)
-        }
     }
-
-   
 
     static propTypes = {
         rootNodes: PropTypes.array,
@@ -93,13 +89,14 @@ class SelectUsers extends React.Component {
         valueField: PropTypes.string, //指定控件返回的值来自记录的那个属性，比如：user 字段，或者 email字段
         selectionLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
         searchMode: PropTypes.oneOf(['omitFilters']),
-        pageSize: PropTypes.number
+        pageSize: PropTypes.number,
+        treeId: PropTypes.string,
+        gridId: PropTypes.string
     }
 
     render() {
         // let getRowId = (row: any) => row[(this.props as any).valueField]
-        let { rootNodes, selectionLabel, searchMode, multiple, pageSize } = this.props as any
-        let {treeId, gridId} = this.state as any;
+        let { rootNodes, selectionLabel, searchMode, multiple, pageSize, treeId, gridId } = this.props as any
 
         let onClick = function(event: any, data: any){
             return (dispatch: any, getState: any)=>{
