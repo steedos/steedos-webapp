@@ -50,21 +50,22 @@ class Flows extends React.Component {
     constructor(props) {
         super(props);
         if(_.isEmpty(props.rootNodes)){
-            props.dispatch(loadCategoriesEntitiesData({ id: props.treeId, objectName: "categories", filters: [], columns: [{field: 'name'}]}))
+            let { spaceId } = this.props as any
+            props.dispatch(loadCategoriesEntitiesData({ id: props.treeId, spaceId: spaceId, objectName: "categories", filters: [], columns: [{field: 'name'}]}))
         }
     }
     render() {
-        let { searchMode, multiple, pageSize, rootNodes, treeId, gridId } = this.props as any
+        let { searchMode, multiple, pageSize, rootNodes, treeId, gridId, spaceId } = this.props as any
 
         let init = (options: any)=>{
-            const newOptions = Object.assign({}, options, {id: treeId})
+            const newOptions = Object.assign({}, options, {id: treeId, spaceId})
             newOptions.columns = [{field: 'name'}]
             return loadTreeEntitiesData(newOptions)
         }
 
         let onClick = function(event: any, data: any){
             return (dispatch: any, getState: any)=>{
-                dispatch(createGridAction("filters", [["category", "=", data.node.id], ["state", "=", "enabled"]], {id: gridId, objectName: gridObjectName, columns: [{field: 'name'}], searchMode, pageSize, baseFilters: [["state", "=", "enabled"]]}))
+                dispatch(createGridAction("filters", [["category", "=", data.node.id]], {id: gridId, spaceId, objectName: gridObjectName, columns: [{field: 'name'}], searchMode, pageSize, baseFilters: [["state", "=", "enabled"]]}))
                 dispatch({
                     type: 'TREE_STATE_CHANGE',
                     payload: {
@@ -84,8 +85,8 @@ class Flows extends React.Component {
 
         return (
             <Counter className="flows-list">
-               <CategoriesCounter className="categories"><SteedosTree objectName="categories" rootNodes={rootNodes} onClick={onClick} init={init} id={treeId}/></CategoriesCounter>
-               <FlowsCounter className="flows"><Grid id={gridId} objectName={gridObjectName} enableSearch={true} columns={gridColumns} selectRows={selectRows} baseFilters={[["state", "=", "enabled"]]} searchMode={searchMode}/></FlowsCounter>
+               <CategoriesCounter className="categories"><SteedosTree objectName="categories" rootNodes={rootNodes} onClick={onClick} init={init} id={treeId} spaceId={spaceId}/></CategoriesCounter>
+               <FlowsCounter className="flows"><Grid id={gridId} objectName={gridObjectName} enableSearch={true} columns={gridColumns} selectRows={selectRows} baseFilters={[["state", "=", "enabled"]]} searchMode={searchMode} spaceId={spaceId}/></FlowsCounter>
             </Counter>
         )
     }

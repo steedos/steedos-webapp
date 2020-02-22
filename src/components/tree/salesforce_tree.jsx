@@ -31,7 +31,8 @@ class SFTree extends React.Component {
 		getNodes: PropTypes.func,
 		id: PropTypes.string,
 		onClick: PropTypes.func.isRequired,
-		init: PropTypes.func
+		init: PropTypes.func,
+		spaceId: PropTypes.string
     }
 
 	componentDidMount() {

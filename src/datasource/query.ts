@@ -142,6 +142,6 @@ export async function query(service: string, options: any = { pageSize: 10, curr
         odataUrl = `${odataUrl}&$count=${count}`;
     }
     
-    let results = await request(odataUrl);
+    let results = await request(odataUrl, {spaceId: options.spaceId});
     return results
 }

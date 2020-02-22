@@ -183,7 +183,8 @@ class Grid extends React.Component {
 			name: PropTypes.string,
 			size: PropTypes.string
 		}),
-		baseFilters: PropTypes.array
+		baseFilters: PropTypes.array,
+		spaceId: PropTypes.string
     }
 
 

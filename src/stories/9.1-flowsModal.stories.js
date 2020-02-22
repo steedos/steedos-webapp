@@ -29,7 +29,7 @@ export const MyFlowsModal = () => {
             <Bootstrap>
                 <input id="flowIds" type="text" style={{height: 35, width: 350}}/><br/>
                 <button onClick={toggleOpen}>显示FlowsModal</button>
-                <FlowsModal id={modalId} appElement="body" onConfirm={onConfirm} gridId="flowsList" multiple={false}/>
+                <FlowsModal id={modalId} appElement="body" onConfirm={onConfirm} gridId="flowsList" multiple={false} spaceId=""/>
             </Bootstrap>
         </Provider>
     )
