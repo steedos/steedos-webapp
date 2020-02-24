@@ -5,6 +5,7 @@ import { TREE_STATE_CHANGE_ACTION } from '../../actions/views/tree'
 import { ORGANIZATIONS_STATE_CHANGE_ACTION } from '../../actions/views/organizations'
 import { CATEGORIES_STATE_CHANGE_ACTION } from '../../actions/views/categories'
 import { FLOWSMODAL_STATE_CHANGE_ACTION } from '../../actions/views/flows_modal'
+import { GRIDMODAL_STATE_CHANGE_ACTION } from '../../actions/views/grid_modal'
 import { VIEWS_STATE_CHANGE_ACTION } from '../../actions/views/views'
 import { NOTIFICATIONS_STATE_CHANGE_ACTION, NOTIFICATIONS_INTERVAL_CHANGE_ACTION, NOTIFICATIONS_COUNT_CHANGE_ACTION} from '../../actions/views/notifications'
 import { FAVORITES_STATE_CHANGE_ACTION } from '../../actions/views/favorites';
@@ -17,7 +18,7 @@ import NotificationsReducer from './notifications'
 import FavoritesReducer from './favorites'
 import CategoriesReducer from './categories'
 import FlowsModalReducer from './flows_modal'
-
+import GridModalReducer from './grid_modal'
 
 function changeState(id, draft: any, newState: any) {
     return draft[id] = newState
@@ -63,6 +64,9 @@ const byId = produce((draft = {}, action) => {
             break;
         case FLOWSMODAL_STATE_CHANGE_ACTION:
             changeState(id, draft, FlowsModalReducer(viewState, action))
+            break;
+        case GRIDMODAL_STATE_CHANGE_ACTION:
+            changeState(id, draft, GridModalReducer(viewState, action))
             break;
         case VIEWS_STATE_CHANGE_ACTION:
             changeState(id, draft, {});

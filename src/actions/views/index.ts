@@ -10,3 +10,4 @@ export * from './favorites';
 export * from './categories'
 export * from './flows_modal'
 export * from './views'
+export * from './grid_modal'
