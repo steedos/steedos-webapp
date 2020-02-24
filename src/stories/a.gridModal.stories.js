@@ -19,6 +19,7 @@ export const MyFlowsModal = () => {
 
     var toggleOpen = () => {
         gridProp.objectName = document.getElementById("objectName").value || objectName
+        gridProp.id = `${gridProp.objectName}_grid`
         store.dispatch(createGridModalAction('isOpen', true, {id: modalId}))
     };
 
