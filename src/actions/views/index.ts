@@ -9,3 +9,4 @@ export * from './notifications';
 export * from './favorites';
 export * from './categories'
 export * from './flows_modal'
+export * from './views'

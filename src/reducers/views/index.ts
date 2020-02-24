@@ -5,6 +5,7 @@ import { TREE_STATE_CHANGE_ACTION } from '../../actions/views/tree'
 import { ORGANIZATIONS_STATE_CHANGE_ACTION } from '../../actions/views/organizations'
 import { CATEGORIES_STATE_CHANGE_ACTION } from '../../actions/views/categories'
 import { FLOWSMODAL_STATE_CHANGE_ACTION } from '../../actions/views/flows_modal'
+import { VIEWS_STATE_CHANGE_ACTION } from '../../actions/views/views'
 import { NOTIFICATIONS_STATE_CHANGE_ACTION, NOTIFICATIONS_INTERVAL_CHANGE_ACTION, NOTIFICATIONS_COUNT_CHANGE_ACTION} from '../../actions/views/notifications'
 import { FAVORITES_STATE_CHANGE_ACTION } from '../../actions/views/favorites';
 import TreeReducer from './tree'
@@ -62,6 +63,10 @@ const byId = produce((draft = {}, action) => {
             break;
         case FLOWSMODAL_STATE_CHANGE_ACTION:
             changeState(id, draft, FlowsModalReducer(viewState, action))
+            break;
+        case VIEWS_STATE_CHANGE_ACTION:
+            changeState(id, draft, {});
+            break;
     }
     return draft;
 });

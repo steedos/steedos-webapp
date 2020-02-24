@@ -184,13 +184,21 @@ class Grid extends React.Component {
 			size: PropTypes.string
 		}),
 		baseFilters: PropTypes.array,
-		spaceId: PropTypes.string
+		spaceId: PropTypes.string,
+		keep: PropTypes.bool
     }
 
 
 	componentDidMount() {
 		if (this.props.init) {
 			this.props.init(this.props)
+		}
+	}
+
+	componentWillUnmount(){
+		let {keep, removeViewAction, id} = this.props
+		if(!keep){
+			removeViewAction(id)
 		}
 	}
 
