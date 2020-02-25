@@ -3,7 +3,7 @@ import Grid from '../grid'
 import PropTypes from 'prop-types';
 import _ from 'underscore'
 import { Card } from '@salesforce/design-system-react';
-import { getSpaceId, getAbsoluteUrl } from '../../utils';
+import { getSpaceId, getAbsoluteUrl, isMobile } from '../../utils';
 import styled from 'styled-components';
 
 let WidgetObjectContent = styled.div`
@@ -73,8 +73,15 @@ class WidgetObject extends React.Component {
     };
 
     convertObjectProps(){
-        let { label, objectName, filters, columns, illustration, showAllLink, hrefTarget, ...others } = this.props;
+        let { label, objectName, filters, columns, illustration, showAllLink, hrefTarget, noHeader, ...others } = this.props;
         const spaceId = getSpaceId();
+        if(isMobile()){
+            // 手机上强制把noHeader设置为true，且只显示href为true的字段
+            noHeader = true;
+            columns = columns.filter(function(item){
+                return item.href;
+            });
+        }
         return {
             label: label,
             objectName: objectName,
@@ -99,6 +106,7 @@ class WidgetObject extends React.Component {
             illustration,
             showAllLink,
             hrefTarget,
+            noHeader,
             ...others
         };
     }

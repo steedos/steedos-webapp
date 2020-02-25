@@ -19,3 +19,12 @@ export const getRelativeUrl = (url)=>{
     }
     return url;
 }
+
+export const isMobile = ()=>{
+    if(window.Steedos && window.Steedos.isMobile()){
+        // Steedos.isMobile中写的是：$(window).width()<767
+        return true
+    }else{
+        return window.outerWidth < 767
+    }
+}
