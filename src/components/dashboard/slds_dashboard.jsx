@@ -11,6 +11,15 @@ let Container = styled.div`
     flex: 1;
     flex-wrap: wrap;
     margin: 1rem;
+    @media (max-width: 767px) {
+        margin: 0rem;
+        .slds-grid{
+            .slds-card{
+                border: none;
+                border-radius: 0;
+            }
+        }
+    }
     &>.slds-dashboard-column-center{
         .slds-dashboard-cell-bottom-left{
             padding-right: 0.5rem;
