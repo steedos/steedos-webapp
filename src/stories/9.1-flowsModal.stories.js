@@ -24,12 +24,26 @@ export const MyFlowsModal = () => {
         document.getElementById("flowIds").value = _.pluck(selection, '_id')
     }
 
+    var gridProp = {
+        columns: [
+            {
+                field: 'name',
+                label: '流程名',
+                width: '30%'
+            },{
+                field: 'description',
+                type: 'markdown',
+                label: '描述'
+            }
+        ]
+    }
+
     return (
         <Provider store={store}>
             <Bootstrap>
                 <input id="flowIds" type="text" style={{height: 35, width: 350}}/><br/>
                 <button onClick={toggleOpen}>显示FlowsModal</button>
-                <FlowsModal id={modalId} appElement="body" onConfirm={onConfirm} gridId="flowsList" multiple={false} spaceId=""/>
+                <FlowsModal id={modalId} appElement="body" onConfirm={onConfirm} gridId="flowsList" multiple={false} spaceId="" gridProp={gridProp}/>
             </Bootstrap>
         </Provider>
     )

@@ -55,7 +55,7 @@ class Flows extends React.Component {
         }
     }
     render() {
-        let { searchMode, multiple, pageSize, rootNodes, treeId, gridId, spaceId } = this.props as any
+        let { searchMode, multiple, pageSize, rootNodes, treeId, gridId, spaceId, gridProp, treeProp } = this.props as any
 
         let init = (options: any)=>{
             const newOptions = Object.assign({}, options, {id: treeId, spaceId})
@@ -65,7 +65,7 @@ class Flows extends React.Component {
 
         let onClick = function(event: any, data: any){
             return (dispatch: any, getState: any)=>{
-                dispatch(createGridAction("filters", [["category", "=", data.node.id]], {id: gridId, spaceId, objectName: gridObjectName, columns: [{field: 'name'}], searchMode, pageSize, baseFilters: [["state", "=", "enabled"]]}))
+                dispatch(createGridAction("filters", [["category", "=", data.node.id]], {id: gridId, spaceId, objectName: gridObjectName, columns: gridColumns, searchMode, pageSize, baseFilters: [["state", "=", "enabled"]]}))
                 dispatch({
                     type: 'TREE_STATE_CHANGE',
                     payload: {
@@ -85,8 +85,8 @@ class Flows extends React.Component {
 
         return (
             <Counter className="flows-list">
-               <CategoriesCounter className="categories"><SteedosTree objectName="categories" rootNodes={rootNodes} onClick={onClick} init={init} id={treeId} spaceId={spaceId}/></CategoriesCounter>
-               <FlowsCounter className="flows"><Grid id={gridId} objectName={gridObjectName} enableSearch={true} columns={gridColumns} selectRows={selectRows} baseFilters={[["state", "=", "enabled"]]} searchMode={searchMode} spaceId={spaceId}/></FlowsCounter>
+               <CategoriesCounter className="categories"><SteedosTree objectName="categories" rootNodes={rootNodes} onClick={onClick} init={init} id={treeId} {...treeProp} spaceId={spaceId}/></CategoriesCounter>
+               <FlowsCounter className="flows"><Grid id={gridId} objectName={gridObjectName} enableSearch={true} columns={gridColumns} selectRows={selectRows} baseFilters={[["state", "=", "enabled"]]} searchMode={searchMode} {...gridProp} spaceId={spaceId}/></FlowsCounter>
             </Counter>
         )
     }

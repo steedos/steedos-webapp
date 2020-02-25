@@ -35,7 +35,9 @@ class FlowsModal extends React.Component {
         treeId: PropTypes.string,
         gridId: PropTypes.string,
         multiple: PropTypes.bool,
-        spaceId: PropTypes.string
+        spaceId: PropTypes.string,
+        gridProp: PropTypes.any,
+        treeProp: PropTypes.any
     }
 
     toggleOpen = () => {
@@ -52,7 +54,7 @@ class FlowsModal extends React.Component {
     }
     
     render() {
-        let { confirmLabel, size, heading, isOpen, id, treeId, gridId, multiple, spaceId } = this.props
+        let { confirmLabel, size, heading, isOpen, id, treeId, gridId, multiple, spaceId, gridProp, treeProp} = this.props
         return (
             <Counter>
                 <Modal isOpen={isOpen} onRequestClose={this.toggleOpen} contentStyle={{overflow: 'hidden'}}
@@ -64,7 +66,7 @@ class FlowsModal extends React.Component {
                 size={size}
                 id = {id}
                 >
-                    <Flows searchMode="omitFilters" treeId={treeId} gridId={gridId} multiple={multiple} spaceId={spaceId}/>
+                    <Flows searchMode="omitFilters" treeId={treeId} gridId={gridId} multiple={multiple} spaceId={spaceId} gridProp={gridProp} treeProp={treeProp}/>
                 </Modal>
             </Counter>
         )
