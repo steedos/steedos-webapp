@@ -13,6 +13,7 @@ let Container = styled.div`
     margin: 1rem;
     @media (max-width: 767px) {
         margin: 0rem;
+        margin-bottom: 1rem;
         .slds-grid{
             .slds-card{
                 border: none;
