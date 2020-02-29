@@ -65,13 +65,15 @@ class WidgetApps extends React.Component {
         apps: []
     };
 
-    getAppUrl(app, token){
+    getAppUrl(app, token, convertAbsoluteUrl){
         let url = `/app/${app._id}`;
         if (app.url) {
             url = app.url;
         }
 
-        url = getAbsoluteUrl(url);
+        if(convertAbsoluteUrl){
+            url = getAbsoluteUrl(url);
+        }
 
         if (url.indexOf("?") > -1) {
             url += `&token=${token}`

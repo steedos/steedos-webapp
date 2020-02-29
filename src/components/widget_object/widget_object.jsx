@@ -92,7 +92,7 @@ class WidgetObject extends React.Component {
                         if (objectName === "instances"){
                             url = `/workflow/space/${spaceId}/inbox/${data.id}`;
                         }
-                        url = getAbsoluteUrl(url);
+                        // url = getAbsoluteUrl(url);
                         return (
                             <a target={hrefTarget} href={url} title={children}>
                                 {children}
@@ -121,9 +121,11 @@ class WidgetObject extends React.Component {
     state = {
     };
 
-    getObjectUrl(objectName){
+    getObjectUrl(objectName, convertAbsoluteUrl){
         let url = `/app/-/${objectName}`;
-        url = getAbsoluteUrl(url);
+        if(convertAbsoluteUrl){
+            url = getAbsoluteUrl(url);
+        }
         return url;
     }
 
