@@ -5,6 +5,7 @@ import Dashboard from '../components/dashboard'
 import Bootstrap from '../components/bootstrap'
 import { Provider  } from 'react-redux';
 import store from '../stores/configureStore'
+import { getRelativeUrl } from '../utils';
 
 export default {
   title: 'Dashboard'
@@ -185,7 +186,7 @@ const config2 = {
       href: true,
       format: (children, data, options) => {
         let objectName = options.objectName;
-        let url =`/app/-/${objectName}/view/${data.id}`;
+        let url =getRelativeUrl(`/app/-/${objectName}/view/${data.id}`);
 
         return (
           <a target="_blank" href={url} title={children}>

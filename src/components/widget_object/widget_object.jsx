@@ -3,7 +3,7 @@ import Grid from '../grid'
 import PropTypes from 'prop-types';
 import _ from 'underscore'
 import { Card } from '@salesforce/design-system-react';
-import { getSpaceId, getAbsoluteUrl, isMobile } from '../../utils';
+import { getSpaceId, getRelativeUrl, isMobile } from '../../utils';
 import styled from 'styled-components';
 
 let WidgetObjectContent = styled.div`
@@ -92,7 +92,7 @@ class WidgetObject extends React.Component {
                         if (objectName === "instances"){
                             url = `/workflow/space/${spaceId}/inbox/${data.id}`;
                         }
-                        // url = getAbsoluteUrl(url);
+                        url = getRelativeUrl(url);
                         return (
                             <a target={hrefTarget} href={url} title={children}>
                                 {children}
@@ -121,11 +121,9 @@ class WidgetObject extends React.Component {
     state = {
     };
 
-    getObjectUrl(objectName, convertAbsoluteUrl){
+    getObjectUrl(objectName){
         let url = `/app/-/${objectName}`;
-        if(convertAbsoluteUrl){
-            url = getAbsoluteUrl(url);
-        }
+        url = getRelativeUrl(url);
         return url;
     }
 
