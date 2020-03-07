@@ -6,7 +6,7 @@ import { createGridAction } from '../../actions'
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import moment from 'moment'
-import marked from 'marked'
+const marked = require('marked/lib/marked.js')
 import { getRelativeUrl } from '../../utils';
 
 let Counter = styled.div`
