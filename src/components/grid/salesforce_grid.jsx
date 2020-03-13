@@ -6,8 +6,8 @@ import { createGridAction } from '../../actions'
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import moment from 'moment'
-const marked = require('marked/lib/marked.js')
 import { getRelativeUrl } from '../../utils';
+const marked = require('marked/lib/marked.js');
 
 let Counter = styled.div`
 	height: 100%;
