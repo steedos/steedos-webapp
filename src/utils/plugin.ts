@@ -14,6 +14,7 @@ import * as SteedosFilters from '@steedos/filters';
 import * as ReactSteedos from '../export';
 import store from "../stores/configureStore";
 import { receivePluginInstance, receivePluginComponent } from '../actions';
+import { ObjectHomeIFrame, generateIFrame } from "../components/object_home_iframe";
 
 /**
 * Register a plugin to window
@@ -87,6 +88,20 @@ export class PluginRegistry {
     * Register a component that show a dashboard
     */
     registerObjectHomeComponent = ( objectName: string, componentClass: any ) => {
+        // 保存到 store 中。
+        dispatchPluginComponentAction("ObjectHome", this.id, componentClass, objectName)
+    }
+
+    /**
+    * Register a component that show a iframe as the dashboard
+    */
+    registerObjectIFrameHomeComponent = ( objectName: string, url: string|Function, componentClass?: any ) => {
+        if(componentClass){
+            componentClass = generateIFrame(url)(componentClass);
+        }
+        else{
+            componentClass = generateIFrame(url)(ObjectHomeIFrame);
+        }
         // 保存到 store 中。
         dispatchPluginComponentAction("ObjectHome", this.id, componentClass, objectName)
     }
