@@ -74,6 +74,12 @@ let Cell = styled.div`
             flex: 0 0 100%;
         }
     }
+    .slds-illustration.slds-illustration_small{
+        .slds-illustration__svg{
+            height: 8rem;
+            margin-bottom: 0.4rem;
+        }
+    }
 `;
 
 class Dashboard extends React.Component {
