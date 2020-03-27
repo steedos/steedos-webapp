@@ -74,10 +74,13 @@ let Cell = styled.div`
             flex: 0 0 100%;
         }
     }
-    .slds-illustration.slds-illustration_small{
-        .slds-illustration__svg{
-            height: 8rem;
-            margin-bottom: 0.4rem;
+    .slds-card__body{
+        min-height: 10.3rem;
+        .slds-illustration.slds-illustration_small{
+            .slds-illustration__svg{
+                height: 8rem;
+                margin-bottom: 0.4rem;
+            }
         }
     }
 `;
