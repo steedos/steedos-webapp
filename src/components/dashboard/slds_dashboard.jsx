@@ -75,13 +75,17 @@ let Cell = styled.div`
         }
     }
     .slds-card__body{
-        min-height: 10.3rem;
+        min-height: 8.2rem;
         .slds-illustration.slds-illustration_small{
             .slds-illustration__svg{
                 height: 8rem;
                 margin-bottom: 0.4rem;
+                margin: -0.8rem 0;
             }
         }
+    }
+    .slds-card__footer{
+        margin-top: 0px;
     }
 `;
 
