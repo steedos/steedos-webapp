@@ -5,6 +5,7 @@ import _ from 'underscore'
 import WidgetObject from '../widget_object';
 import WidgetApps from '../widget_apps';
 import WidgetRemote from '../widget_remote';
+import { WidgetInstancesPendings, WidgetAnnouncementsWeek, WidgetTasksToday, WidgetEventsToday } from '../widget_reducts';
 
 let Container = styled.div`
     display: flex;
@@ -108,7 +109,7 @@ class Dashboard extends React.Component {
     };
 
     static propTypes = {
-        config: PropTypes.object,
+        config: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
         leftSection: PropTypes.node,
         centerTopSection: PropTypes.node,
         centerBottomLeftSection: PropTypes.node,
@@ -153,6 +154,14 @@ class Dashboard extends React.Component {
                 else if (typeof value.component === "string" && value.component.length){
                     return <WidgetRemote key={key} label={value.label} url={value.component} />
                 }
+            case "instances_pendings":
+                return <WidgetInstancesPendings key={key} {...value} />
+            case "announcements_week":
+                return <WidgetAnnouncementsWeek key={key} {...value} />
+            case "tasks_today":
+                return <WidgetTasksToday key={key} {...value} />
+            case "events_today":
+                return <WidgetEventsToday key={key} {...value} />
         }
     }
 

@@ -463,3 +463,45 @@ export const configTypeReact = () => (
     </Provider>
   </div>
 )
+
+const config5 = [{
+  label: "Test Dashboard config as an array",
+  position: "CENTER_TOP",
+  type: "react",
+  component: function (options) {
+    let CenterDiv2 = styled.div`
+      text-align: center;
+      height: 230px;
+      background: #fff;
+      border: solid 1px #eee;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    `;
+    return <CenterDiv2 className="testReact1">{options.label}</CenterDiv2>;
+  }
+}, {
+  position: "CENTER_TOP",
+  type: "instances_pendings"
+}, {
+  position: "CENTER_TOP",
+  type: "apps"
+}, {
+  position: "CENTER_TOP",
+  type: "announcements_week"
+}, {
+  position: "RIGHT",
+  type: "tasks_today"
+}, {
+  position: "RIGHT",
+  type: "events_today"
+}]
+
+export const widgetReducts = () => (
+  <div className="App">
+    <Provider store={store}>
+      <Bootstrap>
+        <Dashboard config={config5} />
+      </Bootstrap>
+    </Provider>
+  </div>
+)

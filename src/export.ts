@@ -1,3 +1,9 @@
+declare global {
+    interface Window {
+        Creator: any
+    }
+}
+
 export * from './components';
 export * from './stores';
 export * from './actions';
