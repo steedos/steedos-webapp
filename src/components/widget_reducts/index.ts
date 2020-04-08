@@ -2,6 +2,7 @@ import WidgetObject from '../widget_object';
 import WidgetConnect from './widget_connect';
 import { getBetweenTimeBuiltinValueItem } from "@steedos/filters";
 
+// 简化组件时默认的标准配置
 let config = {
   "workflow": {
       "label": "待审核文件",
@@ -39,13 +40,6 @@ let config = {
           name: "task",
           size: "small"
       }
-  },
-  "apps": {
-      "label": "应用程序",
-      "position": "CENTER_TOP",
-      "type": "apps",
-      "mobile": false,
-      // "ignoreApps": ["oa"]
   },
   "announcements": {
       "label": "本周公告",
@@ -149,22 +143,64 @@ let config = {
 };
 
 export const WidgetInstancesPendings = WidgetConnect(WidgetObject, (props: any)=>{
-    return Object.assign({}, config.workflow, props);
-});
-
-export const WidgetApps = WidgetConnect(WidgetObject, (props: any)=>{
-  return Object.assign({}, config.apps, props);
+  let adapted: any = {};
+  if(props.position === "RIGHT"){
+    adapted.columns = [{
+      "label": "名称",
+      "field": "name",
+      "href": true
+    }];
+    adapted.noHeader = true;
+  }
+  return Object.assign({}, config.workflow, adapted, props);
 });
 
 export const WidgetAnnouncementsWeek = WidgetConnect(WidgetObject, (props: any)=>{
-  return Object.assign({}, config.announcements, props);
+  let adapted: any = {};
+  if(props.position === "RIGHT"){
+    adapted.columns = [{
+      "field": "name",
+      "label": "标题",
+      "href": true
+    }];
+    adapted.noHeader = true;
+  }
+  return Object.assign({}, config.announcements, adapted, props);
 });
 
 export const WidgetTasksToday = WidgetConnect(WidgetObject, (props: any)=>{
-  return Object.assign({}, config.tasks, props);
+  let adapted: any = {};
+  if(props.position !== "RIGHT"){
+    adapted.columns = [{
+      "field": "name",
+      "label": "主题",
+      "href": true
+    }, {
+      "field": "due_date",
+      "label": "到期日期",
+      "width": "10rem",
+      "type": "date"
+    }];
+    adapted.noHeader = false;
+  }
+  return Object.assign({}, config.tasks, adapted, props);
 });
 
 export const WidgetEventsToday = WidgetConnect(WidgetObject, (props: any)=>{
-  return Object.assign({}, config.calendar, props);
+  let adapted: any = {};
+  if(props.position !== "RIGHT"){
+    adapted.columns = [{
+      field: "name",
+      label: "主题",
+      href: true
+    }, {
+      "field": "start",
+      "label": "开始时间",
+      "width": "10rem",
+      "type": "datetime"
+    }];
+    adapted.noHeader = false;
+  }
+  return Object.assign({}, config.calendar, adapted, props);
 });
 

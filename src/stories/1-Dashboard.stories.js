@@ -465,7 +465,7 @@ export const configTypeReact = () => (
 )
 
 const config5 = [{
-  label: "Test Dashboard config as an array",
+  label: "Test Dashboard config some reduced widgets as an array",
   position: "CENTER_TOP",
   type: "react",
   component: function (options) {
@@ -501,6 +501,48 @@ export const widgetReducts = () => (
     <Provider store={store}>
       <Bootstrap>
         <Dashboard config={config5} />
+      </Bootstrap>
+    </Provider>
+  </div>
+)
+
+const config6 = [{
+  label: "Test Dashboard config some reduced widgets as an array, and reverse left to right",
+  position: "CENTER_TOP",
+  type: "react",
+  component: function (options) {
+    let CenterDiv2 = styled.div`
+      text-align: center;
+      height: 230px;
+      background: #fff;
+      border: solid 1px #eee;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    `;
+    return <CenterDiv2 className="testReact1">{options.label}</CenterDiv2>;
+  }
+}, {
+  position: "RIGHT",
+  type: "instances_pendings"
+}, {
+  position: "RIGHT",
+  type: "apps"
+}, {
+  position: "RIGHT",
+  type: "announcements_week"
+}, {
+  position: "CENTER_BOTTOM_LEFT",
+  type: "tasks_today"
+}, {
+  position: "CENTER_BOTTOM_RIGHT",
+  type: "events_today"
+}]
+
+export const widgetReductsReverse = () => (
+  <div className="App">
+    <Provider store={store}>
+      <Bootstrap>
+        <Dashboard config={config6} />
       </Bootstrap>
     </Provider>
   </div>

@@ -137,12 +137,20 @@ class Dashboard extends React.Component {
     convertConfigItemToSection(value, key){
         switch (value.type) {
             case "apps":
-                return <WidgetApps key={key} label={value.label} mobile={value.mobile} showAllItems={value.showAllItems} onTileClick={value.onTileClick} ignoreApps={value.ignoreApps} />
+                if(value.position === "RIGHT"){
+                    value.mobile = true;
+                }
+                const Creator = window.Creator;
+                let currentApp = Creator && Creator.getApp();
+                if(currentApp && currentApp._id){
+                    if(!value.ignoreApps){
+                        value.ignoreApps = [];
+                    }
+                    value.ignoreApps.push(currentApp._id);
+                }
+                return <WidgetApps key={key} {...value} />
             case "object":
-                return <WidgetObject key={key} label={value.label} 
-                    objectName={value.objectName} filters={value.filters} columns={value.columns} 
-                    illustration={value.illustration} showAllLink={value.showAllLink} hrefTarget={value.hrefTarget} footer={value.footer}
-                    noHeader={value.noHeader} unborderedRow={value.unborderedRow} sort={value.sort} rowIcon={value.rowIcon} maxRows={value.maxRows} />
+                return <WidgetObject key={key} {...value} />
             case "react":
                 if (typeof value.component === "function") {
                     return (
