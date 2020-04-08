@@ -48,6 +48,10 @@ class TestPlugin1 {
 
     registry.registerObjectIFrameHomeComponent("iframeHome", "http://www.baidu.com");
 
+    registry.registerDashboardComponent(["oa","contracts"], configedDashboard);
+
+    registry.registerDashboardIFrameComponent("iframeDashboard", "http://www.baidu.com");
+
     const NotificationsContainer = styled.div`
       float: right;
       margin: 2rem;
@@ -76,6 +80,8 @@ registerPlugin('myPlugin', new TestPlugin1());
 export const widgetApps = pluginComponentSelector(configureStore.getState(), "ObjectHome" ,"tasks");
 export const objectHome = pluginComponentSelector(configureStore.getState(), "ObjectHome", "home");
 export const objectIframeHome = pluginComponentSelector(configureStore.getState(), "ObjectHome", "iframeHome");
+export const dashboard = pluginComponentSelector(configureStore.getState(), "Dashboard", "oa");
+export const dashboardIframe = pluginComponentSelector(configureStore.getState(), "Dashboard", "iframeDashboard");
 export const notifications = pluginComponentSelector(configureStore.getState(), "Notifications", "top");
 
 
