@@ -535,20 +535,20 @@ const config6 = [{
   label: "自定义HTML1",
   position: "CENTER_TOP",
   type: "html",
-  content: '<style>a.test-html-link{color:red;}</style><a class="test-html-link">左侧带Label效果，自定义样式为红色链接</a>'
+  html: '<style>a.test-html-link{color:red;}</style><a class="test-html-link">左侧带Label效果，自定义样式为红色链接</a>'
 },{
   position: "CENTER_TOP",
   type: "html",
-  content: '<a>左侧不带Label效果</a>'
+  html: '<a>左侧不带Label效果</a>'
 },{
   label: "自定义HTML2",
   position: "RIGHT",
   type: "html",
-  content: '<a>右侧带Label效果</a>'
+  html: '<a>右侧带Label效果</a>'
 },{
   position: "RIGHT",
   type: "html",
-  content: '<a>右侧不带Label效果</a>'
+  html: '<a>右侧不带Label效果</a>'
 },{
   position: "RIGHT",
   type: "instances_pendings"

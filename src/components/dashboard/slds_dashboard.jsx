@@ -163,8 +163,8 @@ class Dashboard extends React.Component {
                     return <WidgetRemote key={key} label={value.label} url={value.component} />
                 }
             case "html":
-                if (typeof value.content === "string" && value.content.length) {
-                    let markup = {__html: value.content};
+                if (typeof value.html === "string" && value.html.length) {
+                    let markup = {__html: value.html};
                     let NoLabelWrapDiv = styled.article`
                         position: relative;
                         padding: 0;
