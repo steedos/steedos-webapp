@@ -1,6 +1,7 @@
 import WidgetObject from '../widget_object';
 import WidgetConnect from './widget_connect';
 import { getBetweenTimeBuiltinValueItem } from "@steedos/filters";
+import { ComponentClass } from 'react';
 
 // 简化组件时默认的标准配置
 let config = {
@@ -142,7 +143,7 @@ let config = {
   }
 };
 
-export const WidgetInstancesPendings = WidgetConnect(WidgetObject, (props: any)=>{
+export const WidgetInstancesPendings:ComponentClass = WidgetConnect((props: any)=>{
   let adapted: any = {};
   if(props.position === "RIGHT"){
     adapted.columns = [{
@@ -153,9 +154,11 @@ export const WidgetInstancesPendings = WidgetConnect(WidgetObject, (props: any)=
     adapted.noHeader = true;
   }
   return Object.assign({}, config.workflow, adapted, props);
-});
+})(WidgetObject);
 
-export const WidgetAnnouncementsWeek = WidgetConnect(WidgetObject, (props: any)=>{
+WidgetInstancesPendings.displayName = "WidgetInstancesPendings";
+
+export const WidgetAnnouncementsWeek:ComponentClass = WidgetConnect((props: any)=>{
   let adapted: any = {};
   if(props.position === "RIGHT"){
     adapted.columns = [{
@@ -166,9 +169,11 @@ export const WidgetAnnouncementsWeek = WidgetConnect(WidgetObject, (props: any)=
     adapted.noHeader = true;
   }
   return Object.assign({}, config.announcements, adapted, props);
-});
+})(WidgetObject);
 
-export const WidgetTasksToday = WidgetConnect(WidgetObject, (props: any)=>{
+WidgetAnnouncementsWeek.displayName = "WidgetAnnouncementsWeek";
+
+export const WidgetTasksToday:ComponentClass = WidgetConnect((props: any)=>{
   let adapted: any = {};
   if(props.position !== "RIGHT"){
     adapted.columns = [{
@@ -184,9 +189,11 @@ export const WidgetTasksToday = WidgetConnect(WidgetObject, (props: any)=>{
     adapted.noHeader = false;
   }
   return Object.assign({}, config.tasks, adapted, props);
-});
+})(WidgetObject);
 
-export const WidgetEventsToday = WidgetConnect(WidgetObject, (props: any)=>{
+WidgetTasksToday.displayName = "WidgetTasksToday";
+
+export const WidgetEventsToday:ComponentClass = WidgetConnect((props: any)=>{
   let adapted: any = {};
   if(props.position !== "RIGHT"){
     adapted.columns = [{
@@ -202,5 +209,7 @@ export const WidgetEventsToday = WidgetConnect(WidgetObject, (props: any)=>{
     adapted.noHeader = false;
   }
   return Object.assign({}, config.calendar, adapted, props);
-});
+})(WidgetObject);
+
+WidgetEventsToday.displayName = "WidgetEventsToday";
 
