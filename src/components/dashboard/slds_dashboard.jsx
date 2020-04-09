@@ -162,6 +162,44 @@ class Dashboard extends React.Component {
                 else if (typeof value.component === "string" && value.component.length){
                     return <WidgetRemote key={key} label={value.label} url={value.component} />
                 }
+            case "html":
+                if (typeof value.content === "string" && value.content.length) {
+                    let markup = {__html: value.content};
+                    let NoLabelWrapDiv = styled.article`
+                        position: relative;
+                        padding: 0;
+                        background: #fff;
+                        border: 1px solid #dddbda;
+                        border-radius: .25rem;
+                        background-clip: padding-box;
+                        -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+                        box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+                    `;
+                    let LabelWrapDiv = styled.article`
+                        .slds-card__body{
+                            padding: 0 1rem;
+                        }
+                    `;
+                    return (
+                        <React.Fragment key={key}>
+                            {
+                                value.label ? 
+                                <LabelWrapDiv className="slds-card">
+                                    <div class="slds-card__header slds-grid">
+                                        <div class="slds-media slds-media_center slds-has-flexi-truncate">
+                                            <div class="slds-media__body">
+                                                <h2 class="slds-text-heading_small slds-truncate" title="{value.label}">{value.label}</h2>
+                                            </div>
+                                        </div>
+                                        <div class="slds-no-flex"></div>
+                                    </div>
+                                    <div class="slds-card__body" dangerouslySetInnerHTML={markup}>
+                                    </div>
+                                </LabelWrapDiv> : 
+                                <NoLabelWrapDiv className="slds-card" dangerouslySetInnerHTML={markup} />}
+                        </React.Fragment>
+                    )
+                }
             case "instances_pendings":
                 return <WidgetInstancesPendings key={key} {...value} />
             case "announcements_week":
@@ -224,6 +262,7 @@ class Dashboard extends React.Component {
                     break;
             }
         });
+        console.log("===result====", result);
         return result;
     }
 

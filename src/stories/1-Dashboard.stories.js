@@ -472,10 +472,15 @@ const config5 = [{
     let CenterDiv2 = styled.div`
       text-align: center;
       height: 230px;
+      margin-bottom: 1rem;
+      position: relative;
+      padding: 0;
       background: #fff;
-      border: solid 1px #eee;
-      border-radius: 4px;
-      margin-bottom: 12px;
+      border: 1px solid #dddbda;
+      border-radius: .25rem;
+      background-clip: padding-box;
+      -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
     `;
     return <CenterDiv2 className="testReact1">{options.label}</CenterDiv2>;
   }
@@ -514,17 +519,40 @@ const config6 = [{
     let CenterDiv2 = styled.div`
       text-align: center;
       height: 230px;
+      margin-bottom: 1rem;
+      position: relative;
+      padding: 0;
       background: #fff;
-      border: solid 1px #eee;
-      border-radius: 4px;
-      margin-bottom: 12px;
+      border: 1px solid #dddbda;
+      border-radius: .25rem;
+      background-clip: padding-box;
+      -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
     `;
     return <CenterDiv2 className="testReact1">{options.label}</CenterDiv2>;
   }
-}, {
+},{
+  label: "自定义HTML1",
+  position: "CENTER_TOP",
+  type: "html",
+  content: '<style>a.test-html-link{color:red;}</style><a class="test-html-link">左侧带Label效果，自定义样式为红色链接</a>'
+},{
+  position: "CENTER_TOP",
+  type: "html",
+  content: '<a>左侧不带Label效果</a>'
+},{
+  label: "自定义HTML2",
+  position: "RIGHT",
+  type: "html",
+  content: '<a>右侧带Label效果</a>'
+},{
+  position: "RIGHT",
+  type: "html",
+  content: '<a>右侧不带Label效果</a>'
+},{
   position: "RIGHT",
   type: "instances_pendings"
-}, {
+},{
   position: "RIGHT",
   type: "apps"
 }, {
