@@ -185,15 +185,15 @@ class Dashboard extends React.Component {
                             {
                                 value.label ? 
                                 <LabelWrapDiv className="slds-card">
-                                    <div class="slds-card__header slds-grid">
-                                        <div class="slds-media slds-media_center slds-has-flexi-truncate">
-                                            <div class="slds-media__body">
-                                                <h2 class="slds-text-heading_small slds-truncate" title="{value.label}">{value.label}</h2>
+                                    <div className="slds-card__header slds-grid">
+                                        <div className="slds-media slds-media_center slds-has-flexi-truncate">
+                                            <div className="slds-media__body">
+                                                <h2 className="slds-text-heading_small slds-truncate" title="{value.label}">{value.label}</h2>
                                             </div>
                                         </div>
-                                        <div class="slds-no-flex"></div>
+                                        <div className="slds-no-flex"></div>
                                     </div>
-                                    <div class="slds-card__body" dangerouslySetInnerHTML={markup}>
+                                    <div className="slds-card__body" dangerouslySetInnerHTML={markup}>
                                     </div>
                                 </LabelWrapDiv> : 
                                 <NoLabelWrapDiv className="slds-card" dangerouslySetInnerHTML={markup} />}
