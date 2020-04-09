@@ -174,10 +174,15 @@ class Dashboard extends React.Component {
                         background-clip: padding-box;
                         -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
                         box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+                        .slds-card__body{
+                            padding: 0 1rem;
+                            min-height: auto;
+                        }
                     `;
                     let LabelWrapDiv = styled.article`
                         .slds-card__body{
                             padding: 0 1rem;
+                            min-height: auto;
                         }
                     `;
                     return (
