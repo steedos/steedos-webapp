@@ -11,6 +11,10 @@ export function creatorAppsSelector(state: any) {
             app._id = key;
         }
         if (app.is_creator) {
+            // 不需要isSpaceAdmin逻辑
+            // if (isSpaceAdmin) {
+            //     app.visible = true;
+            // }
         } else {
             // 非creator应该一律不显示
             app.visible = false;
