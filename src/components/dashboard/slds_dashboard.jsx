@@ -5,6 +5,7 @@ import _ from 'underscore'
 import WidgetObject from '../widget_object';
 import WidgetApps from '../widget_apps';
 import WidgetRemote from '../widget_remote';
+import { WidgetInstancesPendings, WidgetAnnouncementsWeek, WidgetTasksToday, WidgetEventsToday } from '../widget_reducts';
 
 let Container = styled.div`
     display: flex;
@@ -74,6 +75,24 @@ let Cell = styled.div`
             flex: 0 0 100%;
         }
     }
+    .slds-card__body{
+        min-height: 7.6rem;
+        .slds-illustration.slds-illustration_small{
+            .slds-illustration__svg{
+                height: 8rem;
+                margin-bottom: 0.4rem;
+                margin: -0.8rem 0;
+            }
+            .slds-text-longform{
+                p{
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+    .slds-card__footer{
+        margin-top: 0px;
+    }
 `;
 
 class Dashboard extends React.Component {
@@ -90,7 +109,7 @@ class Dashboard extends React.Component {
     };
 
     static propTypes = {
-        config: PropTypes.object,
+        config: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
         leftSection: PropTypes.node,
         centerTopSection: PropTypes.node,
         centerBottomLeftSection: PropTypes.node,
@@ -118,12 +137,20 @@ class Dashboard extends React.Component {
     convertConfigItemToSection(value, key){
         switch (value.type) {
             case "apps":
-                return <WidgetApps key={key} label={value.label} mobile={value.mobile} showAllItems={value.showAllItems} onTileClick={value.onTileClick} ignoreApps={value.ignoreApps} />
+                if(value.position === "RIGHT"){
+                    value.mobile = true;
+                }
+                const Creator = window.Creator;
+                let currentApp = Creator && Creator.getApp();
+                if(currentApp && currentApp._id){
+                    if(!value.ignoreApps){
+                        value.ignoreApps = [];
+                    }
+                    value.ignoreApps.push(currentApp._id);
+                }
+                return <WidgetApps key={key} {...value} />
             case "object":
-                return <WidgetObject key={key} label={value.label} 
-                    objectName={value.objectName} filters={value.filters} columns={value.columns} 
-                    illustration={value.illustration} showAllLink={value.showAllLink} hrefTarget={value.hrefTarget} footer={value.footer}
-                    noHeader={value.noHeader} unborderedRow={value.unborderedRow} sort={value.sort} rowIcon={value.rowIcon} maxRows={value.maxRows} />
+                return <WidgetObject key={key} {...value} />
             case "react":
                 if (typeof value.component === "function") {
                     return (
@@ -135,6 +162,57 @@ class Dashboard extends React.Component {
                 else if (typeof value.component === "string" && value.component.length){
                     return <WidgetRemote key={key} label={value.label} url={value.component} />
                 }
+            case "html":
+                if (typeof value.html === "string" && value.html.length) {
+                    let markup = {__html: value.html};
+                    let NoLabelWrapDiv = styled.article`
+                        position: relative;
+                        padding: 0;
+                        background: #fff;
+                        border: 1px solid #dddbda;
+                        border-radius: .25rem;
+                        background-clip: padding-box;
+                        -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+                        box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+                        .slds-card__body{
+                            padding: 0 1rem;
+                            min-height: auto;
+                        }
+                    `;
+                    let LabelWrapDiv = styled.article`
+                        .slds-card__body{
+                            padding: 0 1rem;
+                            min-height: auto;
+                        }
+                    `;
+                    return (
+                        <React.Fragment key={key}>
+                            {
+                                value.label ? 
+                                <LabelWrapDiv className="slds-card">
+                                    <div className="slds-card__header slds-grid">
+                                        <div className="slds-media slds-media_center slds-has-flexi-truncate">
+                                            <div className="slds-media__body">
+                                                <h2 className="slds-text-heading_small slds-truncate" title="{value.label}">{value.label}</h2>
+                                            </div>
+                                        </div>
+                                        <div className="slds-no-flex"></div>
+                                    </div>
+                                    <div className="slds-card__body" dangerouslySetInnerHTML={markup}>
+                                    </div>
+                                </LabelWrapDiv> : 
+                                <NoLabelWrapDiv className="slds-card" dangerouslySetInnerHTML={markup} />}
+                        </React.Fragment>
+                    )
+                }
+            case "instances_pendings":
+                return <WidgetInstancesPendings key={key} {...value} />
+            case "announcements_week":
+                return <WidgetAnnouncementsWeek key={key} {...value} />
+            case "tasks_today":
+                return <WidgetTasksToday key={key} {...value} />
+            case "events_today":
+                return <WidgetEventsToday key={key} {...value} />
         }
     }
 

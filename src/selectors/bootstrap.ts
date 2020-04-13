@@ -11,7 +11,12 @@ export function creatorAppsSelector(state: any) {
             app._id = key;
         }
         if (app.is_creator) {
+            // 不需要isSpaceAdmin逻辑
+            // if (isSpaceAdmin) {
+            //     app.visible = true;
+            // }
         } else {
+            // 非creator应该一律不显示
             app.visible = false;
         }
     });
@@ -21,7 +26,7 @@ export function creatorAppsSelector(state: any) {
     let creatorApps: any = {};
 
     adminApp = {};
-
+    // 按钮sort排序次序设置Creator.Apps值
     _.each(sortedApps, function (n: any) {
         if (n._id === "admin") {
             return adminApp = n;
@@ -30,6 +35,7 @@ export function creatorAppsSelector(state: any) {
         }
     });
 
+    // admin菜单显示在最后
     creatorApps.admin = adminApp;
 
     if (assigned_apps.length) {

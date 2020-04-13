@@ -14,6 +14,8 @@ import * as SteedosFilters from '@steedos/filters';
 import * as ReactSteedos from '../export';
 import store from "../stores/configureStore";
 import { receivePluginInstance, receivePluginComponent } from '../actions';
+import { ObjectHomeIFrame, generateIFrame } from "../components/object_home_iframe";
+const _ = require('underscore')
 
 /**
 * Register a plugin to window
@@ -84,11 +86,57 @@ export class PluginRegistry {
     }
 
     /**
-    * Register a component that show a dashboard
+    * Register a component that show a dashboard to the object home
     */
     registerObjectHomeComponent = ( objectName: string, componentClass: any ) => {
         // 保存到 store 中。
         dispatchPluginComponentAction("ObjectHome", this.id, componentClass, objectName)
+    }
+
+    /**
+    * Register a component that show a iframe as the dashboard to the object home
+    */
+    registerObjectIFrameHomeComponent = ( objectName: string, url: string|Function, componentClass?: any ) => {
+        if(componentClass){
+            componentClass = generateIFrame(url)(componentClass);
+        }
+        else{
+            componentClass = generateIFrame(url)(ObjectHomeIFrame);
+        }
+        // 保存到 store 中。
+        dispatchPluginComponentAction("ObjectHome", this.id, componentClass, objectName)
+    }
+
+    /**
+    * Register a component that show a dashboard to the app
+    */
+   registerDashboardComponent = ( appNames: string|string[], componentClass: any ) => {
+        // 保存到 store 中。
+        if(!_.isArray(appNames)){
+            appNames = (<string>appNames).split(",");
+        }
+        (<string[]>appNames).forEach((item)=>{
+            dispatchPluginComponentAction("Dashboard", this.id, componentClass, item)
+        });
+    }
+
+    /**
+    * Register a component that show a iframe as the dashboard to the app
+    */
+   registerDashboardIFrameComponent = ( appNames: string|string[], url: string|Function, componentClass?: any ) => {
+        if(componentClass){
+            componentClass = generateIFrame(url)(componentClass);
+        }
+        else{
+            componentClass = generateIFrame(url)(ObjectHomeIFrame);
+        }
+        // 保存到 store 中。
+        if(!_.isArray(appNames)){
+            appNames = (<string>appNames).split(",");
+        }
+        (<string[]>appNames).forEach((item)=>{
+            dispatchPluginComponentAction("Dashboard", this.id, componentClass, item)
+        });
     }
 
     /**

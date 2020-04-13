@@ -1,6 +1,6 @@
-import * as Odata from 'ts-odata-client'
-import { getUserId, getAuthToken } from '../utils';
-import _ from 'underscore'
+import * as Odata from 'ts-odata-client';
+import { getUserId, getAuthToken, getSpaceId } from '../utils';
+import _ from 'underscore';
 import { formatFiltersToODataQuery } from "@steedos/filters";
 import { request } from "./request";
 import store from "../stores/configureStore";
@@ -141,7 +141,7 @@ export async function query(service: string, options: any = { pageSize: 10, curr
     else{
         odataUrl = `${odataUrl}&$count=${count}`;
     }
-    
-    let results = await request(odataUrl, {spaceId: options.spaceId});
+    let spaceId = options.spaceId || getSpaceId();
+    let results = await request(odataUrl, {spaceId: spaceId});
     return results
 }

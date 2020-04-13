@@ -463,3 +463,115 @@ export const configTypeReact = () => (
     </Provider>
   </div>
 )
+
+const config5 = [{
+  label: "Test Dashboard config some reduced widgets as an array",
+  position: "CENTER_TOP",
+  type: "react",
+  component: function (options) {
+    let CenterDiv2 = styled.div`
+      text-align: center;
+      height: 230px;
+      margin-bottom: 1rem;
+      position: relative;
+      padding: 0;
+      background: #fff;
+      border: 1px solid #dddbda;
+      border-radius: .25rem;
+      background-clip: padding-box;
+      -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+    `;
+    return <CenterDiv2 className="testReact1">{options.label}</CenterDiv2>;
+  }
+}, {
+  position: "CENTER_TOP",
+  type: "instances_pendings"
+}, {
+  position: "CENTER_TOP",
+  type: "apps"
+}, {
+  position: "CENTER_TOP",
+  type: "announcements_week"
+}, {
+  position: "RIGHT",
+  type: "tasks_today"
+}, {
+  position: "RIGHT",
+  type: "events_today"
+}]
+
+export const widgetReducts = () => (
+  <div className="App">
+    <Provider store={store}>
+      <Bootstrap>
+        <Dashboard config={config5} />
+      </Bootstrap>
+    </Provider>
+  </div>
+)
+
+const config6 = [{
+  label: "Test Dashboard config some reduced widgets as an array, and reverse left to right",
+  position: "CENTER_TOP",
+  type: "react",
+  component: function (options) {
+    let CenterDiv2 = styled.div`
+      text-align: center;
+      height: 230px;
+      margin-bottom: 1rem;
+      position: relative;
+      padding: 0;
+      background: #fff;
+      border: 1px solid #dddbda;
+      border-radius: .25rem;
+      background-clip: padding-box;
+      -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+    `;
+    return <CenterDiv2 className="testReact1">{options.label}</CenterDiv2>;
+  }
+},{
+  label: "自定义HTML1",
+  position: "CENTER_TOP",
+  type: "html",
+  html: '<style>a.test-html-link{color:red;}</style><a class="test-html-link">左侧带Label效果，自定义样式为红色链接</a>'
+},{
+  position: "CENTER_TOP",
+  type: "html",
+  html: '<a>左侧不带Label效果</a>'
+},{
+  label: "自定义HTML2",
+  position: "RIGHT",
+  type: "html",
+  html: '<a>右侧带Label效果</a>'
+},{
+  position: "RIGHT",
+  type: "html",
+  html: '<a>右侧不带Label效果</a>'
+},{
+  position: "RIGHT",
+  type: "instances_pendings"
+},{
+  position: "RIGHT",
+  type: "apps"
+}, {
+  position: "RIGHT",
+  type: "announcements_week"
+}, {
+  position: "CENTER_BOTTOM_LEFT",
+  type: "tasks_today"
+}, {
+  position: "CENTER_BOTTOM_RIGHT",
+  type: "events_today"
+}]
+
+export const widgetReductsReverse = () => (
+  <div className="App">
+    <Provider store={store}>
+      <Bootstrap>
+        <Dashboard config={config6} />
+      </Bootstrap>
+    </Provider>
+  </div>
+)
