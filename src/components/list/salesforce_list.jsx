@@ -50,13 +50,14 @@ const formatFileSize = function (filesize) {
 	return rev.toFixed(2) + unit;
 };
 
-const CustomDataTableCell = ({ children, ...props }) => {
+const FieldLabel = ({ children, ...props }) => {
 	let { field } = props
 	let { onClick, format } = field
 
 	if(_.isFunction(format)){
 		children = format(children, props.item, props.options)
-	}if(children || _.isBoolean(children)){
+	}
+	if(children || _.isBoolean(children)){
 		switch (field.type) {
 			case 'datetime':
 				if(_.isString(children) && /\d+Z$/.test(children)){
@@ -94,13 +95,13 @@ const CustomDataTableCell = ({ children, ...props }) => {
 	}
 	let title = typeof children === "string" ? children : "";
 	return (
-		<DataTableCell title={title} {...props}>
+		<label title={title}>
 			{children}
-		</DataTableCell>
+		</label>
 	)
 }
 
-CustomDataTableCell.displayName = DataTableCell.displayName;
+FieldLabel.displayName = DataTableCell.displayName;
 
 
 const CustomDataTableIconCell = ({ children, ...props }) => {
@@ -159,10 +160,6 @@ class List extends React.Component {
 			is_wide: PropTypes.bool,
 			format: PropTypes.func
 		})).isRequired,
-		// labelField: PropTypes.string.isRequired,
-		// topRightField: PropTypes.string,
-		// bottomLeftField: PropTypes.string,
-		// bottomRightField: PropTypes.string,
 		pageSize: PropTypes.number
 	}
 	
@@ -243,46 +240,6 @@ class List extends React.Component {
 		console.log(event, data);
 	};
 
-	handleRowAction = (item, action) => {
-		console.log(item, action);
-	};
-
-	handleSort = (sortColumn, ...rest) => {
-		if (this.props.log) {
-			this.props.log('sort')(sortColumn, ...rest);
-		}
-
-		const sortProperty = sortColumn.property;
-		const { sortDirection } = sortColumn;
-		const newState = {
-			sortColumn: sortProperty,
-			sortColumnDirection: {
-				[sortProperty]: sortDirection,
-			},
-			items: [...this.state.items],
-		};
-
-		// needs to work in both directions
-		newState.items = newState.items.sort((a, b) => {
-			let val = 0;
-
-			if (a[sortProperty] > b[sortProperty]) {
-				val = 1;
-			}
-			if (a[sortProperty] < b[sortProperty]) {
-				val = -1;
-			}
-
-			if (sortDirection === 'desc') {
-				val *= -1;
-			}
-
-			return val;
-		});
-
-		this.setState(newState);
-	};
-
 	getDataTableEmpty(isEmpty){
 		if (!isEmpty){
 			return null;
@@ -309,49 +266,66 @@ class List extends React.Component {
 		};
 	}
 
-	// getListOptions(items){
-	// 	console.log("====items===",items)
-	// 	let labelField = this.props.labelField,
-	// 		topRightField = this.props.topRightField,
-	// 		bottomLeftField = this.props.bottomLeftField,
-	// 		bottomRightField = this.props.bottomRightField;
-	// 	debugger;
-	// 	return items.map((item)=>{
-	// 		return {
-	// 			id: item._id,
-	// 			label: item[labelField],
-	// 			topRightText: item[topRightField],
-	// 			bottomLeftText: item[bottomLeftField],
-	// 			bottomRightText: item[bottomRightField]
-	// 		}
-	// 	});
-	// }
+	getListOptions(items, columns){
+		let results = items.map((item)=>{
+			let itemRows = [], itemTag = 0, itemOption = {}, fieldNode;
+			columns.forEach((column)=>{
+				fieldNode = (<FieldLabel field={column} options={this.props}>{item[column.field]}</FieldLabel>);
+				if(column.is_wide){
+					if(itemTag !== 0){
+						itemRows.push(itemOption);
+					}
+					itemOption = {_id: `${item._id}_${itemRows.length}_wide`};
+					itemOption.label = fieldNode;
+					itemTag = 0;
+					itemRows.push(itemOption);
+				}
+				else{
+					if(itemTag === 0){
+						itemOption = {_id: `${item._id}_${itemRows.length}`};
+						itemOption.label = fieldNode;
+						itemTag++;
+					}
+					else{
+						itemOption.topRightText = fieldNode;
+						itemTag = 0;
+						itemRows.push(itemOption);
+					}
+				}
+			});
+			return {
+				id: item._id,
+				rows: itemRows
+			}
+		});
+		return results;
+	}
 
 	render() {
 
 		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, noHeader, unborderedRow, sort, rowIcon} = this.props
 
-		let dataTableColumns = _.map(columns, (column)=>{
-			if(!column.hidden){
-				return (
-					<DataTableColumn label={column.label} property={column.field} key={column.field} width={column.width} >
-						<CustomDataTableCell field={column} options={this.props}/>
-					</DataTableColumn>
-				)
-			}
-		});
+		// let dataTableColumns = _.map(columns, (column)=>{
+		// 	if(!column.hidden){
+		// 		return (
+		// 			<DataTableColumn label={column.label} property={column.field} key={column.field} width={column.width} >
+		// 				<CustomDataTableCell field={column} options={this.props}/>
+		// 			</DataTableColumn>
+		// 		)
+		// 	}
+		// });
 
-		if (rowIcon) {
-			let iconWidth = rowIcon.width; 
-			if (!iconWidth){
-				iconWidth = "3rem";
-			}
-			dataTableColumns.unshift((
-				<DataTableColumn label="" key="grid-first-column-icon" width={iconWidth} >
-					<CustomDataTableIconCell {...rowIcon} />
-				</DataTableColumn>
-			));
-		}
+		// if (rowIcon) {
+		// 	let iconWidth = rowIcon.width; 
+		// 	if (!iconWidth){
+		// 		iconWidth = "3rem";
+		// 	}
+		// 	dataTableColumns.unshift((
+		// 		<DataTableColumn label="" key="grid-first-column-icon" width={iconWidth} >
+		// 			<CustomDataTableIconCell {...rowIcon} />
+		// 		</DataTableColumn>
+		// 	));
+		// }
 
 		const onRequestRemoveSelectedOption = (event, data) => {
 			return createGridAction('requestRemoveSelectedOption', data.selection, this.props)
@@ -374,7 +348,8 @@ class List extends React.Component {
 		}
 
 		const items = rows || this.state.items;
-		// const listOptions = this.getListOptions(items);
+		console.log("items === ", items);
+		const listOptions = this.getListOptions(items, columns);
 		const isLoading = this.props.loading;
 		const isEmpty = isLoading ? false : items.length === 0;
 		let DataTableEmpty = this.getDataTableEmpty(isEmpty);
@@ -397,8 +372,7 @@ class List extends React.Component {
 								labels={{
 									header: 'Lead Score',
 								}}
-								// sortDirection={this.state.sortDirection}
-								options={items}
+								options={listOptions}
 								events={{
 									// onSort: this.sortList,
 									onSelect: (event, { selectedItems, item }) => {
@@ -410,7 +384,7 @@ class List extends React.Component {
 								}}
 								// selection={this.state.selected}
 								// unread={this.state.unread}
-								listItem={CustomListItem}
+								// listItem={CustomListItem}
 							/>
 						)
 					}

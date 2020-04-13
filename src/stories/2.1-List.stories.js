@@ -13,11 +13,17 @@ export default {
 export const company1 = () => (
       <Provider store={store}>
         <Bootstrap>
-          <List objectName={'company'} 
+          <List objectName={'space_users'} 
             columns={[
               {
                 field: 'name',
-                label: '公司名称'
+                label: '名称'
+              },
+              {
+                field: 'email',
+                label: '邮件',
+                type: 'text',
+                width: "14rem"
               },
               {
                 field: 'modified_by',
