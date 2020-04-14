@@ -250,6 +250,9 @@ class List extends React.Component {
 					}
 				}
 			});
+			if(itemTag !== 0){
+				itemRows.push(itemOption);
+			}
 			if(rowIconKey){
 				rowIcon = item[rowIconKey];
 				if(typeof rowIcon === "string"){
