@@ -1,9 +1,6 @@
-export const getObjectRecordUrl = (objectName, recordId, spaceId)=>{
+export const getObjectRecordUrl = (objectName, recordId)=>{
     let url = `/app/-/${objectName}/view/${recordId}`;
-    if (objectName === "instances"){
-        url = `/workflow/space/${spaceId}/inbox/${recordId}`;
-    }
-    return getAbsoluteUrl(url);
+    return getRelativeUrl(url);
 }
 
 export const getAbsoluteUrl = (url)=>{

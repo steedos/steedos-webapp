@@ -53,6 +53,10 @@ const propsTypes = {
 	 * Reference to the list item component
 	 */
 	listItemRef: PropTypes.func,
+	/**
+	 * The list item href generate function
+	 */
+	listItemHref: PropTypes.func,
 };
 
 const defaultProps = {
@@ -116,7 +120,7 @@ const listItemWithContent = (ListItemContent) => {
 								: this.props.isSelected
 						}
 						tabIndex={this.props.isFocused ? 0 : -1}
-						href="javascript:void(0);" // eslint-disable-line no-script-url
+						href={this.props.listItemHref ? this.props.listItemHref(this.props.item) : "javascript:void(0);"} // eslint-disable-line no-script-url
 						onClick={(e) => this.onClick(e)}
 					>
 						{this.unread()}

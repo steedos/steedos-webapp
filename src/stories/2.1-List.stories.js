@@ -117,8 +117,46 @@ export const CustomListItem = () => (
             label: '名称'
           }
         ]} 
-        sort="name, modified desc"
+        sort="name"
         listItem={CustomListItemExample}
+        pageSize={5}>
+      </List>
+    </Bootstrap>
+  </Provider>
+)
+
+export const CustomListItemHref = () => (
+  <Provider store={store}>
+    <Bootstrap>
+      <List objectName={'space_users'} 
+        columns={[
+          {
+            field: 'name',
+            label: '名称'
+          },
+          {
+            field: 'email',
+            label: '邮件',
+            type: 'text',
+            width: "14rem"
+          },
+          {
+            field: 'modified_by',
+            label: '修改人',
+            type: 'lookup',
+            width: "14rem"
+          },
+          {
+            field: 'modified',
+            label: '修改时间',
+            type: 'datetime',
+            width: "14rem"
+          },
+        ]} 
+        sort="name"
+        listItemHref={(item) => {
+          return `xxx/app/-/tasks/view/${item.content._id}`;
+        }}
         pageSize={5}>
       </List>
     </Bootstrap>

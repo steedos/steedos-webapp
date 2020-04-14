@@ -47,7 +47,7 @@ const ListItemContainer = styled.div`
 `
 
 const SplitViewListItemContent = ({ item }) => (
-	<ListItemContainer key={item._id}>
+	<ListItemContainer key={item.key}>
 		{item.rowIcon ? (
 			<span className="list-item-left-icon">
 				<Icon
@@ -63,7 +63,7 @@ const SplitViewListItemContent = ({ item }) => (
 				item.rowIcon ? 'slds-m-left_medium' : null
 			)}>
 			{item.rows ? (item.rows.map((itemOption, index)=>(
-				<div className="slds-grid slds-wrap" key={itemOption._id}>
+				<div className="slds-grid slds-wrap" key={itemOption.key}>
 					<span
 						className={classNames(
 							'slds-truncate',

@@ -98,6 +98,10 @@ const propTypes = {
 	 * This should be a React component that accepts props.
 	 */
 	listItem: PropTypes.func,
+	/**
+	 * The list item href generate function
+	 */
+	listItemHref: PropTypes.func
 };
 
 const defaultProps = {
@@ -358,6 +362,7 @@ class SplitViewListbox extends React.Component {
 					this.addListItemComponent(component, index);
 				}}
 				item={item}
+				listItemHref={this.props.listItemHref}
 				isFocused={this.isListItemFocused(item)}
 				isSelected={this.isSelected(item)}
 				isUnread={this.isUnread(item)}

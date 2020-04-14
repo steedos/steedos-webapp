@@ -6,7 +6,7 @@ import { createGridAction } from '../../actions'
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import moment from 'moment'
-import { getRelativeUrl } from '../../utils';
+import { getRelativeUrl, getObjectRecordUrl } from '../../utils';
 import SplitViewListbox from './listbox'
 const marked = require('marked/lib/marked.js');
 
@@ -153,7 +153,11 @@ class List extends React.Component {
 		 * Custom list item template for the list item content. The select and unread functionality wraps the custom list item.
 		 * This should be a React component that accepts props.
 		 */
-		listItem: PropTypes.func
+		listItem: PropTypes.func,
+		/**
+		 * The list item href generate function
+		 */
+		listItemHref: PropTypes.func
 	}
 
 	componentDidMount() {
@@ -228,14 +232,14 @@ class List extends React.Component {
 					if(itemTag !== 0){
 						itemRows.push(itemOption);
 					}
-					itemOption = {_id: `${item._id}_${itemRows.length}_wide`};
+					itemOption = {key: `${item._id}_${itemRows.length}_wide`};
 					itemOption.label = fieldNode;
 					itemTag = 0;
 					itemRows.push(itemOption);
 				}
 				else{
 					if(itemTag === 0){
-						itemOption = {_id: `${item._id}_${itemRows.length}`};
+						itemOption = {key: `${item._id}_${itemRows.length}`};
 						itemOption.label = fieldNode;
 						itemTag++;
 					}
@@ -256,7 +260,7 @@ class List extends React.Component {
 				}
 			}
 			return {
-				id: item._id,
+				key: item._id,
 				rows: itemRows,
 				rowIcon: rowIcon,
 				content: item
@@ -301,6 +305,10 @@ class List extends React.Component {
 		}
 		let extraClassName = extraClassNames.length ? extraClassNames.join(" ") : "";
 
+		let listItemHref = this.props.listItemHref ? this.props.listItemHref : (item) => {
+			return getObjectRecordUrl(this.props.objectName, item.content._id)
+		}
+
 		return (
 			<ListContainer className={`slds-grid slds-nowrap ${extraClassName}`} >
 				<div className="slds-col slds-grid slds-grid_vertical slds-nowrap">
@@ -326,6 +334,7 @@ class List extends React.Component {
 								// selection={this.state.selected}
 								// unread={this.state.unread}
 								listItem={this.props.listItem}
+								listItemHref={listItemHref}
 							/>
 						)
 					}
