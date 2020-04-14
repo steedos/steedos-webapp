@@ -47,11 +47,9 @@ export const company1 = () => (
             sort="name, modified desc"
             rowIcon={{
               category:"standard",
-              name:"account",
-              size:"small"
+              name:"account"
             }}
-            enableSearch={true}
-            pageSize={5}>
+            pageSize={15}>
           </List>
         </Bootstrap>
       </Provider>

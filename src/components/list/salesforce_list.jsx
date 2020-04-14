@@ -160,7 +160,14 @@ class List extends React.Component {
 			is_wide: PropTypes.bool,
 			format: PropTypes.func
 		})).isRequired,
-		pageSize: PropTypes.number
+		pageSize: PropTypes.number,
+		rowIcon: PropTypes.shape({
+			width: PropTypes.string,
+			category: PropTypes.string,
+			name: PropTypes.string,
+			size: PropTypes.string
+		}),
+		rowIconKey: ""
 	}
 	
 
@@ -266,7 +273,7 @@ class List extends React.Component {
 		};
 	}
 
-	getListOptions(items, columns){
+	getListOptions(items, columns, rowIcon, rowIconKey){
 		let results = items.map((item)=>{
 			let itemRows = [], itemTag = 0, itemOption = {}, fieldNode;
 			columns.forEach((column)=>{
@@ -293,9 +300,19 @@ class List extends React.Component {
 					}
 				}
 			});
+			if(rowIconKey){
+				rowIcon = item[rowIconKey];
+				if(typeof rowIcon === "string"){
+					rowIcon = {
+						category: "standard",
+						name: rowIcon
+					};
+				}
+			}
 			return {
 				id: item._id,
-				rows: itemRows
+				rows: itemRows,
+				rowIcon: rowIcon
 			}
 		});
 		return results;
@@ -303,7 +320,7 @@ class List extends React.Component {
 
 	render() {
 
-		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, noHeader, unborderedRow, sort, rowIcon} = this.props
+		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, noHeader, unborderedRow, sort, rowIcon, rowIconKey} = this.props
 
 		// let dataTableColumns = _.map(columns, (column)=>{
 		// 	if(!column.hidden){
@@ -349,7 +366,7 @@ class List extends React.Component {
 
 		const items = rows || this.state.items;
 		console.log("items === ", items);
-		const listOptions = this.getListOptions(items, columns);
+		const listOptions = this.getListOptions(items, columns, rowIcon, rowIconKey);
 		const isLoading = this.props.loading;
 		const isEmpty = isLoading ? false : items.length === 0;
 		let DataTableEmpty = this.getDataTableEmpty(isEmpty);
