@@ -93,30 +93,14 @@ const FieldLabel = ({ children, ...props }) => {
 				break;
 		}
 	}
-	let title = typeof children === "string" ? children : "";
 	return (
-		<label title={title}>
+		<React.Fragment>
 			{children}
-		</label>
+		</React.Fragment>
 	)
 }
 
-FieldLabel.displayName = DataTableCell.displayName;
-
-
-const CustomDataTableIconCell = ({ children, ...props }) => {
-	return (
-		<DataTableCell {...props}>
-			<Icon
-				category={props.category}
-				name={props.name}
-				size={props.size}
-			/>
-		</DataTableCell>
-	)
-}
-
-CustomDataTableIconCell.displayName = DataTableCell.displayName;
+FieldLabel.displayName = "ListItemFieldLabel";
 
 class List extends React.Component {
 	static displayName = 'SteedosDataList';

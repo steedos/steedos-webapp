@@ -43,6 +43,16 @@ const ListItemContainer = styled.div`
 	align-items: center;
 	.slds-text-heading_small{
 		flex: 1;
+		width: 100%;
+		&>.slds-grid{
+			.list-item-left-label{
+				flex: 1;
+			}
+			.list-item-right-text{
+				margin-left: 1rem;
+				max-width: 50%;
+			}
+		}
 	}
 `
 
@@ -66,15 +76,17 @@ const SplitViewListItemContent = ({ item }) => (
 				<div className="slds-grid slds-wrap" key={itemOption.key}>
 					<span
 						className={classNames(
-							'slds-truncate',
+							'slds-truncate list-item-left-label',
 							index === 0 ? 'slds-text-body_regular slds-text-color_default' : null
 						)}
+						title={typeof itemOption.label.props.children === "string" ? itemOption.label.props.children : null}
 					>
 						{itemOption.label}
 					</span>
 					{itemOption.topRightText ? 
 						(<span
-							className="slds-truncate slds-col_bump-left"
+							className="slds-truncate slds-col_bump-left list-item-right-text"
+							title={typeof itemOption.topRightText.props.children === "string" ? itemOption.topRightText.props.children : null}
 						>
 							{itemOption.topRightText}
 						</span>) : null}
