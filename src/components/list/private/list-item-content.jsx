@@ -22,9 +22,8 @@ const propTypes = {
 		topRightText: PropTypes.string,
 		bottomLeftText: PropTypes.string,
 		bottomRightText: PropTypes.string,
+		content: PropTypes.object,
 		rows: PropTypes.arrayOf(PropTypes.shape({
-			// label: PropTypes.string,
-			// topRightText: PropTypes.string,
 			label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 			topRightText: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
 		})),

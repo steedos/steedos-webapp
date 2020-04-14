@@ -10,7 +10,7 @@ import { getRelativeUrl } from '../../utils';
 import SplitViewListbox from './listbox'
 const marked = require('marked/lib/marked.js');
 
-let Counter = styled.div`
+let ListContainer = styled.div`
 	height: 100%;
 	&.slds-grid-no-header{
 		.slds-table thead{
@@ -118,37 +118,12 @@ const CustomDataTableIconCell = ({ children, ...props }) => {
 
 CustomDataTableIconCell.displayName = DataTableCell.displayName;
 
-
-const CustomListItem = ({ children, ...props }) => {
-	debugger;
-	return (
-		<div>
-			<span className="slds-text-heading_small slds-m-left_medium">
-				{props.item.name}
-			</span>
-		</div>
-	)
-}
-
-// CustomListItem.propsTypes = {
-// 	item: PropTypes.shape({
-// 		status: PropTypes.string,
-// 		name: PropTypes.string,
-// 	}),
-// };
-
-CustomListItem.displayName = 'SteedosCustomListItem';
-
 class List extends React.Component {
 	static displayName = 'SteedosDataList';
 	static defaultProps = {
 		rows: [],
-		selection: [],
-		selectRows: false,
-		type: 'text',
-		noHeader: false,
-		unborderedRow: false,
-		labelField: "name"
+		rowIconKey: "",
+		selection: []
 	};
 
 	static propTypes = {
@@ -167,48 +142,19 @@ class List extends React.Component {
 			name: PropTypes.string,
 			size: PropTypes.string
 		}),
-		rowIconKey: ""
+		rowIconKey: PropTypes.string,
+		illustration: PropTypes.shape({
+			heading: PropTypes.string,
+			messageBody: PropTypes.string,
+			name: PropTypes.string,
+			path: PropTypes.string
+		}),
+		/**
+		 * Custom list item template for the list item content. The select and unread functionality wraps the custom list item.
+		 * This should be a React component that accepts props.
+		 */
+		listItem: PropTypes.func
 	}
-	
-
-	// static propTypes = {
-	// 	objectName: PropTypes.string.isRequired,
-	// 	columns: PropTypes.arrayOf(PropTypes.shape({
-	// 		field: PropTypes.string.isRequired,
-	// 		label: PropTypes.string.isRequired,
-	// 		width: PropTypes.string,
-	// 		// wrap: PropTypes.bool,
-	// 		hidden: PropTypes.bool,
-	// 		onClick: PropTypes.func,
-	// 		format: PropTypes.func
-	// 	})).isRequired,
-	// 	enableSearch: PropTypes.bool,
-	// 	pageSize: PropTypes.number,
-	// 	searchMode: PropTypes.oneOf(['omitFilters']),
-	// 	selectionLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-	// 	selectRows: PropTypes.oneOf(['radio', 'checkbox', false]),
-	// 	type: PropTypes.oneOf(['date', 'datetime', 'boolean', 'lookup', 'master_detail', 'text']),
-	// 	id: PropTypes.string,
-	// 	illustration: PropTypes.shape({
-	// 		heading: PropTypes.string,
-	// 		messageBody: PropTypes.string,
-	// 		name: PropTypes.string,
-	// 		path: PropTypes.string
-	// 	}),
-	// 	noHeader: PropTypes.bool,
-	// 	unborderedRow: PropTypes.bool,
-	// 	sort: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-	// 	rowIcon: PropTypes.shape({
-	// 		width: PropTypes.string,
-	// 		category: PropTypes.string,
-	// 		name: PropTypes.string,
-	// 		size: PropTypes.string
-	// 	}),
-	// 	baseFilters: PropTypes.array,
-	// 	spaceId: PropTypes.string,
-	// 	keep: PropTypes.bool
-    // }
-
 
 	componentDidMount() {
 		if (this.props.init) {
@@ -312,7 +258,8 @@ class List extends React.Component {
 			return {
 				id: item._id,
 				rows: itemRows,
-				rowIcon: rowIcon
+				rowIcon: rowIcon,
+				content: item
 			}
 		});
 		return results;
@@ -321,28 +268,6 @@ class List extends React.Component {
 	render() {
 
 		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, noHeader, unborderedRow, sort, rowIcon, rowIconKey} = this.props
-
-		// let dataTableColumns = _.map(columns, (column)=>{
-		// 	if(!column.hidden){
-		// 		return (
-		// 			<DataTableColumn label={column.label} property={column.field} key={column.field} width={column.width} >
-		// 				<CustomDataTableCell field={column} options={this.props}/>
-		// 			</DataTableColumn>
-		// 		)
-		// 	}
-		// });
-
-		// if (rowIcon) {
-		// 	let iconWidth = rowIcon.width; 
-		// 	if (!iconWidth){
-		// 		iconWidth = "3rem";
-		// 	}
-		// 	dataTableColumns.unshift((
-		// 		<DataTableColumn label="" key="grid-first-column-icon" width={iconWidth} >
-		// 			<CustomDataTableIconCell {...rowIcon} />
-		// 		</DataTableColumn>
-		// 	));
-		// }
 
 		const onRequestRemoveSelectedOption = (event, data) => {
 			return createGridAction('requestRemoveSelectedOption', data.selection, this.props)
@@ -365,7 +290,6 @@ class List extends React.Component {
 		}
 
 		const items = rows || this.state.items;
-		console.log("items === ", items);
 		const listOptions = this.getListOptions(items, columns, rowIcon, rowIconKey);
 		const isLoading = this.props.loading;
 		const isEmpty = isLoading ? false : items.length === 0;
@@ -378,7 +302,7 @@ class List extends React.Component {
 		let extraClassName = extraClassNames.length ? extraClassNames.join(" ") : "";
 
 		return (
-			<Counter className={`slds-grid slds-nowrap ${extraClassName}`} >
+			<ListContainer className={`slds-grid slds-nowrap ${extraClassName}`} >
 				<div className="slds-col slds-grid slds-grid_vertical slds-nowrap">
 					{
 						isEmpty ? (
@@ -401,12 +325,12 @@ class List extends React.Component {
 								}}
 								// selection={this.state.selected}
 								// unread={this.state.unread}
-								// listItem={CustomListItem}
+								listItem={this.props.listItem}
 							/>
 						)
 					}
 				</div>
-			</Counter>
+			</ListContainer>
 		);
 	}
 }
