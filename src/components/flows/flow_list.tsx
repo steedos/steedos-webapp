@@ -55,7 +55,7 @@ class Flows extends React.Component {
         }
     }
     render() {
-        let { searchMode, multiple, pageSize, rootNodes, treeId, gridId, spaceId, gridProp, treeProp } = this.props as any
+        let { searchMode, multiple, pageSize, rootNodes, treeId, gridId, spaceId, gridProp, treeProp, disabledSelectRows } = this.props as any
 
         let init = (options: any)=>{
             const newOptions = Object.assign({}, options, {id: treeId, spaceId})
@@ -78,9 +78,12 @@ class Flows extends React.Component {
             }
         }
 
-        let selectRows = 'radio';
+        let selectRows: any = 'radio';
         if(multiple){
             selectRows = 'checkbox';
+        }
+        if(disabledSelectRows){
+            selectRows = null;
         }
 
         return (

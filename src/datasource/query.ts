@@ -6,7 +6,7 @@ import { request } from "./request";
 import store from "../stores/configureStore";
 
 function getSelect(columns){
-    return _.pluck(columns, 'field')
+    return _.uniq(_.compact(_.pluck(columns, 'field')));
 }
 
 function getExpand(columns) {
