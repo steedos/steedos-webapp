@@ -35,6 +35,7 @@ let FlowsCounter = styled.div`
     margin-left: 14rem;
     width: calc(100%);
     height: 500px;
+    border-left: 1px solid #d5d5da;
 `
 class Flows extends React.Component {
 
