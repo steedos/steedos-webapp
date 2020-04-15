@@ -54,17 +54,26 @@ export const space_users = () => (
             columns={[
               {
                 field: 'name',
-                label: '公司名称'
+                label: '姓名',
               },
               {
                 field: 'username',
-                label: '用户名',
-                type: 'lookup'
+                label: '用户名'
               },
               {
                 field: 'organization',
-                label: '部门',
-                type: 'lookup'
+                label: '主部门',
+                type: 'lookup',
+                reference_to: "organizations",
+                enableFilter: false
+              },
+              {
+                field: 'organizations_parents',
+                label: '所属部门(含上级)',
+                type: 'lookup',
+                hidden: true,
+                reference_to: "organizations",
+                enableFilter: false
               },
             ]} 
             enableSearch={true}></Grid>

@@ -13,7 +13,7 @@ export default {
 
 const modalId = 'gridModal';
 const gridId = 'object_grid';
-const objectName = 'contract_receipts';
+const objectName = 'flows';
 let heading = 'Object Grid';
 export const MyFlowsModal = () => {
 
