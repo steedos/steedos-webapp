@@ -335,12 +335,28 @@ class Grid extends React.Component {
 			));
 		}
 
+		let pagerTotal = Math.ceil(totalCount / pageSize);
+		let pagerOptions = pager;
+		if(pagerOptions && typeof pagerOptions === "boolean"){
+			pagerOptions = {
+				visiblePages: 3,
+				titles: { first: '<|', last: '|>' }
+			}
+		}
+
 		const onRequestRemoveSelectedOption = (event, data) => {
 			return createGridAction('requestRemoveSelectedOption', data.selection, this.props)
 		}
 
 		const onSearch = (event, data)=> {
-			return createGridAction('search', data.value, this.props)
+			let newOptions = {};
+			//TODO:重写的currentPage未生效，但是count生效了
+			if(pagerOptions){
+				newOptions.count = true;
+				newOptions.currentPage = 0;
+				// pagerOptions.currentPage = 0;
+			}
+			return createGridAction('search', data.value, Object.assign({}, this.props, newOptions))
 		}
 
 		const DataTableSearch = ()=>{
@@ -365,15 +381,6 @@ class Grid extends React.Component {
 			extraClassNames.push('slds-grid-no-header');
 		}
 		let extraClassName = extraClassNames.length ? extraClassNames.join(" ") : "";
-
-		let pagerTotal = Math.ceil(totalCount / pageSize);
-		let pagerOptions = pager;
-		if(pagerOptions && typeof pagerOptions === "boolean"){
-			pagerOptions = {
-				visiblePages: 3,
-				titles: { first: '<|', last: '|>' }
-			}
-		}
 		return (
 			<Counter className={`slds-grid slds-nowrap ${extraClassName}`} >
 				<div className="slds-col slds-grid slds-grid_vertical slds-nowrap">
@@ -406,7 +413,7 @@ class Grid extends React.Component {
 								>
 									{dataTableColumns}
 								</DataTable>
-								{pagerOptions ? (
+								{pagerOptions && pagerTotal > 1 ? (
 									<Pager
 										total={pagerTotal}
 										current={currentPage}
