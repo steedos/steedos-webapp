@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'underscore';
 import { DataTable, DataTableColumn, DataTableCell, Illustration, Icon } from '@salesforce/design-system-react';
 import Lookup from '../lookup'
+import GridFilters from '../grid_filters'
 import { createGridAction } from '../../actions'
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
@@ -138,7 +139,8 @@ class Grid extends React.Component {
 		selectRows: false,
 		type: 'text',
 		noHeader: false,
-		unborderedRow: false
+		unborderedRow: false,
+		enableFilters: false
 	};
 
 	// static propTypes = {
@@ -162,6 +164,7 @@ class Grid extends React.Component {
 			format: PropTypes.func
 		})).isRequired,
 		enableSearch: PropTypes.bool,
+		enableFilters: PropTypes.bool,
 		pageSize: PropTypes.number,
 		searchMode: PropTypes.oneOf(['omitFilters']),
 		selectionLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
@@ -294,7 +297,7 @@ class Grid extends React.Component {
 
 	render() {
 
-		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, noHeader, unborderedRow, sort, rowIcon} = this.props
+		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, noHeader, unborderedRow, sort, rowIcon, enableFilters} = this.props
 
 		let dataTableColumns = _.map(columns, (column)=>{
 			if(!column.hidden){
@@ -329,8 +332,8 @@ class Grid extends React.Component {
 		const DataTableSearch = ()=>{
 			if(this.isEnableSearch()){
 				return (
-					<div className="slds-p-vertical_x-small slds-p-horizontal_large slds-shrink-none slds-theme_shade">
-						<Lookup id={id} objectName={objectName} search={search} selectionLabel={selectionLabel} onRequestRemoveSelectedOption={onRequestRemoveSelectedOption} onSearch={onSearch}></Lookup>
+					<div className="slds-p-vertical_x-small slds-p-horizontal_x-small slds-shrink-none slds-theme_shade">
+						<Lookup isOpen={false} id={id} objectName={objectName} search={search} selectionLabel={selectionLabel} onRequestRemoveSelectedOption={onRequestRemoveSelectedOption} onSearch={onSearch}></Lookup>
 					</div>
 				)
 			}else{
@@ -353,6 +356,7 @@ class Grid extends React.Component {
 			<Counter className={`slds-grid slds-nowrap ${extraClassName}`} >
 				<div className="slds-col slds-grid slds-grid_vertical slds-nowrap">
 					<DataTableSearch/>
+					{enableFilters && <GridFilters columns={columns} objectName={objectName} gridProps={this.props}/>}
 					{
 						isEmpty ? (
 							<DataTableEmpty />

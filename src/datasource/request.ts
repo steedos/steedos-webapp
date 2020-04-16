@@ -1,4 +1,4 @@
-import { getUserId, getAuthToken } from '../utils';
+import { getUserId, getAuthToken, getSpaceId } from '../utils';
 import { fetch } from "whatwg-fetch";
 
 export async function request(url: string, opts: any = {}) {
@@ -9,8 +9,9 @@ export async function request(url: string, opts: any = {}) {
         'X-Auth-Token': authToken,
         'X-User-Id': userId
     };
-    if(options.spaceId){
-        authHeaders['X-Space-Id'] = options.spaceId
+    let spaceId = options.spaceId || getSpaceId()
+    if(spaceId){
+        authHeaders['X-Space-Id'] = spaceId
     }
     options.headers = { ...options.headers, ...authHeaders};
     const response = await fetch(url, options);

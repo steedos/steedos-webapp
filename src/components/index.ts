@@ -26,5 +26,6 @@ export {default as Favorites} from './favorites';
 export {default as Flows} from './flows';
 export {default as FlowsModal} from './flows_modal';
 export {default as GridModal} from './grid_modal';
+export {default as HeaderProfile} from './header_profile'
 export * from './slds_app_launcher'
 export * from './slds_illustration'

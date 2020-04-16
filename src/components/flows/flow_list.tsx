@@ -35,6 +35,7 @@ let FlowsCounter = styled.div`
     margin-left: 14rem;
     width: calc(100%);
     height: 500px;
+    border-left: 1px solid #d5d5da;
 `
 class Flows extends React.Component {
 
@@ -55,7 +56,7 @@ class Flows extends React.Component {
         }
     }
     render() {
-        let { searchMode, multiple, pageSize, rootNodes, treeId, gridId, spaceId, gridProp, treeProp } = this.props as any
+        let { searchMode, multiple, pageSize, rootNodes, treeId, gridId, spaceId, gridProp, treeProp, disabledSelectRows } = this.props as any
 
         let init = (options: any)=>{
             const newOptions = Object.assign({}, options, {id: treeId, spaceId})
@@ -78,9 +79,12 @@ class Flows extends React.Component {
             }
         }
 
-        let selectRows = 'radio';
+        let selectRows: any = 'radio';
         if(multiple){
             selectRows = 'checkbox';
+        }
+        if(disabledSelectRows){
+            selectRows = null;
         }
 
         return (

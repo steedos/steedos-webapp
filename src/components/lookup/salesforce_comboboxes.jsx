@@ -32,7 +32,12 @@ const accountsWithIcon = accounts.map((elem) => ({
 class lookup extends React.Component {
 
 	static defaultProps = {
-		object: {}
+		object: {},
+		rows: [],
+		multiple: false,
+		variant: "base",
+		optionsHiddenSelected: false,
+		autoload: false
 	};
 
 	constructor(props) {
@@ -44,11 +49,17 @@ class lookup extends React.Component {
 		};
 	}
 
-	render() {
+	componentDidMount() {
+		if(this.props.autoload && this.props.init && this.props.isOpen !== false){
+			this.props.init(this.props)
+		}
+	}
 
-		let { selection, onSearch, onRequestRemoveSelectedOption, selectionLabel, search, onChange, objectName } = this.props
-		let selections = [];
+	render() {
+		let { id, className, selection, optionsHiddenSelected, column, placeholderReadOnly, label, onSearch, onRequestRemoveSelectedOption, selectionLabel, search, onChange, objectName, isOpen, rows, multiple, variant} = this.props
+		let selections;
 		if(selection){
+			selections = [];
 			_.forEach(selection, (item)=>{
 				let label;
 				if(selectionLabel){
@@ -72,11 +83,22 @@ class lookup extends React.Component {
 				selections.push(Object.assign({}, item, {label}))
 			})
 		}
+
+		let options = [];
+		let _rows = rows
+		if(rows.length === 0 && column && column.rows ){
+			_rows = column.rows
+		}
+		_.each( _rows, function(row){
+			options.push({id: row._id || row.id, label: row.name})
+		})
+
 		return (
 				<Combobox
-					id="combobox-base"
+					id={ id || "combobox-base"}
+					className={className}
                     disabled={this.props.disabled}
-                    isOpen={false}
+                    isOpen={isOpen}
 					events={{
 						onChange: onChange || ((event, data) => {
 								this.setState({
@@ -87,13 +109,26 @@ class lookup extends React.Component {
 								}
 							}
 						),
-						onRequestRemoveSelectedOption,
+						onRequestRemoveSelectedOption: onRequestRemoveSelectedOption || ((event, data) => {
+							if (this.props.action) {
+								this.props.action('onSelect')(
+									event,
+									...Object.keys(data).map((key) => data[key]),
+									column
+								);
+							}
+							this.setState({
+								inputValue: '',
+								selection: data.selection,
+							});
+						}),
 						onSubmit: onSearch,
 						onSelect: (event, data) => {
 							if (this.props.action) {
 								this.props.action('onSelect')(
 									event,
-									...Object.keys(data).map((key) => data[key])
+									...Object.keys(data).map((key) => data[key]),
+									column
 								);
 							} else if (console) {
 								console.log('onSelect', event, data);
@@ -105,17 +140,22 @@ class lookup extends React.Component {
 						},
 					}}
 					labels={{
+						label: label,
 						placeholder: `搜索`, //${object.label}
+						placeholderReadOnly: placeholderReadOnly,
+						multipleOptionsSelected:`已选中${this.state.selection.length}项`
 					}}
-					multiple
+					multiple = {multiple}
 					options={comboboxFilterAndLimit({
 						inputValue: this.state.inputValue,
-						limit: 10,
-						options: accountsWithIcon,
-						selection: this.state.selection,
+						limit: 10000,
+						options: options, //accountsWithIcon
+						selection: !optionsHiddenSelected ? [] : this.state.selection,
 					})}
+					menuItemVisibleLength={10}
 					selection={selections || this.state.selection}
 					value={this.state.inputValue}
+					variant={variant}
 				/>
 		);
 	}
