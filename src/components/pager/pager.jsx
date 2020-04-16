@@ -246,15 +246,17 @@ class Pager extends React.Component {
 }
 
 Pager.propTypes = {
-	current:           PropTypes.number.isRequired,
+	current:           PropTypes.number,
 	total:             PropTypes.number.isRequired,
-	visiblePages:      PropTypes.number.isRequired,
+	visiblePages:      PropTypes.number,
 	titles:            PropTypes.object,
 	onPageChanged:     PropTypes.func,
 };
 
 Pager.defaultProps = {
-	titles: TITLES,
+	current: 0,
+	visiblePages: 3,
+	titles: TITLES
 };
 
 

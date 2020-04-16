@@ -116,3 +116,39 @@ export const cms_files = () => (
     </Bootstrap>
   </Provider>
 )
+
+export const pager = () => (
+  <Provider store={store}>
+    <Bootstrap>
+        <Grid objectName={'space_users'} 
+          columns={[
+            {
+              field: 'name',
+              label: '姓名',
+            },
+            {
+              field: 'username',
+              label: '用户名'
+            },
+            {
+              field: 'organization',
+              label: '主部门',
+              type: 'lookup',
+              reference_to: "organizations",
+              enableFilter: false
+            },
+            {
+              field: 'organizations_parents',
+              label: '所属部门(含上级)',
+              type: 'lookup',
+              hidden: true,
+              reference_to: "organizations",
+              enableFilter: false
+            },
+          ]} 
+          pageSize = {5}
+          pager={true}
+          enableSearch={true}></Grid>
+    </Bootstrap>
+  </Provider>
+)

@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import moment from 'moment'
 import { getRelativeUrl } from '../../utils';
+import Pager from '../../components/pager';
 const marked = require('marked/lib/marked.js');
 
 let Counter = styled.div`
@@ -188,7 +189,18 @@ class Grid extends React.Component {
 		}),
 		baseFilters: PropTypes.array,
 		spaceId: PropTypes.string,
-		keep: PropTypes.bool
+		keep: PropTypes.bool,
+		pager: PropTypes.oneOfType([PropTypes.shape({
+			visiblePages: PropTypes.number,
+			titles: PropTypes.shape({
+				first:   PropTypes.string,
+				prev:    PropTypes.string,
+				prevSet: PropTypes.string,
+				nextSet: PropTypes.string,
+				next:    PropTypes.string,
+				last:    PropTypes.string,
+			})
+		}), PropTypes.bool])
     }
 
 
@@ -297,7 +309,9 @@ class Grid extends React.Component {
 
 	render() {
 
-		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, noHeader, unborderedRow, sort, rowIcon, enableFilters} = this.props
+		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, 
+			noHeader, unborderedRow, sort, rowIcon, enableFilters, 
+			pager, handlePageChanged, totalCount, pageSize, currentPage} = this.props;
 
 		let dataTableColumns = _.map(columns, (column)=>{
 			if(!column.hidden){
@@ -352,6 +366,14 @@ class Grid extends React.Component {
 		}
 		let extraClassName = extraClassNames.length ? extraClassNames.join(" ") : "";
 
+		let pagerTotal = Math.ceil(totalCount / pageSize);
+		let pagerOptions = pager;
+		if(pagerOptions && typeof pagerOptions === "boolean"){
+			pagerOptions = {
+				visiblePages: 3,
+				titles: { first: '<|', last: '|>' }
+			}
+		}
 		return (
 			<Counter className={`slds-grid slds-nowrap ${extraClassName}`} >
 				<div className="slds-col slds-grid slds-grid_vertical slds-nowrap">
@@ -361,28 +383,39 @@ class Grid extends React.Component {
 						isEmpty ? (
 							<DataTableEmpty />
 						) : (
-							<DataTable
-								assistiveText={{
-									actionsHeader: 'actions',
-									columnSort: 'sort this column',
-									columnSortedAscending: 'asc',
-									columnSortedDescending: 'desc',
-									selectAllRows: 'all rows',
-									selectRow: 'Select this row',
-								}}
-								unborderedRow={unborderedRow}
-								sort={sort}
-								fixedHeader={!noHeader}
-								fixedLayout
-								items={items}
-								id={id}
-								onRowChange={handleChanged || this.handleChanged}
-								// onSort={this.handleSort}
-								selection={selection || this.state.selection}
-								selectRows={selectRows}
-							>
-								{dataTableColumns}
-							</DataTable>
+							<React.Fragment>
+								<DataTable
+									assistiveText={{
+										actionsHeader: 'actions',
+										columnSort: 'sort this column',
+										columnSortedAscending: 'asc',
+										columnSortedDescending: 'desc',
+										selectAllRows: 'all rows',
+										selectRow: 'Select this row',
+									}}
+									unborderedRow={unborderedRow}
+									sort={sort}
+									fixedHeader={!noHeader}
+									fixedLayout
+									items={items}
+									id={id}
+									onRowChange={handleChanged || this.handleChanged}
+									// onSort={this.handleSort}
+									selection={selection || this.state.selection}
+									selectRows={selectRows}
+								>
+									{dataTableColumns}
+								</DataTable>
+								{pagerOptions ? (
+									<Pager
+										total={pagerTotal}
+										current={currentPage}
+										visiblePages={pagerOptions.visiblePages}
+										onPageChanged={handlePageChanged}
+										titles={pagerOptions.titles}
+									/>
+								) : null}
+							</React.Fragment>
 						)
 					}
 				</div>

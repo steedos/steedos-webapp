@@ -14,6 +14,8 @@ function reducer(state:any = {}, action: any){
                 return Object.assign({}, state, {selection: payload.partialStateValue});
             case 'search':
                 return Object.assign({}, state, { search: payload.partialStateValue }, { loading: false });
+            case 'currentPage':
+                return Object.assign({}, state, { currentPage: payload.partialStateValue }, { loading: false });
             default:
                 break;
         }
