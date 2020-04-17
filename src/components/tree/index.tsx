@@ -14,12 +14,22 @@ function mapStateToProps() {
 }
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
-  return ({
-    onExpandClick: (event: any, data: any) => dispatch(createTreeAction('expandClick', data, ownProps)),
-    onClick: (event: any, data: any) => dispatch(ownProps.onClick(event, data)),
-    init: (options: any) => dispatch(ownProps.init(options)),
+  let props:any = {
     removeViewAction: (viewId: string)=> dispatch(removeViewAction(viewId)),
-  });
+    changeNode: (partialStateValue: any ,options: any)=> dispatch(createTreeAction("changeNode", partialStateValue, options)),
+    changeNodes: (partialStateValue: any ,options: any)=> dispatch(createTreeAction("changeNodes", partialStateValue, options))
+  }
+
+  if(ownProps.init){
+    props.init = (options: any) => dispatch(ownProps.init(options))
+  }
+
+  if(ownProps.onClick){
+    props.onExpandClick = (event: any, data: any) => dispatch(createTreeAction('expandClick', data, ownProps))
+    props.onClick = (event: any, data: any) => dispatch(ownProps.onClick(event, data))
+  }
+
+  return props;
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SteedosTree);
