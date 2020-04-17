@@ -1,3 +1,3 @@
-import Tloader from './react-touch-loader'
+import Pullable from './pullable'
 
-export default Tloader;
+export default Pullable;

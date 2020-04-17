@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import moment from 'moment'
 import { getRelativeUrl, getObjectRecordUrl } from '../../utils';
 import SplitViewListbox from './listbox'
-import Tloader from '../pullable';
+import Pullable from '../pullable';
 const marked = require('marked/lib/marked.js');
 
 let ListContainer = styled.div`
@@ -271,12 +271,6 @@ class List extends React.Component {
 		const isEmpty = isLoading ? false : items.length === 0;
 		let DataTableEmpty = this.getDataTableEmpty(isEmpty);
 
-		let extraClassNames = [];
-		if (noHeader){
-			extraClassNames.push('slds-grid-no-header');
-		}
-		let extraClassName = extraClassNames.length ? extraClassNames.join(" ") : "";
-
 		let listItemHref = this.props.listItemHref ? this.props.listItemHref : (item) => {
 			return getObjectRecordUrl(this.props.objectName, item.content._id)
 		}
@@ -301,44 +295,41 @@ class List extends React.Component {
 		}
 
 		return (
-			<ListContainer className={`slds-grid slds-nowrap ${extraClassName}`} >
-				<div className="slds-col slds-grid slds-grid_vertical slds-nowrap">
-					{
-						isEmpty ? (
-							<DataTableEmpty />
-						) : (
-							<Tloader
-								onRefresh={onRefresh}
-								onLoadMore={onLoadMore}
-								hasMore={hasMore}
-								initializing={initializing}
-								loading={isLoading}
-							>
-								<SplitViewListbox
-									key="2"
-									labels={{
-										header: 'Lead Score',
-									}}
-									options={listOptions}
-									events={{
-										// onSort: this.sortList,
-										onSelect: (event, { selectedItems, item }) => {
-											// this.setState({
-											// 	unread: this.state.unread.filter((i) => i !== item),
-											// 	selected: selectedItems,
-											// });
-										},
-									}}
-									// selection={this.state.selected}
-									// unread={this.state.unread}
-									listItem={this.props.listItem}
-									listItemHref={listItemHref}
-								/>
-								{/* <ul>{list}</ul> */}
-							</Tloader>
-						)
-					}
-				</div>
+			<ListContainer className={`slds-list slds-nowrap `} >
+				{
+					isEmpty ? (
+						<DataTableEmpty />
+					) : (
+						<Pullable
+							onRefresh={onRefresh}
+							onLoadMore={onLoadMore}
+							hasMore={hasMore}
+							initializing={initializing}
+							loading={isLoading}
+						>
+							<SplitViewListbox
+								key="2"
+								labels={{
+									header: 'Lead Score',
+								}}
+								options={listOptions}
+								events={{
+									// onSort: this.sortList,
+									onSelect: (event, { selectedItems, item }) => {
+										// this.setState({
+										// 	unread: this.state.unread.filter((i) => i !== item),
+										// 	selected: selectedItems,
+										// });
+									},
+								}}
+								// selection={this.state.selected}
+								// unread={this.state.unread}
+								listItem={this.props.listItem}
+								listItemHref={listItemHref}
+							/>
+						</Pullable>
+					)
+				}
 			</ListContainer>
 		);
 	}

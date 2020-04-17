@@ -4,6 +4,7 @@ import { Provider  } from 'react-redux';
 import store from '../stores/configureStore'
 import { Icon } from '@salesforce/design-system-react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components'
 
 import List from '../components/list'
 
@@ -163,39 +164,49 @@ export const CustomListItemHref = () => (
   </Provider>
 )
 
+let ListContainer = styled.div`
+	.pullable-container{
+    background-color: #efeff4;
+    .pullable-body{
+      background-color: #fff;
+    }
+	}
+`
 
 export const InfiniteScrollList = () => (
   <Provider store={store}>
     <Bootstrap>
-      <List objectName={'space_users'} 
-        columns={[
-          {
-            field: 'name',
-            label: '名称'
-          },
-          {
-            field: 'email',
-            label: '邮件',
-            type: 'text',
-            width: "14rem"
-          },
-          {
-            field: 'username',
-            label: '修改人',
-            type: 'text',
-            width: "14rem"
-          },
-          {
-            field: 'modified',
-            label: '修改时间',
-            type: 'datetime',
-            width: "14rem"
-          },
-        ]} 
-        sort="name"
-        pager={true}
-        pageSize={5}>
-      </List>
+      <ListContainer>
+        <List objectName={'space_users'} 
+          columns={[
+            {
+              field: 'name',
+              label: '名称'
+            },
+            {
+              field: 'email',
+              label: '邮件',
+              type: 'text',
+              width: "14rem"
+            },
+            {
+              field: 'username',
+              label: '修改人',
+              type: 'text',
+              width: "14rem"
+            },
+            {
+              field: 'modified',
+              label: '修改时间',
+              type: 'datetime',
+              width: "14rem"
+            },
+          ]} 
+          sort="name"
+          pager={true}
+          pageSize={5}>
+        </List>
+      </ListContainer>
     </Bootstrap>
   </Provider>
 )

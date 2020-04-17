@@ -2,14 +2,35 @@ import React from 'react';
 import Bootstrap from '../components/bootstrap'
 import { Provider } from 'react-redux';
 import store from '../stores/configureStore'
+import styled from 'styled-components'
 
-import Tloader from '../components/pullable'
+import Pullable from '../components/pullable'
 
 export default {
 	title: 'Pullable',
 };
 
 
+let ListContainer = styled.div`
+	.pullable-container{
+		background-color: #efeff4;
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			text-align: center;
+	
+			li {
+				background-color: #fff;
+				border-bottom: 1px solid #ccc;
+				p {
+					margin: 0;
+					line-height: 3em;
+				}
+			}
+		}
+	}
+`
 class ExampleComponent extends React.Component {
 
 	componentDidMount() {
@@ -82,16 +103,16 @@ class ExampleComponent extends React.Component {
 			}
 		}
 		return (
-			<div className="slds-col slds-grid slds-grid_vertical slds-nowrap">
+			<div>
 				{(
-					<Tloader
+					<Pullable
 						onRefresh={this.refresh}
 						onLoadMore={this.loadMore}
 						hasMore={hasMore}
 						initializing={initializing}
 					>
 						<ul>{list}</ul>
-					</Tloader>
+					</Pullable>
 				)}
 			</div>
 		);
@@ -99,9 +120,7 @@ class ExampleComponent extends React.Component {
 }
 
 export const base = () => (
-	<Provider store={store}>
-		<Bootstrap>
-			<ExampleComponent></ExampleComponent>
-		</Bootstrap>
-	</Provider>
+	<ListContainer>
+		<ExampleComponent />
+	</ListContainer>
 )

@@ -34,32 +34,32 @@ let PullableContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  .tloader-msg:after {
+  .pullable-msg:after {
     content: "下拉刷新";
   }
-  .state-pulling.enough .tloader-msg:after {
+  .state-pulling.enough .pullable-msg:after {
     content: "松开刷新";
   }
-  .state-refreshed .tloader-msg:after {
+  .state-refreshed .pullable-msg:after {
     content: "刷新成功";
   }
-  .tloader-loading:after {
+  .pullable-loading:after {
     content: "正在加载...";
   }
-  .tloader-symbol .tloader-loading:after {
+  .pullable-symbol .pullable-loading:after {
     content: "正在刷新...";
   }
-  .tloader-btn:after {
+  .pullable-btn:after {
     content: "点击加载更多";
   }
-  .tloader {
+  .pullable {
     position: relative;
     font-size: 14px;
   }
   .state-pulling {
     overflow-y: hidden !important;
   }
-  .tloader-symbol {
+  .pullable-symbol {
     position: absolute;
     top: 0;
     left: 0;
@@ -69,21 +69,21 @@ let PullableContainer = styled.div`
     height: 48px;
     overflow: hidden;
   }
-  .state- .tloader-symbol,
-  .state-reset .tloader-symbol {
+  .state- .pullable-symbol,
+  .state-reset .pullable-symbol {
     height: 0;
   }
-  .state-reset .tloader-symbol {
+  .state-reset .pullable-symbol {
     transition: height 0s 0.2s;
   }
-  .state-loading .tloader-symbol {
+  .state-loading .pullable-symbol {
     display: none;
   }
-  .tloader-msg {
+  .pullable-msg {
     line-height: 48px;
   }
-  .state-pulling .tloader-msg i,
-  .state-reset .tloader-msg i {
+  .state-pulling .pullable-msg i,
+  .state-reset .pullable-msg i {
     display: inline-block;
     font-size: 2em;
     margin-right: 0.6em;
@@ -93,10 +93,10 @@ let PullableContainer = styled.div`
     position: relative;
     transition: transform 0.3s ease;
   }
-  .state-pulling .tloader-msg i:before,
-  .state-reset .tloader-msg i:before,
-  .state-pulling .tloader-msg i:after,
-  .state-reset .tloader-msg i:after {
+  .state-pulling .pullable-msg i:before,
+  .state-reset .pullable-msg i:before,
+  .state-pulling .pullable-msg i:after,
+  .state-reset .pullable-msg i:after {
     content: "";
     position: absolute;
     font-size: 0.5em;
@@ -104,30 +104,30 @@ let PullableContainer = styled.div`
     bottom: 0px;
     border-top: 1px solid;
   }
-  .state-pulling .tloader-msg i:before,
-  .state-reset .tloader-msg i:before {
+  .state-pulling .pullable-msg i:before,
+  .state-reset .pullable-msg i:before {
     right: 1px;
     transform: rotate(50deg);
     transform-origin: right;
   }
-  .state-pulling .tloader-msg i:after,
-  .state-reset .tloader-msg i:after {
+  .state-pulling .pullable-msg i:after,
+  .state-reset .pullable-msg i:after {
     left: 0px;
     transform: rotate(-50deg);
     transform-origin: left;
   }
-  .state-pulling.enough .tloader-msg i {
+  .state-pulling.enough .pullable-msg i {
     transform: rotate(180deg);
   }
-  .state-refreshing .tloader-msg {
+  .state-refreshing .pullable-msg {
     height: 0;
     opacity: 0;
   }
-  .state-refreshed .tloader-msg {
+  .state-refreshed .pullable-msg {
     opacity: 1;
     transition: opacity 1s;
   }
-  .state-refreshed .tloader-msg i {
+  .state-refreshed .pullable-msg i {
     display: inline-block;
     box-sizing: content-box;
     vertical-align: middle;
@@ -139,7 +139,7 @@ let PullableContainer = styled.div`
     border-radius: 100%;
     position: relative;
   }
-  .state-refreshed .tloader-msg i:before {
+  .state-refreshed .pullable-msg i:before {
     content: "";
     position: absolute;
     top: 3px;
@@ -150,18 +150,18 @@ let PullableContainer = styled.div`
     border-width: 0 1px 1px 0;
     transform: rotate(40deg);
   }
-  .tloader-body {
+  .pullable-body {
     margin-top: -1px;
     padding-top: 1px;
   }
-  .state-refreshing .tloader-body {
+  .state-refreshing .pullable-body {
     transform: translate3d(0, 48px, 0);
     transition: transform 0.2s;
   }
-  .state-refreshed .tloader-body {
+  .state-refreshed .pullable-body {
     animation: refreshed 0.4s;
   }
-  .state-reset .tloader-body {
+  .state-reset .pullable-body {
     transition: transform 0.2s;
   }
   @keyframes refreshed {
@@ -172,29 +172,29 @@ let PullableContainer = styled.div`
       transform: translate3d(0, 48px, 0);
     }
   }
-  .state-refreshing .tloader-footer {
+  .state-refreshing .pullable-footer {
     display: none;
   }
-  .tloader-footer .tloader-btn {
+  .pullable-footer .pullable-btn {
     color: #484869;
     text-align: center;
     line-height: 48px;
   }
-  .state-loading .tloader-footer .tloader-btn {
+  .state-loading .pullable-footer .pullable-btn {
     display: none;
   }
-  .tloader-loading {
+  .pullable-loading {
     display: none;
     text-align: center;
     line-height: 48px;
     color: #7676a1;
   }
-  .tloader-loading .ui-loading {
+  .pullable-loading .ui-loading {
     font-size: 20px;
     margin-right: 9px;
   }
-  .state-refreshing .tloader-symbol .tloader-loading,
-  .state-loading .tloader-footer .tloader-loading {
+  .state-refreshing .pullable-symbol .pullable-loading,
+  .state-loading .pullable-footer .pullable-loading {
     display: block;
   }
   @keyframes circle {
@@ -217,7 +217,7 @@ let PullableContainer = styled.div`
     border: 2px solid #fff;
     border-top-color: #9494b6;
   }
-  @keyframes tloader-progressing {
+  @keyframes pullable-progressing {
     0% {
       width: 0;
     }
@@ -231,15 +231,15 @@ let PullableContainer = styled.div`
       width: 95%;
     }
   }
-  @keyframes tloader-progressed {
+  @keyframes pullable-progressed {
     0% {
       opacity: 1;
     }
   }
-  .tloader-progress {
+  .pullable-progress {
     position: relative;
   }
-  .tloader-progress:before {
+  .pullable-progress:before {
     content: "";
     z-index: 1000;
     position: absolute;
@@ -248,12 +248,12 @@ let PullableContainer = styled.div`
     height: 2px;
     background-color: #08bf06;
     width: 99%;
-    animation: tloader-progressing 9s ease-out;
+    animation: pullable-progressing 9s ease-out;
   }
-  .ed.tloader-progress:before {
+  .ed.pullable-progress:before {
     opacity: 0;
     width: 100%;
-    animation: tloader-progressed 1s;
+    animation: pullable-progressed 1s;
   }
 `;
 
@@ -267,7 +267,7 @@ let PullableScroller = styled.div`
 
 // pull to refresh
 // tap bottom to load more
-class Tloader extends React.Component {
+class Pullable extends React.Component {
   state = {
     loaderState: STATS.init,
     pullHeight: 0,
@@ -400,9 +400,9 @@ class Tloader extends React.Component {
     const { loaderState, pullHeight, progressed } = this.state;
 
     const footer = hasMore ? (
-      <div className="tloader-footer">
-        <div className="tloader-btn" onClick={this.loadMore} />
-        <div className="tloader-loading"><i className="ui-loading" /></div>
+      <div className="pullable-footer">
+        <div className="pullable-btn" onClick={this.loadMore} />
+        <div className="pullable-loading"><i className="ui-loading" /></div>
       </div>
     ) : null;
 
@@ -416,7 +416,7 @@ class Tloader extends React.Component {
 
     let progressClassName = '';
     if (!progressed) {
-      if (initializing > 0) progressClassName += ' tloader-progress';
+      if (initializing > 0) progressClassName += ' pullable-progress';
       if (initializing > 1) progressClassName += ' ed';
     }
 
@@ -431,10 +431,10 @@ class Tloader extends React.Component {
     }
 
     return (
-      <PullableContainer>
+      <PullableContainer className={`pullable-container ${className}`}>
         <PullableScroller
           ref={(el) => { this.panel = el; }}
-          className={`tloader state-${loaderStateClassName} ${className}${progressClassName}`}
+          className={`pullable state-${loaderStateClassName} ${className}${progressClassName}`}
           onScroll={this.scroll}
           onTouchStart={this.touchStart}
           onTouchMove={this.touchMove}
@@ -442,11 +442,11 @@ class Tloader extends React.Component {
           onAnimationEnd={this.animationEnd}
         >
 
-          <div className="tloader-symbol">
-            <div className="tloader-msg"><i /></div>
-            <div className="tloader-loading"><i className="ui-loading" /></div>
+          <div className="pullable-symbol">
+            <div className="pullable-msg"><i /></div>
+            <div className="pullable-loading"><i className="ui-loading" /></div>
           </div>
-          <div className="tloader-body" style={style}>{children}</div>
+          <div className="pullable-body" style={style}>{children}</div>
           {footer}
         </PullableScroller>
       </PullableContainer>
@@ -454,10 +454,10 @@ class Tloader extends React.Component {
   }
 }
 
-Tloader.defaultProps = {
+Pullable.defaultProps = {
   distanceToRefresh: 60,
   autoLoadMore: 1,
   loading: true
 };
 
-export default Tloader;
+export default Pullable;
