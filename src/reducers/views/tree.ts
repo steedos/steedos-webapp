@@ -55,6 +55,9 @@ const reducer = produce((draft: any = {}, action: any)=>{
                     draft.nodes[node.id] = Object.assign({}, draft.nodes[node.id], node);
                 })
                 break;
+            case 'setNode':
+                draft.nodes[value.node.id] = Object.assign({}, value.node);
+                break;
             case 'setNodes':
                 draft.nodes = value.nodes;
                 break;
