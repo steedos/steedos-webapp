@@ -216,6 +216,7 @@ class SFTree extends React.Component {
 			if(node.type != 'item' && node.nodes){
 				let childrenNodes = node._cnodes || node.nodes
 				let _nodes = node.nodes
+				let childrenNodeData = null;
 				childrenNodes.forEach((element) => {
 					childrenNode = stateNodes[element];
 					if(childrenNode){
@@ -237,17 +238,18 @@ class SFTree extends React.Component {
 							}else{
 								expanded = false;
 							}
-							changeNodesData.push({id: node.id, nodes: _nodes, _cnodes: _cnodes, label: node.label, expanded: expanded});
-							// changeNode({node: {id: node.id, nodes: _nodes, _cnodes: _cnodes, label: node.label, expanded: expanded}}, {id: treeId})
+							childrenNodeData = {id: node.id, nodes: _nodes, _cnodes: _cnodes, label: node.label, expanded: expanded}
 						}
 					}
 				});
+				if(childrenNodeData){
+					changeNodesData.push(childrenNodeData);
+				}
 			}
 
 			if(!searchTerm){
 				// console.log('unsearchTerm node._cnodes', node);
 				if(node._cnodes){
-					// changeNode({node: {id: node.id, nodes: node._cnodes, _cnodes: node._cnodes, label: node.label}}, {id: treeId})
 					changeNodesData.push({id: node.id, nodes: node._cnodes, _cnodes: node._cnodes, label: node.label})
 				}
 			}
