@@ -15,6 +15,7 @@ export function makeNewID(props){
 export {default as Bootstrap} from './bootstrap';
 export {default as Dashboard} from './dashboard';
 export {default as Grid} from './grid';
+export {default as List} from './list';
 export {default as Lookup} from './lookup';
 export {default as Organizations} from './organizations';
 export {default as SelectUsers} from './select_users';
