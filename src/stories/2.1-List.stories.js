@@ -164,3 +164,39 @@ export const CustomListItemHref = () => (
 )
 
 
+export const InfiniteScrollList = () => (
+  <Provider store={store}>
+    <Bootstrap>
+      <List objectName={'space_users'} 
+        columns={[
+          {
+            field: 'name',
+            label: '名称'
+          },
+          {
+            field: 'email',
+            label: '邮件',
+            type: 'text',
+            width: "14rem"
+          },
+          {
+            field: 'username',
+            label: '修改人',
+            type: 'text',
+            width: "14rem"
+          },
+          {
+            field: 'modified',
+            label: '修改时间',
+            type: 'datetime',
+            width: "14rem"
+          },
+        ]} 
+        sort="name"
+        pager={true}
+        pageSize={5}>
+      </List>
+    </Bootstrap>
+  </Provider>
+)
+

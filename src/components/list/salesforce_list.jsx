@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import moment from 'moment'
 import { getRelativeUrl, getObjectRecordUrl } from '../../utils';
 import SplitViewListbox from './listbox'
+import Tloader from '../pullable';
 const marked = require('marked/lib/marked.js');
 
 let ListContainer = styled.div`
@@ -120,6 +121,7 @@ class List extends React.Component {
 			format: PropTypes.func
 		})).isRequired,
 		pageSize: PropTypes.number,
+		loading: PropTypes.bool,
 		rowIcon: PropTypes.shape({
 			width: PropTypes.string,
 			category: PropTypes.string,
@@ -158,12 +160,9 @@ class List extends React.Component {
 	}
 
 	state = {
-		// sortColumn: 'opportunityName',
-		// sortColumnDirection: {
-		// 	opportunityName: 'asc',
-		// },
 		items: this.props.rows,
-		selection: this.props.selection
+		selection: this.props.selection,
+		initializing: 1
 	};
 
 	isEnableSearch = ()=>{
@@ -257,32 +256,18 @@ class List extends React.Component {
 	}
 
 	render() {
+		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, 
+			noHeader, unborderedRow, sort, rowIcon, rowIconKey, 
+			pager, handlePageChanged, handleLoadMore, totalCount, pageSize, currentPage} = this.props;
 
-		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, noHeader, unborderedRow, sort, rowIcon, rowIconKey} = this.props
-
-		const onRequestRemoveSelectedOption = (event, data) => {
-			return createGridAction('requestRemoveSelectedOption', data.selection, this.props)
-		}
-
-		const onSearch = (event, data)=> {
-			return createGridAction('search', data.value, this.props)
-		}
-
-		const DataTableSearch = ()=>{
-			if(this.isEnableSearch()){
-				return (
-					<div className="slds-p-vertical_x-small slds-p-horizontal_large slds-shrink-none slds-theme_shade">
-						<Lookup id={id} objectName={objectName} search={search} selectionLabel={selectionLabel} onRequestRemoveSelectedOption={onRequestRemoveSelectedOption} onSearch={onSearch}></Lookup>
-					</div>
-				)
-			}else{
-				return null;
-			}
-		}
-
-		const items = rows || this.state.items;
-		const listOptions = this.getListOptions(items, columns, rowIcon, rowIconKey);
 		const isLoading = this.props.loading;
+		const items = rows;
+		let listOptions = this.state.items;
+		if(!isLoading && items.length){
+			const currentPageListOptions = this.getListOptions(items, columns, rowIcon, rowIconKey);
+			listOptions = _.union(this.state.items, currentPageListOptions);
+			this.state.items = listOptions;
+		}
 		const isEmpty = isLoading ? false : items.length === 0;
 		let DataTableEmpty = this.getDataTableEmpty(isEmpty);
 
@@ -296,6 +281,25 @@ class List extends React.Component {
 			return getObjectRecordUrl(this.props.objectName, item.content._id)
 		}
 
+		let pagerTotal = Math.ceil(totalCount / pageSize);
+		let hasMore = (currentPage ? currentPage : 0) < pagerTotal - 1;
+		let {
+		  initializing
+		} = this.state;
+		if(isLoading === false && initializing === 1){
+			initializing = 2;
+			this.state.initializing = 2;
+		}
+
+		let onLoadMore = (resolve)=>{
+			this.props.handleLoadMore((currentPage ? currentPage : 0) + 1);
+		}
+
+		let onRefresh = (resolve)=>{
+			this.state.items = [];
+			this.props.handleRefresh((currentPage ? currentPage : 0) + 1);
+		}
+
 		return (
 			<ListContainer className={`slds-grid slds-nowrap ${extraClassName}`} >
 				<div className="slds-col slds-grid slds-grid_vertical slds-nowrap">
@@ -303,26 +307,35 @@ class List extends React.Component {
 						isEmpty ? (
 							<DataTableEmpty />
 						) : (
-							<SplitViewListbox
-								key="2"
-								labels={{
-									header: 'Lead Score',
-								}}
-								options={listOptions}
-								events={{
-									// onSort: this.sortList,
-									onSelect: (event, { selectedItems, item }) => {
-										// this.setState({
-										// 	unread: this.state.unread.filter((i) => i !== item),
-										// 	selected: selectedItems,
-										// });
-									},
-								}}
-								// selection={this.state.selected}
-								// unread={this.state.unread}
-								listItem={this.props.listItem}
-								listItemHref={listItemHref}
-							/>
+							<Tloader
+								onRefresh={onRefresh}
+								onLoadMore={onLoadMore}
+								hasMore={hasMore}
+								initializing={initializing}
+								loading={isLoading}
+							>
+								<SplitViewListbox
+									key="2"
+									labels={{
+										header: 'Lead Score',
+									}}
+									options={listOptions}
+									events={{
+										// onSort: this.sortList,
+										onSelect: (event, { selectedItems, item }) => {
+											// this.setState({
+											// 	unread: this.state.unread.filter((i) => i !== item),
+											// 	selected: selectedItems,
+											// });
+										},
+									}}
+									// selection={this.state.selected}
+									// unread={this.state.unread}
+									listItem={this.props.listItem}
+									listItemHref={listItemHref}
+								/>
+								{/* <ul>{list}</ul> */}
+							</Tloader>
 						)
 					}
 				</div>

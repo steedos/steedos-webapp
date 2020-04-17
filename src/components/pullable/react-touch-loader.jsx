@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
 
-// require('./wrap.css');
-// require('./style.css');
-
 const STATS = {
   init: '',
   pulling: 'pulling',
@@ -34,7 +31,6 @@ let PullableContainer = styled.div`
   right: 0;
   height: 100%;
   overflow: hidden;
-  background-color: #efeff4;
   display: flex;
   flex-direction: column;
 
@@ -367,7 +363,7 @@ class Tloader extends React.Component {
     if (
       this.props.autoLoadMore
       && this.props.hasMore
-      && this.state.loaderState !== STATS.loading
+      && (this.state.loaderState !== STATS.loading || !this.props.loading)
     ) {
       const panel = e.currentTarget;
       const scrollBottom = panel.scrollHeight - panel.clientHeight - panel.scrollTop;
@@ -379,7 +375,7 @@ class Tloader extends React.Component {
   animationEnd = () => {
     const newState = {};
 
-    if (this.state.loaderState === STATS.refreshed) newState.loaderState = STATS.init;
+    if (this.state.loaderState === STATS.refreshed || !this.props.loading) newState.loaderState = STATS.init;
     if (this.props.initializing > 1) newState.progressed = 1;
 
     this.setState(newState);
@@ -390,16 +386,16 @@ class Tloader extends React.Component {
   }
 
   canRefresh() {
-    const { onRefresh } = this.props;
+    const { onRefresh, loading } = this.props;
     const { loaderState } = this.state;
-    return onRefresh && [STATS.refreshing, STATS.loading].indexOf(loaderState) < 0;
+    return onRefresh && ([STATS.refreshing, STATS.loading].indexOf(loaderState) < 0 || !loading);
   }
 
   initialTouch
 
   render() {
     const {
-      children, className, hasMore, initializing,
+      children, className, hasMore, initializing, loading
     } = this.props;
     const { loaderState, pullHeight, progressed } = this.state;
 
@@ -410,7 +406,11 @@ class Tloader extends React.Component {
       </div>
     ) : null;
 
-    const style = pullHeight ? {
+    let pullHeightValue = pullHeight;
+    if(!loading && loaderState === STATS.refreshing){
+      pullHeightValue = 0;
+    }
+    const style = pullHeightValue ? {
       WebkitTransform: `translate3d(0,${pullHeight}px,0)`,
     } : null;
 
@@ -420,11 +420,21 @@ class Tloader extends React.Component {
       if (initializing > 1) progressClassName += ' ed';
     }
 
+    let loaderStateClassName = loaderState;
+    if(!loading){
+      if(loaderState === STATS.loading){
+        loaderStateClassName = STATS.init;
+      }
+      else if(loaderState === STATS.refreshing){
+        loaderStateClassName = STATS.refreshed;
+      }
+    }
+
     return (
       <PullableContainer>
         <PullableScroller
           ref={(el) => { this.panel = el; }}
-          className={`tloader state-${loaderState} ${className}${progressClassName}`}
+          className={`tloader state-${loaderStateClassName} ${className}${progressClassName}`}
           onScroll={this.scroll}
           onTouchStart={this.touchStart}
           onTouchMove={this.touchMove}
@@ -447,6 +457,7 @@ class Tloader extends React.Component {
 Tloader.defaultProps = {
   distanceToRefresh: 60,
   autoLoadMore: 1,
+  loading: true
 };
 
 export default Tloader;
