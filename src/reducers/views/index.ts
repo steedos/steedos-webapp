@@ -6,6 +6,7 @@ import { ORGANIZATIONS_STATE_CHANGE_ACTION } from '../../actions/views/organizat
 import { CATEGORIES_STATE_CHANGE_ACTION } from '../../actions/views/categories'
 import { FLOWSMODAL_STATE_CHANGE_ACTION } from '../../actions/views/flows_modal'
 import { GRIDMODAL_STATE_CHANGE_ACTION } from '../../actions/views/grid_modal'
+import { MODAL_STATE_CHANGE_ACTION } from '../../actions/views/modal'
 import { VIEWS_STATE_CHANGE_ACTION } from '../../actions/views/views'
 import { LOOKUP_STATE_CHANGE_ACTION } from '../../actions/views/lookup'
 import { NOTIFICATIONS_STATE_CHANGE_ACTION, NOTIFICATIONS_INTERVAL_CHANGE_ACTION, NOTIFICATIONS_COUNT_CHANGE_ACTION} from '../../actions/views/notifications'
@@ -21,6 +22,7 @@ import CategoriesReducer from './categories'
 import FlowsModalReducer from './flows_modal'
 import GridModalReducer from './grid_modal'
 import LookupReducer from './lookup'
+import ModalReducer from './modal'
 
 function changeState(id, draft: any, newState: any) {
     return draft[id] = newState
@@ -72,6 +74,9 @@ const byId = produce((draft = {}, action) => {
             break;
         case LOOKUP_STATE_CHANGE_ACTION:
             changeState(id, draft, LookupReducer(viewState, action));
+            break;
+        case MODAL_STATE_CHANGE_ACTION:
+            changeState(id, draft, ModalReducer(viewState, action));
             break;
         case VIEWS_STATE_CHANGE_ACTION:
             changeState(id, draft, {});

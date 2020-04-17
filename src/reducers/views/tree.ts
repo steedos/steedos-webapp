@@ -46,6 +46,18 @@ const reducer = produce((draft: any = {}, action: any)=>{
             case 'loadDataSauce':
                 draft.nodes = transformData(payload.partialStateValue.records);
                 draft.totalCount = payload.partialStateValue.totalCount ;
+                break;
+            case 'changeNode':
+                draft.nodes[value.node.id] = Object.assign({}, draft.nodes[value.node.id], value.node);
+                break;
+            case 'changeNodes':
+                _.each(value.nodes, function(node:any){
+                    draft.nodes[node.id] = Object.assign({}, draft.nodes[node.id], node);
+                })
+                break;
+            case 'setNodes':
+                draft.nodes = value.nodes;
+                break;
             default:
                 break;
         }

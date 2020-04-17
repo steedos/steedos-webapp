@@ -1,13 +1,15 @@
 import React from 'react';
 // import IconSettings from '@salesforce/design-system-react/components/icon-settings';
-import {Tree} from '@salesforce/design-system-react';
-import log from '@salesforce/design-system-react';
+import {Tree, Search} from '@salesforce/design-system-react';
 // import Search from '@salesforce/design-system-react/lib/components/forms/input/search.js';
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
+import _ from 'underscore';
 let Counter = styled.div`
-    width: 100%;
+	width: 100%;
 `
+
+const log = console.log
 
 class SFTree extends React.Component {
 
@@ -30,7 +32,7 @@ class SFTree extends React.Component {
 		rootNodes: PropTypes.array.isRequired,
 		getNodes: PropTypes.func,
 		id: PropTypes.string,
-		onClick: PropTypes.func.isRequired,
+		onClick: PropTypes.func,
 		init: PropTypes.func,
 		spaceId: PropTypes.string,
 		keep: PropTypes.bool
@@ -51,8 +53,7 @@ class SFTree extends React.Component {
 
 	state = {
 		rootNodes: this.props.rootNodes,
-		nodes: this.props.nodes,
-		searchTerm: this.props.searchable ? 'fruit' : undefined,
+		nodes: this.props.nodes
 	};
 
 	// getNodes = (node) => {
@@ -62,11 +63,13 @@ class SFTree extends React.Component {
 		if(!node.nodes){
 			return []
 		}
-		let { nodes:stateNodes = {} } = this.props
-		let nodes = []
+		let { nodes:stateNodes = {}} = this.props
+		let nodes = [];
+		let childrenNode;
 		node.nodes.forEach((element) => {
-			if(stateNodes[element]){
-				nodes.push(stateNodes[element])
+			childrenNode = stateNodes[element];
+			if(childrenNode){
+				nodes.push(childrenNode)
 			}
 		});
 		return nodes
@@ -75,14 +78,20 @@ class SFTree extends React.Component {
 
 	// By default Tree can have multiple selected nodes and folders/branches can be selected. To disable either of these, you can use the following logic. However, `props` are immutable. The node passed in shouldn't be modified. Object and arrays are reference variables.
 	handleExpandClick = (event, data) => {
-		log({
-			action: this.props.action,
-			customLog: this.props.log,
-			event,
-			eventName: 'Expand Branch',
-			data,
-		});
+		// log({
+		// 	action: this.props.action,
+		// 	customLog: this.props.log,
+		// 	event,
+		// 	eventName: 'Expand Branch',
+		// 	data,
+		// });
 		const selected = data.select ? true : data.node.selected;
+		let {nodes} = this.props
+		Object.assign(nodes, {[data.node.id]: {
+			...data.node,
+			expanded: data.expand,
+			selected,
+		}})
 		this.setState((prevState) => ({
 			...prevState,
 			nodes: {
@@ -99,13 +108,13 @@ class SFTree extends React.Component {
 	};
 
 	handleClick = (event, data) => {
-		log({
-			action: this.props.action,
-			customLog: this.props.log,
-			event,
-			eventName: 'Node Selected',
-			data,
-		});
+		// log({
+		// 	action: this.props.action,
+		// 	customLog: this.props.log,
+		// 	event,
+		// 	eventName: 'Node Selected',
+		// 	data,
+		// });
 		if (this.props.multipleSelection) {
 			if (
 				!this.props.noBranchSelection ||
@@ -137,6 +146,8 @@ class SFTree extends React.Component {
 		} else {
 			// SINGLE SELECTION
 			// Take the previous state, expand it, overwrite the `nodes` key with the previous state's `nodes` key expanded with the id of the node just clicked selected and the previously selected node unselected.
+			let {nodes} = this.props
+			Object.assign(nodes, {[data.node.id]: { ...data.node, selected: data.select }})
 			this.setState((prevState) => {
 				// Gaurd against no selection with the following. `selectedNode`
 				// is the previously selected "current state" that is about to
@@ -165,33 +176,116 @@ class SFTree extends React.Component {
 	};
 
 	handleScroll = (event, data) => {
-		log({
-			action: this.props.action,
-			event,
-			eventName: 'Tree scrolled',
-			data,
-		});
+		// log({
+		// 	action: this.props.action,
+		// 	event,
+		// 	eventName: 'Tree scrolled',
+		// 	data,
+		// });
 	};
+	
+	setTimeoutId= null
+
+	searchString = (str, searchTermStr)=>{
+		let logic = '&';
+		if(searchTermStr.startsWith("| ")){
+			logic = "|"
+			searchTermStr = searchTermStr.replace("| ", "")
+		};
+		const strLowerCase = str.toLocaleLowerCase();
+		let searchTermArray = _.compact(searchTermStr.split(' '));
+		_.map(searchTermArray, function(searchTerm){
+			return searchTerm.toLocaleLowerCase();
+		})
+		if(logic === '&'){
+			return _.every(searchTermArray, function(searchTerm){
+				return strLowerCase.indexOf(searchTerm) > -1
+			})
+		}else{
+			return _.some(searchTermArray, function(searchTerm){
+				return strLowerCase.indexOf(searchTerm) > -1
+			})
+		}
+	}
+
+	searchFunction = (searchTerm)=>{
+		let { nodes:stateNodes = {}, changeNodes, id:treeId } = this.props
+		let childrenNode;
+		let changeNodesData = [];
+		_.each(stateNodes, (node)=>{
+			if(node.type != 'item' && node.nodes){
+				let childrenNodes = node._cnodes || node.nodes
+				let _nodes = node.nodes
+				childrenNodes.forEach((element) => {
+					childrenNode = stateNodes[element];
+					if(childrenNode){
+						if(searchTerm && childrenNode.type === 'item'){
+							let _cnodes = node._cnodes || node.nodes
+							// console.log('node.label', childrenNode, childrenNode.label);
+							if(childrenNode.label && _.isString(childrenNode.label) && this.searchString(childrenNode.label, searchTerm)){
+								_nodes = _.union(_nodes, [childrenNode.id]);;
+							}else if(childrenNode.assistiveText && _.isString(childrenNode.assistiveText) && this.searchString(childrenNode.assistiveText, searchTerm)){
+								_nodes = _.union(_nodes, [childrenNode.id]);;
+							}else{
+								// console.log('node.nodes', node.nodes);
+								_nodes = _.difference(_nodes, [childrenNode.id]);
+							}
+							// console.log('_nodes', _nodes);
+							let expanded = node.expanded;
+							if(_nodes.length > 0){
+								expanded = true;
+							}else{
+								expanded = false;
+							}
+							changeNodesData.push({id: node.id, nodes: _nodes, _cnodes: _cnodes, label: node.label, expanded: expanded});
+							// changeNode({node: {id: node.id, nodes: _nodes, _cnodes: _cnodes, label: node.label, expanded: expanded}}, {id: treeId})
+						}
+					}
+				});
+			}
+
+			if(!searchTerm){
+				// console.log('unsearchTerm node._cnodes', node);
+				if(node._cnodes){
+					// changeNode({node: {id: node.id, nodes: node._cnodes, _cnodes: node._cnodes, label: node.label}}, {id: treeId})
+					changeNodesData.push({id: node.id, nodes: node._cnodes, _cnodes: node._cnodes, label: node.label})
+				}
+			}
+		});
+
+		changeNodes({nodes: changeNodesData}, {id: treeId})
+	}
 
 	handleSearchChange = (event) => {
 		this.setState({ searchTerm: event.target.value });
+		let searchTerm = event.target.value || "";
+		searchTerm = searchTerm.trim();
+		// console.log('searchTerm', searchTerm);
+
+		if(this.setTimeoutId != null){
+			clearTimeout(this.setTimeoutId);
+			this.setTimeoutId = null;
+		}
+
+		this.setTimeoutId = setTimeout(()=>{
+			this.searchFunction(searchTerm)
+		}, 300)
 	};
 
 	render() {
-		const {assistiveText, className, getNodes, noHeading, id, listStyle, listClassName, rootNodes, searchTerm, onExpandClick, onClick, onScroll} = this.props;
+		const {assistiveText, searchable, className, getNodes, noHeading, id, listStyle, listClassName, rootNodes, searchTerm, onExpandClick, onClick, onScroll} = this.props;
 		return (
-			// {this.props.searchable ? (
-			// 	<div>
-			// 		<Search
-			// 			assistiveText={{ label: 'Search Tree' }}
-			// 			id="example-search"
-			// 			value={this.state.searchTerm}
-			// 			onChange={this.handleSearchChange}
-			// 		/>
-			// 		<br />
-			// 	</div>
-			// ) : null}
 			<Counter>
+				{searchable ? (
+				<div>
+					<Search
+						assistiveText={{ label: 'Search Tree' }}
+						id="example-search"
+						value={searchTerm}
+						onChange={this.handleSearchChange}
+					/>
+				</div>
+			) : null}
 				<Tree
 					assistiveText={assistiveText}
 					className={className}
@@ -204,7 +298,7 @@ class SFTree extends React.Component {
 					onExpandClick={onExpandClick || this.handleExpandClick}
 					onClick={onClick || this.handleClick}
 					onScroll={onScroll || this.handleScroll}
-					searchTerm={searchTerm || this.state.searchTerm}
+					// searchTerm={searchTerm || this.state.searchTerm}
 				/>
 			</Counter>
 		);
