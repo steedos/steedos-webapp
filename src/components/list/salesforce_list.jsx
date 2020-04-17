@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import moment from 'moment'
 import { getRelativeUrl, getObjectRecordUrl } from '../../utils';
-import SplitViewListbox from './listbox'
+import Listbox from './listbox'
 import Pullable from '../pullable';
 const marked = require('marked/lib/marked.js');
 
@@ -307,11 +307,8 @@ class List extends React.Component {
 							initializing={initializing}
 							loading={isLoading}
 						>
-							<SplitViewListbox
+							<Listbox
 								key="2"
-								labels={{
-									header: 'Lead Score',
-								}}
 								options={listOptions}
 								events={{
 									// onSort: this.sortList,

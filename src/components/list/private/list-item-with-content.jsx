@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export const DISPLAY_NAME = 'SLDSSplitViewListItemWithContent';
+export const DISPLAY_NAME = 'ListItemWithContent';
 
 const propsTypes = {
 	/**

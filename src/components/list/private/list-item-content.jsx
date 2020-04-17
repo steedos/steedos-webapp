@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { Icon } from '@salesforce/design-system-react';
 import styled from 'styled-components';
 
-export const DISPLAY_NAME = 'SLDSSplitViewListItemContent';
+export const DISPLAY_NAME = 'ListItemContent';
 
 const propTypes = {
 	/**
@@ -56,7 +56,7 @@ const ListItemContainer = styled.div`
 	}
 `
 
-const SplitViewListItemContent = ({ item }) => (
+const ListItemContent = ({ item }) => (
 	<ListItemContainer key={item.key}>
 		{item.rowIcon ? (
 			<span className="list-item-left-icon">
@@ -124,8 +124,8 @@ const SplitViewListItemContent = ({ item }) => (
 	</ListItemContainer>
 );
 
-SplitViewListItemContent.displayName = DISPLAY_NAME;
-SplitViewListItemContent.propTypes = propTypes;
-SplitViewListItemContent.defaultProps = defaultProps;
+ListItemContent.displayName = DISPLAY_NAME;
+ListItemContent.propTypes = propTypes;
+ListItemContent.defaultProps = defaultProps;
 
-export default SplitViewListItemContent;
+export default ListItemContent;

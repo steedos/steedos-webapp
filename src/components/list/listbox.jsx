@@ -11,7 +11,7 @@ import classNames from 'classnames';
 // import { SPLIT_VIEW_LISTBOX } from '../../utilities/constants';
 
 import { Icon } from '@salesforce/design-system-react';
-import SplitViewListItemContent from './private/list-item-content';
+import ListItemContent from './private/list-item-content';
 import listItemWithContent from './private/list-item-with-content';
 
 export const SORT_OPTIONS = Object.freeze({
@@ -122,8 +122,8 @@ const defaultProps = {
 /**
  * The menu with the ARIA role of a listbox.
  */
-class SplitViewListbox extends React.Component {
-	static displayName = "SPLIT_VIEW_LISTBOX";
+class Listbox extends React.Component {
+	static displayName = "LISTBOX";
 
 	static propTypes = propTypes;
 
@@ -144,7 +144,7 @@ class SplitViewListbox extends React.Component {
 
 		// Generates the list item template
 		this.ListItemWithContent = listItemWithContent(
-			props.listItem || SplitViewListItemContent
+			props.listItem || ListItemContent
 		);
 	}
 
@@ -398,4 +398,4 @@ class SplitViewListbox extends React.Component {
 	}
 }
 
-export default SplitViewListbox;
+export default Listbox;
