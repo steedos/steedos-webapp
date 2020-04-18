@@ -25,6 +25,10 @@ const ProfileContainer = styled.div`
             }
         }
     }
+
+    .slds-popover__header{
+        display: none;
+    }
 `;
 
 class profile extends React.Component {
@@ -93,12 +97,12 @@ class profile extends React.Component {
                                 />
                             }
                             id="header-profile-popover-id"
-                            heading={false}
+                            ariaLabelledby=""
                             footer={
                             <div className="profile-footer slds-var-p-around_medium"> 
-                                    {footers.map((item)=>{
+                                    {footers.map((item, _index)=>{
                                         return (
-                                            <div className="slds-media slds-media--center slds-p-left--none">
+                                            <div key={`profile-footer-${item.id || _index}`} className="slds-media slds-media--center slds-p-left--none">
                                                 <a className="footerAction slds-grow" href="javacript:void(0);" onClick={()=>{item.onClick()}}>
                                                     <div className="slds-media slds-media--center slds-p-bottom_x-small">
                                                         <div className="slds-media__body slds-m-left--none">{item.label}</div>
