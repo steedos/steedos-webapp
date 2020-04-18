@@ -6,18 +6,18 @@ import _ from 'underscore'
 const accounts = [
 ];
 
-const accountsWithIcon = accounts.map((elem) => ({
-	...elem,
-	...{
-		icon: (
-			<Icon
-				assistiveText={{ label: 'Account' }}
-				category="standard"
-				name={elem.type}
-			/>
-		),
-	},
-}));
+// const accountsWithIcon = accounts.map((elem) => ({
+// 	...elem,
+// 	...{
+// 		icon: (
+// 			<Icon
+// 				assistiveText={{ label: 'Account' }}
+// 				category="standard"
+// 				name={elem.type}
+// 			/>
+// 		),
+// 	},
+// }));
 
 /**
  *

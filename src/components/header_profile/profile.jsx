@@ -33,20 +33,18 @@ class profile extends React.Component {
         super(props);
     }
 
+    static defaultProps = {
+		footers: []
+	};
+
     static propTypes = {
         settingsAccountClick: PropTypes.func.isRequired,
         logoutAccountClick: PropTypes.func.isRequired,
-        avatarURL: PropTypes.string.isRequired
-    }
-
-    footerClick = (url)=>{
-        if(window.Steedos){
-            window.Steedos.openWindow(url);
-        }else{
-            const target = "_blank";
-            const options = 'scrollbars=yes,EnableViewPortScale=yes,toolbarposition=top,transitionstyle=fliphorizontal,menubar=yes,closebuttoncaption=  x  '
-            window.open(url, target, options);
-        }
+        avatarURL: PropTypes.string.isRequired,
+        footers: PropTypes.arrayOf(PropTypes.shape({
+			label: PropTypes.string.isRequired,
+			onClick: PropTypes.func.isRequired
+		}))
     }
 
     settingsAccount = ()=>{
@@ -66,7 +64,7 @@ class profile extends React.Component {
 
     render() {
 
-        const { profile, avatarURL } = this.props
+        const { profile, avatarURL, footers } = this.props
 
         return (
             <ProfileContainer>
@@ -98,28 +96,17 @@ class profile extends React.Component {
                             heading={false}
                             footer={
                             <div className="profile-footer slds-var-p-around_medium"> 
-                                    <div className="slds-media slds-media--center slds-p-left--none">
-                                        <a className="footerAction slds-grow" href="javacript:void(0);" onClick={()=>{this.footerClick('https://www.steedos.com/help')}}>
-                                            <div className="slds-media slds-media--center slds-p-bottom_x-small">
-                                                <div className="slds-media__body slds-m-left--none">帮助文档</div>
+                                    {footers.map((item)=>{
+                                        return (
+                                            <div className="slds-media slds-media--center slds-p-left--none">
+                                                <a className="footerAction slds-grow" href="javacript:void(0);" onClick={()=>{item.onClick()}}>
+                                                    <div className="slds-media slds-media--center slds-p-bottom_x-small">
+                                                        <div className="slds-media__body slds-m-left--none">{item.label}</div>
+                                                    </div>
+                                                </a>
                                             </div>
-                                        </a>
-                                    </div>
-                                    <div className="slds-media slds-media--center slds-p-left--none">
-                                        <a className="footerAction slds-grow" href="javacript:void(0);" onClick={()=>{this.footerClick('https://www.steedos.com/help/download')}}>
-                                            <div className="slds-media slds-media--center slds-p-bottom_x-small">
-                                                <div className="slds-media__body slds-m-left--none">下载客户端</div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div className="slds-media slds-media--center slds-p-left--none">
-
-                                        <a className="footerAction slds-grow" href="javacript:void(0);" onClick={()=>{this.footerClick('https://www.steedos.com')}}>
-                                            <div className="slds-media slds-media--center">
-                                                <div className="slds-media__body slds-m-left--none">关于</div>
-                                            </div>
-                                        </a>
-                                    </div>
+                                        )
+                                    })}
                                 </div>
                             }
                         />
