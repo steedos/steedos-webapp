@@ -14,7 +14,7 @@ addParameters({
     picked: true,
   }, {
     id: `style`,
-    code: `<style>html{background: #fff;}</style>`,
+    code: `<style>html,body{background: #fff;height:100%;}#root{height: 100%;}</style>`,
     picked: true,
   }],
 });

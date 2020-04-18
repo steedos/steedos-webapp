@@ -25,20 +25,17 @@ export const base = () => (
               {
                 field: 'applicant_name',
                 label: '申请人',
-                type: 'text',
-                width: "14rem"
+                type: 'text'
               },
               {
                 field: 'flow_name',
                 label: '流程名称',
-                type: 'text',
-                width: "14rem"
+                type: 'text'
               },
               {
                 field: 'modified',
                 label: '修改时间',
-                type: 'datetime',
-                width: "14rem"
+                type: 'datetime'
               },
             ]} 
             sort="name, modified desc"
@@ -46,6 +43,86 @@ export const base = () => (
           </List>
         </Bootstrap>
       </Provider>
+)
+
+export const ManyColumnsList = () => (
+  <Provider store={store}>
+    <Bootstrap>
+      <List objectName={'instances'} 
+        columns={[
+          {
+            field: 'name',
+            label: '名称'
+          },
+          {
+            field: 'applicant_name',
+            label: '申请人',
+            type: 'text'
+          },
+          {
+            field: 'flow_name',
+            label: '流程名称',
+            type: 'text'
+          },
+          {
+            field: 'applicant_organization_name',
+            label: '组织名称',
+            type: 'text'
+          },
+          {
+            field: 'current_step_name',
+            label: '当前步骤',
+            type: 'text'
+          },
+          {
+            field: 'modified',
+            label: '修改时间',
+            type: 'datetime'
+          },
+        ]} 
+        sort="name, modified desc"
+        pageSize={5}>
+      </List>
+    </Bootstrap>
+  </Provider>
+)
+
+export const ManyColumnsWithWideFieldList = () => (
+  <Provider store={store}>
+    <Bootstrap>
+      <List objectName={'instances'} 
+        columns={[
+          {
+            field: 'name',
+            label: '名称',
+            is_wide: true
+          },
+          {
+            field: 'flow_name',
+            label: '流程名称',
+            type: 'text'
+          },
+          {
+            field: 'applicant_organization_name',
+            label: '组织名称',
+            type: 'text'
+          },
+          {
+            field: 'current_step_name',
+            label: '当前步骤',
+            type: 'text'
+          },
+          {
+            field: 'modified',
+            label: '修改时间',
+            type: 'datetime'
+          },
+        ]} 
+        sort="name, modified desc"
+        pageSize={5}>
+      </List>
+    </Bootstrap>
+  </Provider>
 )
 
 export const rowIcon = () => (
@@ -60,20 +137,17 @@ export const rowIcon = () => (
           {
             field: 'email',
             label: '邮件',
-            type: 'text',
-            width: "14rem"
+            type: 'text'
           },
           {
             field: 'modified_by',
             label: '修改人',
-            type: 'lookup',
-            width: "14rem"
+            type: 'lookup'
           },
           {
             field: 'modified',
             label: '修改时间',
-            type: 'datetime',
-            width: "14rem"
+            type: 'datetime'
           },
         ]} 
         sort="name, modified desc"
@@ -138,20 +212,17 @@ export const CustomListItemHref = () => (
           {
             field: 'email',
             label: '邮件',
-            type: 'text',
-            width: "14rem"
+            type: 'text'
           },
           {
             field: 'modified_by',
             label: '修改人',
-            type: 'lookup',
-            width: "14rem"
+            type: 'lookup'
           },
           {
             field: 'modified',
             label: '修改时间',
-            type: 'datetime',
-            width: "14rem"
+            type: 'datetime'
           },
         ]} 
         sort="name"
@@ -165,6 +236,7 @@ export const CustomListItemHref = () => (
 )
 
 let ListContainer = styled.div`
+  height: 100%;
 	.pullable-container{
     background-color: #efeff4;
     .pullable-body{
@@ -186,20 +258,17 @@ export const InfiniteScrollList = () => (
             {
               field: 'email',
               label: '邮件',
-              type: 'text',
-              width: "14rem"
+              type: 'text'
             },
             {
               field: 'username',
-              label: '修改人',
-              type: 'text',
-              width: "14rem"
+              label: '用户名',
+              type: 'text'
             },
             {
               field: 'modified',
               label: '修改时间',
-              type: 'datetime',
-              width: "14rem"
+              type: 'datetime'
             },
           ]} 
           sort="name"

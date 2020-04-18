@@ -12,6 +12,7 @@ import Pullable from '../pullable';
 const marked = require('marked/lib/marked.js');
 
 let ListContainer = styled.div`
+	position: relative;
 	height: 100%;
 	&.slds-grid-no-header{
 		.slds-table thead{
@@ -78,6 +79,9 @@ const FieldLabel = ({ children, ...props }) => {
 			case 'boolean':
 				children = children ? '是' : '否'
 				break;
+			case 'select':
+				children = children
+				break;
 			case 'lookup':
 				children = children._NAME_FIELD_VALUE
 				break;
@@ -116,7 +120,7 @@ class List extends React.Component {
 		columns: PropTypes.arrayOf(PropTypes.shape({
 			field: PropTypes.string.isRequired,
 			label: PropTypes.string.isRequired,
-			type: PropTypes.oneOf(['date', 'datetime', 'boolean', 'lookup', 'master_detail', 'text']),
+			type: PropTypes.oneOf(['date', 'datetime', 'boolean', 'lookup', 'master_detail', 'text', 'select']),
 			is_wide: PropTypes.bool,
 			format: PropTypes.func
 		})).isRequired,
