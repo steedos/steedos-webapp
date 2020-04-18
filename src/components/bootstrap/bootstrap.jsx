@@ -35,9 +35,9 @@ class Bootstrap extends React.Component {
             return null;
         }
         return (
-            <div className="bootstrap-container">
+            <React.Fragment>
                 {this.props.children}
-            </div>
+            </React.Fragment>
         );
     }
 }
