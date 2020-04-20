@@ -6,7 +6,7 @@ import Bootstrap from '../components/bootstrap'
 import { FlowsTree,Modal } from '../components';
 import { createModalAction } from '../actions'
 import _ from 'underscore'
-import { Icon,Button,ButtonIcon,ButtonStateful } from '@salesforce/design-system-react';
+import { Icon } from '@salesforce/design-system-react';
 
 export default {
     title: 'Tree',
