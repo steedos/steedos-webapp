@@ -237,13 +237,82 @@ export const CustomListItemHref = () => (
 
 let ListContainer = styled.div`
   height: 100%;
-	.pullable-container{
+  .pullable-container{
     background-color: #efeff4;
     .pullable-body{
       background-color: #fff;
     }
 	}
 `
+
+export const MoreLink = () => (
+  <Provider store={store}>
+    <Bootstrap>
+      <List objectName={'space_users'} 
+        columns={[
+          {
+            field: 'name',
+            label: '名称'
+          },
+          {
+            field: 'email',
+            label: '邮件',
+            type: 'text'
+          },
+          {
+            field: 'modified_by',
+            label: '修改人',
+            type: 'lookup'
+          },
+          {
+            field: 'modified',
+            label: '修改时间',
+            type: 'datetime'
+          },
+        ]} 
+        sort="name"
+        showMoreLink={true}
+        pageSize={5}>
+      </List>
+    </Bootstrap>
+  </Provider>
+)
+
+export const CustomMorLinkHref = () => (
+  <Provider store={store}>
+    <Bootstrap>
+      <List objectName={'space_users'} 
+        columns={[
+          {
+            field: 'name',
+            label: '名称'
+          },
+          {
+            field: 'email',
+            label: '邮件',
+            type: 'text'
+          },
+          {
+            field: 'modified_by',
+            label: '修改人',
+            type: 'lookup'
+          },
+          {
+            field: 'modified',
+            label: '修改时间',
+            type: 'datetime'
+          },
+        ]} 
+        sort="name"
+        showMoreLink={true}
+        moreLinkHref={(props) => {
+          return `xxx/app/-/${props.objectName}`;
+        }}
+        pageSize={5}>
+      </List>
+    </Bootstrap>
+  </Provider>
+)
 
 export const InfiniteScrollList = () => (
   <Provider store={store}>

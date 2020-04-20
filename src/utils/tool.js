@@ -3,6 +3,11 @@ export const getObjectRecordUrl = (objectName, recordId)=>{
     return getRelativeUrl(url);
 }
 
+export const getObjectUrl = (objectName)=>{
+    let url = `/app/-/${objectName}`;
+    return getRelativeUrl(url);
+}
+
 export const getAbsoluteUrl = (url)=>{
     if(window.Meteor && !/^http(s?):\/\//.test(url)){
         return window.Steedos.absoluteUrl(url)

@@ -17,7 +17,7 @@ function mapStateToProps() {
       handleChanged: (event: any, data: any)=> {dispatch(createGridAction('selection', data.selection, ownProps))},
       handleRefresh: ()=> {
         let newOptions:any = {};
-        if(ownProps.pager){
+        if(ownProps.pager || ownProps.showMoreLink){
           newOptions.count = true;
         }
         dispatch(createGridAction('currentPage', 0, Object.assign({}, ownProps, newOptions)))
@@ -29,7 +29,7 @@ function mapStateToProps() {
       },
       init: (options: any) => {
         let newOptions:any = {};
-        if(options.pager){
+        if(ownProps.pager || ownProps.showMoreLink){
           newOptions.count = true;
         }
         dispatch(loadGridEntitiesData(Object.assign({}, options, newOptions)))

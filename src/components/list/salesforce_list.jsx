@@ -6,7 +6,7 @@ import { createGridAction } from '../../actions'
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import moment from 'moment'
-import { getRelativeUrl, getObjectRecordUrl } from '../../utils';
+import { getRelativeUrl, getObjectRecordUrl, getObjectUrl } from '../../utils';
 import Listbox from './listbox'
 import Pullable from '../pullable';
 const marked = require('marked/lib/marked.js');
@@ -34,6 +34,10 @@ let ListContainer = styled.div`
 	.slds-illustration.slds-illustration_small .slds-illustration__svg {
 		/*fix IE11 高度未定义会造成footer有内容时底部界面错乱*/
 		height: 10rem;
+	}
+	.slds-list-more-link{
+		float: right;
+		margin-right: 1rem;
 	}
 `
 
@@ -148,7 +152,15 @@ class List extends React.Component {
 		/**
 		 * The list item href generate function
 		 */
-		listItemHref: PropTypes.func
+		listItemHref: PropTypes.func,
+		/**
+		 * Whether to show the more link on footer
+		 */
+		showMoreLink: PropTypes.bool,
+		/**
+		 * The more link href generate function
+		 */
+		moreLinkHref: PropTypes.func
 	}
 
 	componentDidMount() {
@@ -260,9 +272,10 @@ class List extends React.Component {
 	}
 
 	render() {
-		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, 
-			noHeader, unborderedRow, sort, rowIcon, rowIconKey, 
-			pager, handlePageChanged, handleLoadMore, totalCount, pageSize, currentPage, initializing} = this.props;
+		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, 
+			search, columns, id, noHeader, unborderedRow, sort, rowIcon, rowIconKey, 
+			pager, handlePageChanged, handleLoadMore, totalCount, pageSize, currentPage, 
+			initializing, showMoreLink } = this.props;
 		console.log("list render initializing===ccc===", initializing);
 		const isLoading = this.props.loading;
 		const items = rows;
@@ -282,6 +295,10 @@ class List extends React.Component {
 		let listItemHref = this.props.listItemHref ? this.props.listItemHref : (item) => {
 			return getObjectRecordUrl(this.props.objectName, item.content._id)
 		}
+		
+		let moreLinkHref = this.props.moreLinkHref ? this.props.moreLinkHref : (props) => {
+			return getObjectUrl(props.objectName)
+		}
 
 		let pagerTotal = Math.ceil(totalCount / pageSize);
 		let hasMore = (currentPage ? currentPage : 0) < pagerTotal - 1;
@@ -299,24 +316,36 @@ class List extends React.Component {
 			this.props.handleRefresh((currentPage ? currentPage : 0) + 1);
 		}
 
+		let footer;
+		if (showMoreLink && !pager && hasMore) {
+			footer = (
+				<a href={moreLinkHref(this.props)} className="slds-list-more-link">
+					更多
+				</a>
+			)
+		}
+
 		let ListContent = ()=>(
-			<Listbox
-				key="2"
-				options={listOptions}
-				events={{
-					// onSort: this.sortList,
-					onSelect: (event, { selectedItems, item }) => {
-						// this.setState({
-						// 	unread: this.state.unread.filter((i) => i !== item),
-						// 	selected: selectedItems,
-						// });
-					},
-				}}
-				// selection={this.state.selected}
-				// unread={this.state.unread}
-				listItem={this.props.listItem}
-				listItemHref={listItemHref}
-			/>)
+			<React.Fragment>
+				<Listbox
+					key="2"
+					options={listOptions}
+					events={{
+						// onSort: this.sortList,
+						onSelect: (event, { selectedItems, item }) => {
+							// this.setState({
+							// 	unread: this.state.unread.filter((i) => i !== item),
+							// 	selected: selectedItems,
+							// });
+						},
+					}}
+					// selection={this.state.selected}
+					// unread={this.state.unread}
+					listItem={this.props.listItem}
+					listItemHref={listItemHref}
+				/>
+				{(footer ? footer : null)}
+			</React.Fragment>)
 
 		return (
 			<ListContainer className={`slds-list slds-nowrap `} >
