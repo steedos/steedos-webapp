@@ -120,7 +120,7 @@ class List extends React.Component {
 		columns: PropTypes.arrayOf(PropTypes.shape({
 			field: PropTypes.string.isRequired,
 			label: PropTypes.string.isRequired,
-			type: PropTypes.oneOf(['date', 'datetime', 'boolean', 'lookup', 'master_detail', 'text', 'select', 'number', 'autonumber']),
+			type: PropTypes.oneOf(['date', 'datetime', 'boolean', 'lookup', 'master_detail', 'text', 'select', 'number', 'autonumber', 'filesize', 'currency']),
 			is_wide: PropTypes.bool,
 			format: PropTypes.func
 		})).isRequired,
@@ -299,37 +299,44 @@ class List extends React.Component {
 			this.props.handleRefresh((currentPage ? currentPage : 0) + 1);
 		}
 
+		let ListContent = ()=>(
+			<Listbox
+				key="2"
+				options={listOptions}
+				events={{
+					// onSort: this.sortList,
+					onSelect: (event, { selectedItems, item }) => {
+						// this.setState({
+						// 	unread: this.state.unread.filter((i) => i !== item),
+						// 	selected: selectedItems,
+						// });
+					},
+				}}
+				// selection={this.state.selected}
+				// unread={this.state.unread}
+				listItem={this.props.listItem}
+				listItemHref={listItemHref}
+			/>)
+
 		return (
 			<ListContainer className={`slds-list slds-nowrap `} >
 				{
 					isEmpty ? (
 						<DataTableEmpty />
 					) : (
-						<Pullable
-							onRefresh={onRefresh}
-							onLoadMore={onLoadMore}
-							hasMore={hasMore}
-							initializing={initializing}
-							loading={isLoading}
-						>
-							<Listbox
-								key="2"
-								options={listOptions}
-								events={{
-									// onSort: this.sortList,
-									onSelect: (event, { selectedItems, item }) => {
-										// this.setState({
-										// 	unread: this.state.unread.filter((i) => i !== item),
-										// 	selected: selectedItems,
-										// });
-									},
-								}}
-								// selection={this.state.selected}
-								// unread={this.state.unread}
-								listItem={this.props.listItem}
-								listItemHref={listItemHref}
-							/>
-						</Pullable>
+						pager ? (
+							<Pullable
+								onRefresh={onRefresh}
+								onLoadMore={onLoadMore}
+								hasMore={hasMore}
+								initializing={initializing}
+								loading={isLoading}
+							>
+								<ListContent />
+							</Pullable>
+						) : (
+							<ListContent />
+						)
 					)
 				}
 			</ListContainer>
