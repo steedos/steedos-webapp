@@ -35,9 +35,10 @@ let ListContainer = styled.div`
 		/*fix IE11 高度未定义会造成footer有内容时底部界面错乱*/
 		height: 10rem;
 	}
-	.slds-list-more-link{
-		float: right;
-		margin-right: 1rem;
+	.slds-list-footer{
+		display: flex;
+		justify-content: flex-end;
+		padding: 0.35rem 1rem 0.35rem 1rem;
 	}
 `
 
@@ -319,9 +320,11 @@ class List extends React.Component {
 		let footer;
 		if (showMoreLink && !pager && hasMore) {
 			footer = (
-				<a href={moreLinkHref(this.props)} className="slds-list-more-link">
-					更多
-				</a>
+				<div className="slds-list-footer">
+					<a href={moreLinkHref(this.props)}>
+						更多
+					</a>
+				</div>
 			)
 		}
 
