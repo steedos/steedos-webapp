@@ -120,12 +120,13 @@ class List extends React.Component {
 		columns: PropTypes.arrayOf(PropTypes.shape({
 			field: PropTypes.string.isRequired,
 			label: PropTypes.string.isRequired,
-			type: PropTypes.oneOf(['date', 'datetime', 'boolean', 'lookup', 'master_detail', 'text', 'select']),
+			type: PropTypes.oneOf(['date', 'datetime', 'boolean', 'lookup', 'master_detail', 'text', 'select', 'number', 'autonumber']),
 			is_wide: PropTypes.bool,
 			format: PropTypes.func
 		})).isRequired,
 		pageSize: PropTypes.number,
 		loading: PropTypes.bool,
+		initializing: PropTypes.number,
 		rowIcon: PropTypes.shape({
 			width: PropTypes.string,
 			category: PropTypes.string,
@@ -165,8 +166,7 @@ class List extends React.Component {
 
 	state = {
 		items: this.props.rows,
-		selection: this.props.selection,
-		initializing: 1
+		selection: this.props.selection
 	};
 
 	isEnableSearch = ()=>{
@@ -262,10 +262,14 @@ class List extends React.Component {
 	render() {
 		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, 
 			noHeader, unborderedRow, sort, rowIcon, rowIconKey, 
-			pager, handlePageChanged, handleLoadMore, totalCount, pageSize, currentPage} = this.props;
-
+			pager, handlePageChanged, handleLoadMore, totalCount, pageSize, currentPage, initializing} = this.props;
+		console.log("list render initializing===ccc===", initializing);
 		const isLoading = this.props.loading;
 		const items = rows;
+		if(initializing === 1){
+			// 每次重新初始化时，可以传入initializing为1，相关于刷新效果，比如变更过滤条件store.dispatch时
+			this.state.items = [];
+		}
 		let listOptions = this.state.items;
 		if(!isLoading && items.length){
 			const currentPageListOptions = this.getListOptions(items, columns, rowIcon, rowIconKey);
@@ -281,12 +285,9 @@ class List extends React.Component {
 
 		let pagerTotal = Math.ceil(totalCount / pageSize);
 		let hasMore = (currentPage ? currentPage : 0) < pagerTotal - 1;
-		let {
-		  initializing
-		} = this.state;
+
 		if(isLoading === false && initializing === 1){
 			initializing = 2;
-			this.state.initializing = 2;
 		}
 
 		let onLoadMore = (resolve)=>{
