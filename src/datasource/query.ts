@@ -97,7 +97,7 @@ export async function query(service: string, options: any = { pageSize: 10, curr
     let authToken = getAuthToken();
     let userId = getUserId();
 
-    const endpoint = `${service}/api/v4/${objectName}`;
+    let endpoint = options.endpoint ? options.endpoint : `${service}/api/v4/${objectName}`;
     const requestInit = () => {
         return {
             headers: {
