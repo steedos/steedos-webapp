@@ -125,6 +125,7 @@ class List extends React.Component {
 		columns: PropTypes.arrayOf(PropTypes.shape({
 			field: PropTypes.string.isRequired,
 			label: PropTypes.string.isRequired,
+			hidden: PropTypes.bool,
 			type: PropTypes.oneOf(['date', 'datetime', 'boolean', 'lookup', 'master_detail', 'text', 'select', 'number', 'autonumber', 'filesize', 'currency']),
 			is_wide: PropTypes.bool,
 			format: PropTypes.func
@@ -225,9 +226,16 @@ class List extends React.Component {
 
 	getListOptions(items, columns, rowIcon, rowIconKey){
 		let results = items.map((item)=>{
-			let itemRows = [], itemTag = 0, itemOption = {}, fieldNode;
+			let itemRows = [], itemTag = 0, itemOption = {}, fieldNode, fieldValue;
 			columns.forEach((column)=>{
-				fieldNode = (<FieldLabel field={column} options={this.props}>{item[column.field]}</FieldLabel>);
+				if(column.hidden){
+					return;
+				}
+				// 调用_.reduce函数是因为column.field可能是a.b这种格式，比如cfs_files_filerecord对象的original.name
+				fieldValue = _.reduce(column.field.split("."), function(value, key) {
+					return value[key];
+				}, item);
+				fieldNode = (<FieldLabel field={column} options={this.props}>{fieldValue}</FieldLabel>);
 				if(column.is_wide){
 					if(itemTag !== 0){
 						itemRows.push(itemOption);

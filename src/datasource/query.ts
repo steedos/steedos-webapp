@@ -6,11 +6,17 @@ import { request } from "./request";
 import store from "../stores/configureStore";
 
 function getSelect(columns){
-    return _.uniq(_.compact(_.pluck(columns, 'field')));
+    return _.uniq(_.compact(_.pluck(columns, 'field'))).map((n)=> {
+        // odata请求中a.b需要换成a/b
+        return n.replace(".", "/");
+    });
 }
 
 function getExpand(columns) {
     return _.pluck(_.filter(columns, (column: any)=>{
+        if(column.hidden){
+            return false
+        }
         if(column.type === 'lookup' || column.type === 'master_detail'){
             return true
         }

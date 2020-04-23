@@ -161,6 +161,39 @@ export const rowIcon = () => (
   </Provider>
 )
 
+export const DotFieldNameColumns = () => (
+  <Provider store={store}>
+    <Bootstrap>
+      <List objectName={'cfs_files_filerecord'} 
+        columns={[
+          {
+            field: 'original.name',
+            type: 'text',
+            label: '名称'
+          },
+          {
+            field: 'metadata.owner_name',
+            label: '上传者',
+            type: 'text'
+          },
+          {
+            field: 'uploadedAt',
+            label: '上传时间',
+            type: 'datetime'
+          },
+          {
+            field: 'original.size',
+            label: '文件大小',
+            type: 'filesize'
+          },
+        ]} 
+        sort="uploadedAt"
+        pageSize={5}>
+      </List>
+    </Bootstrap>
+  </Provider>
+)
+
 const CustomListItemExample = (props) => (
 	<div>
 		<Icon
