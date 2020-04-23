@@ -126,7 +126,7 @@ class List extends React.Component {
 			field: PropTypes.string.isRequired,
 			label: PropTypes.string.isRequired,
 			hidden: PropTypes.bool,
-			type: PropTypes.oneOf(['date', 'datetime', 'boolean', 'lookup', 'master_detail', 'text', 'select', 'number', 'autonumber', 'filesize', 'currency']),
+			type: PropTypes.oneOf(['date', 'datetime', 'boolean', 'lookup', 'master_detail', 'text', 'select', 'number', 'autonumber', 'filesize', 'currency', 'file']),
 			is_wide: PropTypes.bool,
 			format: PropTypes.func
 		})).isRequired,
