@@ -8,6 +8,9 @@ export function createGridAction(partialStateName: any, partialStateValue: any, 
             let entityState = viewStateSelector(getState(), options.id);
             const service = dataServicesSelector(getState())
             let newOptions: any = Object.assign({}, options, entityState, {[partialStateName]: partialStateValue})
+            if(["filters", "search"].includes(partialStateName)){
+                newOptions = Object.assign({}, newOptions, {"currentPage": 0});
+            }
             dispatch(createGridAction("loading", true, options));
             loadEntitiesDataRequest(dispatch, GRID_STATE_CHANGE_ACTION, service, newOptions)
             dispatch(baseCreateAction(GRID_STATE_CHANGE_ACTION, partialStateName, partialStateValue, options))

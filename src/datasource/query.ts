@@ -15,6 +15,7 @@ function getSelect(columns){
 function getExpand(columns) {
     return _.pluck(_.filter(columns, (column: any)=>{
         if(column.hidden){
+            // 隐藏的字段不需要expand，比如grid那边的company_id、company_ids、locked等
             return false
         }
         if(column.type === 'lookup' || column.type === 'master_detail'){
