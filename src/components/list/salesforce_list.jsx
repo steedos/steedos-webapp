@@ -284,18 +284,20 @@ class List extends React.Component {
 		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, 
 			search, columns, id, noHeader, unborderedRow, sort, rowIcon, rowIconKey, 
 			pager, handlePageChanged, handleLoadMore, totalCount, pageSize, currentPage, 
-			initializing, showMoreLink } = this.props;
+			showMoreLink } = this.props;
 		console.log("list render initializing===ccc===", initializing);
 		const isLoading = this.props.loading;
 		const items = rows;
-		if(initializing === 1){
-			// 每次重新初始化时，可以传入initializing为1，相关于刷新效果，比如变更过滤条件store.dispatch时
+		let initializing = 1;
+		if(!currentPage){
+			// 每次currentPage为0或undefined时，清空滚动条数据
 			this.state.items = [];
 		}
 		let listOptions = this.state.items;
 		if(!isLoading && items.length){
 			const currentPageListOptions = this.getListOptions(items, columns, rowIcon, rowIconKey);
 			listOptions = _.union(this.state.items, currentPageListOptions);
+			console.log("listOptions===length===", listOptions.length);
 			this.state.items = listOptions;
 		}
 		const isEmpty = isLoading ? false : items.length === 0;
@@ -312,7 +314,7 @@ class List extends React.Component {
 		let pagerTotal = Math.ceil(totalCount / pageSize);
 		let hasMore = (currentPage ? currentPage : 0) < pagerTotal - 1;
 
-		if(isLoading === false && initializing === 1){
+		if(isLoading === false){
 			initializing = 2;
 		}
 
