@@ -132,7 +132,6 @@ class List extends React.Component {
 		})).isRequired,
 		pageSize: PropTypes.number,
 		loading: PropTypes.bool,
-		initializing: PropTypes.number,
 		rowIcon: PropTypes.shape({
 			width: PropTypes.string,
 			category: PropTypes.string,
@@ -285,7 +284,6 @@ class List extends React.Component {
 			search, columns, id, noHeader, unborderedRow, sort, rowIcon, rowIconKey, 
 			pager, handlePageChanged, handleLoadMore, totalCount, pageSize, currentPage, 
 			showMoreLink } = this.props;
-		console.log("list render initializing===ccc===", initializing);
 		const isLoading = this.props.loading;
 		const items = rows;
 		if(!currentPage){
