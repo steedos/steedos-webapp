@@ -121,7 +121,7 @@ class SelectUsers extends React.Component {
         return (
             <Counter className="select-users">
                 <OrgsCounter className="organizations"><Organizations id={treeId} rootNodes={rootNodes} onClick={onClick}/></OrgsCounter>
-                <UsersCounter className="users"><Grid id={gridId} objectName={gridObjectName} enableSearch={true} columns={gridColumns} searchMode={searchMode} pageSize={pageSize} selectionLabel={selectionLabel} selectRows={selectRows}/></UsersCounter>
+                <UsersCounter className="users"><Grid baseFilters={["user_accepted", "=", true]} id={gridId} objectName={gridObjectName} enableSearch={true} columns={gridColumns} searchMode={searchMode} pageSize={pageSize} selectionLabel={selectionLabel} selectRows={selectRows}/></UsersCounter>
             </Counter>
         )
     }
