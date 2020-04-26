@@ -51,14 +51,16 @@ class profile extends React.Component {
 		}))
     }
 
-    settingsAccount = ()=>{
+    settingsAccount = (e)=>{
+        e.preventDefault();
         const { settingsAccountClick } = this.props
         if(settingsAccountClick && _.isFunction(settingsAccountClick)){
             settingsAccountClick();
         }
     }
 
-    logoutAccount = ()=>{
+    logoutAccount = (e)=>{
+        e.preventDefault();
         const { logoutAccountClick } = this.props
         if(logoutAccountClick && _.isFunction(logoutAccountClick)){
             logoutAccountClick();
@@ -84,8 +86,8 @@ class profile extends React.Component {
                                             <span className="slds-listbox__option-text slds-listbox__option-text_entity slds-m-bottom_x-small">{profile.name}</span>
                                             <span className="slds-listbox__option-meta slds-text-body--small slds-listbox__option-meta_entity slds-m-bottom_x-small">{window.location.hostname}</span>
                                             <span>
-                                                <a className="slds-p-right--medium" href="javacript:void(0);" onClick={()=>{this.settingsAccount()}}>账户设置</a>
-                                                <a href="javacript:void(0);" onClick={()=>{this.logoutAccount()}}>注销</a>
+                                                <a className="slds-p-right--medium" href="javacript:void(0);" onClick={(e)=>{this.settingsAccount(e);}}>账户设置</a>
+                                                <a href="javacript:void(0);" onClick={(e)=>{this.logoutAccount(e);}}>注销</a>
                                             </span>
                                         </div>
                                     }
@@ -103,7 +105,7 @@ class profile extends React.Component {
                                     {footers.map((item, _index)=>{
                                         return (
                                             <div key={`profile-footer-${item.id || _index}`} className="slds-media slds-media--center slds-p-left--none">
-                                                <a className="footerAction slds-grow" href="javacript:void(0);" onClick={()=>{item.onClick()}}>
+                                                <a className="footerAction slds-grow" href="javacript:void(0);" onClick={(e)=>{e.preventDefault();item.onClick(e);}}>
                                                     <div className="slds-media slds-media--center slds-p-bottom_x-small">
                                                         <div className="slds-media__body slds-m-left--none">{item.label}</div>
                                                     </div>
