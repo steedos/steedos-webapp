@@ -288,7 +288,6 @@ class List extends React.Component {
 		console.log("list render initializing===ccc===", initializing);
 		const isLoading = this.props.loading;
 		const items = rows;
-		let initializing = 1;
 		if(!currentPage){
 			// 每次currentPage为0或undefined时，清空滚动条数据
 			this.state.items = [];
@@ -313,10 +312,6 @@ class List extends React.Component {
 
 		let pagerTotal = Math.ceil(totalCount / pageSize);
 		let hasMore = (currentPage ? currentPage : 0) < pagerTotal - 1;
-
-		if(isLoading === false){
-			initializing = 2;
-		}
 
 		let onLoadMore = (resolve)=>{
 			this.props.handleLoadMore((currentPage ? currentPage : 0) + 1);
@@ -371,7 +366,6 @@ class List extends React.Component {
 								onRefresh={onRefresh}
 								onLoadMore={onLoadMore}
 								hasMore={hasMore}
-								initializing={initializing}
 								loading={isLoading}
 							>
 								<ListContent />

@@ -367,6 +367,10 @@ class Pullable extends React.Component {
     ) {
       const panel = e.currentTarget;
       const scrollBottom = panel.scrollHeight - panel.clientHeight - panel.scrollTop;
+      if(panel.scrollTop === 0){
+        // 如果是变更过滤条件时重新加载scrollTop为0，不应该加载下一页
+        return;
+      }
 
       if (scrollBottom < 5) this.loadMore();
     }
