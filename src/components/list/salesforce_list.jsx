@@ -15,14 +15,31 @@ const marked = require('marked/lib/marked.js');
 let ListContainer = styled.div`
 	position: relative;
 	height: 100%;
+	.slds-split-view__list-item-action{
+		padding: 0.35rem 1rem 0.35rem 1rem;
+		.slds-text-heading_small{
+			.slds-grid{
+				color: #777;
+				&:first-child{
+					color: #080707;
+					.list-item-left-label{
+						font-weight: bold;
+					}
+				}
+				.slds-text-body_regular{
+					font-size: unset;
+				}
+			}
+		}
+	}
 	&.list-filtering{
 		.list-filtering-bar{
 			height: 2.5rem;
 			line-height: 2.5rem;
-			padding: 0 1.5rem;
+			padding: 0 1rem;
 			border-bottom: solid 1px #ddd;
 			.slds-truncate{
-				font-size: .812rem;
+				font-size: 1rem;
 				color: #666;
 			}
 			.slds-button{
@@ -62,7 +79,7 @@ let ListContainer = styled.div`
 		/*fix IE11 高度未定义会造成footer有内容时底部界面错乱*/
 		height: 10rem;
 	}
-	.slds-list-footer{
+	.steedos-list-footer{
 		display: flex;
 		justify-content: flex-end;
 		padding: 0.35rem 1rem 0.35rem 1rem;
@@ -362,7 +379,7 @@ class List extends React.Component {
 		let footer;
 		if (showMoreLink && !pager && hasMore) {
 			footer = (
-				<div className="slds-list-footer">
+				<div className="steedos-list-footer">
 					<a href={moreLinkHref(this.props)}>
 						更多
 					</a>
@@ -412,7 +429,7 @@ class List extends React.Component {
 		return (
 			<ListContainer
 				className={classNames(
-					'slds-list slds-nowrap',
+					'steedos-list slds-nowrap',
 					filteringText ? 'list-filtering' : null
 				)}
 			>
