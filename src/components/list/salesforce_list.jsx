@@ -175,7 +175,7 @@ class List extends React.Component {
 			format: PropTypes.func
 		})).isRequired,
 		pageSize: PropTypes.number,
-		loading: PropTypes.bool,
+		sort: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 		rowIcon: PropTypes.shape({
 			width: PropTypes.string,
 			category: PropTypes.string,
