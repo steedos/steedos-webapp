@@ -391,25 +391,6 @@ class List extends React.Component {
 				/>
 				{(footer ? footer : null)}
 			</React.Fragment>);
-		
-		let ListContentWrap = ()=>(
-			isEmpty ? (
-				<DataTableEmpty />
-			) : (
-				pager ? (
-					<Pullable
-						onRefresh={onRefresh}
-						onLoadMore={onLoadMore}
-						hasMore={hasMore}
-						loading={isLoading}
-					>
-						<ListContent />
-					</Pullable>
-				) : (
-					<ListContent />
-				)
-			)
-		);
 
 		let FilteringBar = ()=>(
 			<div className="list-filtering-bar">
@@ -440,7 +421,26 @@ class List extends React.Component {
 					<FilteringBar /> :
 					null
 				}
-				<ListContentWrap />
+				{
+					(
+						isEmpty ? (
+							<DataTableEmpty />
+						) : (
+							pager ? (
+								<Pullable
+									onRefresh={onRefresh}
+									onLoadMore={onLoadMore}
+									hasMore={hasMore}
+									loading={isLoading}
+								>
+									<ListContent />
+								</Pullable>
+							) : (
+								<ListContent />
+							)
+						)
+					)
+				}
 			</ListContainer>
 		);
 	}
