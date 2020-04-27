@@ -2,10 +2,10 @@ import React from 'react';
 import Bootstrap from '../components/bootstrap'
 import { Provider  } from 'react-redux';
 import store from '../stores/configureStore'
-import { Icon } from '@salesforce/design-system-react';
+import { Icon, Button } from '@salesforce/design-system-react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
-
+import { createGridAction } from '../actions'
 import List from '../components/list'
 
 export default {
@@ -268,16 +268,6 @@ export const CustomListItemHref = () => (
   </Provider>
 )
 
-let ListContainer = styled.div`
-  height: 100%;
-  .pullable-container{
-    background-color: #efeff4;
-    .pullable-body{
-      background-color: #fff;
-    }
-	}
-`
-
 export const MoreLink = () => (
   <Provider store={store}>
     <Bootstrap>
@@ -347,6 +337,16 @@ export const CustomMorLinkHref = () => (
   </Provider>
 )
 
+const ListContainer = styled.div`
+  height: 100%;
+  .pullable-container{
+    background-color: #efeff4;
+    .pullable-body{
+      background-color: #fff;
+    }
+	}
+`
+
 export const InfiniteScrollList = () => (
   <Provider store={store}>
     <Bootstrap>
@@ -382,3 +382,104 @@ export const InfiniteScrollList = () => (
   </Provider>
 )
 
+const onFiltering = ()=>{
+  store.dispatch(createGridAction('filteringText', "以下为过滤后结果", {id: "testListWithFilteringBar"}))
+}
+const onResetFiltering = ()=>{
+  console.log("cumtom resetFiltering function running");
+}
+
+const ListContainerWithFilteringBar = styled.div`
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 3rem;
+  bottom: 0;
+  border: solid 1px #ddd;
+  .pullable-container{
+    background-color: #efeff4;
+    .pullable-body{
+      background-color: #fff;
+    }
+	}
+`
+
+export const ListWithFilteringBar = () => (
+  <Provider store={store}>
+    <Bootstrap>
+      <Button className="btn-filtering"
+        onClick={onFiltering}
+      >设置过滤条件</Button>
+      <ListContainerWithFilteringBar>
+        <List id="testListWithFilteringBar"
+          objectName={'space_users'} 
+          columns={[
+            {
+              field: 'name',
+              label: '名称'
+            },
+            {
+              field: 'email',
+              label: '邮件',
+              type: 'text'
+            },
+            {
+              field: 'username',
+              label: '用户名',
+              type: 'text'
+            },
+            {
+              field: 'modified',
+              label: '修改时间',
+              type: 'datetime'
+            },
+          ]} 
+          sort="name"
+          pager={false}
+          resetFiltering={onResetFiltering}
+          pageSize={5}>
+        </List>
+      </ListContainerWithFilteringBar>
+    </Bootstrap>
+  </Provider>
+)
+
+export const InfiniteScrollListWithFilteringBar = () => (
+  <Provider store={store}>
+    <Bootstrap>
+      <Button className="btn-filtering"
+        onClick={onFiltering}
+      >设置过滤条件</Button>
+      <ListContainerWithFilteringBar>
+        <List id="testListWithFilteringBar"
+          objectName={'space_users'} 
+          columns={[
+            {
+              field: 'name',
+              label: '名称'
+            },
+            {
+              field: 'email',
+              label: '邮件',
+              type: 'text'
+            },
+            {
+              field: 'username',
+              label: '用户名',
+              type: 'text'
+            },
+            {
+              field: 'modified',
+              label: '修改时间',
+              type: 'datetime'
+            },
+          ]} 
+          sort="name"
+          pager={true}
+          resetFiltering={onResetFiltering}
+          pageSize={5}>
+        </List>
+      </ListContainerWithFilteringBar>
+    </Bootstrap>
+  </Provider>
+)

@@ -1,10 +1,11 @@
 import React from 'react';
 import _ from 'underscore';
-import { DataTableColumn, DataTableCell, Illustration, Icon } from '@salesforce/design-system-react';
+import { DataTableColumn, DataTableCell, Illustration, Icon, Button } from '@salesforce/design-system-react';
 import Lookup from '../lookup'
 import { createGridAction } from '../../actions'
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
+import classNames from 'classnames';
 import moment from 'moment'
 import { getRelativeUrl, getObjectRecordUrl, getObjectUrl } from '../../utils';
 import Listbox from './listbox'
@@ -14,6 +15,32 @@ const marked = require('marked/lib/marked.js');
 let ListContainer = styled.div`
 	position: relative;
 	height: 100%;
+	&.list-filtering{
+		.list-filtering-bar{
+			height: 2.5rem;
+			line-height: 2.5rem;
+			padding: 0 1.5rem;
+			border-bottom: solid 1px #ddd;
+			.slds-truncate{
+				font-size: .812rem;
+				color: #666;
+			}
+			.slds-button{
+				float: right;
+				height: 2.5rem;
+				line-height: 2.5rem;
+				padding: 0 0.5rem;
+				margin-right: -0.5rem;
+				.slds-button__icon{
+					width: 1.25rem;
+					height: 1.25rem;
+				}
+			}
+		}
+		.pullable-container{
+			margin-top: 2.5rem;
+		}
+	}
 	&.slds-grid-no-header{
 		.slds-table thead{
 			display: none;
@@ -161,7 +188,11 @@ class List extends React.Component {
 		/**
 		 * The more link href generate function
 		 */
-		moreLinkHref: PropTypes.func
+		moreLinkHref: PropTypes.func,
+		/**
+		 * The reset function for filtering state
+		 */
+		resetFiltering: PropTypes.func
 	}
 
 	componentDidMount() {
@@ -283,7 +314,8 @@ class List extends React.Component {
 		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, 
 			search, columns, id, noHeader, unborderedRow, sort, rowIcon, rowIconKey, 
 			pager, handlePageChanged, handleLoadMore, totalCount, pageSize, currentPage, 
-			showMoreLink } = this.props;
+			showMoreLink, filteringText, resetFiltering } = this.props;
+		console.log("===filteringText===", filteringText);
 		const isLoading = this.props.loading;
 		const items = rows;
 		if(!currentPage){
@@ -311,13 +343,20 @@ class List extends React.Component {
 		let pagerTotal = Math.ceil(totalCount / pageSize);
 		let hasMore = (currentPage ? currentPage : 0) < pagerTotal - 1;
 
-		let onLoadMore = (resolve)=>{
+		let onLoadMore = ()=>{
 			this.props.handleLoadMore((currentPage ? currentPage : 0) + 1);
 		}
 
-		let onRefresh = (resolve)=>{
+		let onRefresh = ()=>{
 			this.state.items = [];
 			this.props.handleRefresh((currentPage ? currentPage : 0) + 1);
+		}
+
+		let onResetFiltering = ()=>{
+			if(typeof resetFiltering === "function"){
+				resetFiltering();
+			}
+			this.props.handleResetFiltering();
 		}
 
 		let footer;
@@ -351,28 +390,57 @@ class List extends React.Component {
 					listItemHref={listItemHref}
 				/>
 				{(footer ? footer : null)}
-			</React.Fragment>)
+			</React.Fragment>);
+		
+		let ListContentWrap = ()=>(
+			isEmpty ? (
+				<DataTableEmpty />
+			) : (
+				pager ? (
+					<Pullable
+						onRefresh={onRefresh}
+						onLoadMore={onLoadMore}
+						hasMore={hasMore}
+						loading={isLoading}
+					>
+						<ListContent />
+					</Pullable>
+				) : (
+					<ListContent />
+				)
+			)
+		);
+
+		let FilteringBar = ()=>(
+			<div className="list-filtering-bar">
+				<span className="slds-truncate">{filteringText}</span>
+				<Button
+					assistiveText={{ icon: 'Icon Bare Small' }}
+					iconCategory="utility"
+					iconName="clear"
+					iconSize="large"
+					iconVariant="bare"
+					onClick={() => {
+						onResetFiltering();
+					}}
+					variant="icon"
+				/>
+			</div>
+		);
 
 		return (
-			<ListContainer className={`slds-list slds-nowrap `} >
+			<ListContainer
+				className={classNames(
+					'slds-list slds-nowrap',
+					filteringText ? 'list-filtering' : null
+				)}
+			>
 				{
-					isEmpty ? (
-						<DataTableEmpty />
-					) : (
-						pager ? (
-							<Pullable
-								onRefresh={onRefresh}
-								onLoadMore={onLoadMore}
-								hasMore={hasMore}
-								loading={isLoading}
-							>
-								<ListContent />
-							</Pullable>
-						) : (
-							<ListContent />
-						)
-					)
+					filteringText ? 
+					<FilteringBar /> :
+					null
 				}
+				<ListContentWrap />
 			</ListContainer>
 		);
 	}

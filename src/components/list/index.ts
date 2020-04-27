@@ -27,6 +27,10 @@ function mapStateToProps() {
         newOptions.count = true;
         dispatch(createGridAction('currentPage', currentPage, Object.assign({}, ownProps, newOptions)))
       },
+      handleResetFiltering: ()=> {
+        let newOptions:any = {};
+        dispatch(createGridAction('filteringText', null, Object.assign({}, ownProps, newOptions)))
+      },
       init: (options: any) => {
         let newOptions:any = {};
         if(ownProps.pager || ownProps.showMoreLink){
