@@ -382,12 +382,59 @@ export const InfiniteScrollList = () => (
   </Provider>
 )
 
-const onFiltering = ()=>{
-  store.dispatch(createGridAction('filteringText', "以下为过滤后结果", {id: "testListWithFilteringBar"}))
+const onFiltering = (options)=>{
+  store.dispatch(createGridAction('filteringText', "以下为过滤后结果", {id: "testListWithFilteringBar"}));
+  let filters = ["email", "contains", "a"];
+  let ownProps = getListProps(options);
+  let newOptions = {};
+  if(ownProps.pager || ownProps.showMoreLink){
+    newOptions.count = true;
+  }
+  store.dispatch(createGridAction('filters', filters, Object.assign({}, ownProps, newOptions)));
 }
-const onResetFiltering = ()=>{
+const onResetFiltering = (options)=>{
   console.log("cumtom resetFiltering function running");
+  let ownProps = getListProps(options);
+  let newOptions = {};
+  if(ownProps.pager || ownProps.showMoreLink){
+    newOptions.count = true;
+  }
+  store.dispatch(createGridAction('filters', null, Object.assign({}, ownProps, newOptions)));
 }
+
+const getListProps = (options)=>{
+  return ({
+    id: "testListWithFilteringBar",
+    objectName: 'space_users',
+    columns:[
+      {
+        field: 'name',
+        label: '名称'
+      },
+      {
+        field: 'email',
+        label: '邮件',
+        type: 'text'
+      },
+      {
+        field: 'username',
+        label: '用户名',
+        type: 'text'
+      },
+      {
+        field: 'modified',
+        label: '修改时间',
+        type: 'datetime'
+      },
+    ],
+    sort: "name",
+    resetFiltering: ()=>{
+      onResetFiltering(options)
+    },
+    pageSize: 25,
+    ...options
+  });
+};
 
 const ListContainerWithFilteringBar = styled.div`
   position: fixed;
@@ -408,36 +455,12 @@ export const ListWithFilteringBar = () => (
   <Provider store={store}>
     <Bootstrap>
       <Button className="btn-filtering"
-        onClick={onFiltering}
+        onClick={()=>{
+          onFiltering();
+        }}
       >设置过滤条件</Button>
       <ListContainerWithFilteringBar>
-        <List id="testListWithFilteringBar"
-          objectName={'space_users'} 
-          columns={[
-            {
-              field: 'name',
-              label: '名称'
-            },
-            {
-              field: 'email',
-              label: '邮件',
-              type: 'text'
-            },
-            {
-              field: 'username',
-              label: '用户名',
-              type: 'text'
-            },
-            {
-              field: 'modified',
-              label: '修改时间',
-              type: 'datetime'
-            },
-          ]} 
-          sort="name"
-          pager={false}
-          resetFiltering={onResetFiltering}
-          pageSize={5}>
+        <List {...getListProps()}>
         </List>
       </ListContainerWithFilteringBar>
     </Bootstrap>
@@ -448,36 +471,12 @@ export const InfiniteScrollListWithFilteringBar = () => (
   <Provider store={store}>
     <Bootstrap>
       <Button className="btn-filtering"
-        onClick={onFiltering}
+        onClick={()=>{
+          onFiltering({pager: true});
+        }}
       >设置过滤条件</Button>
       <ListContainerWithFilteringBar>
-        <List id="testListWithFilteringBar"
-          objectName={'space_users'} 
-          columns={[
-            {
-              field: 'name',
-              label: '名称'
-            },
-            {
-              field: 'email',
-              label: '邮件',
-              type: 'text'
-            },
-            {
-              field: 'username',
-              label: '用户名',
-              type: 'text'
-            },
-            {
-              field: 'modified',
-              label: '修改时间',
-              type: 'datetime'
-            },
-          ]} 
-          sort="name"
-          pager={true}
-          resetFiltering={onResetFiltering}
-          pageSize={5}>
+        <List {...getListProps({pager: true})}>
         </List>
       </ListContainerWithFilteringBar>
     </Bootstrap>

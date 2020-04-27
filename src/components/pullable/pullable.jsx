@@ -433,6 +433,9 @@ class Pullable extends React.Component {
         loaderStateClassName = STATS.refreshed;
       }
     }
+    else{
+      loaderStateClassName = STATS.loading;
+    }
 
     return (
       <PullableContainer className={`pullable-container ${className}`}>
