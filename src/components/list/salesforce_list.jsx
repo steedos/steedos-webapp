@@ -101,13 +101,47 @@ const formatFileSize = function (filesize) {
 	return rev.toFixed(2) + unit;
 };
 
+const getSelectFieldLabel = (field, fieldValue, doc) => {
+	var _options, _record_val, _val, _values, ref, self_val, val;
+	_options = field.allOptions || field.options;
+	_values = doc || {};
+	// record_val是grid字段类型传入的，先不考虑
+	// _record_val = this.record_val;
+	if (_.isFunction(field.options)) {
+		_options = field.options(_record_val || _values);
+	}
+	if (_.isFunction(field.optionsFunction)) {
+		_options = field.optionsFunction(_record_val || _values);
+	}
+	if (_.isArray(fieldValue)) {
+		self_val = fieldValue;
+		_val = [];
+		_.each(_options, function(_o) {
+			if (_.indexOf(self_val, _o.value) > -1) {
+				return _val.push(_o.label);
+			}
+		});
+		val = _val.join(",");
+	} else {
+		val = (ref = _.findWhere(_options, {
+			value: fieldValue
+		})) != null ? ref.label : void 0;
+	}
+
+	if (!val) {
+		val = fieldValue;
+	}
+	return val;
+}
+
 const FieldLabel = ({ children, ...props }) => {
-	let { field } = props
-	let { onClick, format } = field
+	let { field, doc } = props;
+	let { onClick, format } = field;
 
 	if(_.isFunction(format)){
 		children = format(children, props.item, props.options)
 	}
+	debugger;
 	if(children || _.isBoolean(children)){
 		switch (field.type) {
 			case 'datetime':
@@ -129,7 +163,9 @@ const FieldLabel = ({ children, ...props }) => {
 				children = children ? '是' : '否'
 				break;
 			case 'select':
-				children = children
+				console.log("=====select====children===", children);
+				console.log("=====select====props===", props);
+				children = getSelectFieldLabel(field, children, doc)
 				break;
 			case 'lookup':
 				children = children._NAME_FIELD_VALUE
@@ -171,6 +207,8 @@ class List extends React.Component {
 			label: PropTypes.string.isRequired,
 			hidden: PropTypes.bool,
 			type: PropTypes.oneOf(['date', 'datetime', 'boolean', 'lookup', 'master_detail', 'text', 'select', 'number', 'autonumber', 'filesize', 'currency', 'file']),
+			options: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
+			allOptions: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
 			is_wide: PropTypes.bool,
 			format: PropTypes.func
 		})).isRequired,
@@ -282,7 +320,7 @@ class List extends React.Component {
 				fieldValue = _.reduce(column.field.split("."), function(value, key) {
 					return value[key];
 				}, item);
-				fieldNode = (<FieldLabel field={column} options={this.props}>{fieldValue}</FieldLabel>);
+				fieldNode = (<FieldLabel field={column} options={this.props} doc={item}>{fieldValue}</FieldLabel>);
 				if(column.is_wide){
 					if(itemTag !== 0){
 						itemRows.push(itemOption);
