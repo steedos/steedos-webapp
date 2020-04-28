@@ -34,11 +34,16 @@ let ListContainer = styled.div`
 class ExampleComponent extends React.Component {
 
 	componentDidMount() {
+		this.setState({
+			loading: true,
+			initializing: 1
+		});
 		setTimeout(() => {
 			this.setState({
 				listLen: 9,
 				hasMore: 1,
 				initializing: 2, // initialized
+				loading: false
 			});
 		}, 2e3);
 	}
@@ -49,9 +54,14 @@ class ExampleComponent extends React.Component {
 		hasMore: 0,
 		initializing: 1,
 		refreshedAt: Date.now(),
+		loading: true
 	};
 
 	refresh = (resolve, reject) => {
+		this.setState({
+			loading: true,
+			initializing: 1
+		});
 		setTimeout(() => {
 			const { canRefreshResolve } = this.state;
 			if (!canRefreshResolve) reject();
@@ -60,6 +70,7 @@ class ExampleComponent extends React.Component {
 					listLen: 9,
 					hasMore: 1,
 					refreshedAt: Date.now(),
+					loading: false
 				});
 
 				resolve();
@@ -68,6 +79,9 @@ class ExampleComponent extends React.Component {
 	}
 
 	loadMore = (resolve) => {
+		this.setState({
+			loading: true
+		});
 		setTimeout(() => {
 			const { listLen } = this.state;
 			const l = listLen + 9;
@@ -75,6 +89,7 @@ class ExampleComponent extends React.Component {
 			this.setState({
 				listLen: l,
 				hasMore: l > 0 && l < 50,
+				loading: false
 			});
 
 			resolve();
@@ -89,7 +104,7 @@ class ExampleComponent extends React.Component {
 
 	render() {
 		const {
-			listLen, hasMore, initializing, refreshedAt, canRefreshResolve,
+			listLen, hasMore, initializing, loading, refreshedAt, canRefreshResolve,
 		} = this.state;
 		const list = [];
 
@@ -110,6 +125,7 @@ class ExampleComponent extends React.Component {
 						onLoadMore={this.loadMore}
 						hasMore={hasMore}
 						initializing={initializing}
+						loading={loading}
 					>
 						<ul>{list}</ul>
 					</Pullable>
