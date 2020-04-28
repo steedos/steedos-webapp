@@ -55,7 +55,7 @@ let PullableContainer = styled.div`
   .pullable {
     position: relative;
     font-size: 14px;
-    background: #f3f2f2;
+    background: #fff;
   }
   .state-pulling {
     overflow-y: hidden !important;
@@ -436,7 +436,7 @@ class Pullable extends React.Component {
       }
     }
     else{
-      loaderStateClassName = STATS.loading;
+      loaderStateClassName = loaderState || STATS.refreshing;
     }
 
     return (
