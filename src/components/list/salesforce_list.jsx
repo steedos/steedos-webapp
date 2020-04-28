@@ -99,7 +99,10 @@ class List extends React.Component {
 			field: PropTypes.string.isRequired,
 			label: PropTypes.string.isRequired,
 			hidden: PropTypes.bool,
-			type: PropTypes.oneOf(['date', 'datetime', 'boolean', 'lookup', 'master_detail', 'text', 'select', 'number', 'currency', 'autonumber', 'filesize', 'file']),
+			type: PropTypes.oneOf(['date', 'datetime', 'boolean', 'lookup', 'master_detail', 
+				'text', 'select', 'number', 'currency', 'autonumber', 'filesize', 'file',
+				'grid', 'location', 'image', 'avatar', 'code', 'password', 'url', 'email', 'textarea', 'html', 'markdown'
+			]),
 			options: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
 			allOptions: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
 			optionsFunction: PropTypes.func,

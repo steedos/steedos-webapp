@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'underscore';
 import moment from 'moment'
+import { getRelativeUrl } from '../../utils';
 const marked = require('marked/lib/marked.js');
 
 const formatFileSize = function (filesize) {
@@ -68,6 +69,31 @@ const getNumberFieldLabel = (field, fieldValue, doc) => {
 	return val;
 }
 
+const getUrlFieldLabel = (field, fieldValue, doc) => {
+	if(!fieldValue){
+		return "";
+	}
+	var href = fieldValue;
+	if (!(href != null ? href.startsWith("http") : void 0)) {
+		href = getRelativeUrl(window.encodeURI(href));
+	}
+	return (<a onClick={(e) => {
+		e.preventDefault();
+		window.open(href, '_blank', 'width=800, height=600, left=50, top= 50, toolbar=no, status=no, menubar=no, resizable=yes, scrollbars=yes');
+		return false;
+	}}>
+		{fieldValue}
+	</a>)
+}
+
+const getEmailFieldLabel = (field, fieldValue, doc) => {
+	if (!fieldValue) {
+		return "";
+	}
+	let href = `mailto:${fieldValue}`;
+	return (<a href={href}>{fieldValue}</a>)
+}
+
 const FieldLabel = ({ children, ...props }) => {
 	let { field, doc } = props;
 	let { onClick, format } = field;
@@ -113,6 +139,42 @@ const FieldLabel = ({ children, ...props }) => {
 			case 'filesize':
 				children = formatFileSize(children)
 				break;
+			case 'grid':
+				// grid字段显示为空字符
+				children = ""
+				break;
+			case 'location':
+				children = children ? children.address : ""
+				break;
+			case 'image':
+				// image字段显示为空字符
+				children = ""
+				break;
+			case 'avatar':
+				// avatar字段显示为空字符
+				children = ""
+				break;
+			case 'code':
+				children = children ? "..." : ""
+				break;
+			case 'password':
+				children = children ? "******" : ""
+				break;
+			case 'url':
+				children = getUrlFieldLabel(field, children, doc)
+				break;
+			case 'email':
+				children = getEmailFieldLabel(field, children, doc)
+				break;
+			case 'textarea':
+				if (children) {
+					children = children.replace(/\n/g, '\n<br>');
+					children = children.replace(/ /g, '&nbsp;');
+				}
+				break;
+			case 'html':
+				// html字段显示为空字符
+				children = ""
 			case 'markdown':
 				children = (<div dangerouslySetInnerHTML={{__html: marked(children)}} />)
 				break;
