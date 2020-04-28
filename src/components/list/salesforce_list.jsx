@@ -6,11 +6,10 @@ import { createGridAction } from '../../actions'
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import classNames from 'classnames';
-import moment from 'moment'
 import { getRelativeUrl, getObjectRecordUrl, getObjectUrl } from '../../utils';
 import Listbox from './listbox'
 import Pullable from '../pullable';
-const marked = require('marked/lib/marked.js');
+import FieldLabel from '../field_label';
 
 let ListContainer = styled.div`
 	position: relative;
@@ -85,112 +84,6 @@ let ListContainer = styled.div`
 		padding: 0.35rem 1rem 0.35rem 1rem;
 	}
 `
-
-const formatFileSize = function (filesize) {
-	var rev, unit;
-	rev = filesize / 1024.00;
-	unit = 'KB';
-	if (rev > 1024.00) {
-		rev = rev / 1024.00;
-		unit = 'MB';
-	}
-	if (rev > 1024.00) {
-		rev = rev / 1024.00;
-		unit = 'GB';
-	}
-	return rev.toFixed(2) + unit;
-};
-
-const getSelectFieldLabel = (field, fieldValue, doc) => {
-	var _options, _record_val, _val, _values, ref, self_val, val;
-	_options = field.allOptions || field.options;
-	_values = doc || {};
-	// record_val是grid字段类型传入的，先不考虑
-	// _record_val = this.record_val;
-	if (_.isFunction(field.options)) {
-		_options = field.options(_record_val || _values);
-	}
-	if (_.isFunction(field.optionsFunction)) {
-		_options = field.optionsFunction(_record_val || _values);
-	}
-	if (_.isArray(fieldValue)) {
-		self_val = fieldValue;
-		_val = [];
-		_.each(_options, function(_o) {
-			if (_.indexOf(self_val, _o.value) > -1) {
-				return _val.push(_o.label);
-			}
-		});
-		val = _val.join(",");
-	} else {
-		val = (ref = _.findWhere(_options, {
-			value: fieldValue
-		})) != null ? ref.label : void 0;
-	}
-
-	if (!val) {
-		val = fieldValue;
-	}
-	return val;
-}
-
-const FieldLabel = ({ children, ...props }) => {
-	let { field, doc } = props;
-	let { onClick, format } = field;
-
-	if(_.isFunction(format)){
-		children = format(children, props.item, props.options)
-	}
-	debugger;
-	if(children || _.isBoolean(children)){
-		switch (field.type) {
-			case 'datetime':
-				if(_.isString(children) && /\d+Z$/.test(children)){
-					children = moment(children).format('YYYY-MM-DD H:mm')
-				}else{
-					let utcOffset = moment().utcOffset() / 60
-					children = moment(children).add(utcOffset, "hours").format('YYYY-MM-DD H:mm')
-				}
-				break;
-			case 'date':
-				if(_.isString(children) && /\d+Z$/.test(children)){
-					children = moment.utc(children).format('YYYY-MM-DD')
-				}else{
-					children = moment(children).format('YYYY-MM-DD')
-				}
-				break;
-			case 'boolean':
-				children = children ? '是' : '否'
-				break;
-			case 'select':
-				console.log("=====select====children===", children);
-				console.log("=====select====props===", props);
-				children = getSelectFieldLabel(field, children, doc)
-				break;
-			case 'lookup':
-				children = children._NAME_FIELD_VALUE
-				break;
-			case 'master_detail':
-				children = children._NAME_FIELD_VALUE
-				break;
-			case 'filesize':
-				children = formatFileSize(children)
-				break;
-			case 'markdown':
-				children = (<div dangerouslySetInnerHTML={{__html: marked(children)}} />)
-				break;
-			default:
-				break;
-		}
-	}
-	return (
-		<React.Fragment>
-			{children}
-		</React.Fragment>
-	)
-}
-
-FieldLabel.displayName = "ListItemFieldLabel";
 
 class List extends React.Component {
 	static displayName = 'SteedosDataList';
