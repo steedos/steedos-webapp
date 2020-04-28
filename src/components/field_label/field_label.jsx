@@ -160,12 +160,12 @@ const FieldLabel = ({ children, ...props }) => {
 			case 'password':
 				children = children ? "******" : ""
 				break;
-			case 'url':
-				children = getUrlFieldLabel(field, children, doc)
-				break;
-			case 'email':
-				children = getEmailFieldLabel(field, children, doc)
-				break;
+			// case 'url':
+			// 	children = getUrlFieldLabel(field, children, doc)
+			// 	break;
+			// case 'email':
+			// 	children = getEmailFieldLabel(field, children, doc)
+			// 	break;
 			case 'textarea':
 				if (children) {
 					children = children.replace(/\n/g, '\n<br>');
