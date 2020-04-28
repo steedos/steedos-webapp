@@ -209,6 +209,7 @@ class List extends React.Component {
 			type: PropTypes.oneOf(['date', 'datetime', 'boolean', 'lookup', 'master_detail', 'text', 'select', 'number', 'autonumber', 'filesize', 'currency', 'file']),
 			options: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
 			allOptions: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
+			optionsFunction: PropTypes.func,
 			is_wide: PropTypes.bool,
 			format: PropTypes.func
 		})).isRequired,
