@@ -55,6 +55,7 @@ let PullableContainer = styled.div`
   .pullable {
     position: relative;
     font-size: 14px;
+    background: #f3f2f2;
   }
   .state-pulling {
     overflow-y: hidden !important;
@@ -153,6 +154,7 @@ let PullableContainer = styled.div`
   .pullable-body {
     margin-top: -1px;
     padding-top: 1px;
+    background: #fff;
   }
   .state-refreshing .pullable-body {
     transform: translate3d(0, 48px, 0);
