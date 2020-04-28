@@ -51,6 +51,23 @@ const getSelectFieldLabel = (field, fieldValue, doc) => {
 	return val;
 }
 
+const getNumberFieldLabel = (field, fieldValue, doc) => {
+	var fieldScale, reg, val;
+	fieldScale = 0;
+	if (field.scale) {
+		fieldScale = field.scale;
+	} else if (field.scale !== 0) {
+		fieldScale = field.type === "currency" ? 2 : 0;
+	}
+	val = Number(fieldValue).toFixed(fieldScale);
+	reg = /(\d)(?=(\d{3})+\.)/g;
+	if (fieldScale === 0) {
+		reg = /(\d)(?=(\d{3})+\b)/g;
+	}
+	val = val.replace(reg, '$1,');
+	return val;
+}
+
 const FieldLabel = ({ children, ...props }) => {
 	let { field, doc } = props;
 	let { onClick, format } = field;
@@ -58,8 +75,7 @@ const FieldLabel = ({ children, ...props }) => {
 	if(_.isFunction(format)){
 		children = format(children, props.item, props.options)
 	}
-	debugger;
-	if(children || _.isBoolean(children)){
+	if(children || _.isBoolean(children) || _.isNumber(children)){
 		switch (field.type) {
 			case 'datetime':
 				if(_.isString(children) && /\d+Z$/.test(children)){
@@ -80,9 +96,13 @@ const FieldLabel = ({ children, ...props }) => {
 				children = children ? '是' : '否'
 				break;
 			case 'select':
-				console.log("=====select====children===", children);
-				console.log("=====select====props===", props);
 				children = getSelectFieldLabel(field, children, doc)
+				break;
+			case 'number':
+				children = getNumberFieldLabel(field, children, doc)
+				break;
+			case 'currency':
+				children = getNumberFieldLabel(field, children, doc)
 				break;
 			case 'lookup':
 				children = children._NAME_FIELD_VALUE
