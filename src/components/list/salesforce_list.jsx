@@ -268,7 +268,6 @@ class List extends React.Component {
 			search, columns, id, noHeader, unborderedRow, sort, rowIcon, rowIconKey, 
 			pager, handlePageChanged, handleLoadMore, totalCount, pageSize, currentPage, 
 			showMoreLink, filteringText, resetFiltering } = this.props;
-		console.log("===filteringText===", filteringText);
 		const isLoading = this.props.loading;
 		const items = rows;
 		if(!currentPage){
@@ -279,7 +278,6 @@ class List extends React.Component {
 		if(!isLoading && items.length){
 			const currentPageListOptions = this.getListOptions(items, columns, rowIcon, rowIconKey);
 			listOptions = _.union(this.state.items, currentPageListOptions);
-			console.log("listOptions===length===", listOptions.length);
 			this.state.items = listOptions;
 		}
 		const isEmpty = isLoading ? false : items.length === 0;
