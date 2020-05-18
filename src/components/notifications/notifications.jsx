@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import _ from 'underscore';
 import moment from 'moment';
 import { GlobalHeaderNotifications, Popover, Button, Icon } from '@salesforce/design-system-react';
-import { getAbsoluteUrl, getRelativeUrl, getUserId, getAuthToken, getSpaceId, t } from '../../utils';
+import { getAbsoluteUrl, getRelativeUrl, getUserId, getAuthToken, getSpaceId } from '../../utils';
 
 const Container = styled.div`
     &.loading{

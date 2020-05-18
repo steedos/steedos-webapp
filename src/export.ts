@@ -1,7 +1,6 @@
 declare global {
     interface Window {
-        Creator: any,
-        t: Function
+        Creator: any
     }
 }
 
