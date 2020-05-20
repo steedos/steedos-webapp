@@ -15,15 +15,19 @@ let ListContainer = styled.div`
 	position: relative;
 	height: 100%;
 	.slds-split-view__list-item-action{
-		padding: 0.35rem 1rem 0.35rem 1rem;
+		padding: 0.5rem 1rem;
 		.slds-text-heading_small{
 			.slds-grid{
 				color: #777;
+				margin-bottom: 0.35rem;
 				&:first-child{
 					color: #080707;
 					.list-item-left-label{
 						font-weight: bold;
 					}
+				}
+				&:last-child{
+					margin-bottom: 0;
 				}
 				.slds-text-body_regular{
 					font-size: unset;
