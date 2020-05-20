@@ -131,7 +131,10 @@ const FieldLabel = ({ children, ...props }) => {
 				children = getNumberFieldLabel(field, children, doc)
 				break;
 			case 'lookup':
-				children = children._NAME_FIELD_VALUE
+				if(!_.isArray(children)){
+					children = [children]
+				}
+				children = children.map((item)=>{return item._NAME_FIELD_VALUE}).join(",");
 				break;
 			case 'master_detail':
 				children = children._NAME_FIELD_VALUE
