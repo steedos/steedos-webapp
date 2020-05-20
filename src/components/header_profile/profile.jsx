@@ -38,7 +38,11 @@ class profile extends React.Component {
     }
 
     static defaultProps = {
-		footers: []
+		footers: [],
+        assistiveText: PropTypes.shape({
+            settings: "账户设置",
+            logout: "注销"
+        })
 	};
 
     static propTypes = {
@@ -48,7 +52,11 @@ class profile extends React.Component {
         footers: PropTypes.arrayOf(PropTypes.shape({
 			label: PropTypes.string.isRequired,
 			onClick: PropTypes.func.isRequired
-		}))
+		})),
+        assistiveText: PropTypes.shape({
+            settings: PropTypes.string,
+            logout: PropTypes.string
+        })
     }
 
     settingsAccount = (e)=>{
@@ -70,7 +78,7 @@ class profile extends React.Component {
 
     render() {
 
-        const { profile, avatarURL, footers } = this.props
+        const { profile, avatarURL, footers, assistiveText } = this.props
 
         return (
             <ProfileContainer>
@@ -86,8 +94,8 @@ class profile extends React.Component {
                                             <span className="slds-listbox__option-text slds-listbox__option-text_entity slds-m-bottom_x-small">{profile.name}</span>
                                             <span className="slds-listbox__option-meta slds-text-body--small slds-listbox__option-meta_entity slds-m-bottom_x-small">{window.location.hostname}</span>
                                             <span>
-                                                <a className="slds-p-right--medium" href="javacript:void(0);" onClick={(e)=>{this.settingsAccount(e);}}>账户设置</a>
-                                                <a href="javacript:void(0);" onClick={(e)=>{this.logoutAccount(e);}}>注销</a>
+                                                <a className="slds-p-right--medium" href="javacript:void(0);" onClick={(e)=>{this.settingsAccount(e);}}>{assistiveText.settings}</a>
+                                                <a href="javacript:void(0);" onClick={(e)=>{this.logoutAccount(e);}}>{assistiveText.logout}</a>
                                             </span>
                                         </div>
                                     }

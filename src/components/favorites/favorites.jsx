@@ -84,11 +84,22 @@ class favorites extends React.Component {
 		};
     }
 
+    static defaultProps = {
+        title: "我的收藏夹",
+        assistiveText: {
+            editFavorites: "编辑收藏夹"
+        }
+    };
+
     static propTypes = {
+        title: PropTypes.string,
         objectName: PropTypes.string.isRequired,
         recordOnClick: PropTypes.func.isRequired,
         editOnClick: PropTypes.func.isRequired,
-        onToggleActionSelected: PropTypes.func.isRequired
+        onToggleActionSelected: PropTypes.func.isRequired,
+        assistiveText: PropTypes.shape({
+            editFavorites: PropTypes.string
+        })
     }
     
     componentDidMount() {
@@ -98,7 +109,7 @@ class favorites extends React.Component {
 	}
 
 	render() {
-        const { records, onToggleActionSelected, actionSelected, actionDisabled, recordOnClick, assistiveText, editOnClick} = this.props
+        const { title, records, onToggleActionSelected, actionSelected, actionDisabled, recordOnClick, assistiveText, editOnClick} = this.props
 		return (
             <GlobalHeaderFavorites
             actionSelected={actionSelected}
@@ -122,9 +133,9 @@ class favorites extends React.Component {
                                         size="x-small"
                                         style={{fill:'currentColor'}}
                                     />
-                        </div><div className="slds-media__body slds-m-left--none">编辑收藏夹</div></div></a></div>
+                        </div><div className="slds-media__body slds-m-left--none">{assistiveText.editFavorites}</div></div></a></div>
                     }
-                    heading="我的收藏夹"
+                    heading={title}
                     id="header-favorites-popover-id"
                 />
             }

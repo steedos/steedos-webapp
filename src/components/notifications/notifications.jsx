@@ -67,7 +67,7 @@ const HeaderNotificationsCustomHeading = (props) => (
             props.isUnreadEmpty ? 
             null :
             <Button
-                label="全部标记为已读"
+                label={props.assistiveText.markAllAsRead}
                 onClick={props.onMarkReadAll}
                 variant="link"
                 style={{
@@ -134,7 +134,7 @@ const getItemAvatarUrl = (item)=>{
 
 const HeaderNotificationsCustomContent = (props) => {
     if(props.isEmpty){
-        return (<EmptyContainer>您现在没有任何通知。</EmptyContainer>);
+        return (<EmptyContainer>{props.assistiveText.emptyNotifications}</EmptyContainer>);
     }
     else if(props.isLoading){
         return (
@@ -215,7 +215,14 @@ class Notifications extends React.Component {
         title: "通知",
         rows: [],
         top: 10,
-        loadDataAfterRender: true
+        loadDataAfterRender: true,
+        assistiveText: {
+            newNotificationsAfter: "条新通知",
+            newNotificationsBefore: "收到",
+            noNotifications: "无新通知",
+            markAllAsRead: "全部标记为已读",
+            emptyNotifications: "您现在没有任何通知。"
+        }
     };
 
     static propTypes = {
@@ -226,7 +233,14 @@ class Notifications extends React.Component {
         top: PropTypes.number, //抓取多少条数据
         sort: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),// 未配置时为"created desc, name"
         markReadAllApiUrl: PropTypes.string, //全部标记为已读的url可配置，默认不需要配置，未配置时为：/api/v4/notifications/all/markReadAll
-        loadDataAfterRender: PropTypes.bool //组件加载后是否默认请求一次数据
+        loadDataAfterRender: PropTypes.bool, //组件加载后是否默认请求一次数据
+        assistiveText: PropTypes.shape({
+            newNotificationsAfter: PropTypes.string,
+            newNotificationsBefore: PropTypes.string,
+            noNotifications: PropTypes.string,
+            markAllAsRead: PropTypes.string,
+            emptyNotifications: PropTypes.string
+        })
     };
 
     componentDidMount() {
@@ -250,7 +264,7 @@ class Notifications extends React.Component {
     };
 
     getPopover(){
-        const { rows: items, loading: isLoading, methodLoading: isMethodLoading, itemsLoaded: isItemsLoaded, title, onMarkReadAll, unreadCount } = this.props;
+        const { rows: items, loading: isLoading, methodLoading: isMethodLoading, itemsLoaded: isItemsLoaded, title, onMarkReadAll, unreadCount, assistiveText } = this.props;
         const isEmpty = isLoading ? false : items.length === 0;
         const isUnreadEmpty = !!!unreadCount;
         return (
@@ -261,6 +275,7 @@ class Notifications extends React.Component {
                         isLoading={ isItemsLoaded ? false : isLoading}
                         isEmpty={isEmpty}
                         items={items}
+                        assistiveText={assistiveText}
                     />
                 }
                 heading={
@@ -269,6 +284,7 @@ class Notifications extends React.Component {
                         title={title}
                         onMarkReadAll={onMarkReadAll}
                         isMethodLoading={isMethodLoading}
+                        assistiveText={assistiveText}
                     />
                 }
                 id="header-notifications-popover-id"
@@ -277,16 +293,16 @@ class Notifications extends React.Component {
     }
 
     render() {
-        const { unreadCount, countLoading } = this.props;
+        const { unreadCount, countLoading, assistiveText } = this.props;
         const popover = this.getPopover();
 
         return (
             <Container className={countLoading ? "loading" : ""}>
                 <GlobalHeaderNotifications
                     assistiveText={{
-                        newNotificationsAfter: '条新通知',
-                        newNotificationsBefore: '收到',
-                        noNotifications: '无新通知'
+                        newNotificationsAfter: assistiveText.newNotificationsAfter,
+                        newNotificationsBefore: assistiveText.newNotificationsBefore,
+                        noNotifications: assistiveText.noNotifications
                     }}
                     notificationCount={countLoading ? 0 : unreadCount}
                     popover={popover}
