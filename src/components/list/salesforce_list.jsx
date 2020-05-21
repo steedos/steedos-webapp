@@ -15,7 +15,7 @@ let ListContainer = styled.div`
 	position: relative;
 	height: 100%;
 	.slds-split-view__list-item-action{
-		padding: 0.5rem 1rem;
+		padding: 0.6rem 1rem;
 		.slds-text-heading_small{
 			.slds-grid{
 				color: #777;
