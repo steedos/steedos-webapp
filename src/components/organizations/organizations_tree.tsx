@@ -39,8 +39,14 @@ class OrganizationsTree extends React.Component {
             let { nodes:stateNodes = {} } = this.props as any
             let nodes: any = []
             node.nodes.forEach((element: any) => {
-                if(stateNodes[element]){
-                    nodes.push(stateNodes[element])
+                if(_.isString(element)){
+                    if(stateNodes[element]){
+                        nodes.push(stateNodes[element])
+                    }
+                }else{
+                    if(stateNodes[element.id]){
+                        nodes.push(Object.assign({expanded: true}, stateNodes[element.id]))
+                    }
                 }
             });
             return nodes
@@ -51,7 +57,6 @@ class OrganizationsTree extends React.Component {
             newOptions.columns = columns
             return loadTreeEntitiesData(newOptions)
         }
-
         return (
             <SteedosTree objectName={objectName} rootNodes={rootNodes} getNodes={getNodes} onClick={onClick} init={init} id={id}/>
         )
