@@ -3,6 +3,18 @@ import { ORGANIZATIONS_STATE_CHANGE_ACTION } from '../../actions/views/organizat
 import _ from 'underscore'
 
 function getRootNodes(records: any){
+    if(records.length > 0){
+        return _.map(records, function(record: any){
+            return {
+                expanded: true,
+                id: record._id,
+                label: record.name,
+                selected: true,
+                type: 'branch',
+                nodes: record.children || []
+            }
+        })
+    }
     return _.pluck(records, '_id')
 }
 
