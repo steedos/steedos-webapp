@@ -59,6 +59,7 @@ let ListContainer = styled.div`
 		}
 		.pullable-container{
 			margin-top: 2.5rem;
+			padding-bottom: 2.5rem;
 		}
 	}
 	&.slds-grid-no-header{
