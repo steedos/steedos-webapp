@@ -181,6 +181,10 @@ let PullableContainer = styled.div`
     color: #484869;
     text-align: center;
     line-height: 48px;
+    @media (max-width: 767px) {
+      // 手机上不显示加载更多按钮，因为手机上性能问题state-loading样式类加载到dom中有延时会先看到该按钮
+      display: none;
+    }
   }
   .state-loading .pullable-footer .pullable-btn {
     display: none;
