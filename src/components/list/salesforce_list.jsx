@@ -110,6 +110,7 @@ class List extends React.Component {
 			]),
 			options: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
 			allOptions: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
+			reference_to: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 			optionsFunction: PropTypes.func,
 			scale: PropTypes.number,
 			is_wide: PropTypes.bool,
