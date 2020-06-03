@@ -181,10 +181,6 @@ let PullableContainer = styled.div`
     color: #484869;
     text-align: center;
     line-height: 48px;
-    @media (max-width: 767px) {
-      // 手机上不显示加载更多按钮，因为手机上性能问题state-loading样式类加载到dom中有延时会先看到该按钮
-      display: none;
-    }
   }
   .state-loading .pullable-footer .pullable-btn {
     display: none;
@@ -202,6 +198,18 @@ let PullableContainer = styled.div`
   .state-refreshing .pullable-symbol .pullable-loading,
   .state-loading .pullable-footer .pullable-loading {
     display: block;
+  }
+  @media (max-width: 767px) {
+    .pullable-footer{
+      // 手机上不显示加载更多按钮，因为手机上性能问题state-loading样式类加载到dom中有延时会先看到该按钮
+      .pullable-btn {
+        display: none;
+      }
+      // 手机上也因为性能问题state-loading样式类加载到dom中有延时，所以默认显示出来
+      .pullable-loading {
+        display: block;
+      }
+    }
   }
   @keyframes circle {
     100% {
