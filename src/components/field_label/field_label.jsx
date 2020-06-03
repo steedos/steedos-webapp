@@ -101,7 +101,14 @@ const FieldLabel = ({ children, ...props }) => {
 	if(_.isFunction(format)){
 		children = format(children, props.item, props.options)
 	}
-	if(children || _.isBoolean(children) || _.isNumber(children)){
+	const Creator = window.Creator;
+	if(Creator && _.isFunction(Creator.getTableCellData)){
+		let cellData = Creator.getTableCellData({ field, doc, val: children, object_name: props.options.objectName, _id: doc._id });
+		children = cellData.map((item)=>{
+			return item.value
+		}).join(",");
+	}
+	else if(children || _.isBoolean(children) || _.isNumber(children)){
 		switch (field.type) {
 			case 'datetime':
 				if(_.isString(children) && /\d+Z$/.test(children)){
