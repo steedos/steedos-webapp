@@ -34,23 +34,26 @@ let PullableContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  .pullable-msg:after {
-    content: "下拉刷新";
-  }
-  .state-pulling.enough .pullable-msg:after {
-    content: "松开刷新";
-  }
-  .state-refreshed .pullable-msg:after {
-    content: "刷新成功";
-  }
-  .pullable-loading:after {
-    content: "正在加载...";
-  }
-  .pullable-symbol .pullable-loading:after {
-    content: "正在刷新...";
-  }
+  // .pullable-msg:after {
+  //   content: "下拉刷新";
+  // }
+  // .state-pulling.enough .pullable-msg:after {
+  //   content: "松开刷新";
+  // }
+  // .state-refreshed .pullable-msg:after {
+  //   content: "刷新成功";
+  // }
+  // .pullable-loading:after {
+  //   content: "正在加载...";
+  // }
+  // .pullable-symbol .pullable-loading:after {
+  //   content: "正在刷新...";
+  // }
   .pullable-btn:after {
-    content: "点击加载更多";
+    // content: "点击加载更多";
+    content: "▼";
+    color: #006dcc;
+    cursor: pointer;
   }
   .pullable {
     position: relative;
