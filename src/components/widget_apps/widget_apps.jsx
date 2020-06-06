@@ -99,22 +99,22 @@ class WidgetApps extends React.Component {
             let token = getCookie("X-Access-Token");
             const self = this;
             return _.map(apps, (app, key) => {
-                if (app && app.name) {
+                if (app && app.label) {
                     let url = this.getAppUrl(app, token);
                     let target = app.is_new_window ? "_blank" : null;
                     return (
                         <AppLauncherTile
-                            assistiveText={{ dragIconText: app.name }}
+                            assistiveText={{ dragIconText: app.label }}
                             key={key}
                             description={app.description}
                             iconNode={
                                 <Icon
-                                    assistiveText={{ label: app.name }}
+                                    assistiveText={{ label: app.label }}
                                     category="standard"
                                     name={app.icon_slds}
                                 />
                             }
-                            title={app.name}
+                            title={app.label}
                             href={url}
                             target={target}
                             onClick={(e)=>{
