@@ -40,9 +40,13 @@ class WidgetApps extends React.Component {
     };
 
     static defaultProps = {
-        label: "应用",
         mobile: false,
-        showAllItems: false
+        showAllItems: false,
+        assistiveText:{
+            lebel: "应用",
+            tilesSectionLabel: "所有应用",
+            linksSectionLabel: "所有对象"
+        }
     };
 
     static propTypes = {
@@ -51,7 +55,12 @@ class WidgetApps extends React.Component {
         mobile: PropTypes.bool,
         showAllItems: PropTypes.bool,
         ignoreApps: PropTypes.array,
-        onTileClick: PropTypes.func
+        onTileClick: PropTypes.func,
+        assistiveText: PropTypes.shape({
+            lebel: PropTypes.string,
+            tilesSectionLabel: PropTypes.string,
+            linksSectionLabel: PropTypes.string
+        })
     };
 
     componentDidMount() {
@@ -132,9 +141,12 @@ class WidgetApps extends React.Component {
     }
 
     render() {
-        let { label, apps, mobile, showAllItems, ignoreApps } = this.props;
+        let { label, apps, mobile, showAllItems, ignoreApps, assistiveText } = this.props;
         if(ignoreApps && ignoreApps.length){
             apps = _.reject(apps, function(o) { return ignoreApps.indexOf(o._id) > -1 });
+        }
+        if(!label){
+            label = assistiveText.lebel
         }
         let appCells = this.getAppCells(apps);
         let appLauncherDesktopInternal;
@@ -152,7 +164,7 @@ class WidgetApps extends React.Component {
             }
             appLauncherDesktopInternal = (
                 <AppLauncherDesktopInternal className={`slds-app-launcher__content ${extraClassName}`}>
-                    <AppLauncherExpandableSection title="所有应用程序">
+                    <AppLauncherExpandableSection title={assistiveText.tilesSectionLabel}>
                         {appCells}
                     </AppLauncherExpandableSection>
                 </AppLauncherDesktopInternal>

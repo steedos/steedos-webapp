@@ -114,7 +114,10 @@ class Dashboard extends React.Component {
         centerTopSection: PropTypes.node,
         centerBottomLeftSection: PropTypes.node,
         centerBottomRightSection: PropTypes.node,
-        rightSection: PropTypes.node
+        rightSection: PropTypes.node,
+        assistiveText: PropTypes.shape({
+            widgets: PropTypes.object,
+        })
     };
 
     componentDidMount() {
@@ -160,7 +163,7 @@ class Dashboard extends React.Component {
                     )
                 }
                 else if (typeof value.component === "string" && value.component.length){
-                    return <WidgetRemote key={key} label={value.label} url={value.component} />
+                    return <WidgetRemote key={key} label={value.label} url={value.component} assistiveText={value.assistiveText} />
                 }
             case "html":
                 if (typeof value.html === "string" && value.html.length) {
@@ -216,9 +219,14 @@ class Dashboard extends React.Component {
         }
     }
 
-    convertConfigToSection(config) {
+    convertConfigToSection(config, assistiveText) {
         let result = {}, section;
         _.each(config, (value, key) => {
+            let widgetsAssistiveText = assistiveText && assistiveText.widgets;
+            if(widgetsAssistiveText){
+                // widget本身的assistiveText配置优先于传入的dashboard中的assistiveText中相关widget类型的assistiveText配置
+                value.assistiveText = _.extend({}, widgetsAssistiveText[value.type], value.assistiveText)
+            }
             switch (value.position) {
                 case "LEFT":
                     section = this.convertConfigItemToSection(value, key);
@@ -271,10 +279,10 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        const config = this.props.config;
+        const { config, assistiveText } = this.props;
         let configSection = {};
         if (config) {
-            configSection = this.convertConfigToSection(config);
+            configSection = this.convertConfigToSection(config, assistiveText);
         }
         let { leftSection, centerTopSection, centerBottomLeftSection, centerBottomRightSection, rightSection } = { ...this.state, ...configSection };
 
