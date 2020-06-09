@@ -35,7 +35,7 @@ let Container = styled.div`
                         align-items: center;
                         min-width: 0;
                         padding: .75rem;
-                        color: currentColor;
+                        // color: currentColor;
                         width: 100%;
                     }
                     &:focus{
@@ -49,6 +49,55 @@ let Container = styled.div`
                 background: #fff;
                 border: none;
             }
+        }
+        &.slds-tabs_default{
+            border: none;
+            .slds-tabs_default__nav{
+                border: 1px solid #dddbda;
+                border-radius: .25rem;
+                padding: .25rem;
+                background: #fff;
+                width: 8rem;
+                .slds-tabs_default__item{
+                    border: none;
+                    &.slds-active{
+                        margin-right: 0;
+                        color: #080707;
+                        &:after{
+                            content: "";
+                            width: 3px;
+                            height: 1rem;
+                            position: absolute;
+                            right: 0.25rem;
+                            left: auto;
+                            top: 50%;
+                            margin-top: -0.5rem;
+                        }
+                    }
+                    &:hover{
+                        &:after{
+                            content: "";
+                            width: 3px;
+                            height: 1rem;
+                            position: absolute;
+                            right: 0.25rem;
+                            left: auto;
+                            top: 50%;
+                            margin-top: -0.5rem;
+                        }
+                    }
+                    .slds-tabs_default__link{
+                        justify-content: center;
+                    }
+                }
+            }
+            .slds-tabs_default__content{
+                border: 1px solid #dddbda;
+                border-radius: .25rem;
+                margin-left: 1rem;
+            }
+        }
+        &.slds-tabs_scoped{
         }
     }
 `;
