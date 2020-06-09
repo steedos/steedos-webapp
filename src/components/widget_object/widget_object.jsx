@@ -149,7 +149,7 @@ class WidgetObject extends React.Component {
             >
                 <WidgetObjectContent>
                     <Grid searchMode="omitFilters"
-                        pageSize={maxRows}
+                        pageSize={maxRows === "all" ? null : maxRows}
                         objectName={objectName}
                         columns={cellListColumns}
                         selectionLabel={selectionLabel}
