@@ -464,6 +464,206 @@ export const configTypeReact = () => (
   </div>
 )
 
+const config4_1 = [{
+  position: "CENTER_TOP",
+  type: "tabs",
+  panels: [{
+    label: "横向tabs",
+    type: "react",
+    component: function (options) {
+      let CenterDiv2 = styled.div`
+        text-align: center;
+        height: 230px;
+        background: #fff;
+      `;
+      return <CenterDiv2 className="testReact1">Test Tabs Component Simple</CenterDiv2>;
+    }
+  }, {
+    label: "待审核",
+    type: "instances_pendings"
+  }, {
+    label: "本周公告",
+    type: "announcements_week"
+  }]
+},{
+  position: "CENTER_TOP",
+  type: "tabs",
+  vertical: true,
+  panels: [{
+    label: "纵向tabs",
+    type: "react",
+    component: function (options) {
+      let CenterDiv2 = styled.div`
+        text-align: center;
+        height: 230px;
+        background: #fff;
+      `;
+      return <CenterDiv2 className="testReact1">Test Tabs Component Simple</CenterDiv2>;
+    }
+  }, {
+    label: "待审核",
+    type: "instances_pendings"
+  }, {
+    label: "本周公告",
+    type: "announcements_week"
+  }, {
+    label: "今日任务",
+    type: "tasks_today"
+  }, {
+    label: "今日日程",
+    type: "events_today"
+  }]
+},{
+  position: "CENTER_TOP",
+  type: "tabs",
+  variant: "scoped",
+  panels: [{
+    label: "横向scoped tabs",
+    type: "react",
+    component: function (options) {
+      let CenterDiv2 = styled.div`
+        text-align: center;
+        height: 230px;
+        background: #fff;
+      `;
+      return <CenterDiv2 className="testReact1">Test Tabs Component Simple</CenterDiv2>;
+    }
+  }, {
+    label: "待审核",
+    type: "instances_pendings"
+  }, {
+    label: "本周公告",
+    type: "announcements_week"
+  }]
+},{
+  position: "CENTER_TOP",
+  type: "tabs",
+  variant: "scoped",
+  vertical: true,
+  panels: [{
+    label: "纵向scoped tabs",
+    type: "react",
+    component: function (options) {
+      let CenterDiv2 = styled.div`
+        text-align: center;
+        height: 230px;
+        background: #fff;
+      `;
+      return <CenterDiv2 className="testReact1">Test Tabs Component Simple</CenterDiv2>;
+    }
+  }, {
+    label: "待审核",
+    type: "instances_pendings"
+  }, {
+    label: "本周公告",
+    type: "announcements_week"
+  }, {
+    label: "今日任务",
+    type: "tasks_today"
+  }, {
+    label: "今日日程",
+    type: "events_today"
+  }]
+}, {
+  position: "RIGHT",
+  type: "tabs",
+  panels: [{
+    label: "横向tabs",
+    type: "react",
+    component: function (options) {
+      let CenterDiv2 = styled.div`
+        text-align: center;
+        height: 230px;
+        background: #fff;
+      `;
+      return <CenterDiv2 className="testReact1">Test Tabs Component Simple</CenterDiv2>;
+    }
+  }, {
+    label: "今日任务",
+    type: "tasks_today"
+  }, {
+    label: "今日日程",
+    type: "events_today"
+  }]
+},{
+  position: "RIGHT",
+  type: "tabs",
+  vertical: true,
+  panels: [{
+    label: "纵向tabs",
+    type: "react",
+    component: function (options) {
+      let CenterDiv2 = styled.div`
+        text-align: center;
+        height: 230px;
+        background: #fff;
+      `;
+      return <CenterDiv2 className="testReact1">Test Tabs Component Simple</CenterDiv2>;
+    }
+  }, {
+    label: "今日任务",
+    type: "tasks_today"
+  }, {
+    label: "今日日程",
+    type: "events_today"
+  }]
+},{
+  position: "RIGHT",
+  type: "tabs",
+  variant: "scoped",
+  panels: [{
+    label: "横向scoped tabs",
+    type: "react",
+    component: function (options) {
+      let CenterDiv2 = styled.div`
+        text-align: center;
+        height: 230px;
+        background: #fff;
+      `;
+      return <CenterDiv2 className="testReact1">Test Tabs Component Simple</CenterDiv2>;
+    }
+  }, {
+    label: "今日任务",
+    type: "tasks_today"
+  }, {
+    label: "今日日程",
+    type: "events_today"
+  }]
+},{
+  position: "RIGHT",
+  type: "tabs",
+  variant: "scoped",
+  vertical: true,
+  panels: [{
+    label: "纵向scoped tabs",
+    type: "react",
+    component: function (options) {
+      let CenterDiv2 = styled.div`
+        text-align: center;
+        height: 230px;
+        background: #fff;
+      `;
+      return <CenterDiv2 className="testReact1">Test Tabs Component Simple</CenterDiv2>;
+    }
+  }, {
+    label: "今日任务",
+    type: "tasks_today"
+  }, {
+    label: "今日日程",
+    type: "events_today"
+  }]
+}]
+
+export const configTypeTabs = () => (
+  <div className="App">
+    <Provider store={store}>
+      <Bootstrap>
+        <Dashboard config={config4_1} />
+      </Bootstrap>
+    </Provider>
+  </div>
+)
+
 const config5 = [{
   label: "Test Dashboard config some reduced widgets as an array",
   position: "CENTER_TOP",

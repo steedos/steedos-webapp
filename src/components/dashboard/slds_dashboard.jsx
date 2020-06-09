@@ -6,6 +6,7 @@ import WidgetObject from '../widget_object';
 import WidgetApps from '../widget_apps';
 import WidgetRemote from '../widget_remote';
 import { WidgetInstancesPendings, WidgetAnnouncementsWeek, WidgetTasksToday, WidgetEventsToday } from '../widget_reducts';
+import { Tabs, TabsPanel } from '../tabs';
 
 let Container = styled.div`
     display: flex;
@@ -48,6 +49,37 @@ let Container = styled.div`
         @media (max-width: 767px) {
             &:not(:first-of-type){
                 margin-top: 1rem;
+            }
+        }
+    }
+    .steedos-tabs-container+.slds-card{
+        margin-top: 1rem;
+    }
+    .slds-card+.steedos-tabs-container{
+        margin-top: 1rem;
+    }
+    .steedos-tabs-container+.steedos-tabs-container{
+        margin-top: 1rem;
+    }
+    .steedos-tabs-container{
+        .slds-tabs_default{
+            border: 1px solid #dddbda;
+            border-radius: .25rem;
+        }
+        .slds-tabs_default, .slds-tabs_scoped{
+            box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+        }
+        .slds-vertical-tabs{
+            &.slds-tabs_default{
+                overflow: unset;
+                box-shadow: unset;
+                border: none;
+                .slds-tabs_default__nav, .slds-tabs_default__content{
+                    box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+                }
+            }
+            &.slds-tabs_scoped{
+                box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
             }
         }
     }
@@ -216,6 +248,16 @@ class Dashboard extends React.Component {
                 return <WidgetTasksToday key={key} {...value} />
             case "events_today":
                 return <WidgetEventsToday key={key} {...value} />
+            case "tabs":
+                return value.panels ? (<Tabs key={key} vertical={value.vertical} variant={value.variant}>
+                    {
+                        value.panels.map((panel, index) => {
+                            return <TabsPanel key={`${key}_panel_${index}`} label={panel.label}>
+                                {this.convertConfigItemToSection(panel, `${key}_panel_content_${index}`)}
+                            </TabsPanel>
+                        })
+                    }
+                </Tabs>) : null
         }
     }
 
