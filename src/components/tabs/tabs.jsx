@@ -8,6 +8,7 @@ import { Tabs as SFTabs} from '@salesforce/design-system-react';
 let Container = styled.div`
     .slds-vertical-tabs{
         &.slds-tabs_default, &.slds-tabs_scoped{
+            background: unset;
             .slds-tabs_default__nav, .slds-tabs_scoped__nav{
                 width: 12rem;
                 border-right: 1px solid #dddbda;
@@ -98,6 +99,9 @@ let Container = styled.div`
             }
         }
         &.slds-tabs_scoped{
+            .slds-tabs_scoped__content{
+                border-radius: 0;
+            }
         }
     }
 `;
