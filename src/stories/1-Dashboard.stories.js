@@ -480,10 +480,12 @@ const config4_1 = [{
     }
   }, {
     label: "待审核",
-    type: "instances_pendings"
+    type: "instances_pendings",
+    noHeader: true
   }, {
     label: "本周公告",
-    type: "announcements_week"
+    type: "announcements_week",
+    noHeader: true
   }]
 },{
   position: "CENTER_TOP",
@@ -502,16 +504,20 @@ const config4_1 = [{
     }
   }, {
     label: "待审核",
-    type: "instances_pendings"
+    type: "instances_pendings",
+    noHeader: true
   }, {
     label: "本周公告",
-    type: "announcements_week"
+    type: "announcements_week",
+    noHeader: true
   }, {
     label: "今日任务",
-    type: "tasks_today"
+    type: "tasks_today",
+    noHeader: true
   }, {
     label: "今日日程",
-    type: "events_today"
+    type: "events_today",
+    noHeader: true
   }]
 },{
   position: "CENTER_TOP",
@@ -530,10 +536,12 @@ const config4_1 = [{
     }
   }, {
     label: "待审核",
-    type: "instances_pendings"
+    type: "instances_pendings",
+    noHeader: true
   }, {
     label: "本周公告",
-    type: "announcements_week"
+    type: "announcements_week",
+    noHeader: true
   }]
 },{
   position: "CENTER_TOP",
@@ -553,16 +561,20 @@ const config4_1 = [{
     }
   }, {
     label: "待审核",
-    type: "instances_pendings"
+    type: "instances_pendings",
+    noHeader: true
   }, {
     label: "本周公告",
-    type: "announcements_week"
+    type: "announcements_week",
+    noHeader: true
   }, {
     label: "今日任务",
-    type: "tasks_today"
+    type: "tasks_today",
+    noHeader: true
   }, {
     label: "今日日程",
-    type: "events_today"
+    type: "events_today",
+    noHeader: true
   }]
 }, {
   position: "RIGHT",
@@ -580,10 +592,12 @@ const config4_1 = [{
     }
   }, {
     label: "今日任务",
-    type: "tasks_today"
+    type: "tasks_today",
+    noHeader: true
   }, {
     label: "今日日程",
-    type: "events_today"
+    type: "events_today",
+    noHeader: true
   }]
 },{
   position: "RIGHT",
@@ -602,10 +616,12 @@ const config4_1 = [{
     }
   }, {
     label: "今日任务",
-    type: "tasks_today"
+    type: "tasks_today",
+    noHeader: true
   }, {
     label: "今日日程",
-    type: "events_today"
+    type: "events_today",
+    noHeader: true
   }]
 },{
   position: "RIGHT",
@@ -624,10 +640,12 @@ const config4_1 = [{
     }
   }, {
     label: "今日任务",
-    type: "tasks_today"
+    type: "tasks_today",
+    noHeader: true
   }, {
     label: "今日日程",
-    type: "events_today"
+    type: "events_today",
+    noHeader: true
   }]
 },{
   position: "RIGHT",
@@ -647,10 +665,12 @@ const config4_1 = [{
     }
   }, {
     label: "今日任务",
-    type: "tasks_today"
+    type: "tasks_today",
+    noHeader: true
   }, {
     label: "今日日程",
-    type: "events_today"
+    type: "events_today",
+    noHeader: true
   }]
 }]
 

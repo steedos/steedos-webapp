@@ -68,6 +68,23 @@ let Container = styled.div`
         }
         .slds-tabs_default, .slds-tabs_scoped{
             box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+            &>.slds-tabs_default__content, &>.slds-tabs_scoped__content{
+                &>.slds-card{
+                    border: none;
+                    box-shadow: none;
+                    margin: -1rem;
+                    &>.slds-card__header{
+                        display: none;
+                    }
+                }
+            }
+        }
+        .slds-tabs_default{
+            &>.slds-tabs_default__content{
+                &>.slds-card{
+                    margin: -1rem 0;
+                }
+            }
         }
         .slds-vertical-tabs{
             &.slds-tabs_default{
@@ -77,9 +94,23 @@ let Container = styled.div`
                 .slds-tabs_default__nav, .slds-tabs_default__content{
                     box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
                 }
+                &>.slds-tabs_default__content{
+                    &>.slds-card{
+                        margin: -1rem;
+                    }
+                }
             }
             &.slds-tabs_scoped{
                 box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+            }
+            &.slds-tabs_default, &.slds-tabs_scoped{
+                &>.slds-tabs_default__content, &>.slds-tabs_scoped__content{
+                    &>.slds-card{
+                        &>.slds-card__header{
+                            display: flex;
+                        }
+                    }
+                }
             }
         }
     }
