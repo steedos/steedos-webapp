@@ -33,35 +33,53 @@ let AppLauncherDesktopInternal = styled.div`
             color: #005fb2;
         }
     }
+    &.slds-app-launcher__mobile{
+        .slds-medium-size--1-of-3, .slds-medium-size_1-of-3{
+            width: 100%;
+        }
+    }
     &.slds-app-launcher__mini{
-        .slds-section__content{
-            .slds-p-horizontal_small{
-                .slds-app-launcher__tile{
-                    flex-direction: column;
-                    .slds-app-launcher__tile-figure{
-                        justify-content: center;
-                        padding-bottom: 0;
-                        flex-direction: row;
-                    }
-                    .slds-app-launcher__tile-body{
-                        text-align: center;
-                        background: #fff;
-                        &> div {
-                            display: none;
-                        }
-                    }
+        .slds-app-launcher__tile{
+            flex-direction: column;
+            .slds-app-launcher__tile-figure{
+                justify-content: center;
+                padding-bottom: 0;
+                flex-direction: row;
+            }
+            .slds-app-launcher__tile-body{
+                text-align: center;
+                background: #fff;
+                &> div {
+                    display: none;
                 }
             }
+        }
+        .slds-medium-size--1-of-3, .slds-medium-size_1-of-3 {
+            width: 16%;
+            @media (max-width: 1280px) {
+                width: 20%;
+            }
+            @media (max-width: 1024px) {
+                width: 20%;
+            }
+            @media (max-width: 767px) {
+                width: 25%;
+            }
+        }
+        &.slds-app-launcher__mobile{
             .slds-medium-size--1-of-3, .slds-medium-size_1-of-3 {
-                width: 16%;
-                @media (max-width: 1280px) {
-                    width: 20%;
+                width: 25%;
+                @media (max-width: 1440px) {
+                    width: 33.33%;
                 }
-                @media (max-width: 1024px) {
-                    width: 20%;
+                @media (max-width: 1280px) {
+                    width: 50%;
+                }
+                @media (max-width: 960px) {
+                    width: 100%;
                 }
                 @media (max-width: 767px) {
-                    width: 25%;
+                    width: 33.3333%;
                 }
             }
         }
@@ -188,8 +206,17 @@ class WidgetApps extends React.Component {
         let appLauncherDesktopInternal;
         if (mobile){
             appLauncherDesktopInternal = (
-                <AppLauncherDesktopInternal className="slds-app-launcher__content">
-                    {appCells}
+                <AppLauncherDesktopInternal
+                    className={classNames(
+                        {
+                            'slds-app-launcher__mini': mini === true,
+                        },
+                        "slds-app-launcher__content slds-app-launcher__mobile"
+                    )}
+                >
+                    <AppLauncherExpandableSection title={assistiveText.tilesSectionLabel}>
+                        {appCells}
+                    </AppLauncherExpandableSection>
                 </AppLauncherDesktopInternal>
             );
         }

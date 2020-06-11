@@ -344,6 +344,13 @@ const config3 = {
     type: 'apps',
     mini: true,
     ignoreApps: ['admin']
+  },
+  apps_mini_right: {
+    label: 'Mini',
+    position: 'RIGHT',
+    type: 'apps',
+    mini: true,
+    ignoreApps: ['admin']
   }
 }
 
