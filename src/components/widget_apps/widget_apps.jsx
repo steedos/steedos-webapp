@@ -52,6 +52,15 @@ let AppLauncherDesktopInternal = styled.div`
                 &> div {
                     display: none;
                 }
+                .slds-link{
+                    &>span{
+                        overflow: hidden;
+                        width: 100%;
+                        display: inline-block;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
+                }
             }
         }
         .slds-medium-size--1-of-3, .slds-medium-size_1-of-3 {
