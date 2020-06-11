@@ -337,6 +337,13 @@ const config3 = {
     type: 'apps',
     mobile: true,
     ignoreApps: ['admin']
+  },
+  apps_mini: {
+    label: 'Mini',
+    position: 'CENTER_TOP',
+    type: 'apps',
+    mini: true,
+    ignoreApps: ['admin']
   }
 }
 

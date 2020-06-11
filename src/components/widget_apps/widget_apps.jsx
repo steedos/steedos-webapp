@@ -5,6 +5,7 @@ import _ from 'underscore';
 import { Card, Icon, AppLauncherExpandableSection} from '@salesforce/design-system-react';
 import { getCookie, getRelativeUrl } from '../../utils';
 import {AppLauncherTile} from '../slds_app_launcher';
+import classNames from 'classnames';
 
 let AppLauncherDesktopInternal = styled.div`
     padding: 0px 1rem;
@@ -32,6 +33,39 @@ let AppLauncherDesktopInternal = styled.div`
             color: #005fb2;
         }
     }
+    &.slds-app-launcher__mini{
+        .slds-section__content{
+            .slds-p-horizontal_small{
+                .slds-app-launcher__tile{
+                    flex-direction: column;
+                    .slds-app-launcher__tile-figure{
+                        justify-content: center;
+                        padding-bottom: 0;
+                        flex-direction: row;
+                    }
+                    .slds-app-launcher__tile-body{
+                        text-align: center;
+                        background: #fff;
+                        &> div {
+                            display: none;
+                        }
+                    }
+                }
+            }
+            .slds-medium-size--1-of-3, .slds-medium-size_1-of-3 {
+                width: 16%;
+                @media (max-width: 1280px) {
+                    width: 20%;
+                }
+                @media (max-width: 1024px) {
+                    width: 20%;
+                }
+                @media (max-width: 767px) {
+                    width: 25%;
+                }
+            }
+        }
+    }
 `;
 
 class WidgetApps extends React.Component {
@@ -41,6 +75,7 @@ class WidgetApps extends React.Component {
 
     static defaultProps = {
         mobile: false,
+        mini: false,
         showAllItems: false,
         assistiveText:{
             lebel: "应用",
@@ -53,6 +88,7 @@ class WidgetApps extends React.Component {
         label: PropTypes.string,
         apps: PropTypes.array,
         mobile: PropTypes.bool,
+        mini: PropTypes.bool,
         showAllItems: PropTypes.bool,
         ignoreApps: PropTypes.array,
         onTileClick: PropTypes.func,
@@ -141,7 +177,7 @@ class WidgetApps extends React.Component {
     }
 
     render() {
-        let { label, apps, mobile, showAllItems, ignoreApps, assistiveText } = this.props;
+        let { label, apps, mobile, showAllItems, ignoreApps, assistiveText, mini } = this.props;
         if(ignoreApps && ignoreApps.length){
             apps = _.reject(apps, function(o) { return ignoreApps.indexOf(o._id) > -1 });
         }
@@ -158,12 +194,16 @@ class WidgetApps extends React.Component {
             );
         }
         else {
-            let extraClassName = "";
-            if (showAllItems){
-                extraClassName = "slds-app-launcher__show-all-items";
-            }
             appLauncherDesktopInternal = (
-                <AppLauncherDesktopInternal className={`slds-app-launcher__content ${extraClassName}`}>
+                <AppLauncherDesktopInternal
+                    className={classNames(
+                        {
+                            'slds-app-launcher__show-all-items': showAllItems === true,
+                            'slds-app-launcher__mini': mini === true,
+                        },
+                        "slds-app-launcher__content"
+                    )}
+                >
                     <AppLauncherExpandableSection title={assistiveText.tilesSectionLabel}>
                         {appCells}
                     </AppLauncherExpandableSection>
