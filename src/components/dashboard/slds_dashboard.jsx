@@ -281,7 +281,7 @@ class Dashboard extends React.Component {
             case "events_today":
                 return <WidgetEventsToday key={key} {...value} />
             case "tabs":
-                return value.panels ? (<Tabs key={key} vertical={value.vertical} variant={value.variant}>
+                return value.panels ? (<Tabs key={key} {...value}>
                     {
                         value.panels.map((panel, index) => {
                             return <TabsPanel key={`${key}_panel_${index}`} label={panel.label}>

@@ -111,14 +111,32 @@ class Tabs extends React.Component {
         super(props);
     };
 
-    static defaultProps = _.extend({}, SFTabs.defaultProps, { vertical: false })
+    static defaultProps = _.extend({}, SFTabs.defaultProps, { 
+        vertical: false, 
+        triggerByHover: false 
+    })
 
-    static propTypes = _.extend({}, SFTabs.propTypes, { vertical: PropTypes.bool })
+    static propTypes = _.extend({}, SFTabs.propTypes, { 
+        vertical: PropTypes.bool,
+        triggerByHover: PropTypes.bool 
+    })
+
+    handleMove = (e)=> {
+        let item = e.target.closest(".slds-tabs_default__item, .slds-tabs_scoped__item");
+        if(item){
+            this.refs.tabs.handleClick(e);
+        }
+    };
 
     render() {
-        let { vertical, className, ...props } = this.props;
+        let { vertical, triggerByHover, className, ...props } = this.props;
+        let containerProps = {};
+        if(triggerByHover){
+            containerProps.onMouseMove = this.handleMove;
+        }
         return (
-            <Container className="steedos-tabs-container">
+            <Container className="steedos-tabs-container"
+                {...containerProps}>
                 <SFTabs {...props} 
                     className={classNames(
                         {
@@ -126,6 +144,7 @@ class Tabs extends React.Component {
                         },
                         className
                     )}
+                    ref="tabs"
                 />
             </Container>
         );

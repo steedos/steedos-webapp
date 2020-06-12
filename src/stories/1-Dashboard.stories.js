@@ -593,6 +593,7 @@ const config4_1 = [{
 }, {
   position: "RIGHT",
   type: "tabs",
+  triggerByHover: true,
   panels: [{
     label: "横向tabs",
     type: "react",
@@ -616,6 +617,7 @@ const config4_1 = [{
 },{
   position: "RIGHT",
   type: "tabs",
+  triggerByHover: true,
   vertical: true,
   panels: [{
     label: "纵向tabs",
@@ -640,6 +642,7 @@ const config4_1 = [{
 },{
   position: "RIGHT",
   type: "tabs",
+  triggerByHover: true,
   variant: "scoped",
   panels: [{
     label: "横向scoped tabs",
@@ -664,6 +667,7 @@ const config4_1 = [{
 },{
   position: "RIGHT",
   type: "tabs",
+  triggerByHover: true,
   variant: "scoped",
   vertical: true,
   panels: [{
