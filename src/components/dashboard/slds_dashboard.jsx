@@ -229,48 +229,49 @@ class Dashboard extends React.Component {
                     return <WidgetRemote key={key} label={value.label} url={value.component} assistiveText={value.assistiveText} />
                 }
             case "html":
-                if (typeof value.html === "string" && value.html.length) {
-                    let markup = {__html: value.html};
-                    let NoLabelWrapDiv = styled.article`
-                        position: relative;
-                        padding: 0;
-                        background: #fff;
-                        border: 1px solid #dddbda;
-                        border-radius: .25rem;
-                        background-clip: padding-box;
-                        -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
-                        box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
-                        .slds-card__body{
-                            padding: 0 1rem;
-                            min-height: auto;
-                        }
-                    `;
-                    let LabelWrapDiv = styled.article`
-                        .slds-card__body{
-                            padding: 0 1rem;
-                            min-height: auto;
-                        }
-                    `;
-                    return (
-                        <React.Fragment key={key}>
-                            {
-                                value.label ? 
-                                <LabelWrapDiv className="slds-card">
-                                    <div className="slds-card__header slds-grid">
-                                        <div className="slds-media slds-media_center slds-has-flexi-truncate">
-                                            <div className="slds-media__body">
-                                                <h2 className="slds-text-heading_small slds-truncate" title="{value.label}">{value.label}</h2>
-                                            </div>
-                                        </div>
-                                        <div className="slds-no-flex"></div>
-                                    </div>
-                                    <div className="slds-card__body" dangerouslySetInnerHTML={markup}>
-                                    </div>
-                                </LabelWrapDiv> : 
-                                <NoLabelWrapDiv className="slds-card" dangerouslySetInnerHTML={markup} />}
-                        </React.Fragment>
-                    )
+                if (!(typeof value.html === "string" && value.html.length)) {
+                    value.html = "";
                 }
+                let markup = {__html: value.html};
+                let NoLabelWrapDiv = styled.article`
+                    position: relative;
+                    padding: 0;
+                    background: #fff;
+                    border: 1px solid #dddbda;
+                    border-radius: .25rem;
+                    background-clip: padding-box;
+                    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+                    box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+                    .slds-card__body{
+                        padding: 0 1rem;
+                        min-height: auto;
+                    }
+                `;
+                let LabelWrapDiv = styled.article`
+                    .slds-card__body{
+                        padding: 0 1rem;
+                        min-height: auto;
+                    }
+                `;
+                return (
+                    <React.Fragment key={key}>
+                        {
+                            value.label ? 
+                            <LabelWrapDiv className="slds-card">
+                                <div className="slds-card__header slds-grid">
+                                    <div className="slds-media slds-media_center slds-has-flexi-truncate">
+                                        <div className="slds-media__body">
+                                            <h2 className="slds-text-heading_small slds-truncate" title="{value.label}">{value.label}</h2>
+                                        </div>
+                                    </div>
+                                    <div className="slds-no-flex"></div>
+                                </div>
+                                <div className="slds-card__body" dangerouslySetInnerHTML={markup}>
+                                </div>
+                            </LabelWrapDiv> : 
+                            <NoLabelWrapDiv className="slds-card" dangerouslySetInnerHTML={markup} />}
+                    </React.Fragment>
+                )
             case "instances_pendings":
                 return <WidgetInstancesPendings key={key} {...value} />
             case "announcements_week":
