@@ -75,8 +75,8 @@ function getODataFilter(options: any, $select: any) : string{
         if (!result){
             return "";
         }
-        const state = store.getState();
         let userContext: any = {};
+        const state = window.store ? window.store.getState() : store.getState();
         if (state.entities.user){
             // 新版本的bootstrap接口返回的是user，要处理下
             userContext.userId = state.entities.user.userId;
