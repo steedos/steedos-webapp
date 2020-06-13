@@ -78,7 +78,7 @@ let AppLauncherDesktopInternal = styled.div`
         &.slds-app-launcher__mobile{
             .slds-medium-size--1-of-3, .slds-medium-size_1-of-3 {
                 width: 25%;
-                @media (max-width: 1440px) {
+                @media (max-width: 1680px) {
                     width: 33.33%;
                 }
                 @media (max-width: 1280px) {
