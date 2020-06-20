@@ -126,7 +126,7 @@ class List extends React.Component {
 			size: PropTypes.string
 		}),
 		rowIconKey: PropTypes.string,
-		showIllustration: PropTypes.string,
+		showIllustration: PropTypes.bool,
 		illustration: PropTypes.shape({
 			heading: PropTypes.string,
 			messageBody: PropTypes.string,
