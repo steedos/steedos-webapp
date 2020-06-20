@@ -482,3 +482,38 @@ export const InfiniteScrollListWithFilteringBar = () => (
     </Bootstrap>
   </Provider>
 )
+
+export const showIllustration = () => (
+  <Provider store={store}>
+    <Bootstrap>
+      <List objectName={'space_users'} 
+        columns={[
+          {
+            field: 'name',
+            label: '名称'
+          }
+        ]} 
+        filters={[['space', '=', 'xyz']]}
+        pageSize={5}>
+      </List>
+    </Bootstrap>
+  </Provider>
+)
+
+export const notShowIllustration = () => (
+  <Provider store={store}>
+    <Bootstrap>
+      <List objectName={'space_users'} 
+        columns={[
+          {
+            field: 'name',
+            label: '名称'
+          }
+        ]} 
+        filters={[['space', '=', 'xyz']]}
+        showIllustration={false}
+        pageSize={5}>
+      </List>
+    </Bootstrap>
+  </Provider>
+)

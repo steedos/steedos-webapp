@@ -95,7 +95,8 @@ class List extends React.Component {
 	static defaultProps = {
 		rows: [],
 		rowIconKey: "",
-		selection: []
+		selection: [],
+		showIllustration: true
 	};
 
 	static propTypes = {
@@ -125,6 +126,7 @@ class List extends React.Component {
 			size: PropTypes.string
 		}),
 		rowIconKey: PropTypes.string,
+		showIllustration: PropTypes.string,
 		illustration: PropTypes.shape({
 			heading: PropTypes.string,
 			messageBody: PropTypes.string,
@@ -189,7 +191,11 @@ class List extends React.Component {
 
 	getDataTableEmpty(isEmpty){
 		if (!isEmpty){
-			return null;
+			return React.Fragment;
+		}
+		let showIllustration = this.props.showIllustration;
+		if (!showIllustration){
+			return React.Fragment;
 		}
 		let illustration = this.props.illustration;
 		if (!illustration) {
