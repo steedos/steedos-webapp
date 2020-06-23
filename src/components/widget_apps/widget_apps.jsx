@@ -105,7 +105,7 @@ class WidgetApps extends React.Component {
         mini: false,
         showAllItems: false,
         assistiveText:{
-            lebel: "应用",
+            label: "应用",
             tilesSectionLabel: "所有应用",
             linksSectionLabel: "所有对象"
         }
@@ -120,7 +120,7 @@ class WidgetApps extends React.Component {
         ignoreApps: PropTypes.array,
         onTileClick: PropTypes.func,
         assistiveText: PropTypes.shape({
-            lebel: PropTypes.string,
+            label: PropTypes.string,
             tilesSectionLabel: PropTypes.string,
             linksSectionLabel: PropTypes.string
         })
@@ -209,7 +209,7 @@ class WidgetApps extends React.Component {
             apps = _.reject(apps, function(o) { return ignoreApps.indexOf(o._id) > -1 });
         }
         if(!label){
-            label = assistiveText.lebel
+            label = assistiveText.label
         }
         let appCells = this.getAppCells(apps);
         let appLauncherDesktopInternal;

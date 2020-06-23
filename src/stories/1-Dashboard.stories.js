@@ -4,8 +4,9 @@ import { action } from '@storybook/addon-actions';
 import Dashboard from '../components/dashboard'
 import Bootstrap from '../components/bootstrap'
 import { Provider  } from 'react-redux';
-import store from '../stores/configureStore'
+import store from '../stores/configureStore';
 import { getRelativeUrl } from '../utils';
+import clone from 'clone';
 
 export default {
   title: 'Dashboard'
@@ -809,6 +810,52 @@ export const widgetReductsReverse = () => (
     <Provider store={store}>
       <Bootstrap>
         <Dashboard config={config6} />
+      </Bootstrap>
+    </Provider>
+  </div>
+)
+
+const assistiveText = {
+  widgets:{
+    apps:{
+      label: "i18nLabel"
+    },
+    object:{
+      allLinkLabel: "i18nAllLinkLabel"
+    },
+    instances_pendings:{
+      label: "i18nLabel",
+      nameColumnLabel: "i18nColumnNameLabel",
+      submitter_nameColumnLabel: "i18nColumnNameLabel",
+      modifiedColumnLabel: "i18nColumnNameLabel"
+    },
+    announcements_week:{
+      label: "i18nLabel",
+      nameColumnLabel: "i18nColumnNameLabel",
+      createdColumnLabel: "i18nColumnCreatedLabel",
+      illustrationMessageBody: "i18nIllustrationMessageBody"
+    },
+    tasks_today:{
+      label: "i18nLabel",
+      nameColumnLabel: "i18nColumnNameLabel",
+      due_dateColumnLabel: "i18nColumnDueDateLabel",
+      illustrationMessageBody: "i18nIllustrationMessageBody"
+    },
+    events_today:{
+      label: "i18nLabel",
+      nameColumnLabel: "i18nColumnNameLabel",
+      startColumnLabel: "i18nColumnStartLabel",
+      illustrationMessageBody: "i18nIllustrationMessageBody"
+    }
+  }
+}
+
+const config7 = clone(config5);
+export const assistiveTextI18n = () => (
+  <div className="App">
+    <Provider store={store}>
+      <Bootstrap>
+        <Dashboard config={config7} assistiveText={assistiveText} />
       </Bootstrap>
     </Provider>
   </div>

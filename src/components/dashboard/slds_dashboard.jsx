@@ -299,7 +299,13 @@ class Dashboard extends React.Component {
             let widgetsAssistiveText = assistiveText && assistiveText.widgets;
             if(widgetsAssistiveText){
                 // widget本身的assistiveText配置优先于传入的dashboard中的assistiveText中相关widget类型的assistiveText配置
-                value.assistiveText = _.extend({}, widgetsAssistiveText[value.type], value.assistiveText)
+                if(["instances_pendings", "announcements_week", "tasks_today", "events_today"].indexOf(value.type) > -1){
+                    // object简化的类型，应该继承object类型的assistiveText配置
+                    value.assistiveText = _.extend({}, widgetsAssistiveText["object"], widgetsAssistiveText[value.type], value.assistiveText);
+                }
+                else{
+                    value.assistiveText = _.extend({}, widgetsAssistiveText[value.type], value.assistiveText);
+                }
             }
             switch (value.position) {
                 case "LEFT":

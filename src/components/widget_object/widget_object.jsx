@@ -34,7 +34,11 @@ class WidgetObject extends React.Component {
     };
 
     static defaultProps = {
-        maxRows: 5
+        maxRows: 5,
+        assistiveText:{
+            label: "对象名称", 
+            allLinkLabel: "查看全部"
+        }
     };
 
     static propTypes = {
@@ -69,11 +73,18 @@ class WidgetObject extends React.Component {
             name: PropTypes.string,
             size: PropTypes.string
         }),
-        maxRows: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+        maxRows: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        assistiveText: PropTypes.shape({
+            label: PropTypes.string,
+            allLinkLabel: PropTypes.string
+        })
     };
 
     convertObjectProps(){
-        let { label, objectName, filters, columns, illustration, showAllLink, hrefTarget, noHeader, ...others } = this.props;
+        let { label, objectName, filters, columns, illustration, showAllLink, hrefTarget, noHeader, assistiveText, ...others } = this.props;
+        if(!label){
+            label = assistiveText.label
+        }
         const spaceId = getSpaceId();
         if(isMobile()){
             // 手机上强制把noHeader设置为true，且只显示href为true的字段
@@ -129,6 +140,7 @@ class WidgetObject extends React.Component {
 
     render() {
         let convertedObjectProps = this.convertObjectProps();
+        let { assistiveText } = this.props;
         let { label, objectName, selectionLabel, cellListColumns, filters, illustration, showAllLink, hrefTarget, 
             footer, noHeader, unborderedRow, sort, rowIcon, maxRows } = convertedObjectProps;
         let cardFooter;
@@ -138,7 +150,7 @@ class WidgetObject extends React.Component {
         else if (showAllLink){
             cardFooter = (
                 <a href={this.getObjectUrl(objectName)} target={hrefTarget}>
-                    查看全部
+                    {assistiveText.allLinkLabel}
                     </a>
             )
         }

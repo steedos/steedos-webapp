@@ -143,6 +143,16 @@ let config = {
   }
 };
 
+const dealColumnsLabelAssistiveText = (assistiveText: any, columns: Array<any>)=>{
+  columns.forEach((column)=>{
+    let field = column.field;
+    let assistiveColumnLabelText = assistiveText[`${field}ColumnLabel`];
+    if(assistiveColumnLabelText){
+      column.label = assistiveColumnLabelText;
+    }
+  });
+};
+
 export const WidgetInstancesPendings:ComponentClass = WidgetConnect((props: any)=>{
   let adapted: any = {};
   if(props.position === "RIGHT"){
@@ -153,7 +163,21 @@ export const WidgetInstancesPendings:ComponentClass = WidgetConnect((props: any)
     }];
     adapted.noHeader = true;
   }
-  return Object.assign({}, config.workflow, adapted, props);
+  let adaptedConfig = Object.assign({}, config.workflow, adapted);
+  let assistiveText = props.assistiveText;
+  if(assistiveText){
+    if(assistiveText.label){
+      adaptedConfig.label = assistiveText.label;
+    }
+    dealColumnsLabelAssistiveText(assistiveText, adaptedConfig.columns);
+    if(assistiveText.illustrationMessageBody){
+      if(!adaptedConfig.illustration){
+        adaptedConfig.illustration = { messageBody: "" }
+      }
+      adaptedConfig.illustration.messageBody = assistiveText.illustrationMessageBody;
+    }
+  }
+  return Object.assign({}, adaptedConfig, props);
 })(WidgetObject);
 
 WidgetInstancesPendings.displayName = "WidgetInstancesPendings";
@@ -168,7 +192,21 @@ export const WidgetAnnouncementsWeek:ComponentClass = WidgetConnect((props: any)
     }];
     adapted.noHeader = true;
   }
-  return Object.assign({}, config.announcements, adapted, props);
+  let adaptedConfig = Object.assign({}, config.announcements, adapted);
+  let assistiveText = props.assistiveText;
+  if(assistiveText){
+    if(assistiveText.label){
+      adaptedConfig.label = assistiveText.label;
+    }
+    dealColumnsLabelAssistiveText(assistiveText, adaptedConfig.columns);
+    if(assistiveText.illustrationMessageBody){
+      if(!adaptedConfig.illustration){
+        adaptedConfig.illustration = { messageBody: "" }
+      }
+      adaptedConfig.illustration.messageBody = assistiveText.illustrationMessageBody;
+    }
+  }
+  return Object.assign({}, adaptedConfig, props);
 })(WidgetObject);
 
 WidgetAnnouncementsWeek.displayName = "WidgetAnnouncementsWeek";
@@ -188,7 +226,21 @@ export const WidgetTasksToday:ComponentClass = WidgetConnect((props: any)=>{
     }];
     adapted.noHeader = false;
   }
-  return Object.assign({}, config.tasks, adapted, props);
+  let adaptedConfig = Object.assign({}, config.tasks, adapted);
+  let assistiveText = props.assistiveText;
+  if(assistiveText){
+    if(assistiveText.label){
+      adaptedConfig.label = assistiveText.label;
+    }
+    dealColumnsLabelAssistiveText(assistiveText, adaptedConfig.columns);
+    if(assistiveText.illustrationMessageBody){
+      if(!adaptedConfig.illustration){
+        adaptedConfig.illustration = { messageBody: "" }
+      }
+      adaptedConfig.illustration.messageBody = assistiveText.illustrationMessageBody;
+    }
+  }
+  return Object.assign({}, adaptedConfig, props);
 })(WidgetObject);
 
 WidgetTasksToday.displayName = "WidgetTasksToday";
@@ -208,7 +260,21 @@ export const WidgetEventsToday:ComponentClass = WidgetConnect((props: any)=>{
     }];
     adapted.noHeader = false;
   }
-  return Object.assign({}, config.calendar, adapted, props);
+  let adaptedConfig = Object.assign({}, config.calendar, adapted);
+  let assistiveText = props.assistiveText;
+  if(assistiveText){
+    if(assistiveText.label){
+      adaptedConfig.label = assistiveText.label;
+    }
+    dealColumnsLabelAssistiveText(assistiveText, adaptedConfig.columns);
+    if(assistiveText.illustrationMessageBody){
+      if(!adaptedConfig.illustration){
+        adaptedConfig.illustration = { messageBody: "" }
+      }
+      adaptedConfig.illustration.messageBody = assistiveText.illustrationMessageBody;
+    }
+  }
+  return Object.assign({}, adaptedConfig, props);
 })(WidgetObject);
 
 WidgetEventsToday.displayName = "WidgetEventsToday";
