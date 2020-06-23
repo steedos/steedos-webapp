@@ -144,9 +144,13 @@ let config = {
 };
 
 const dealColumnsLabelAssistiveText = (assistiveText: any, columns: Array<any>)=>{
+  let assistiveTextColumns = assistiveText.columns;
+  if(!assistiveTextColumns){
+    return;
+  }
   columns.forEach((column)=>{
     let field = column.field;
-    let assistiveColumnLabelText = assistiveText[`${field}ColumnLabel`];
+    let assistiveColumnLabelText = assistiveTextColumns[field];
     if(assistiveColumnLabelText){
       column.label = assistiveColumnLabelText;
     }
