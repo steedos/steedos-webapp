@@ -1,4 +1,5 @@
 import { getBetweenTimeBuiltinValueItem } from "@steedos/filters";
+import moment from 'moment';
 
 export const getObjectRecordUrl = (objectName, recordId) => {
     let url = `/app/-/${objectName}/view/${recordId}`;
@@ -141,7 +142,10 @@ export const getWidgetReductsConfig = () => {
             objectName: "events",
             filters: function () {
                 let Creator = window.Creator;
-                let utcOffset = Creator.USER_CONTEXT.user && Creator.USER_CONTEXT.user.utcOffset;
+                let utcOffset = Creator && Creator.USER_CONTEXT.user && Creator.USER_CONTEXT.user.utcOffset;
+                if(!utcOffset && utcOffset !== 0){
+                    utcOffset = moment().utcOffset() / 60;
+                }
                 let today = getBetweenTimeBuiltinValueItem("today", utcOffset);
                 let start = today.values[0];
                 let end = today.values[1];

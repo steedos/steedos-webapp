@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import moment from 'moment'
+import moment from 'moment';
 import { getRelativeUrl } from '../../utils';
 const marked = require('marked/lib/marked.js');
 
