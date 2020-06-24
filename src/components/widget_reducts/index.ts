@@ -34,7 +34,7 @@ let config = {
       "unborderedRow": true,
       "showAllLink": false,
       "illustration": {
-          "messageBody": "您没有待审核文件"
+          "messageBody": "您没有待审核文件。"
       },
       rowIcon: {
           category: "standard",
@@ -67,7 +67,7 @@ let config = {
       "unborderedRow": true,
       "showAllLink": true,
       "illustration": {
-          "messageBody": "本周没有新公告"
+          "messageBody": "本周没有新公告。"
       },
       rowIcon: {
           category: "standard",
@@ -94,7 +94,7 @@ let config = {
       "unborderedRow": true,
       "showAllLink": true,
       "illustration": {
-          "messageBody": "您今天没有待办任务"
+          "messageBody": "您今天没有待办任务。"
       },
       "noHeader": true,
       rowIcon: {
@@ -132,7 +132,7 @@ let config = {
       unborderedRow: true,
       showAllLink: true,
       illustration:{
-          messageBody: "您今天没有日程"
+          messageBody: "您今天没有日程。"
       },
       "noHeader": true,
       rowIcon: {

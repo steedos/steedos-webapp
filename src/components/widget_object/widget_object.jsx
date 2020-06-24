@@ -37,7 +37,8 @@ class WidgetObject extends React.Component {
         maxRows: 5,
         assistiveText:{
             label: "对象名称", 
-            allLinkLabel: "查看全部"
+            allLinkLabel: "查看全部",
+            illustrationMessageBody: "没有可显示的项目"
         }
     };
 

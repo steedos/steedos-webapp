@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { action } from '@storybook/addon-actions';
 import Dashboard from '../components/dashboard'
 import Bootstrap from '../components/bootstrap'
-import { Provider  } from 'react-redux';
+import { Provider } from 'react-redux';
 import store from '../stores/configureStore';
 import { getRelativeUrl } from '../utils';
 import clone from 'clone';
@@ -21,32 +21,32 @@ let CenterDiv = styled.div`
 
 export const sections = () => (
   <div className="App">
-      <Provider store={store}>
-        <Bootstrap>
-          <Dashboard
-            centerTopSection={(
-              <CenterDiv>
-                Center Top Section
-              </CenterDiv>
-            )}
-            centerBottomLeftSection={(
-              <CenterDiv>
-                Center Bottom Left Section
-              </CenterDiv>
-            )}
-            centerBottomRightSection={(
-              <CenterDiv>
-                Center Bottom Right Section
-              </CenterDiv>
-            )}
-            rightSection={(
-              <CenterDiv>
-                Right Section
-              </CenterDiv>
-            )}
-          />
-        </Bootstrap>
-      </Provider>
+    <Provider store={store}>
+      <Bootstrap>
+        <Dashboard
+          centerTopSection={(
+            <CenterDiv>
+              Center Top Section
+            </CenterDiv>
+          )}
+          centerBottomLeftSection={(
+            <CenterDiv>
+              Center Bottom Left Section
+            </CenterDiv>
+          )}
+          centerBottomRightSection={(
+            <CenterDiv>
+              Center Bottom Right Section
+            </CenterDiv>
+          )}
+          rightSection={(
+            <CenterDiv>
+              Right Section
+            </CenterDiv>
+          )}
+        />
+      </Bootstrap>
+    </Provider>
   </div>
 );
 
@@ -129,7 +129,7 @@ export const configPosition = () => (
   <div className="App">
     <Provider store={store}>
       <Bootstrap>
-        <Dashboard config={config1}/>
+        <Dashboard config={config1} />
       </Bootstrap>
     </Provider>
   </div>
@@ -148,27 +148,27 @@ const config2 = {
       ]
     ],
     columns: [{
-        label: "名称",
-        field: "name",
-        href: true
-      }, {
-        label: "提交人",
-        field: "submitter_name",
-        width: "16rem"
-      }, {
-        label: "修改时间",
-        field: "modified",
-        type: 'datetime',
-        width: "14rem"
+      label: "名称",
+      field: "name",
+      href: true
+    }, {
+      label: "提交人",
+      field: "submitter_name",
+      width: "16rem"
+    }, {
+      label: "修改时间",
+      field: "modified",
+      type: 'datetime',
+      width: "14rem"
     }],
     showAllLink: true,
     hrefTarget: "_blank",
     unborderedRow: true,
     sort: "modified desc, name",
     rowIcon: {
-      category:"standard",
-      name:"account",
-      size:"small"
+      category: "standard",
+      name: "account",
+      size: "small"
     }
   },
   pending_tasks: {
@@ -176,7 +176,7 @@ const config2 = {
     position: 'CENTER_BOTTOM_LEFT',
     type: 'object',
     objectName: 'tasks',
-    filters: ()=>{
+    filters: () => {
       return [
         ['due_date', '<=', '{now}']
       ]
@@ -187,7 +187,7 @@ const config2 = {
       href: true,
       format: (children, data, options) => {
         let objectName = options.objectName;
-        let url =getRelativeUrl(`/app/-/${objectName}/view/${data.id}`);
+        let url = getRelativeUrl(`/app/-/${objectName}/view/${data.id}`);
 
         return (
           <a target="_blank" href={url} title={children}>
@@ -278,7 +278,7 @@ const config2 = {
     }],
     noHeader: true,
     unborderedRow: true,
-    maxRows:"all"
+    maxRows: "all"
   },
   bottomRightApps: {
     label: '应用',
@@ -325,8 +325,8 @@ const config3 = {
     position: "CENTER_TOP",
     type: "apps",
     showAllItems: false,
-    onTileClick: (event, app, tile, index)=>{
-      if(index < 3){
+    onTileClick: (event, app, tile, index) => {
+      if (index < 3) {
         event.preventDefault();
       }
       alert(`触发了onTileClick事件，点击的APP是:${app.name}，且前3个应用preventDefault了，不会跳转`);
@@ -502,7 +502,7 @@ const config4_1 = [{
     type: "announcements_week",
     noHeader: true
   }]
-},{
+}, {
   position: "CENTER_TOP",
   type: "tabs",
   vertical: true,
@@ -534,7 +534,7 @@ const config4_1 = [{
     type: "events_today",
     noHeader: true
   }]
-},{
+}, {
   position: "CENTER_TOP",
   type: "tabs",
   variant: "scoped",
@@ -558,7 +558,7 @@ const config4_1 = [{
     type: "announcements_week",
     noHeader: true
   }]
-},{
+}, {
   position: "CENTER_TOP",
   type: "tabs",
   variant: "scoped",
@@ -615,7 +615,7 @@ const config4_1 = [{
     type: "events_today",
     noHeader: true
   }]
-},{
+}, {
   position: "RIGHT",
   type: "tabs",
   triggerByHover: true,
@@ -640,7 +640,7 @@ const config4_1 = [{
     type: "events_today",
     noHeader: true
   }]
-},{
+}, {
   position: "RIGHT",
   type: "tabs",
   triggerByHover: true,
@@ -665,7 +665,7 @@ const config4_1 = [{
     type: "events_today",
     noHeader: true
   }]
-},{
+}, {
   position: "RIGHT",
   type: "tabs",
   triggerByHover: true,
@@ -770,28 +770,28 @@ const config6 = [{
     `;
     return <CenterDiv2 className="testReact1">{options.label}</CenterDiv2>;
   }
-},{
+}, {
   label: "自定义HTML1",
   position: "CENTER_TOP",
   type: "html",
   html: '<style>a.test-html-link{color:red;}</style><a class="test-html-link">左侧带Label效果，自定义样式为红色链接</a>'
-},{
+}, {
   position: "CENTER_TOP",
   type: "html",
   html: '<a>左侧不带Label效果</a>'
-},{
+}, {
   label: "自定义HTML2",
   position: "RIGHT",
   type: "html",
   html: '<a>右侧带Label效果</a>'
-},{
+}, {
   position: "RIGHT",
   type: "html",
   html: '<a>右侧不带Label效果</a>'
-},{
+}, {
   position: "RIGHT",
   type: "instances_pendings"
-},{
+}, {
   position: "RIGHT",
   type: "apps"
 }, {
@@ -816,42 +816,47 @@ export const widgetReductsReverse = () => (
 )
 
 const assistiveText = {
-  widgets:{
-    apps:{
-      label: "i18nLabel"
+  widgets: {
+    apps: {
+      label: "Apps"
     },
-    object:{
-      allLinkLabel: "i18nAllLinkLabel",
-      illustrationMessageBody: "i18nIllustrationMessageBody"
+    object: {
+      label: "Widget Object",
+      allLinkLabel: "View All",
+      illustrationMessageBody: "There are no items to display."
     },
-    instances_pendings:{
-      label: "i18nLabel",
+    instances_pendings: {
+      label: "Requests Inbox",
       columns: {
-        name: "i18nColumnNameLabel",
-        submitter_name: "i18nColumnSubmitterNameLabel",
-        modified: "i18nColumnModifiedLabel"
-      }
-    },
-    announcements_week:{
-      label: "i18nLabel",
-      columns: {
-        name: "i18nColumnNameLabel",
-        created: "i18nColumnCreatedLabel"
+        name: "Name",
+        submitter_name: "Submitter Name",
+        modified: "Modified Date"
       },
+      illustrationMessageBody: "You have no requests."
     },
-    tasks_today:{
-      label: "i18nLabel",
+    announcements_week: {
+      label: "Announcements This Week",
       columns: {
-        name: "i18nColumnNameLabel",
-        due_date: "i18nColumnDueDateLabel"
-      }
+        name: "Name",
+        created: "Created Date"
+      },
+      illustrationMessageBody: "There were no new announcements this week."
     },
-    events_today:{
-      label: "i18nLabel",
+    tasks_today: {
+      label: "Tasks Today",
       columns: {
-        name: "i18nColumnNameLabel",
-        start: "i18nColumnStartLabel"
-      }
+        name: "Name",
+        due_date: "Due Date"
+      },
+      illustrationMessageBody: "You don't have any tasks today."
+    },
+    events_today: {
+      label: "Events today",
+      columns: {
+        name: "Name",
+        start: "Start Date"
+      },
+      illustrationMessageBody: "You don't have any events today."
     }
   }
 }
