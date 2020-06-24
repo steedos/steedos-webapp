@@ -818,7 +818,9 @@ export const widgetReductsReverse = () => (
 const assistiveText = {
   widgets: {
     apps: {
-      label: "Apps"
+      label: "Apps",
+      tilesSectionLabel: "All Apps",
+      linksSectionLabel: "All Items"
     },
     object: {
       label: "Widget Object",
