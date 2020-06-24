@@ -211,6 +211,13 @@ class WidgetApps extends React.Component {
         if(!label){
             label = assistiveText.label
         }
+        if(!assistiveText.tilesSectionLabel){
+            // tilesSectionLabel必填，所以要避免报错
+            assistiveText.tilesSectionLabel = WidgetApps.defaultProps.assistiveText.tilesSectionLabel;
+        }
+        if(!assistiveText.linksSectionLabel){
+            assistiveText.linksSectionLabel = WidgetApps.defaultProps.assistiveText.linksSectionLabel;
+        }
         let appCells = this.getAppCells(apps);
         let appLauncherDesktopInternal;
         if (mobile){
