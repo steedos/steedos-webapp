@@ -33,4 +33,3 @@ export {default as Modal} from './modal';
 export * from './slds_app_launcher';
 export * from './slds_illustration';
 export * from './tabs';
-export * from './widget_reducts';
