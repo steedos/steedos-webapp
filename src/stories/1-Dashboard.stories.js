@@ -861,7 +861,20 @@ const assistiveText = {
   }
 }
 
-const config7 = clone(config5);
+let config7 = clone(config5);
+
+config7.push({
+  position: "CENTER_TOP",
+  type: "tabs",
+  panels: [{
+    type: "instances_pendings",
+    noHeader: false
+  }, {
+    type: "announcements_week",
+    noHeader: false
+  }]
+});
+
 export const assistiveTextI18n = () => (
   <div className="App">
     <Provider store={store}>
