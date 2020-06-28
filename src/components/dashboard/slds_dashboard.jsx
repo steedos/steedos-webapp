@@ -284,7 +284,13 @@ class Dashboard extends React.Component {
                 return value.panels ? (<Tabs key={key} {...value}>
                     {
                         value.panels.map((panel, index) => {
-                            return <TabsPanel key={`${key}_panel_${index}`} label={panel.label}>
+                            // panel.assistiveText一般为空，继承相关类型的assistiveText即可，不过panel本身定义的assistiveText优先
+                            panel.assistiveText = Object.assign({}, value.assistiveText[panel.type], panel.assistiveText);
+                            let panelLabel = panel.label;
+                            if(!panelLabel){
+                                panelLabel = panel.assistiveText.label;
+                            }
+                            return <TabsPanel key={`${key}_panel_${index}`} label={panelLabel}>
                                 {this.convertConfigItemToSection(panel, `${key}_panel_content_${index}`)}
                             </TabsPanel>
                         })
@@ -295,13 +301,17 @@ class Dashboard extends React.Component {
 
     convertConfigToSection(config, assistiveText) {
         let result = {}, section;
+        let widgetsAssistiveText = assistiveText && assistiveText.widgets;
         _.each(config, (value, key) => {
-            let widgetsAssistiveText = assistiveText && assistiveText.widgets;
             if(widgetsAssistiveText){
                 // widget本身的assistiveText配置优先于传入的dashboard中的assistiveText中相关widget类型的assistiveText配置
                 if(["instances_pendings", "announcements_week", "tasks_today", "events_today"].indexOf(value.type) > -1){
                     // object简化的类型，应该继承object类型的assistiveText配置
                     value.assistiveText = _.extend({}, widgetsAssistiveText["object"], widgetsAssistiveText[value.type], value.assistiveText);
+                }
+                else if(value.type === "tabs"){
+                    // tabs类型，应该把所有类型的assistiveText配置都传入备用，格式为{`${widgettype}`:`${assistiveTextContent}`}，示例：{events_today: {label: "Events today", columns...},tasks_today:{label: "Tasks today", columns...}}
+                    value.assistiveText = _.extend({}, widgetsAssistiveText, value.assistiveText);
                 }
                 else{
                     value.assistiveText = _.extend({}, widgetsAssistiveText[value.type], value.assistiveText);
