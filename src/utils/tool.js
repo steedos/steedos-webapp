@@ -80,8 +80,11 @@ export const getWidgetReductsConfig = () => {
             "type": "object",
             "objectName": "announcements",
             "filters": [
-                ["owner", "=", "{userId}"],
-                ["members", "=", "{userId}"],
+                [
+                    ["owner", "=", "{userId}"],
+                    'or',
+                    ["members", "=", "{userId}"]
+                ],
                 ['created', 'between', 'last_7_days']
             ],
             "sort": "created desc",
@@ -143,7 +146,7 @@ export const getWidgetReductsConfig = () => {
             filters: function () {
                 let Creator = window.Creator;
                 let utcOffset = Creator && Creator.USER_CONTEXT.user && Creator.USER_CONTEXT.user.utcOffset;
-                if(!utcOffset && utcOffset !== 0){
+                if (!utcOffset && utcOffset !== 0) {
                     utcOffset = moment().utcOffset() / 60;
                 }
                 let today = getBetweenTimeBuiltinValueItem("today", utcOffset);
