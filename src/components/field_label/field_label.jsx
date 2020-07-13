@@ -98,98 +98,106 @@ const FieldLabel = ({ children, ...props }) => {
 	let { field, doc } = props;
 	let { onClick, format } = field;
 
-	if(_.isFunction(format)){
-		children = format(children, props.item, props.options)
-	}
 	const Creator = window.Creator;
 	if(Creator && _.isFunction(Creator.getTableCellData)){
-		let cellData = Creator.getTableCellData({ field, doc, val: children, object_name: props.options.objectName, _id: doc._id });
-		children = cellData.map((item)=>{
-			return item.value
-		}).join(",");
+		if(_.isFunction(format)){
+			// 如果有特殊需求，可以在creator中定义format函数，在里面调用Creator.getTableCellData处理显示逻辑
+			children = format(children, doc, props.options)
+		}
+		else{
+			let cellData = Creator.getTableCellData({ field, doc, val: children, object_name: props.options.objectName, _id: doc._id });
+			children = cellData.map((item)=>{
+				return item.value
+			}).join(",");
+		}
 	}
-	else if(children || _.isBoolean(children) || _.isNumber(children)){
-		switch (field.type) {
-			case 'datetime':
-				if(_.isString(children) && /\d+Z$/.test(children)){
-					children = moment(children).format('YYYY-MM-DD H:mm')
-				}else{
-					let utcOffset = moment().utcOffset() / 60
-					children = moment(children).add(utcOffset, "hours").format('YYYY-MM-DD H:mm')
-				}
-				break;
-			case 'date':
-				if(_.isString(children) && /\d+Z$/.test(children)){
-					children = moment.utc(children).format('YYYY-MM-DD')
-				}else{
-					children = moment(children).format('YYYY-MM-DD')
-				}
-				break;
-			case 'boolean':
-				children = children ? '是' : '否'
-				break;
-			case 'select':
-				children = getSelectFieldLabel(field, children, doc)
-				break;
-			case 'number':
-				children = getNumberFieldLabel(field, children, doc)
-				break;
-			case 'currency':
-				children = getNumberFieldLabel(field, children, doc)
-				break;
-			case 'lookup':
-				if(!_.isArray(children)){
-					children = [children]
-				}
-				children = children.map((item)=>{return item._NAME_FIELD_VALUE}).join(",");
-				break;
-			case 'master_detail':
-				children = children._NAME_FIELD_VALUE
-				break;
-			case 'filesize':
-				children = formatFileSize(children)
-				break;
-			case 'grid':
-				// grid字段显示为空字符
-				children = ""
-				break;
-			case 'location':
-				children = children ? children.address : ""
-				break;
-			case 'image':
-				// image字段显示为空字符
-				children = ""
-				break;
-			case 'avatar':
-				// avatar字段显示为空字符
-				children = ""
-				break;
-			case 'code':
-				children = children ? "..." : ""
-				break;
-			case 'password':
-				children = children ? "******" : ""
-				break;
-			// case 'url':
-			// 	children = getUrlFieldLabel(field, children, doc)
-			// 	break;
-			// case 'email':
-			// 	children = getEmailFieldLabel(field, children, doc)
-			// 	break;
-			case 'textarea':
-				if (children) {
-					children = children.replace(/\n/g, '\n<br>');
-					children = children.replace(/ /g, '&nbsp;');
-				}
-				break;
-			case 'html':
-				// html字段显示为空字符
-				children = ""
-			case 'markdown':
-				children = (<div dangerouslySetInnerHTML={{__html: marked(children)}} />)
-				break;
-			default:
-				break;
+	else{
+		if(_.isFunction(format)){
+			children = format(children, doc, props.options)
+		}
+		if(children || _.isBoolean(children) || _.isNumber(children)){
+			switch (field.type) {
+				case 'datetime':
+					if(_.isString(children) && /\d+Z$/.test(children)){
+						children = moment(children).format('YYYY-MM-DD H:mm')
+					}else{
+						let utcOffset = moment().utcOffset() / 60
+						children = moment(children).add(utcOffset, "hours").format('YYYY-MM-DD H:mm')
+					}
+					break;
+				case 'date':
+					if(_.isString(children) && /\d+Z$/.test(children)){
+						children = moment.utc(children).format('YYYY-MM-DD')
+					}else{
+						children = moment(children).format('YYYY-MM-DD')
+					}
+					break;
+				case 'boolean':
+					children = children ? '是' : '否'
+					break;
+				case 'select':
+					children = getSelectFieldLabel(field, children, doc)
+					break;
+				case 'number':
+					children = getNumberFieldLabel(field, children, doc)
+					break;
+				case 'currency':
+					children = getNumberFieldLabel(field, children, doc)
+					break;
+				case 'lookup':
+					if(!_.isArray(children)){
+						children = [children]
+					}
+					children = children.map((item)=>{return item._NAME_FIELD_VALUE}).join(",");
+					break;
+				case 'master_detail':
+					children = children._NAME_FIELD_VALUE
+					break;
+				case 'filesize':
+					children = formatFileSize(children)
+					break;
+				case 'grid':
+					// grid字段显示为空字符
+					children = ""
+					break;
+				case 'location':
+					children = children ? children.address : ""
+					break;
+				case 'image':
+					// image字段显示为空字符
+					children = ""
+					break;
+				case 'avatar':
+					// avatar字段显示为空字符
+					children = ""
+					break;
+				case 'code':
+					children = children ? "..." : ""
+					break;
+				case 'password':
+					children = children ? "******" : ""
+					break;
+				// case 'url':
+				// 	children = getUrlFieldLabel(field, children, doc)
+				// 	break;
+				// case 'email':
+				// 	children = getEmailFieldLabel(field, children, doc)
+				// 	break;
+				case 'textarea':
+					if (children) {
+						children = children.replace(/\n/g, '\n<br>');
+						children = children.replace(/ /g, '&nbsp;');
+					}
+					break;
+				case 'html':
+					// html字段显示为空字符
+					children = ""
+				case 'markdown':
+					children = (<div dangerouslySetInnerHTML={{__html: marked(children)}} />)
+					break;
+				default:
+					break;
+			}
 		}
 	}
 	return (
