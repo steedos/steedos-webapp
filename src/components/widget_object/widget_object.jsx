@@ -86,7 +86,6 @@ class WidgetObject extends React.Component {
         if(!label){
             label = assistiveText.label
         }
-        const spaceId = getSpaceId();
         if(isMobile()){
             // 手机上强制把noHeader设置为true，且只显示href为true的字段
             noHeader = true;
@@ -100,6 +99,7 @@ class WidgetObject extends React.Component {
             cellListColumns: columns ? columns.map((column)=>{
                 if (column.href && typeof column.format !== "function"){
                     column.format = (children, data, options)=>{
+                        const spaceId = getSpaceId();
                         let url = `/app/-/${objectName}/view/${data.id}`;
                         if (objectName === "instances"){
                             url = `/workflow/space/${spaceId}/inbox/${data.id}`;
