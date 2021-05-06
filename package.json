@@ -27,7 +27,7 @@
     "redux-thunk": "^2.3.0",
     "styled-components": "^4.4.0",
     "ts-odata-client": "^1.0.2",
-    "underscore": "^1.9.1",
+    "underscore": "^1.12.1",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
